@@ -35,8 +35,6 @@ public class ProfileFragment extends Fragment {
 
     TextView editName,editMobile,editStreet,editCity,editProvince,editZip,editEmail;
 
-    CircleImageView profPic;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,8 +56,6 @@ public class ProfileFragment extends Fragment {
                 editProvince = v.findViewById(R.id.profileProvince);
                 editZip = v.findViewById(R.id.profileZip);
                 editEmail = v.findViewById(R.id.profileEmail);
-
-                profPic = v.findViewById(R.id.profilePic);
 
 
                 //Get Information
@@ -109,9 +105,6 @@ public class ProfileFragment extends Fragment {
                     editZip.setText("--");
                 }
 
-                String uri = snapshot.child("profile").child("imageUri").getValue();
-
-                profPic.setImageResource(uri);
 
                 //Edit Profile
 
