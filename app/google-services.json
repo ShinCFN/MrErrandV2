@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1005555007702",
+    "firebase_url": "https://mrerrandv3-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "mrerrandv3",
+    "storage_bucket": "mrerrandv3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005555007702:android:621725c8d5764699104977",
+        "android_client_info": {
+          "package_name": "com.example.mrerrandv2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1005555007702-4hb2ul91kpjjq54u8246o2bm0ftpifqo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLvWLLtpxMF-Ui2uNmek68wyhR7rGxkFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1005555007702-4hb2ul91kpjjq54u8246o2bm0ftpifqo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

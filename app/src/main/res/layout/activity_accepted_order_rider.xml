@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AcceptedOrderActivityRider"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your offer has been accepted"
+        android:layout_gravity="center"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/DarkMain"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start your errand"
+        android:layout_gravity="center"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/DarkMain"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ORDER LIST"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/DarkMain"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/orderlistOnGoing"
+        android:paddingLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LIST"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/DarkMain"
+        android:layout_marginTop="2dp"/>
+
+    <Button
+        android:id="@+id/btnAccToOTW"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/menubutton"
+        android:elevation="5dp"
+        android:fontFamily="@font/inter_extrabold"
+        android:letterSpacing="-.01"
+        android:padding="1dp"
+        android:text="Next"
+        android:textAllCaps="false"
+        android:textColor="@color/MainText"
+        android:textStyle="bold" />
+
+</LinearLayout>

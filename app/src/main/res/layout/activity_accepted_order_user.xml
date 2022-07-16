@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".AcceptedOrderActivityUser"
+    android:paddingTop="30dp"
+    android:paddingHorizontal="40dp"
+    android:orientation="vertical">
+
+    <!-- Name -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Name"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/DarkMain"/>
+    <TextView
+        android:id="@+id/acceptName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="TEXT"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/DarkMain"
+        android:layout_marginLeft="10dp"
+        android:paddingBottom="20dp"/>
+
+    <!-- Email -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Email"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/DarkMain"/>
+    <TextView
+        android:id="@+id/acceptEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="TEXT"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/DarkMain"
+        android:layout_marginLeft="10dp"
+        android:paddingBottom="20dp"/>
+
+    <!-- CNum -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Contact Number"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/DarkMain"/>
+    <TextView
+        android:id="@+id/acceptNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="TEXT"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/DarkMain"
+        android:layout_marginLeft="10dp"
+        android:paddingBottom="20dp"/>
+
+    <!-- Plate -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Plate Number"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/DarkMain"/>
+    <TextView
+        android:id="@+id/acceptPlate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="TEXT"
+        android:fontFamily="@font/inter_regular"
+        android:textColor="@color/DarkMain"
+        android:layout_marginLeft="10dp"
+        android:paddingBottom="20dp"/>
+
+</LinearLayout>
