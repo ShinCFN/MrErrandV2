@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    Button COD;
+    LinearLayout COD;
 
 
     @Override
@@ -59,7 +60,7 @@ public class PaymentActivity extends AppCompatActivity {
                         String lastname = snapshot.child("lastname").getValue().toString();
                         String mobilenum = snapshot.child("mobilenum").getValue().toString();
                         String useremail = snapshot.child("email").getValue().toString();
-                        String address = snapshot.child("address").getValue().toString();
+                        String address = snapshot.child("province").getValue().toString();
 
                         //Send order to DB
 

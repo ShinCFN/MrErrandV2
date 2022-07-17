@@ -27,7 +27,7 @@ public class DeliveryActivityRider extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String firstname = snapshot.child("firstname").getValue().toString();
                 String lastname = snapshot.child("lastname").getValue().toString();
-                String email = snapshot.child("email").getValue().toString();
+                String email = snapshot.child("useremail").getValue().toString();
                 String address = snapshot.child("address").getValue().toString();
 
             }

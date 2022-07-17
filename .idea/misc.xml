@@ -4,12 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/drawable/ordernow.xml" value="0.156" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_accepted_order_user.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_edit_profile.xml" value="0.33" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_offer_waiting.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_order.xml" value="0.36102564102564105" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_payment.xml" value="0.36102564102564105" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_sign_up.xml" value="0.36102564102564105" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_view_offers.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/fragment_home.xml" value="0.36102564102564105" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/fragment_profile.xml" value="0.2814814814814815" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/fragment_settings.xml" value="0.36102564102564105" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/layout_offers.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/layout_orders.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

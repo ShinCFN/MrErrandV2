@@ -32,6 +32,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/OrderList"
+            android:padding="20dp"
             android:gravity="top|left"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
