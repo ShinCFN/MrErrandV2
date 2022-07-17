@@ -60,7 +60,7 @@ public class SplashscreenActivity extends AppCompatActivity {
                         if (usertype.equals("admin")) {
                             startActivity(new Intent(SplashscreenActivity.this, AdminActivity.class));
                             finish();
-                        }else if (usertype.equals("rider")) {
+                        } else if (usertype.equals("rider")) {
                             startActivity(new Intent(SplashscreenActivity.this, RiderLandingPage.class));
                             finish();
                         } else {
