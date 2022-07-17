@@ -88,6 +88,8 @@
             android:exported="true"
             android:parentActivityName=".AdminActivity" />
 
+        <activity android:name="com.canhub.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
 
     </application>
 

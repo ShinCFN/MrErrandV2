@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -31,8 +33,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -45,6 +50,8 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import org.w3c.dom.Text;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -54,6 +61,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
 
     private CircleImageView profpic;
+
+    private ProgressDialog progressDialog;
 
     private final int PICK_IMAGE_CODE = 12;
 
@@ -65,11 +74,70 @@ public class EditProfileActivity extends AppCompatActivity {
         profpic = findViewById((R.id.editprofPic));
         Button updateBTN = findViewById(R.id.btnSave);
 
+        progressDialog = new ProgressDialog(this);
+
 
         profpic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkP();
+            }
+        });
+
+        //Set values on input boxes
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                TextView editFirst,editLast,editEmail,editMobile,editStreet,editCity,editProvince,editZip;
+
+                //Get ID
+                editFirst = findViewById(R.id.editproftFirst);
+                editLast = findViewById(R.id.editproftLast);
+                editMobile = findViewById(R.id.editprofMobile);
+                editStreet = findViewById(R.id.editprofStreet);
+                editCity = findViewById(R.id.editprofCity);
+                editProvince = findViewById(R.id.editprofProvince);
+                editZip = findViewById(R.id.editprofZip);
+
+
+
+                //Get Values
+                String firstname = snapshot.child("firstname").getValue().toString();
+                String lastname = snapshot.child("lastname").getValue().toString();
+                String mobilenum = snapshot.child("mobilenum").getValue().toString();
+
+                //Check if address is given
+
+                if(snapshot.child("street").exists()){
+                    String street = snapshot.child("street").getValue().toString();
+                    editStreet.setText(street);
+                }
+
+                if(snapshot.child("city").exists()){
+                    String city = snapshot.child("city").getValue().toString();
+                    editCity.setText(city);
+                }
+
+                if(snapshot.child("province").exists()){
+                    String province = snapshot.child("province").getValue().toString();
+                    editProvince.setText(province);
+                }
+
+                if(snapshot.child("zipcode").exists()){
+                    String zipcode = snapshot.child("zipcode").getValue().toString();
+                    editZip.setText(zipcode);
+                }
+
+                //Push
+                editFirst.setText(firstname);
+                editLast.setText(lastname);
+                editMobile.setText(mobilenum);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
@@ -122,8 +190,8 @@ public class EditProfileActivity extends AppCompatActivity {
 //                .setMaxCropResultSize(512,512)
                 .setCropShape(CropImageView.CropShape.OVAL)
                 .setOutputCompressQuality(50)
-                .setOutputUri(null)
                 .setActivityTitle("")
+                .setActivityMenuIconColor(0)
                 .setNoOutputImage(false);
 
         cropImage.launch(options);
@@ -131,12 +199,34 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void onCropImageResult(@NonNull CropImageView.CropResult result) {
         if (result.isSuccessful()) {
-            Log.e("WATFACK","AAAAAAAAAAAAAAA");
             profpic.setImageURI(result.getUriContent());
+            uploadImage(result.getUriContent());
         } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
 
         } else {
             Toast.makeText(EditProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void uploadImage(Uri uriContent) {
+
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Uploading...");
+        progressDialog.show();
+
+        storageReference.putFile(uriContent).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                progressDialog.dismiss();
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.cancel();
+            }
+        });
+
     }
 }

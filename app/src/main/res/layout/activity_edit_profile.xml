@@ -77,7 +77,7 @@
                     android:inputType="textPersonName"
                     android:textColor="@color/MenuTextColor"
                     android:textSize="14dp"
-                    android:id="@+id/editFirstName"
+                    android:id="@+id/editproftFirst"
                     >
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
@@ -110,43 +110,11 @@
                     android:inputType="textPersonName"
                     android:textColor="@color/MenuTextColor"
                     android:textSize="14dp"
-                    android:id="@+id/editLastName"
+                    android:id="@+id/editproftLast"
                     >
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
-            <!-- Email -->
-            <TextView
-                android:paddingTop="15dp"
-                android:id="@+id/textView15"
-                android:fontFamily="@font/inter_regular"
-                android:paddingLeft="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Email address"
-                android:textColor="@color/MainText"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:theme="@style/Widget.Design.TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginHorizontal="5dp"
-                android:elevation="3dp"
-                android:background="@drawable/textboxmain"
-                app:boxBackgroundColor="@android:color/transparent"
-                >
-                <com.google.android.material.textfield.TextInputEditText
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="4dp"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/MenuTextColor"
-                    android:textSize="14dp"
-                    android:id="@+id/editTextEmail"
-                    >
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
             <!-- Mobile Number -->
             <TextView
                 android:paddingTop="15dp"
@@ -176,7 +144,7 @@
                     android:inputType="number"
                     android:textColor="@color/MenuTextColor"
                     android:textSize="14dp"
-                    android:id="@+id/editTextMobile"
+                    android:id="@+id/editprofMobile"
                     >
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
@@ -342,72 +310,6 @@
             </LinearLayout>
 
 
-            <!-- Password -->
-            <TextView
-                android:paddingTop="15dp"
-                android:id="@+id/textView17"
-                android:fontFamily="@font/inter_regular"
-                android:paddingLeft="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Password"
-                android:textColor="@color/MainText"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:theme="@style/Widget.Design.TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginHorizontal="5dp"
-                android:elevation="3dp"
-                android:background="@drawable/textboxmain"
-                app:boxBackgroundColor="@android:color/transparent"
-                app:passwordToggleEnabled="true">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="4dp"
-                    android:inputType="textPassword"
-                    android:textColor="@color/MenuTextColor"
-                    android:textSize="14dp"
-                    android:id="@+id/editTextPassword"
-                    >
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
-            <!-- Confirm Password -->
-            <TextView
-                android:paddingTop="15dp"
-                android:id="@+id/textView18"
-                android:fontFamily="@font/inter_regular"
-                android:paddingLeft="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Confirm Password"
-                android:textColor="@color/MainText"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:theme="@style/Widget.Design.TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginHorizontal="5dp"
-                android:elevation="3dp"
-                android:background="@drawable/textboxmain"
-                app:boxBackgroundColor="@android:color/transparent"
-                app:passwordToggleEnabled="true">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="4dp"
-                    android:inputType="textPassword"
-                    android:textColor="@color/MenuTextColor"
-                    android:textSize="14dp"
-                    android:id="@+id/editTextConfirmPassword"
-                    >
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
 
 
             <Button
