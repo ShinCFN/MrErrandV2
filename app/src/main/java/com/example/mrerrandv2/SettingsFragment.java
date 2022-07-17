@@ -41,16 +41,16 @@ public class SettingsFragment extends Fragment {
 
                 new AlertDialog.Builder(getContext())
                         .setMessage("Are you sure you want to logout?")
-                                .setCancelable(false)
-                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                auth.signOut();
-                                                Toast.makeText(getActivity(), "Signed out", Toast.LENGTH_LONG).show();
-                                                startActivity(new Intent(getActivity(), SignInActivity.class));
-                                                getActivity().finish();
-                                            }
-                                        }).setNegativeButton("No", null).show();
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                auth.signOut();
+                                Toast.makeText(getActivity(), "Signed out", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(getActivity(), SignInActivity.class));
+                                getActivity().finish();
+                            }
+                        }).setNegativeButton("No", null).show();
 
 
             }
