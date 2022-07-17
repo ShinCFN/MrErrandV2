@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         tools:context=".EditProfileActivity">
 
+
+
         <TextView
             android:id="@+id/textView6"
             android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.example.mrerrandv2;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -39,9 +40,15 @@ public class ProfileFragment extends Fragment {
 
     ImageView profilepic;
 
+    private ProgressDialog progressDialog;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
@@ -110,10 +117,26 @@ public class ProfileFragment extends Fragment {
                     editZip.setText("--");
                 }
 
-                Picasso
-                        .get()
-                        .load("https://firebasestorage.googleapis.com/v0/b/mrerrandv3.appspot.com/o/Users%2F3kVeCkwAJqODutGon4VYYkszdQp1?alt=media&token=012c497e-c2cd-4093-8bd3-641ae9a132a7")
-                        .into(profilepic);
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        String image = snapshot.child("profileImage").getValue().toString();
+
+                        Picasso
+                                .get()
+                                .load(image)
+                                .into(profilepic);
+
+                        progressDialog.dismiss();
+                    }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
 
                 //Edit Profile

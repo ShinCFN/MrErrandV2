@@ -9,12 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import pl.droidsonroids.gif.GifImageButton;
+import pl.droidsonroids.gif.GifImageView;
 
 
 public class HomeFragment extends Fragment {
 
-    TextView Orderbtn;
+    LinearLayout Orderbtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
