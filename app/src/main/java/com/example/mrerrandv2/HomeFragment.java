@@ -32,6 +32,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), OrderActivity.class);
                 startActivity(intent);
+
             }
         });
         return v;

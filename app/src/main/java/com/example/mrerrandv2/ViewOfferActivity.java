@@ -1,5 +1,7 @@
 package com.example.mrerrandv2;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -136,17 +138,27 @@ public class ViewOfferActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed()
-    {
-        super.onBackPressed();
-        String key = getIntent().getStringExtra("Key");
-        DBOrder dbord = new DBOrder();
-        dbord.remove(key).addOnSuccessListener(suc->
-        {
-            Toast.makeText(ViewOfferActivity.this,"Order Cancelled",Toast.LENGTH_LONG).show();
-        }).addOnFailureListener(er->
-        {
-            Toast.makeText(ViewOfferActivity.this, ""+er.getMessage(), Toast.LENGTH_LONG).show();
-        });
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to cancel your order?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        finish();
+
+                        String key = getIntent().getStringExtra("Key");
+                        DBOrder dbord = new DBOrder();
+                        dbord.remove(key).addOnSuccessListener(suc->
+                        {
+                            Toast.makeText(ViewOfferActivity.this,"Order Cancelled",Toast.LENGTH_LONG).show();
+                        }).addOnFailureListener(er->
+                        {
+                            Toast.makeText(ViewOfferActivity.this, ""+er.getMessage(), Toast.LENGTH_LONG).show();
+                        });
+                    }
+                }).setNegativeButton("No", null).show();
     }
+
 }
