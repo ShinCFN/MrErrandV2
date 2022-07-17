@@ -132,7 +132,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="30dp"
+                android:layout_marginLeft="5dp"
                 android:orientation="vertical">
 
 
@@ -155,62 +155,42 @@
                     android:paddingBottom="20dp"
                     android:textColor="@color/DarkMain" />
 
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <!-- City -->
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="City"
+                    android:textColor="@color/DarkMain" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                <TextView
+                    android:id="@+id/profileCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_regular"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/DarkMain" />
 
-                        <!-- City -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/inter_semibold"
-                            android:text="City"
-                            android:textColor="@color/DarkMain" />
 
-                        <TextView
-                            android:id="@+id/profileCity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/inter_regular"
-                            android:paddingBottom="20dp"
-                            android:textColor="@color/DarkMain" />
-                    </LinearLayout>
+                <!-- State/Province -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="State/Province"
+                    android:textColor="@color/DarkMain" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="60dp"
-                        android:orientation="vertical">
-
-                        <!-- State/Province -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/inter_semibold"
-                            android:text="State/Province"
-                            android:textColor="@color/DarkMain" />
-
-                        <TextView
-                            android:id="@+id/profileProvince"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/inter_regular"
-                            android:paddingBottom="20dp"
-                            android:textColor="@color/DarkMain" />
-                    </LinearLayout>
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/profileProvince"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_regular"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/DarkMain" />
 
                 <!-- Zip Code -->
                 <TextView

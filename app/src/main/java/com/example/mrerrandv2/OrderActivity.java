@@ -33,6 +33,7 @@ public class OrderActivity extends AppCompatActivity {
                     Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
                     intent.putExtra("ORDER",orders);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
