@@ -72,9 +72,60 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         profpic = findViewById((R.id.editprofPic));
-        Button updateBTN = findViewById(R.id.btnSave);
 
         progressDialog = new ProgressDialog(this);
+
+        Button updateBTN = findViewById(R.id.btnSave);
+
+        //Update Button
+        updateBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView editFirst,editLast,editMobile,editStreet,editCity,editProvince,editZip;
+
+                //Get ID
+                editFirst = findViewById(R.id.editproftFirst);
+                editLast = findViewById(R.id.editproftLast);
+                editMobile = findViewById(R.id.editprofMobile);
+                editStreet = findViewById(R.id.editprofStreet);
+                editCity = findViewById(R.id.editprofCity);
+                editProvince = findViewById(R.id.editprofProvince);
+                editZip = findViewById(R.id.editprofZip);
+
+                //Get Values
+                String firstname = editFirst.getText().toString();
+                String lastname = editLast.getText().toString();
+                String mobile = editMobile.getText().toString();
+                String street = editStreet.getText().toString();
+                String city = editCity.getText().toString();
+                String province = editProvince.getText().toString();
+                String zip = editZip.getText().toString();
+
+                //Push to DB
+
+                if(!firstname.isEmpty() && !lastname.isEmpty() && !mobile.isEmpty() && !street.isEmpty() && !city.isEmpty() && !province.isEmpty() && !zip.isEmpty()) {
+
+
+                    databaseReference.child("firstname").setValue(firstname);
+                    databaseReference.child("lastname").setValue(lastname);
+                    databaseReference.child("mobile").setValue(mobile);
+                    databaseReference.child("street").setValue(street);
+                    databaseReference.child("city").setValue(city);
+                    databaseReference.child("province").setValue(province);
+
+                    databaseReference.child("zip").setValue(zip).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+
+                } else {
+                    Toast.makeText(EditProfileActivity.this, "Please complete your information", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
 
         profpic.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +140,7 @@ public class EditProfileActivity extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                TextView editFirst,editLast,editEmail,editMobile,editStreet,editCity,editProvince,editZip;
+                TextView editFirst,editLast,editMobile,editStreet,editCity,editProvince,editZip;
 
                 //Get ID
                 editFirst = findViewById(R.id.editproftFirst);
@@ -124,10 +175,12 @@ public class EditProfileActivity extends AppCompatActivity {
                     editProvince.setText(province);
                 }
 
-                if(snapshot.child("zipcode").exists()){
-                    String zipcode = snapshot.child("zipcode").getValue().toString();
+                if(snapshot.child("zip").exists()){
+                    String zipcode = snapshot.child("zip").getValue().toString();
                     editZip.setText(zipcode);
                 }
+
+
 
                 //Push
                 editFirst.setText(firstname);
@@ -140,8 +193,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     private void checkP() {
@@ -199,8 +250,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void onCropImageResult(@NonNull CropImageView.CropResult result) {
         if (result.isSuccessful()) {
-            profpic.setImageURI(result.getUriContent());
+
             uploadImage(result.getUriContent());
+
+            profpic.setImageURI(result.getUriContent());
+
         } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
 
         } else {
@@ -218,8 +272,12 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 progressDialog.dismiss();
-
-
+                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        databaseReference.child("profileImage").setValue(uri.toString());
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

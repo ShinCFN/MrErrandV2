@@ -182,7 +182,6 @@
                         android:layout_height="45dp"
                         android:paddingTop="3dp"
                         android:paddingBottom="4dp"
-                        android:inputType="number"
                         android:textColor="@color/MenuTextColor"
                         android:textSize="14dp"
                         android:id="@+id/editprofStreet"
@@ -227,7 +226,6 @@
                             android:layout_height="45dp"
                             android:paddingTop="3dp"
                             android:paddingBottom="4dp"
-                            android:inputType="number"
                             android:textColor="@color/MenuTextColor"
                             android:textSize="14dp"
                             android:id="@+id/editprofCity">
@@ -264,7 +262,6 @@
                             android:layout_height="45dp"
                             android:paddingTop="3dp"
                             android:paddingBottom="4dp"
-                            android:inputType="number"
                             android:textColor="@color/MenuTextColor"
                             android:textSize="14dp"
                             android:id="@+id/editprofProvince">
@@ -302,21 +299,18 @@
                         android:textColor="@color/MenuTextColor"
                         android:textSize="14dp"
                         android:id="@+id/editprofZip"
-                        >
+                        android:maxLength="4">
                     </com.google.android.material.textfield.TextInputEditText>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
             </LinearLayout>
 
-
-
-
             <Button
                 android:id="@+id/btnSave"
                 android:layout_width="150dp"
                 android:layout_height="35dp"
-                android:text="Sign Up"
+                android:text="Update"
                 android:textAllCaps="false"
                 android:padding="1dp"
                 android:textColor="@color/MainText"
@@ -326,20 +320,8 @@
                 android:textStyle="bold"
                 android:elevation="5dp"
                 android:letterSpacing="-.01"
-                android:fontFamily="@font/inter_extrabold"
-                />
+                android:fontFamily="@font/inter_extrabold" />
 
         </LinearLayout>
-        <ProgressBar
-            android:id="@+id/progressBarSignup"
-            android:visibility="gone"
-            android:layout_gravity = "center"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

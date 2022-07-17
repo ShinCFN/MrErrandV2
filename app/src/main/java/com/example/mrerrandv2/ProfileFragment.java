@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -34,6 +36,8 @@ public class ProfileFragment extends Fragment {
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
     TextView editName,editMobile,editStreet,editCity,editProvince,editZip,editEmail;
+
+    ImageView profilepic;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +60,7 @@ public class ProfileFragment extends Fragment {
                 editProvince = v.findViewById(R.id.profileProvince);
                 editZip = v.findViewById(R.id.profileZip);
                 editEmail = v.findViewById(R.id.profileEmail);
+                profilepic = v.findViewById(R.id.profilePic);
 
 
                 //Get Information
@@ -97,13 +102,18 @@ public class ProfileFragment extends Fragment {
                     editProvince.setText("--");
                 }
 
-                if(snapshot.child("zipcode").exists()){
-                    String zipcode = snapshot.child("zipcode").getValue().toString();
+                if(snapshot.child("zip").exists()){
+                    String zipcode = snapshot.child("zip").getValue().toString();
                     editZip.setText(zipcode);
                 } else {
                     editZip.setTextColor(Color.RED);
                     editZip.setText("--");
                 }
+
+                Picasso
+                        .get()
+                        .load("https://firebasestorage.googleapis.com/v0/b/mrerrandv3.appspot.com/o/Users%2F3kVeCkwAJqODutGon4VYYkszdQp1?alt=media&token=012c497e-c2cd-4093-8bd3-641ae9a132a7")
+                        .into(profilepic);
 
 
                 //Edit Profile

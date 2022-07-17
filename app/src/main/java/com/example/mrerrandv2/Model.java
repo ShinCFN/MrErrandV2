@@ -5,15 +5,15 @@ public class Model {
     private String profileImage;
     public Model(){}
 
-    public Model(String imageUri){
-        this.profileImage = imageUri;
+    public Model(String profileImage) {
+        this.profileImage = profileImage;
     }
 
-    public String getImageUri() {
+    public String getProfileImage() {
         return profileImage;
     }
 
-    public void setImageUri(String imageUri) {
-        this.profileImage = imageUri;
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 }
