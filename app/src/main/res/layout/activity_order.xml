@@ -6,30 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".OrderActivity">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_regular"
+        android:text="Order List"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/DarkMain"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout" />
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
-        android:layout_marginHorizontal="30dp"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="150dp"
+        android:layout_height="400dp"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/textboxmain"
+        android:elevation="5dp"
+        android:theme="@style/Widget.Design.TextInputLayout"
+        app:boxBackgroundColor="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/OrderList"
+            android:gravity="top|left"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Order List" />
+            android:fontFamily="@font/inter_regular"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:textColor="@color/DarkMain"
+            android:textSize="14dp"></com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/gotoPay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Order Now"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:background="@drawable/menubutton"
+        android:elevation="5dp"
+        android:fontFamily="@font/inter_extrabold"
+        android:letterSpacing="-.01"
+        android:padding="1dp"
+        android:text="Next"
+        android:textAllCaps="false"
+        android:textColor="@color/MainText"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        android:layout_marginTop="30dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
