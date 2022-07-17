@@ -1,21 +1,31 @@
 package com.example.mrerrandv2;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.canhub.cropper.CropImage;
+import com.canhub.cropper.CropImageActivity;
+import com.canhub.cropper.CropImageContract;
+import com.canhub.cropper.CropImageContractOptions;
+import com.canhub.cropper.CropImageOptions;
+import com.canhub.cropper.CropImageView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,12 +38,16 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfileActivity extends AppCompatActivity {
-
-    private TextView change;
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
@@ -41,8 +55,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private CircleImageView profpic;
 
-    private Uri imageUri;
-
+    private final int PICK_IMAGE_CODE = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,72 +65,78 @@ public class EditProfileActivity extends AppCompatActivity {
         profpic = findViewById((R.id.editprofPic));
         Button updateBTN = findViewById(R.id.btnSave);
 
+
         profpic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent galleryIntent = new Intent();
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                galleryIntent.setType("image/*");
-                startActivityForResult(galleryIntent, 2);
+                checkP();
             }
         });
 
-         updateBTN.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 if(imageUri!= null){
-                    uploadToFirebase(imageUri);
-                 }else{
-                     Toast.makeText(EditProfileActivity.this, "Please upload profile picture", Toast.LENGTH_LONG).show();
-                 }
-             }
-         });
+
+    }
+
+    private void checkP() {
+        Dexter.withContext(this)
+                .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        intent.setType("image/*");
+                        startActivityForResult(intent, PICK_IMAGE_CODE);
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                        permissionToken.continuePermissionRequest();
+                    }
+                }).check();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==2 && resultCode == RESULT_OK && data!=null){
-
-            imageUri = data.getData();
-            profpic.setImageURI(imageUri);
-
+        if(requestCode==PICK_IMAGE_CODE && resultCode==RESULT_OK){
+            if(data!=null){
+                resizeImage(data.getData());
+            }
         }
-    }
-
-    private void uploadToFirebase(Uri uri){
-        StorageReference fileRef = storageReference.child("Profile").child(auth.getCurrentUser().getDisplayName()+"."+getFileExtention(uri));
-        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                fileRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        Model model = new Model(uri.toString());
-                        databaseReference.child("profile").setValue(model);
-                    }
-                });
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditProfileActivity.this, "Upload Failed", Toast.LENGTH_LONG).show();
-            }
-        });
 
     }
 
-    private String getFileExtention(Uri mUri){
+    private final ActivityResultLauncher<CropImageContractOptions> cropImage =
+            registerForActivityResult(new CropImageContract(), this::onCropImageResult);
 
-        ContentResolver cr = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cr.getType(mUri));
+    public void resizeImage(Uri uri) {
+        CropImageContractOptions options= new CropImageContractOptions(uri, new CropImageOptions())
+                .setMultiTouchEnabled(true)
+                .setAspectRatio(1,1)
+//                .setMaxCropResultSize(512,512)
+                .setCropShape(CropImageView.CropShape.OVAL)
+                .setOutputCompressQuality(50)
+                .setOutputUri(null)
+                .setActivityTitle("")
+                .setNoOutputImage(false);
 
+        cropImage.launch(options);
+    }
+
+    public void onCropImageResult(@NonNull CropImageView.CropResult result) {
+        if (result.isSuccessful()) {
+            Log.e("WATFACK","AAAAAAAAAAAAAAA");
+            profpic.setImageURI(result.getUriContent());
+        } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
+
+        } else {
+            Toast.makeText(EditProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
+        }
     }
 }
