@@ -80,7 +80,6 @@ public class SplashscreenActivity extends AppCompatActivity {
             Toast.makeText(SplashscreenActivity.this, "You can now sign in!", Toast.LENGTH_LONG).show();
             startActivity(new Intent(SplashscreenActivity.this, SignInActivity.class));
             finish();
-
         }
     }
 }
