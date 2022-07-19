@@ -127,7 +127,6 @@ public class SignInActivity extends AppCompatActivity {
                             if (readUserDetails != null) {
 
                                 String usertype = readUserDetails.type;
-                                Log.e("firebase", usertype);
 
                                 if (usertype.equals("admin")) {
                                     startActivity(new Intent(SignInActivity.this, AdminActivity.class));

@@ -41,7 +41,6 @@ public class SplashscreenActivity extends AppCompatActivity {
     private void start() {
 
         if (authProfile.getCurrentUser() != null) {
-            Toast.makeText(SplashscreenActivity.this, "Already logged in!", Toast.LENGTH_LONG).show();
             //GET USER PERMS FROM DB
             FirebaseUser firebaseUser = authProfile.getCurrentUser();
             String userID = firebaseUser.getUid();
@@ -55,7 +54,6 @@ public class SplashscreenActivity extends AppCompatActivity {
                     if (readUserDetails != null) {
 
                         String usertype = readUserDetails.type;
-                        Log.e("firebase", usertype);
 
                         if (usertype.equals("admin")) {
                             startActivity(new Intent(SplashscreenActivity.this, AdminActivity.class));
@@ -77,7 +75,6 @@ public class SplashscreenActivity extends AppCompatActivity {
 
             });
         } else {
-            Toast.makeText(SplashscreenActivity.this, "You can now sign in!", Toast.LENGTH_LONG).show();
             startActivity(new Intent(SplashscreenActivity.this, SignInActivity.class));
             finish();
         }
