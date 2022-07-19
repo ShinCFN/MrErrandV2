@@ -125,4 +125,5 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
             Toast.makeText(OfferWaitingActivityRider.this, "" + er.getMessage(), Toast.LENGTH_LONG).show();
         });
     }
+
 }
