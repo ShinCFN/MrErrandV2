@@ -48,7 +48,7 @@ import java.util.regex.Pattern;
 public class SignUpRiderActivity extends AppCompatActivity {
 
 
-    private EditText firstname, lastname, emailIn, numIN, passIn, passInC, license, plate;
+    private EditText firstname, lastname, emailIn, numIN, passIn, passInC;
     private ProgressBar progressBar;
     private static final String TAG = "SignUpActivity";
     private ImageView rLicense, rPlate;
@@ -78,29 +78,6 @@ public class SignUpRiderActivity extends AppCompatActivity {
         numIN = findViewById(R.id.editTextMobile);
         passIn = findViewById(R.id.editTextPassword);
         passInC = findViewById(R.id.editTextConfirmPassword);
-        license = findViewById(R.id.editTextLicenseNumber);
-        plate = findViewById(R.id.editTextPlate);
-
-        rLicense = findViewById(R.id.rsignLicense);
-        rPlate = findViewById(R.id.rsignPlate);
-
-        //License Image upload
-
-        rLicense.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cropLicense();
-            }
-        });
-
-        //Plate Image Upload
-
-        rPlate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cropPlate();
-            }
-        });
 
 
         // Signup Button
@@ -115,8 +92,6 @@ public class SignUpRiderActivity extends AppCompatActivity {
                 String textNum = numIN.getText().toString();
                 String textPass = passIn.getText().toString();
                 String textPassC = passInC.getText().toString();
-                String textlicenseNumber = license.getText().toString();
-                String platenum = plate.getText().toString();
                 String textType = "rider";
 
                 //Validate Mobile Num
@@ -162,156 +137,18 @@ public class SignUpRiderActivity extends AppCompatActivity {
                     Toast.makeText(SignUpRiderActivity.this, "Please number is invalid", Toast.LENGTH_LONG).show();
                     numIN.setError("Mobile number invalid");
                     numIN.requestFocus();
-                } else if (TextUtils.isEmpty(textlicenseNumber)) {
-                    Toast.makeText(SignUpRiderActivity.this, "Your password is invalid", Toast.LENGTH_LONG).show();
-                    license.setError("Password invalid");
-                    license.requestFocus();
-                } else if (TextUtils.isEmpty(platenum)) {
-                    Toast.makeText(SignUpRiderActivity.this, "Plate number is empty", Toast.LENGTH_LONG).show();
-                    plate.setError("Password invalid");
-                    plate.requestFocus();
                 } else {
                     progressBar.setVisibility(View.VISIBLE);
-                    registerUser(textFirstName, textLastName, textEmail, textNum, textType, textPass, textlicenseNumber, platenum);
+                    registerUser(textFirstName, textLastName, textEmail, textNum, textType, textPass);
                 }
             }
         });
     }
 
-    //License Cropping Start
-
-    private void cropLicense() {
-        Dexter.withContext(this)
-                .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                        Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                        intent.setType("image/*");
-                        startActivityForResult(intent, PICK_LICENSE_CODE);
-                    }
-
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-                        permissionToken.continuePermissionRequest();
-                    }
-                }).check();
-    }
-
-    private final ActivityResultLauncher<CropImageContractOptions> cropLicense =
-            registerForActivityResult(new CropImageContract(), this::onCropLicenseResult);
-
-    public void resizeLicense(Uri uri) {
-        CropImageContractOptions options= new CropImageContractOptions(uri, new CropImageOptions())
-                .setMultiTouchEnabled(true)
-                .setAspectRatio(154,100)
-                .setOutputCompressQuality(80)
-                .setActivityTitle("")
-                .setActivityMenuIconColor(0)
-                .setNoOutputImage(false);
-
-        cropLicense.launch(options);
-    }
-
-    public void onCropLicenseResult(@NonNull CropImageView.CropResult result) {
-        if (result.isSuccessful()) {
-
-//            uploadLicense(result.getUriContent());
-
-            rLicense.setImageURI(result.getUriContent());
-
-        } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
-
-        } else {
-            Toast.makeText(SignUpRiderActivity.this, "Failed", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    // Plate Cropping Start
-
-    private void cropPlate() {
-        Dexter.withContext(this)
-                .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                        Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                        intent.setType("image/*");
-                        startActivityForResult(intent, PICK_PLATE_CODE);
-                    }
-
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-                        permissionToken.continuePermissionRequest();
-                    }
-                }).check();
-    }
-
-    private final ActivityResultLauncher<CropImageContractOptions> cropPlate =
-            registerForActivityResult(new CropImageContract(), this::onCropPlateResult);
-
-    public void resizePlate(Uri uri) {
-        CropImageContractOptions options= new CropImageContractOptions(uri, new CropImageOptions())
-                .setMultiTouchEnabled(true)
-                .setAspectRatio(154,100)
-                .setOutputCompressQuality(80)
-                .setActivityTitle("")
-                .setActivityMenuIconColor(0)
-                .setNoOutputImage(false);
-
-        cropPlate.launch(options);
-    }
-
-    public void onCropPlateResult(@NonNull CropImageView.CropResult result) {
-        if (result.isSuccessful()) {
-
-//            uploadPlate(result.getUriContent());
-
-            rPlate.setImageURI(result.getUriContent());
-
-        } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
-
-        } else {
-            Toast.makeText(SignUpRiderActivity.this, "Failed", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    //Crop plate/license handler
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode==PICK_LICENSE_CODE && resultCode==RESULT_OK){
-            if(data!=null){
-                resizeLicense(data.getData());
-            }
-        }
-
-        if(requestCode==PICK_PLATE_CODE && resultCode==RESULT_OK){
-            if(data!=null){
-                resizePlate(data.getData());
-            }
-        }
-
-    }
-
 
     //Register user button: Send to DB
 
-    private void registerUser(String textFirstName, String textLastName, String textEmail, String textNum, String textType, String textPass, String textlicense, String platenum) {
+    private void registerUser(String textFirstName, String textLastName, String textEmail, String textNum, String textType, String textPass) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
 
@@ -328,7 +165,7 @@ public class SignUpRiderActivity extends AppCompatActivity {
                     firebaseUser.updateProfile(profileChangeRequest);
 
                     //ReadWriteUserDetails
-                    ReadWriteUserDetailsRider writeUserDetails = new ReadWriteUserDetailsRider(textFirstName, textLastName, textEmail, textNum, textType, textlicense, platenum);
+                    ReadWriteUserDetailsRider writeUserDetails = new ReadWriteUserDetailsRider(textFirstName, textLastName, textEmail, textNum, textType);
 
                     //Extract Users from db
 

@@ -6,13 +6,11 @@ public class ReadWriteUserDetailsRider {
     //Constructor
     public ReadWriteUserDetailsRider(){};
 
-    public ReadWriteUserDetailsRider(String textFirstName,String textLastName, String textEmail, String textNum, String textType, String textlicense, String platenumber) {
+    public ReadWriteUserDetailsRider(String textFirstName,String textLastName, String textEmail, String textNum, String textType) {
         this.firstname = textFirstName;
         this.lastname = textLastName;
         this.email = textEmail;
         this.mobilenum = textNum;
         this.type = textType;
-        this.licensenum = textlicense;
-        this.platenumber = platenumber;
     }
 }
