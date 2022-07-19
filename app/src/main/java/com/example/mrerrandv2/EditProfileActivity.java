@@ -78,11 +78,17 @@ public class EditProfileActivity extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String profileImage = snapshot.child("profileImage").getValue().toString();
-                Picasso
-                        .get()
-                        .load(profileImage)
-                        .into(profpic);
+                if (snapshot.child("profileImage").exists()) {
+                    String image = snapshot.child("profileImage").getValue().toString();
+                    Picasso
+                            .get()
+                            .load(image)
+                            .into(profpic);
+
+                    progressDialog.dismiss();
+                } else {
+                    progressDialog.dismiss();
+                }
             }
 
             @Override

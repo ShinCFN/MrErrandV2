@@ -36,7 +36,7 @@ public class ProfileFragment extends Fragment {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    TextView editName,editMobile,editStreet,editCity,editProvince,editZip,editEmail;
+    TextView editName, editMobile, editStreet, editCity, editProvince, editZip, editEmail;
 
     ImageView profilepic;
 
@@ -79,13 +79,13 @@ public class ProfileFragment extends Fragment {
 
                 //Set text
 
-                String name = firstname + " "+ lastname;
+                String name = firstname + " " + lastname;
 
                 editName.setText(name);
                 editMobile.setText(mobilenumber);
                 editEmail.setText(email);
 
-                if(snapshot.child("street").exists()){
+                if (snapshot.child("street").exists()) {
                     String street = snapshot.child("street").getValue().toString();
                     editStreet.setText(street);
                 } else {
@@ -93,7 +93,7 @@ public class ProfileFragment extends Fragment {
                     editStreet.setText("--");
                 }
 
-                if(snapshot.child("city").exists()){
+                if (snapshot.child("city").exists()) {
                     String city = snapshot.child("city").getValue().toString();
                     editCity.setText(city);
                 } else {
@@ -101,7 +101,7 @@ public class ProfileFragment extends Fragment {
                     editCity.setText("--");
                 }
 
-                if(snapshot.child("province").exists()){
+                if (snapshot.child("province").exists()) {
                     String province = snapshot.child("province").getValue().toString();
                     editProvince.setText(province);
                 } else {
@@ -109,7 +109,7 @@ public class ProfileFragment extends Fragment {
                     editProvince.setText("--");
                 }
 
-                if(snapshot.child("zip").exists()){
+                if (snapshot.child("zip").exists()) {
                     String zipcode = snapshot.child("zip").getValue().toString();
                     editZip.setText(zipcode);
                 } else {
@@ -121,16 +121,18 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String image = snapshot.child("profileImage").getValue().toString();
+                        if (snapshot.child("profileImage").exists()) {
+                            String image = snapshot.child("profileImage").getValue().toString();
+                            Picasso
+                                    .get()
+                                    .load(image)
+                                    .into(profilepic);
 
-                        Picasso
-                                .get()
-                                .load(image)
-                                .into(profilepic);
-
-                        progressDialog.dismiss();
+                            progressDialog.dismiss();
+                        } else {
+                            progressDialog.dismiss();
+                        }
                     }
-
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {

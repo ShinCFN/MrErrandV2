@@ -29,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import pl.droidsonroids.gif.GifImageButton;
 import pl.droidsonroids.gif.GifImageView;
@@ -99,6 +100,7 @@ public class RiderHomeFragment extends Fragment {
                 Order ord = (Order) o;
                 vh.orderName.setText(ord.getFirstname());
                 vh.orderdesc.setText(ord.getOrderlist());
+                Picasso.get().load(ord.getProfilePic()).into(vh.profilePic);
 
                 vh.view.setOnClickListener(new View.OnClickListener() {
                     @Override

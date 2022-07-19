@@ -40,7 +40,7 @@ public class SplashscreenActivity extends AppCompatActivity {
     }
 
     private void start() {
-        authProfile.signOut();
+//        authProfile.signOut();
 
 
         if (authProfile.getCurrentUser() != null) {

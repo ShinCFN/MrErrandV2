@@ -162,7 +162,7 @@ public class SignInActivity extends AppCompatActivity {
                         Toast.makeText(SignInActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
                     }
                 }
-//                progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
             }
         });
     }

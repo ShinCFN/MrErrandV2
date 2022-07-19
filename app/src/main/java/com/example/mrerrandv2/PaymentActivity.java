@@ -61,11 +61,11 @@ public class PaymentActivity extends AppCompatActivity {
                         String mobilenum = snapshot.child("mobilenum").getValue().toString();
                         String useremail = snapshot.child("email").getValue().toString();
                         String address = snapshot.child("province").getValue().toString();
-                        String profileImage = snapshot.child("profileImage").getValue().toString();
+                        String profilePic = snapshot.child("profileImage").getValue().toString();
 
                         //Send order to DB
 
-                        Order ord = new Order(textFirstName, textOrderList, state, lastname, mobilenum, useremail, status, address, profileImage);
+                        Order ord = new Order(textFirstName, textOrderList, state, lastname, mobilenum, useremail, status, address, profilePic);
                         dbord.add(ord).addOnSuccessListener(suc -> {
                             databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override

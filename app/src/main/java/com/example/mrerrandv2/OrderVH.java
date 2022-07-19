@@ -16,7 +16,7 @@ public class OrderVH extends RecyclerView.ViewHolder {
         super(itemView);
         orderName = itemView.findViewById(R.id.orderName);
         orderdesc = itemView.findViewById(R.id.orderdesc);
-        profilePic = itemView.findViewById(R.id.profilePic);
+        profilePic = itemView.findViewById(R.id.profile);
         view = itemView;
     }
 }
