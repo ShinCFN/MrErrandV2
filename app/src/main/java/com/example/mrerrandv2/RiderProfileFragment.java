@@ -1,64 +1,124 @@
 package com.example.mrerrandv2;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RiderProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
 public class RiderProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    TextView editName,editMobile,editEmail,editLicense,editPlate;
 
-    public RiderProfileFragment() {
-        // Required empty public constructor
-    }
+    ImageView profilepic;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RiderProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RiderProfileFragment newInstance(String param1, String param2) {
-        RiderProfileFragment fragment = new RiderProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_rider_profile, container, false);
+        View v = inflater.inflate(R.layout.fragment_rider_profile, container, false);
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Riders").child(auth.getCurrentUser().getUid());
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                //Find Holders
+
+                editName = v.findViewById(R.id.profileName);
+                editMobile = v.findViewById(R.id.profileNumber);
+                editLicense = v.findViewById(R.id.profileLicense);
+                editPlate = v.findViewById(R.id.profilePlate);
+                editEmail = v.findViewById(R.id.profileEmail);
+                profilepic = v.findViewById(R.id.profilePic);
+
+
+                //Get Information
+
+                String firstname = snapshot.child("firstname").getValue().toString();
+                String lastname = snapshot.child("lastname").getValue().toString();
+                String mobilenumber = snapshot.child("mobilenum").getValue().toString();
+                String email = snapshot.child("email").getValue().toString();
+
+                //Set text
+
+                String name = firstname + " " + lastname;
+
+                editName.setText(name);
+                editMobile.setText(mobilenumber);
+                editEmail.setText(email);
+
+
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        if(snapshot.child("profileImage").exists()){
+                            String image = snapshot.child("profileImage").getValue().toString();
+
+                            Picasso
+                                    .get()
+                                    .load(image)
+                                    .into(profilepic);
+
+                            progressDialog.dismiss();
+
+                        } else {
+                            progressDialog.dismiss();
+                    }}
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+                //Edit Profile
+
+                Button editProfile = v.findViewById(R.id.profileEdit);
+
+                editProfile.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(getActivity(), EditProfileRiderActivity.class));
+                        getActivity();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return v;
     }
 }

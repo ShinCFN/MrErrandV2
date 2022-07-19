@@ -137,6 +137,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         }
                     });
 
