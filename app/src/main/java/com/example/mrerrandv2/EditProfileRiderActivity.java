@@ -43,6 +43,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 public class EditProfileRiderActivity extends AppCompatActivity {
 
@@ -244,6 +245,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                     databaseReference.child("plate").setValue(platenum).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
+                            Toasty.success(EditProfileRiderActivity.this, "Success", Toasty.LENGTH_LONG).show();
                             Intent intent = new Intent(EditProfileRiderActivity.this, RiderLandingPage.class);
                             startActivity(intent);
                             finish();

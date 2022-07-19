@@ -47,7 +47,7 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
                    finish();
                }
 
-               Log.e("TEST", snapshot.child("state").toString());
+               Log.e("TEST", ord_open.getKey());
 
                if(snapshot.exists()&& snapshot.child("state").getValue().toString().equals("accepted")){
                    databaseReference.child("isAccepted").setValue("true");
