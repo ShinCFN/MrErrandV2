@@ -15,10 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AlertDialogLayout;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.mrerrandv2.databinding.ActivityMainBinding;
+import com.example.mrerrandv2.databinding.ActivityRiderMainBinding;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
@@ -35,33 +40,29 @@ import java.util.ArrayList;
 
 public class RiderLandingPage extends AppCompatActivity {
 
+    ActivityRiderMainBinding binding;
+
     FirebaseAuth auth = FirebaseAuth.getInstance();
-    SwipeRefreshLayout swipeRefreshLayout;
-    RecyclerView recyclerView;
-    DBOrder dbord;
-    String key = null;
-    FirebaseRecyclerAdapter adapter;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Riders");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // TEST
+        super.onCreate(savedInstanceState);
+        binding = ActivityRiderMainBinding.inflate(getLayoutInflater());
+        setContentView(R.layout.activity_rider_main);
+        setContentView(binding.getRoot());
+//        replaceFragment(new RiderHomeFragment());
 
-        DatabaseReference newRef = FirebaseDatabase.getInstance().getReference("Riders");
-
-        newRef.child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                String name = snapshot.child("firstname").getValue().toString();
-
-                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                        .setDisplayName(name).build();
-
-                user.updateProfile(profileUpdates);
-
+                if (snapshot.child("licensePic").exists() && snapshot.child("platePic").exists()) {
+                    replaceFragment(new RiderHomeFragment());
+                } else {
+                    replaceFragment(new RiderErrorFragment());
+                }
             }
 
             @Override
@@ -70,93 +71,49 @@ public class RiderLandingPage extends AppCompatActivity {
             }
         });
 
-        //
 
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_riderlanding);
-        recyclerView = findViewById(R.id.ordersrv);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(RiderLandingPage.this, LinearLayoutManager.VERTICAL, false));
-        dbord = new DBOrder();
+            switch (item.getItemId()) {
 
-        FirebaseRecyclerOptions<Order> option =
-                new FirebaseRecyclerOptions.Builder<Order>()
-                        .setQuery(dbord.get(), new SnapshotParser<Order>() {
-                            @NonNull
-                            @Override
-                            public Order parseSnapshot(@NonNull DataSnapshot snapshot) {
-                                Order ord = snapshot.getValue(Order.class);
-                                ord.setKey(snapshot.getKey());
-                                return ord;
+                case R.id.home:
+
+                    databaseReference.child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.child("licensePic").exists() && snapshot.child("platePic").exists()) {
+                                replaceFragment(new RiderHomeFragment());
+                            } else {
+                                replaceFragment(new RiderErrorFragment());
                             }
-                        }).build();
+                        }
 
-        adapter = new FirebaseRecyclerAdapter(option) {
-            @Override
-            protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
-                OrderVH vh = (OrderVH) viewHolder;
-                Order ord = (Order) o;
-                vh.orderName.setText(ord.getFirstname());
-                vh.orderdesc.setText(ord.getOrderlist());
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                vh.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                        }
+                    });
 
-                        Intent intent = new Intent(RiderLandingPage.this, ViewOrderActivity.class);
-                        intent.putExtra("OPEN", ord);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
+                    break;
+                case R.id.profile:
+                    replaceFragment(new RiderProfileFragment());
+                    break;
+                case R.id.settings:
+                    replaceFragment(new SettingsFragment());
+                    break;
             }
-
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(RiderLandingPage.this).inflate(R.layout.layout_orders, parent, false);
-                return new OrderVH(view);
-            }
-
-            @Override
-            public void onDataChanged() {
-                Toast.makeText(RiderLandingPage.this, "DEBUG: Data Change", Toast.LENGTH_LONG).show();
-            }
-        };
-        recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        new AlertDialog.Builder(this)
-                .setMessage("Are you sure you want to logout?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        auth.signOut();
-                        startActivity(new Intent(RiderLandingPage.this, SignInActivity.class));
-                        finish();
-                    }
-                }).setNegativeButton("No", null).show();
-
+            return true;
+        });
 
     }
 
+    private void replaceFragment(Fragment fragment) {
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.Main_layout, fragment);
+        fragmentTransaction.commit();
+
+
+    }
 }
