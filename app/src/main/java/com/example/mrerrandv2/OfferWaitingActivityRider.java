@@ -112,6 +112,11 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
         String riderkey = getIntent().getStringExtra("RKEY");
         super.onBackPressed();
         DBOffer dboff = new DBOffer(key);
+
+        DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("Order");
+
+        Log.e("Delete Offer Key", riderkey);
+
         dboff.remove(riderkey).addOnSuccessListener(suc ->
         {
             Toast.makeText(OfferWaitingActivityRider.this, "Offer Canceled", Toast.LENGTH_LONG).show();
