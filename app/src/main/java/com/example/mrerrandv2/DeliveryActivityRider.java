@@ -19,24 +19,24 @@ public class DeliveryActivityRider extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery_rider);
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("KEY"));
-
-
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String firstname = snapshot.child("firstname").getValue().toString();
-                String lastname = snapshot.child("lastname").getValue().toString();
-                String email = snapshot.child("useremail").getValue().toString();
-                String address = snapshot.child("address").getValue().toString();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(getIntent().getStringExtra("KEY"));
+//
+//
+//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                String firstname = snapshot.child("firstname").getValue().toString();
+//                String lastname = snapshot.child("lastname").getValue().toString();
+//                String email = snapshot.child("useremail").getValue().toString();
+//                String address = snapshot.child("address").getValue().toString();
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
 
     }

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,84 +33,61 @@ public class ViewOrderActivity extends AppCompatActivity {
         Order ord_open = (Order) getIntent().getSerializableExtra("OPEN");
 
         order = findViewById(R.id.orderlistforoffer);
-
         order.setText(ord_open.getOrderlist());
-
         Button btnSend = findViewById(R.id.btnOffer);
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order");
-        DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference("Riders").child(firebaseUser.getUid());
+        DatabaseReference riderRef = FirebaseDatabase.getInstance().getReference("Riders").child(firebaseUser.getUid());
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
         DBOffer dboff = new DBOffer(ord_open.getKey());
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                offerIn=findViewById(R.id.editTextOfferInput);
 
-                // Send offer to DB
+                String offerval = offerIn.getText().toString();
 
-                offerIn = (EditText) findViewById(R.id.editTextOfferInput);
-                String offerText = offerIn.getText().toString();
-                String textFirstName = firebaseUser.getDisplayName();
-                String state = "false";
+                if(offerval.isEmpty()){
 
-                UserRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                }else{
 
-                        Log.e("ID", firebaseUser.getUid());
+                    riderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String lastname = snapshot.child("lastname").getValue().toString();
-                        String email = snapshot.child("email").getValue().toString();
-                        String mnumber = snapshot.child("mobilenum").getValue().toString();
-                        String platenum = snapshot.child("license").getValue().toString();
+                            String ridername = snapshot.child("firstname").getValue().toString();
 
-                        if (!offerText.isEmpty()) {
-                            AddOffer off = new AddOffer(textFirstName, offerText, state, lastname, email, mnumber, platenum);
-                            dboff.add(off).addOnSuccessListener(suc -> {
-                                databaseReference.child(ord_open.getKey()).child("Offers").orderByChild("ridername").equalTo(firebaseUser.getDisplayName()).addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                                            String rkey = childSnapshot.getKey();
-                                            Intent intent = new Intent(ViewOrderActivity.this, OfferWaitingActivityRider.class);
-                                            intent.putExtra("OPEN", ord_open);
-                                            intent.putExtra("OFFER", offerText);
-                                            intent.putExtra("KEY", ord_open.getKey());
-                                            intent.putExtra("RKEY", rkey);
-                                            intent.putExtra("State", ord_open.isAccepted);
-                                            startActivity(intent);
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
+                            databaseReference.child("Offers").child(firebaseUser.getUid()).child("ridername").setValue(ridername);
+                            databaseReference.child("Offers").child(firebaseUser.getUid()).child("offer").setValue(offerval);
+                            databaseReference.child("Offers").child(firebaseUser.getUid()).child("state").setValue("open").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Intent intent = new Intent(ViewOrderActivity.this, OfferWaitingActivityRider.class);
+                                    intent.putExtra("ORD", ord_open);
+                                    intent.putExtra("OFFER", offerval);
+                                    intent.putExtra("RIDERID", firebaseUser.getUid());
+                                    startActivity(intent);
+                                    finish();
+                                }
                             });
-                        } else {
-                            Toast.makeText(ViewOrderActivity.this,"Offer is empty", Toast.LENGTH_LONG).show();
+
                         }
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                        }
+                    });
+                }
             }
         });
-
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(ViewOrderActivity.this, RiderLandingPage.class));
         finish();
     }
 }

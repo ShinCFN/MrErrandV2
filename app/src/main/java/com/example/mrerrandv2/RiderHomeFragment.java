@@ -109,7 +109,6 @@ public class RiderHomeFragment extends Fragment {
                         Intent intent = new Intent(getContext(), ViewOrderActivity.class);
                         intent.putExtra("OPEN", ord);
                         startActivity(intent);
-                        getActivity().finish();
                     }
                 });
             }
@@ -123,17 +122,22 @@ public class RiderHomeFragment extends Fragment {
 
             @Override
             public void onDataChanged() {
-                Toast.makeText(getContext(), "DEBUG: Data Change", Toast.LENGTH_LONG).show();
             }
         };
-        adapter.startListening();
+
         recyclerView.setAdapter(adapter);
 
         return v;
 }
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        adapter.stopListening();
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.startListening();
     }
 }

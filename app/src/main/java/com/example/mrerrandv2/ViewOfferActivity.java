@@ -8,23 +8,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -82,22 +79,31 @@ public class ViewOfferActivity extends AppCompatActivity
                         switch (item.getItemId())
                         {
                             case R.id.menu_open:
+
+                                DatabaseReference orderReference = FirebaseDatabase.getInstance().getReference("Order").child(key).child("Offers");
+                                orderReference.child(off.getKey()).child("state").setValue("accepted");
                                 Intent intent = new Intent(ViewOfferActivity.this,AcceptedOrderActivityUser.class);
-                                intent.putExtra("ACCEPTED",off);
-                                intent.putExtra("Key", key);
-                                intent.putExtra("RKEY", off.getKey());
+                                intent.putExtra("ORDER",off);
+                                intent.putExtra("ORDKEY", key);
+                                intent.putExtra("RIDERKEY", off.getKey());
+                                Log.e("RIDER KEY BEFORE", off.getKey());
                                 startActivity(intent);
                                 finish();
                                 break;
 
-                            case R.id.menu_remove:
-                                DBOffer dboff = new DBOffer(key);
-                                dboff.remove(off.getKey()).addOnSuccessListener(suc->
-                                {
-                                    Toast.makeText(ViewOfferActivity.this,"Order Removed",Toast.LENGTH_LONG).show();
-                                }).addOnFailureListener(er->
-                                {
-                                    Toast.makeText(ViewOfferActivity.this, ""+er.getMessage(), Toast.LENGTH_LONG).show();
+                            case R.id.menu_decline:
+
+                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(key).child("Offers");
+                                databaseReference.child(off.getKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(ViewOfferActivity.this,"Order declined",Toast.LENGTH_LONG).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(ViewOfferActivity.this, ""+e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
                                 });
                                 break;
                         }
@@ -146,17 +152,9 @@ public class ViewOfferActivity extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        finish();
+                        // PUT DELETE ORDER HERE
 
-                        String key = getIntent().getStringExtra("Key");
-                        DBOrder dbord = new DBOrder();
-                        dbord.remove(key).addOnSuccessListener(suc->
-                        {
-                            Toast.makeText(ViewOfferActivity.this,"Order Cancelled",Toast.LENGTH_LONG).show();
-                        }).addOnFailureListener(er->
-                        {
-                            Toast.makeText(ViewOfferActivity.this, ""+er.getMessage(), Toast.LENGTH_LONG).show();
-                        });
+                        finish();
                     }
                 }).setNegativeButton("No", null).show();
     }

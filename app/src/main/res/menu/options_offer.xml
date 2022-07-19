@@ -5,6 +5,6 @@
         android:title="Accept" />
 
     <item
-        android:id="@+id/menu.remove"
+        android:id="@+id/menu.decline"
         android:title="Decline" />
 </menu>

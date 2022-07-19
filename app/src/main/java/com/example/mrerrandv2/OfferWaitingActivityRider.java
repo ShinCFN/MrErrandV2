@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,103 +26,97 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_waiting);
-        Order ord_open = (Order) getIntent().getSerializableExtra("OPEN");
+        Order ord_open = (Order) getIntent().getSerializableExtra("ORD");
 
         textOffer = findViewById(R.id.waiting_offer);
         textOffer.setText(getIntent().getStringExtra("OFFER"));
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();
+        String myid = firebaseUser.getUid();
 
-        DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("KEY"));
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("KEY")).child("Offers");
+        DatabaseReference currentOrder = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey()).child("Offers");
 
-        ordersRef.addValueEventListener(new ValueEventListener() {
+        currentOrder.child(myid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+               if(!snapshot.exists()){
+                   Toast.makeText(OfferWaitingActivityRider.this, "Offer was declined", Toast.LENGTH_LONG).show();
+                   finish();
+               }
 
-                if (!snapshot.exists()) {
-                    Toast.makeText(OfferWaitingActivityRider.this, "Order was cancelled", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(OfferWaitingActivityRider.this, RiderLandingPage.class);
-                    startActivity(intent);
-                    finish();
-                }
+               Log.e("TEST", snapshot.child("state").toString());
 
-                if(!snapshot.child("Offers").child(getIntent().getStringExtra("RKEY")).exists()){
-                    Toast.makeText(OfferWaitingActivityRider.this, "Offer was declined", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(OfferWaitingActivityRider.this, RiderLandingPage.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        databaseReference.orderByChild("isAccepted").equalTo("true").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                texttitle = findViewById(R.id.offertitle);
-                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                    String orderkey = childSnapshot.getKey();
-                    databaseReference.child(orderkey).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String username = snapshot.child("ridername").getValue().toString();
-                            String state = snapshot.child("isAccepted").getValue().toString();
-                            String currentUser = firebaseUser.getDisplayName();
-                            Log.e("CHANGE", username);
-
-                            if (username.equals(currentUser) && state.equals("true")) {
-                                Intent intent = new Intent(OfferWaitingActivityRider.this, AcceptedOrderActivityRider.class);
-                                intent.putExtra("KEY", getIntent().getStringExtra("KEY"));
-                                intent.putExtra("RKEY", getIntent().getStringExtra("RKEY"));
-                                intent.putExtra("OPEN", ord_open);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Toast.makeText(OfferWaitingActivityRider.this, "Order was placed for another rider", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(OfferWaitingActivityRider.this, RiderLandingPage.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                }
+               if(snapshot.exists()&& snapshot.child("state").getValue().toString().equals("accepted")){
+                   Intent intent = new Intent(OfferWaitingActivityRider.this, AcceptedOrderActivityRider.class);
+                   intent.putExtra("KEY", getIntent().getStringExtra("ORD"));
+                   intent.putExtra("RKEY", getIntent().getStringExtra("RIDERKEY"));
+                   intent.putExtra("OPEN", ord_open);
+                   startActivity(intent);
+                   finish();
+               }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
+
+
+//        databaseReference.orderByChild("isAccepted").equalTo("true").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                texttitle = findViewById(R.id.offertitle);
+//                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+//                    String orderkey = childSnapshot.getKey();
+//                    databaseReference.child(orderkey).addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            String username = snapshot.child("ridername").getValue().toString();
+//                            String state = snapshot.child("isAccepted").getValue().toString();
+//                            String currentUser = firebaseUser.getDisplayName();
+//                            Log.e("CHANGE", username);
+//
+//                            if (username.equals(currentUser) && state.equals("true")) {
+//                                Intent intent = new Intent(OfferWaitingActivityRider.this, AcceptedOrderActivityRider.class);
+//                                intent.putExtra("KEY", getIntent().getStringExtra("KEY"));
+//                                intent.putExtra("RKEY", getIntent().getStringExtra("RKEY"));
+//                                intent.putExtra("OPEN", ord_open);
+//                                startActivity(intent);
+//                                finish();
+//                            } else {
+//                                Toast.makeText(OfferWaitingActivityRider.this, "Order was placed for another rider", Toast.LENGTH_SHORT).show();
+//                                Intent intent = new Intent(OfferWaitingActivityRider.this, RiderLandingPage.class);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//            }
+//        });
     }
 
     @Override
     public void onBackPressed() {
-        String key = getIntent().getStringExtra("KEY");
-        String riderkey = getIntent().getStringExtra("RKEY");
-        super.onBackPressed();
-        DBOffer dboff = new DBOffer(key);
-
-        DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("Order");
-
-        Log.e("Delete Offer Key", riderkey);
-
-        dboff.remove(riderkey).addOnSuccessListener(suc ->
-        {
-            Toast.makeText(OfferWaitingActivityRider.this, "Offer Canceled", Toast.LENGTH_LONG).show();
-        }).addOnFailureListener(er ->
-        {
-            Toast.makeText(OfferWaitingActivityRider.this, "" + er.getMessage(), Toast.LENGTH_LONG).show();
-        });
+        Order ord_open = (Order) getIntent().getSerializableExtra("ORD");
+        DBOffer dboff = new DBOffer(ord_open.getKey());
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        Log.e("Delete Offer Key", ord_open.getKey());
+        DatabaseReference mycurrentoffer = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey()).child("Offers");
+        mycurrentoffer.child(firebaseUser.getUid()).removeValue();
+        finish();
     }
 }

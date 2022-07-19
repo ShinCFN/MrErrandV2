@@ -22,7 +22,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         setContentView(R.layout.activity_accepted_order_rider);
         Order ord_open = (Order) getIntent().getSerializableExtra("OPEN");
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("KEY"));
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
 
         list = findViewById(R.id.orderlistOnGoing);
         list.setText(ord_open.getOrderlist());
@@ -31,7 +31,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                databaseReference.child("status").setValue("inDelivery");
+                databaseReference.child("state").setValue("inDelivery");
                 Intent intent = new Intent(AcceptedOrderActivityRider.this, DeliveryActivityRider.class);
                 intent.putExtra("KEY", getIntent().getStringExtra("KEY"));
                 intent.putExtra("RKEY", getIntent().getStringExtra("RKEY"));
