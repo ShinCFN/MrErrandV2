@@ -1,6 +1,7 @@
 package com.example.mrerrandv2;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,11 +13,14 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import es.dmoral.toasty.Toasty;
 
 public class OfferWaitingActivityRider extends AppCompatActivity {
 
@@ -42,44 +46,56 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
         currentOrder.child(myid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-               if(!snapshot.exists()){
-                   Toast.makeText(OfferWaitingActivityRider.this, "Offer was declined", Toast.LENGTH_LONG).show();
-                   finish();
-               }
+                if (!snapshot.exists()) {
+                    Toast.makeText(OfferWaitingActivityRider.this, "Offer was declined", Toast.LENGTH_LONG).show();
+                    finish();
+                }
 
-               Log.e("TEST", ord_open.getKey());
-
-               if(snapshot.exists()&& snapshot.child("state").getValue().toString().equals("accepted")){
-                   databaseReference.child("isAccepted").setValue("true");
-                   Intent intent = new Intent(OfferWaitingActivityRider.this, AcceptedOrderActivityRider.class);
-                   intent.putExtra("KEY", getIntent().getStringExtra("ORD"));
-                   intent.putExtra("RKEY", getIntent().getStringExtra("RIDERKEY"));
-                   intent.putExtra("OPEN", ord_open);
-                   startActivity(intent);
-                   finish();
-               }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child("isAccepted").getValue().toString().equals("true") && snapshot.child("Offers").child(getIntent().getStringExtra("RIDERKEY")).toString()!=auth.getCurrentUser().getUid()){
-                    Log.e("WAT", "FACK");
+                if (snapshot.exists() && snapshot.child("state").getValue().toString().equals("accepted")) {
+                    databaseReference.child("isAccepted").setValue("true");
+                    Intent intent = new Intent(OfferWaitingActivityRider.this, AcceptedOrderActivityRider.class);
+                    intent.putExtra("KEY", getIntent().getStringExtra("ORD"));
+                    intent.putExtra("RKEY", getIntent().getStringExtra("RIDERKEY"));
+                    intent.putExtra("OPEN", ord_open);
+                    startActivity(intent);
+                    finish();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
+
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (snapshot.getValue().toString().equals("true")) {
+                    deleteOthers();
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 //        databaseReference.orderByChild("isAccepted").equalTo("true").addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -123,6 +139,39 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
 //            }
 //        });
     }
+
+    private void deleteOthers() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        Order ord_open = (Order) getIntent().getSerializableExtra("ORD");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
+        databaseReference.child("Offers").orderByChild("state").equalTo("accepted").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    postSnapshot.getKey();
+                    String chosenrider = postSnapshot.getKey();
+
+                    Log.e("chosen", chosenrider);
+                    Log.e("firebase", firebaseUser.getUid());
+
+                    if (firebaseUser.getUid().equals(chosenrider)) {
+                        Toasty.success(OfferWaitingActivityRider.this, "Offer accepted", Toasty.LENGTH_LONG).show();
+                    } else {
+                        Toasty.success(OfferWaitingActivityRider.this, "Offer was placed for another rider", Toasty.LENGTH_LONG).show();
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
     @Override
     public void onBackPressed() {
