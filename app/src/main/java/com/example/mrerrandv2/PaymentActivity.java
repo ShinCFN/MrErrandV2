@@ -43,7 +43,7 @@ public class PaymentActivity extends AppCompatActivity {
         textview.setText(orderlist);
         String textFirstName = firebaseUser.getDisplayName();
         String textOrderList = orderlist;
-        String state = "Open";
+        String state = "false";
         String status = "null";
 
         COD = findViewById(R.id.COD);
