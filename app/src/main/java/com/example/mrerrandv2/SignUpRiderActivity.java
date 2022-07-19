@@ -33,7 +33,7 @@ public class SignUpRiderActivity extends AppCompatActivity {
 
 
 
-    private EditText firstname, lastname, emailIn, numIN, passIn, passInC, license;
+    private EditText firstname, lastname, emailIn, numIN, passIn, passInC, license, plate;
     private ProgressBar progressBar;
     private static final String TAG = "SignUpActivity";
 
@@ -58,6 +58,7 @@ public class SignUpRiderActivity extends AppCompatActivity {
         passIn = findViewById(R.id.editTextPassword);
         passInC = findViewById(R.id.editTextConfirmPassword);
         license = findViewById(R.id.editTextLicenseNumber);
+        plate = findViewById(R.id.editTextPlate);
 
 
         Button btnSignup = findViewById(R.id.btnSignupRider);
@@ -72,6 +73,7 @@ public class SignUpRiderActivity extends AppCompatActivity {
                 String textPass = passIn.getText().toString();
                 String textPassC = passInC.getText().toString();
                 String textlicenseNumber = license.getText().toString();
+                String platenum = plate.getText().toString();
                 String textType = "rider";
 
                 //Validate Mobile Num
@@ -121,15 +123,19 @@ public class SignUpRiderActivity extends AppCompatActivity {
                     Toast.makeText(SignUpRiderActivity.this, "Your password is invalid", Toast.LENGTH_LONG).show();
                     license.setError("Password invalid");
                     license.requestFocus();
+                } else if (TextUtils.isEmpty(platenum)) {
+                    Toast.makeText(SignUpRiderActivity.this, "Plate number is empty", Toast.LENGTH_LONG).show();
+                    plate.setError("Password invalid");
+                    plate.requestFocus();
                 } else {
                     progressBar.setVisibility(View.VISIBLE);
-                    registerUser(textFirstName, textLastName, textEmail, textNum, textType, textPass, textlicenseNumber);
+                    registerUser(textFirstName, textLastName, textEmail, textNum, textType, textPass, textlicenseNumber,platenum);
                 }
             }
         });
     }
 
-    private void registerUser(String textFirstName,String textLastName, String textEmail, String textNum, String textType, String textPass, String textlicense) {
+    private void registerUser(String textFirstName,String textLastName, String textEmail, String textNum, String textType, String textPass, String textlicense, String platenum) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
 
@@ -146,7 +152,7 @@ public class SignUpRiderActivity extends AppCompatActivity {
                     firebaseUser.updateProfile(profileChangeRequest);
 
                     //ReadWriteUserDetails
-                    ReadWriteUserDetailsRider writeUserDetails = new ReadWriteUserDetailsRider( textFirstName, textLastName,textEmail,textNum,textType,textlicense);
+                    ReadWriteUserDetailsRider writeUserDetails = new ReadWriteUserDetailsRider( textFirstName, textLastName,textEmail,textNum,textType,textlicense, platenum);
 
                     //Extract Users from db
 

@@ -41,6 +41,7 @@ public class SplashscreenActivity extends AppCompatActivity {
 
     private void start() {
 
+
         if (authProfile.getCurrentUser() != null) {
             //GET USER PERMS FROM DB
             FirebaseUser firebaseUser = authProfile.getCurrentUser();

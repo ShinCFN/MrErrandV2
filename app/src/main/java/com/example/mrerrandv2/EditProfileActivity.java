@@ -132,7 +132,6 @@ public class EditProfileActivity extends AppCompatActivity {
                     databaseReference.child("street").setValue(street);
                     databaseReference.child("city").setValue(city);
                     databaseReference.child("province").setValue(province);
-
                     databaseReference.child("zip").setValue(zip).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

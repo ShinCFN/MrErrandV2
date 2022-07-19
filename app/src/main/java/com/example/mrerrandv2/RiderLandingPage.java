@@ -62,8 +62,6 @@ public class RiderLandingPage extends AppCompatActivity {
 
                 user.updateProfile(profileUpdates);
 
-                Log.e("NAME", auth.getCurrentUser().getDisplayName());
-
             }
 
             @Override

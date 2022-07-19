@@ -265,6 +265,105 @@
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:paddingTop="15dp"
+                android:fontFamily="@font/inter_regular"
+                android:paddingLeft="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Driver's License"
+                android:textColor="@color/MainText"/>
+
+            <ImageView
+                android:layout_marginTop="15dp"
+                android:layout_width="290dp"
+                android:id="@+id/rsignLicense"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:src="@color/GreyMain"/>
+
+            <Button
+                android:id="@+id/btnUploadLicense"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:text="Upload"
+                android:textAllCaps="false"
+                android:padding="1dp"
+                android:textColor="@color/MainText"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/menubutton"
+                android:textStyle="bold"
+                android:elevation="5dp"
+                android:letterSpacing="-.01"
+                android:fontFamily="@font/inter_extrabold"
+                />
+
+            <!-- Plate Number -->
+            <TextView
+                android:paddingTop="15dp"
+                android:fontFamily="@font/inter_regular"
+                android:paddingLeft="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Plate Number"
+                android:textColor="@color/MainText"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:theme="@style/Widget.Design.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginHorizontal="5dp"
+                android:elevation="3dp"
+                android:background="@drawable/textboxmain"
+                app:boxBackgroundColor="@android:color/transparent">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:fontFamily="@font/inter_regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/MenuTextColor"
+                    android:textSize="14dp"
+                    android:id="@+id/editTextPlate"
+                    >
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:paddingTop="15dp"
+                android:fontFamily="@font/inter_regular"
+                android:paddingLeft="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Plate"
+                android:textColor="@color/MainText"/>
+
+            <ImageView
+                android:layout_marginTop="15dp"
+                android:id="@+id/rsignPlate"
+                android:layout_width="290dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:src="@color/GreyMain"/>
+
+            <Button
+                android:id="@+id/btnUploadPlate"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:text="Upload"
+                android:textAllCaps="false"
+                android:padding="1dp"
+                android:textColor="@color/MainText"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/menubutton"
+                android:textStyle="bold"
+                android:elevation="5dp"
+                android:letterSpacing="-.01"
+                android:fontFamily="@font/inter_extrabold"
+                />
+
             <Button
                 android:id="@+id/btnSignupRider"
                 android:layout_width="150dp"
