@@ -27,9 +27,9 @@ public class RiderProfileFragment extends Fragment {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    TextView editName,editMobile,editEmail,editLicense,editPlate;
+    TextView editName, editMobile, editEmail, editLicense, editPlate;
 
-    ImageView profilepic;
+    ImageView profilepic,profLicense,profPlate,profOR;
 
     private ProgressDialog progressDialog;
 
@@ -74,12 +74,16 @@ public class RiderProfileFragment extends Fragment {
                 editMobile.setText(mobilenumber);
                 editEmail.setText(email);
 
+                profLicense = v.findViewById((R.id.rlicensePic));
+                profPlate = v.findViewById((R.id.rplatePic));
+                profOR = v.findViewById((R.id.rorcrPic));
+
 
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                        if(snapshot.child("profileImage").exists()){
+                        //Set profile image
+                        if (snapshot.child("profileImage").exists()) {
                             String image = snapshot.child("profileImage").getValue().toString();
 
                             Picasso
@@ -91,7 +95,53 @@ public class RiderProfileFragment extends Fragment {
 
                         } else {
                             progressDialog.dismiss();
-                    }}
+                        }
+                        //Set license image
+                        if (snapshot.child("licensePic").exists()) {
+                            String image = snapshot.child("licensePic").getValue().toString();
+
+                            Picasso
+                                    .get()
+                                    .load(image)
+                                    .into(profLicense);
+
+                            progressDialog.dismiss();
+
+                        } else {
+                            progressDialog.dismiss();
+                        }
+                        //Set plate image
+                        if (snapshot.child("platePic").exists()) {
+                            String image = snapshot.child("platePic").getValue().toString();
+
+                            Picasso
+                                    .get()
+                                    .load(image)
+                                    .into(profPlate);
+
+                            progressDialog.dismiss();
+
+                        } else {
+                            progressDialog.dismiss();
+                        }
+                        //Set orcr image
+                        if (snapshot.child("orcrPic").exists()) {
+                            String image = snapshot.child("orcrPic").getValue().toString();
+
+                            Picasso
+                                    .get()
+                                    .load(image)
+                                    .into(profOR);
+
+                            progressDialog.dismiss();
+
+                        } else {
+                            progressDialog.dismiss();
+                        }
+
+
+                    }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 

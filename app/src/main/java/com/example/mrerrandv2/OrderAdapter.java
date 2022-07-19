@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -44,37 +46,9 @@ public class OrderAdapter extends RecyclerView.Adapter {
         vh.orderdesc.setText(ord.getOrderlist());
 
 
-        vh.order_options.setOnClickListener(v->
-        {
-            PopupMenu popupMenu = new PopupMenu(context,vh.order_options);
+        Picasso.get().load(ord.getProfilePic()).into(vh.profilePic);
 
-            popupMenu.inflate(R.menu.options_order);
-            popupMenu.setOnMenuItemClickListener(item->
-            {
-                switch (item.getItemId())
-                {
-                    case R.id.menu_open:
-                        Intent intent = new Intent(context,ViewOrderActivity.class);
-                        intent.putExtra("OPEN",ord);
-                        context.startActivity(intent);
-                        break;
 
-                    case R.id.menu_remove:
-                        DBOrder dbord = new DBOrder();
-                        dbord.remove(ord.getKey()).addOnSuccessListener(suc->
-                        {
-                            Toast.makeText(context,"Order Removed",Toast.LENGTH_LONG).show();
-                            notifyItemRemoved(position);
-                        }).addOnFailureListener(er->
-                        {
-                            Toast.makeText(context, ""+er.getMessage(), Toast.LENGTH_LONG).show();
-                        });
-                        break;
-                }
-                return false;
-            });
-            popupMenu.show();
-        });
     }
 
     @Override

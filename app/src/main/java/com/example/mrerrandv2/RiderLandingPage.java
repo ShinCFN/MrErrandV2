@@ -58,7 +58,7 @@ public class RiderLandingPage extends AppCompatActivity {
         databaseReference.child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child("licensePic").exists() && snapshot.child("platePic").exists()) {
+                if (snapshot.child("licensePic").exists() && snapshot.child("platePic").exists() && snapshot.child("orcrPic").exists()) {
                     replaceFragment(new RiderHomeFragment());
                 } else {
                     replaceFragment(new RiderErrorFragment());
@@ -81,7 +81,7 @@ public class RiderLandingPage extends AppCompatActivity {
                     databaseReference.child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.child("licensePic").exists() && snapshot.child("platePic").exists()) {
+                            if (snapshot.child("licensePic").exists() && snapshot.child("platePic").exists() && snapshot.child("orcrPic").exists()) {
                                 replaceFragment(new RiderHomeFragment());
                             } else {
                                 replaceFragment(new RiderErrorFragment());
