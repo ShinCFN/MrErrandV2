@@ -63,7 +63,7 @@ public class ViewOrderActivity extends AppCompatActivity {
                         String lastname = snapshot.child("lastname").getValue().toString();
                         String email = snapshot.child("email").getValue().toString();
                         String mnumber = snapshot.child("mobilenum").getValue().toString();
-                        String platenum = snapshot.child("licensenum").getValue().toString();
+                        String platenum = snapshot.child("license").getValue().toString();
 
                         if (!offerText.isEmpty()) {
                             AddOffer off = new AddOffer(textFirstName, offerText, state, lastname, email, mnumber, platenum);

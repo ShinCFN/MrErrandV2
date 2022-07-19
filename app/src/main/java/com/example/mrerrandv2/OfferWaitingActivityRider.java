@@ -33,7 +33,7 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();
 
-        DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("Order");
+        DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("KEY"));
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("KEY")).child("Offers");
 
@@ -41,20 +41,19 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if (!snapshot.child(getIntent().getStringExtra("KEY")).exists()) {
+                if (!snapshot.exists()) {
                     Toast.makeText(OfferWaitingActivityRider.this, "Order was cancelled", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(OfferWaitingActivityRider.this, RiderLandingPage.class);
                     startActivity(intent);
                     finish();
                 }
 
-                if(!snapshot.child(getIntent().getStringExtra("KEY")).child("Offers").child(getIntent().getStringExtra("RKEY")).exists()){
+                if(!snapshot.child("Offers").child(getIntent().getStringExtra("RKEY")).exists()){
                     Toast.makeText(OfferWaitingActivityRider.this, "Offer was declined", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(OfferWaitingActivityRider.this, RiderLandingPage.class);
                     startActivity(intent);
                     finish();
                 }
-
             }
 
             @Override

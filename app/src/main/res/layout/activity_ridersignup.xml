@@ -160,6 +160,7 @@
                     android:layout_height="45dp"
                     android:paddingTop="3dp"
                     android:paddingBottom="4dp"
+                    android:maxLength="11"
                     android:inputType="number"
                     android:textColor="@color/MenuTextColor"
                     android:textSize="14dp"

@@ -98,7 +98,6 @@ public class SignInActivity extends AppCompatActivity {
                     editTextPassword.setError("Enter Password");
                     editTextPassword.requestFocus();
                 }else {
-                    progressBar.setVisibility(View.VISIBLE);
                     loginUser(textEmail, textPass);
                 }
             }
@@ -139,13 +138,13 @@ public class SignInActivity extends AppCompatActivity {
                                     finish();
                                 }
                             }
-                            progressBar.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                             Toast.makeText(SignInActivity.this, "Something went wrong!", Toast.LENGTH_LONG).show();
-                            progressBar.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
                         }
                     });
                 }else{
