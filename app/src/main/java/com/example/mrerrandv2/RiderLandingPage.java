@@ -23,6 +23,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +44,36 @@ public class RiderLandingPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // TEST
+
+        DatabaseReference newRef = FirebaseDatabase.getInstance().getReference("Riders");
+
+        newRef.child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                String name = snapshot.child("firstname").getValue().toString();
+
+                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                        .setDisplayName(name).build();
+
+                user.updateProfile(profileUpdates);
+
+                Log.e("NAME", auth.getCurrentUser().getDisplayName());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_riderlanding);
