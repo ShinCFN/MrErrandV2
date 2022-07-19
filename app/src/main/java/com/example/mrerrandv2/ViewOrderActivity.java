@@ -45,13 +45,13 @@ public class ViewOrderActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                offerIn=findViewById(R.id.editTextOfferInput);
+                offerIn = findViewById(R.id.editTextOfferInput);
 
                 String offerval = offerIn.getText().toString();
 
-                if(offerval.isEmpty()){
+                if (offerval.isEmpty()) {
 
-                }else{
+                } else {
 
                     riderRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -59,20 +59,27 @@ public class ViewOrderActivity extends AppCompatActivity {
 
                             String ridername = snapshot.child("firstname").getValue().toString();
 
-                            databaseReference.child("Offers").child(firebaseUser.getUid()).child("ridername").setValue(ridername);
-                            databaseReference.child("Offers").child(firebaseUser.getUid()).child("offer").setValue(offerval);
-                            databaseReference.child("Offers").child(firebaseUser.getUid()).child("state").setValue("open").addOnSuccessListener(new OnSuccessListener<Void>() {
+                            databaseReference.child("Offers").child(firebaseUser.getUid()).child("ridername").setValue(ridername).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    Intent intent = new Intent(ViewOrderActivity.this, OfferWaitingActivityRider.class);
-                                    intent.putExtra("ORD", ord_open);
-                                    intent.putExtra("OFFER", offerval);
-                                    intent.putExtra("RIDERID", firebaseUser.getUid());
-                                    startActivity(intent);
-                                    finish();
+                                    databaseReference.child("Offers").child(firebaseUser.getUid()).child("offer").setValue(offerval).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            databaseReference.child("Offers").child(firebaseUser.getUid()).child("state").setValue("open").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Intent intent = new Intent(ViewOrderActivity.this, OfferWaitingActivityRider.class);
+                                                    intent.putExtra("ORD", ord_open);
+                                                    intent.putExtra("OFFER", offerval);
+                                                    intent.putExtra("RIDERID", firebaseUser.getUid());
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            });
+                                        }
+                                    });
                                 }
                             });
-
                         }
 
                         @Override

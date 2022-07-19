@@ -37,6 +37,7 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
 
 
         DatabaseReference currentOrder = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey()).child("Offers");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
 
         currentOrder.child(myid).addValueEventListener(new ValueEventListener() {
             @Override
@@ -49,6 +50,7 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
                Log.e("TEST", snapshot.child("state").toString());
 
                if(snapshot.exists()&& snapshot.child("state").getValue().toString().equals("accepted")){
+                   databaseReference.child("isAccepted").setValue("true");
                    Intent intent = new Intent(OfferWaitingActivityRider.this, AcceptedOrderActivityRider.class);
                    intent.putExtra("KEY", getIntent().getStringExtra("ORD"));
                    intent.putExtra("RKEY", getIntent().getStringExtra("RIDERKEY"));
@@ -63,6 +65,20 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
             }
         });
 
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child("isAccepted").getValue().toString().equals("true") && snapshot.child("Offers").child(getIntent().getStringExtra("RIDERKEY")).toString()!=auth.getCurrentUser().getUid()){
+                    Log.e("WAT", "FACK");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
 //        databaseReference.orderByChild("isAccepted").equalTo("true").addValueEventListener(new ValueEventListener() {
