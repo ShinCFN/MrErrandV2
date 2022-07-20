@@ -23,8 +23,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ViewOfferActivity extends AppCompatActivity
 {
@@ -154,7 +156,13 @@ public class ViewOfferActivity extends AppCompatActivity
 
                         // PUT DELETE ORDER HERE
 
-                        finish();
+                        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("Key"));
+                        firebaseDatabase.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                finish();
+                            }
+                        });
                     }
                 }).setNegativeButton("No", null).show();
     }

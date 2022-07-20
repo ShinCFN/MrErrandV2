@@ -58,28 +58,37 @@ public class ViewOrderActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                             String ridername = snapshot.child("firstname").getValue().toString();
+                            String state = "open";
 
-                            databaseReference.child("Offers").child(firebaseUser.getUid()).child("ridername").setValue(ridername).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            AddOffer addOffer = new AddOffer(ridername, offerval, state);
+
+                            databaseReference.child("Offers").child(firebaseUser.getUid()).setValue(addOffer).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    databaseReference.child("Offers").child(firebaseUser.getUid()).child("offer").setValue(offerval).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            databaseReference.child("Offers").child(firebaseUser.getUid()).child("state").setValue("open").addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Intent intent = new Intent(ViewOrderActivity.this, OfferWaitingActivityRider.class);
-                                                    intent.putExtra("ORD", ord_open);
-                                                    intent.putExtra("OFFER", offerval);
-                                                    intent.putExtra("RIDERID", firebaseUser.getUid());
-                                                    startActivity(intent);
-                                                    finish();
-                                                }
-                                            });
-                                        }
-                                    });
+                                    Intent intent = new Intent(ViewOrderActivity.this, OfferWaitingActivityRider.class);
+                                    intent.putExtra("ORD", ord_open);
+                                    intent.putExtra("OFFER", offerval);
+                                    intent.putExtra("RIDERID", firebaseUser.getUid());
+                                    startActivity(intent);
+                                    finish();
                                 }
                             });
+//                            databaseReference.child("Offers").child(firebaseUser.getUid()).child("ridername").setValue(ridername).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void unused) {
+//                                    databaseReference.child("Offers").child(firebaseUser.getUid()).child("offer").setValue(offerval).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                        @Override
+//                                        public void onSuccess(Void unused) {
+//                                            databaseReference.child("Offers").child(firebaseUser.getUid()).child("state").setValue("open").addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                                @Override
+//                                                public void onSuccess(Void unused) {
+//
+//                                                }
+//                                            });
+//                                        }
+//                                    });
+//                                }
+//                            });
                         }
 
                         @Override

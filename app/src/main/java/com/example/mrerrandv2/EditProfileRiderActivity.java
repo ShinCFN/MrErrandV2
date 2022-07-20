@@ -513,7 +513,6 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         CropImageContractOptions options= new CropImageContractOptions(uri, new CropImageOptions())
                 .setMultiTouchEnabled(true)
                 .setOutputCompressQuality(50)
-                .setAspectRatio(290,200)
                 .setActivityTitle("")
                 .setActivityMenuIconColor(0)
                 .setNoOutputImage(false);
