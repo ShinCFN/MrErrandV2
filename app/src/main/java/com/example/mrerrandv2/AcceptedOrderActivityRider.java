@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,20 +25,24 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
 
-        list = findViewById(R.id.orderlistOnGoing);
+        list = findViewById(R.id.orderlist);
         list.setText(ord_open.getOrderlist());
 
         Button next = findViewById(R.id.btnAccToOTW);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                databaseReference.child("state").setValue("inDelivery");
-                Intent intent = new Intent(AcceptedOrderActivityRider.this, DeliveryActivityRider.class);
-                intent.putExtra("KEY", getIntent().getStringExtra("KEY"));
-                intent.putExtra("RKEY", getIntent().getStringExtra("RKEY"));
-                intent.putExtra("OPEN", ord_open);
-                startActivity(intent);
-                finish();
+                databaseReference.child("status").setValue("inDelivery").addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Intent intent = new Intent(AcceptedOrderActivityRider.this, DeliveryActivityRider.class);
+                        intent.putExtra("KEY", getIntent().getStringExtra("KEY"));
+                        intent.putExtra("RKEY", getIntent().getStringExtra("RKEY"));
+                        intent.putExtra("OPEN", ord_open);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
             }
         });
 

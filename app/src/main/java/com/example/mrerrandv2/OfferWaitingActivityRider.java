@@ -76,11 +76,12 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
         order.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(firebaseUser.getUid()).exists()) {
-                    if (snapshot.child("Offers").child(firebaseUser.getUid()).child("state").getValue().toString().equals("accepted")) {
+
+                if (snapshot.child("Offers").child(firebaseUser.getUid()).exists()) {
+                    Log.e("TEST", snapshot.getValue().toString());
+                    if (snapshot.child("status").getValue().toString().equals("accepted")) {
 
                         Log.e("TEST", "ACCEPTED");
-
                         deleteOthers();
                     }
 

@@ -82,15 +82,20 @@ public class ViewOfferActivity extends AppCompatActivity
                         {
                             case R.id.menu_open:
 
-                                DatabaseReference orderReference = FirebaseDatabase.getInstance().getReference("Order").child(key).child("Offers");
-                                orderReference.child(off.getKey()).child("state").setValue("accepted");
-                                Intent intent = new Intent(ViewOfferActivity.this,AcceptedOrderActivityUser.class);
-                                intent.putExtra("ORDER",off);
-                                intent.putExtra("ORDKEY", key);
-                                intent.putExtra("RIDERKEY", off.getKey());
-                                Log.e("RIDER KEY BEFORE", off.getKey());
-                                startActivity(intent);
-                                finish();
+                                DatabaseReference orderReference = FirebaseDatabase.getInstance().getReference("Order").child(key);
+                                orderReference.child("status").setValue("accepted");
+                                orderReference.child("Offers").child(off.getKey()).child("state").setValue("accepted").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Intent intent = new Intent(ViewOfferActivity.this,AcceptedOrderActivityUser.class);
+                                        intent.putExtra("ORDER",off);
+                                        intent.putExtra("ORDKEY", key);
+                                        intent.putExtra("RIDERKEY", off.getKey());
+                                        Log.e("RIDER KEY BEFORE", off.getKey());
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
                                 break;
 
                             case R.id.menu_decline:
