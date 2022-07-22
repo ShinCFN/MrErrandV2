@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +23,8 @@ public class DeliveryActivityRider extends AppCompatActivity {
 
     TextView name, mobile, street, city, province, zip, email;
     CircleImageView profile;
+
+    Button complete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,5 +81,16 @@ public class DeliveryActivityRider extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
+        complete = findViewById(R.id.btnComplete);
+        complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
+                orderRef.child("status").setValue("complete");
+                finish();
+            }
+        });
+
     }
 }

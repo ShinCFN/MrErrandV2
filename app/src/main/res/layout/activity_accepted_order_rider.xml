@@ -69,7 +69,7 @@
                     android:fontFamily="@font/inter_extrabold"
                     android:letterSpacing="-.01"
                     android:padding="1dp"
-                    android:text="Next"
+                    android:text="Deliver"
                     android:textAllCaps="false"
                     android:textColor="@color/MainText"
                     android:textStyle="bold" />
