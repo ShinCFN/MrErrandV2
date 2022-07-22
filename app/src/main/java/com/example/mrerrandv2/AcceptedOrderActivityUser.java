@@ -65,8 +65,6 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
 
         DatabaseReference statusRef = FirebaseDatabase.getInstance().getReference("Order");
 
-        Log.e("status", statusRef.toString());
-
         statusRef.child(getIntent().getStringExtra("ORDKEY")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

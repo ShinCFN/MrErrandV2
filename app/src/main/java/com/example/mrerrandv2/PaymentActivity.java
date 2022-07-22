@@ -58,14 +58,12 @@ public class PaymentActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                         String lastname = snapshot.child("lastname").getValue().toString();
-                        String mobilenum = snapshot.child("mobilenum").getValue().toString();
-                        String useremail = snapshot.child("email").getValue().toString();
-                        String address = snapshot.child("province").getValue().toString();
                         String profilePic = snapshot.child("profileImage").getValue().toString();
+                        String uid = firebaseUser.getUid();
 
                         //Send order to DB
 
-                        Order ord = new Order(textFirstName, textOrderList, state, lastname, mobilenum, useremail, status, address, profilePic);
+                        Order ord = new Order(textFirstName, textOrderList, state, lastname,profilePic, status, uid);
                         dbord.add(ord).addOnSuccessListener(suc -> {
                             databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override

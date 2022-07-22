@@ -31,7 +31,7 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_waiting);
-        Order ord_open = (Order) getIntent().getSerializableExtra("ORD");
+        Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
 
         textOffer = findViewById(R.id.waiting_offer);
         textOffer.setText(getIntent().getStringExtra("OFFER"));
@@ -78,10 +78,7 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if (snapshot.child("Offers").child(firebaseUser.getUid()).exists()) {
-                    Log.e("TEST", snapshot.getValue().toString());
                     if (snapshot.child("status").getValue().toString().equals("accepted")) {
-
-                        Log.e("TEST", "ACCEPTED");
                         deleteOthers();
                     }
 
@@ -144,7 +141,7 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
     private void deleteOthers() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();
-        Order ord_open = (Order) getIntent().getSerializableExtra("ORD");
+        Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
         databaseReference.child("Offers").orderByChild("state").equalTo("accepted").addValueEventListener(new ValueEventListener() {
             @Override
@@ -156,9 +153,8 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
                     if (firebaseUser.getUid().equals(chosenrider)) {
                         Toasty.success(OfferWaitingActivityRider.this, "Offer accepted", Toasty.LENGTH_LONG).show();
                         Intent intent = new Intent(OfferWaitingActivityRider.this, AcceptedOrderActivityRider.class);
-                        intent.putExtra("KEY", getIntent().getStringExtra("ORD"));
                         intent.putExtra("RKEY", getIntent().getStringExtra("RIDERKEY"));
-                        intent.putExtra("OPEN", ord_open);
+                        intent.putExtra("ORDER", ord_open);
                         startActivity(intent);
                         finish();
                     } else {

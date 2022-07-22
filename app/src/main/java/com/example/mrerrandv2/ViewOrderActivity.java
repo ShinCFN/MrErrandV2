@@ -66,7 +66,7 @@ public class ViewOrderActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     Intent intent = new Intent(ViewOrderActivity.this, OfferWaitingActivityRider.class);
-                                    intent.putExtra("ORD", ord_open);
+                                    intent.putExtra("ORDER", ord_open);
                                     intent.putExtra("OFFER", offerval);
                                     intent.putExtra("RIDERID", firebaseUser.getUid());
                                     startActivity(intent);

@@ -13,9 +13,7 @@ public class Order implements Serializable {
     String orderlist;
     String isAccepted;
     String lastname;
-    String mobilenum;
-    String useremail;
-    String address;
+    String UID;
     String profilePic;
 
 
@@ -26,16 +24,14 @@ public class Order implements Serializable {
     String status;
     public Order(){};
 
-    public Order(String firstname, String orderlist, String isAccepted, String lastname, String mobilenum, String useremail, String status, String address, String profilePic) {
+    public Order(String firstname, String orderlist, String isAccepted, String lastname,String profilePic, String status, String UID) {
         this.firstname = firstname;
         this.orderlist = orderlist;
         this.isAccepted = isAccepted;
         this.lastname = lastname;
-        this.mobilenum = mobilenum;
-        this.useremail = useremail;
-        this.status = status;
-        this.address = address;
         this.profilePic = profilePic;
+        this.status = status;
+        this.UID = UID;
     }
 
     public String getFirstname() {
@@ -66,19 +62,19 @@ public class Order implements Serializable {
         return lastname;
     }
 
-    public String getMobilenum() {
-        return mobilenum;
-    }
-
-    public String getUseremail() {
-        return useremail;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
     public String getProfilePic() {
         return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 }

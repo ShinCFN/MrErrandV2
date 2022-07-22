@@ -1,88 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".DeliveryActivityRider"
-    android:paddingTop="30dp"
-    android:paddingHorizontal="40dp"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ProfileFragment">
 
-    <!-- Name -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Name"
-        android:fontFamily="@font/inter_regular"
-        android:textColor="@color/DarkMain"/>
-    <TextView
-        android:id="@+id/deliveryName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TEXT"
-        android:fontFamily="@font/inter_regular"
-        android:textColor="@color/DarkMain"
-        android:layout_marginLeft="10dp"
-        android:paddingBottom="20dp"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <!-- Email -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Email"
-        android:fontFamily="@font/inter_regular"
-        android:textColor="@color/DarkMain"/>
-    <TextView
-        android:id="@+id/deliveryEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TEXT"
-        android:fontFamily="@font/inter_regular"
-        android:textColor="@color/DarkMain"
-        android:layout_marginLeft="10dp"
-        android:paddingBottom="20dp"/>
+        <LinearLayout
 
-    <!-- CNum -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Contact Number"
-        android:fontFamily="@font/inter_regular"
-        android:textColor="@color/DarkMain"/>
-    <TextView
-        android:id="@+id/deliveryNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TEXT"
-        android:fontFamily="@font/inter_regular"
-        android:textColor="@color/DarkMain"
-        android:layout_marginLeft="10dp"
-        android:paddingBottom="20dp"/>
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp">
 
-    <!-- Address -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Address"
-        android:fontFamily="@font/inter_regular"
-        android:textColor="@color/DarkMain"/>
-    <TextView
-        android:id="@+id/deliveryAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TEXT"
-        android:fontFamily="@font/inter_regular"
-        android:textColor="@color/DarkMain"
-        android:layout_marginLeft="10dp"
-        android:paddingBottom="20dp"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profilePic"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:civ_border_color="@color/GreyMain"
+                app:civ_border_width="2dp"/>
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp">
+
+                <!-- Name -->
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="Name"
+                    android:textColor="@color/DarkMain" />
+
+                <TextView
+                    android:id="@+id/profileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_regular"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/DarkMain" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <!-- Mobile -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Mobile Number"
+                android:textColor="@color/DarkMain" />
+
+            <TextView
+                android:id="@+id/profileNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_regular"
+                android:paddingBottom="20dp"
+                android:textColor="@color/DarkMain" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="20dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Address"
+                android:textColor="@color/DarkMain" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
+
+
+                <!-- Address -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="Street"
+                    android:textColor="@color/DarkMain" />
+
+                <TextView
+                    android:id="@+id/profileStreet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_regular"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/DarkMain" />
+
+                <!-- City -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="City"
+                    android:textColor="@color/DarkMain" />
+
+                <TextView
+                    android:id="@+id/profileCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_regular"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/DarkMain" />
+
+
+                <!-- State/Province -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="State/Province"
+                    android:textColor="@color/DarkMain" />
+
+                <TextView
+                    android:id="@+id/profileProvince"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_regular"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/DarkMain" />
+
+                <!-- Zip Code -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="Zip Code"
+                    android:textColor="@color/DarkMain" />
+
+                <TextView
+                    android:id="@+id/profileZip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_regular"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/DarkMain" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <!-- Email -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Email"
+                android:textColor="@color/DarkMain" />
+
+            <TextView
+                android:id="@+id/profileEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_regular"
+                android:paddingBottom="20dp"
+                android:textColor="@color/DarkMain" />
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+</ScrollView>
