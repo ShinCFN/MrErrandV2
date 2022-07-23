@@ -1,6 +1,7 @@
 package com.example.mrerrandv2;
 
 import android.view.View;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ public class RiderVH extends RecyclerView.ViewHolder {
     public TextView name;
     public CircleImageView profile;
     public View view;
+
     public RiderVH(@NonNull View itemView)
     {
         super(itemView);

@@ -23,14 +23,22 @@
             android:id="@+id/profile"
             android:layout_height="60dp" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginLeft="20dp"
-            android:fontFamily="@font/inter_semibold"
-            android:id="@+id/name"
-            android:textColor="@color/DarkMain"
-            android:layout_gravity="center" />
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_semibold"
+                android:id="@+id/name"
+                android:textColor="@color/DarkMain"
+                android:layout_gravity="left" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

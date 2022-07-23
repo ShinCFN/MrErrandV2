@@ -85,7 +85,7 @@ public class RidersFragment extends Fragment {
             @NonNull
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_users, parent, false);
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_riders, parent, false);
                 return new RiderVH(view);
             }
 
