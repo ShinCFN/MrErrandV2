@@ -71,9 +71,9 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child("status").getValue().toString().equals("inDelivery")) {
                     TextView state = findViewById(R.id.status);
-                    state.setText("YOUR RIDER IS ON THE WAY");
+                    state.setText("YOUR RIDER IS ON THE WAY\n\n PLEASE PREPARE THE AMOUNT SPECIFIED");
                     receipt.setVisibility(View.VISIBLE);
-                    Picasso.get().load(snapshot.child("profilePic").getValue().toString()).into(receipt);
+                    Picasso.get().load(snapshot.child("receipt").getValue().toString()).into(receipt);
 
                     receipt.setOnClickListener(new View.OnClickListener() {
                         @Override

@@ -27,6 +27,8 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
 
     TextView textOffer, texttitle;
 
+    Boolean accepted = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,14 +152,15 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
                     postSnapshot.getKey();
                     String chosenrider = postSnapshot.getKey();
 
-                    if (firebaseUser.getUid().equals(chosenrider)) {
+                    if (firebaseUser.getUid().equals(chosenrider) && !accepted) {
+                        accepted = true;
                         Toasty.success(OfferWaitingActivityRider.this, "Offer accepted", Toasty.LENGTH_LONG).show();
                         Intent intent = new Intent(OfferWaitingActivityRider.this, AcceptedOrderActivityRider.class);
                         intent.putExtra("RKEY", getIntent().getStringExtra("RIDERKEY"));
                         intent.putExtra("ORDER", ord_open);
                         startActivity(intent);
                         finish();
-                    } else {
+                    } else if((!firebaseUser.getUid().equals(chosenrider) && !accepted)) {
                         Toasty.success(OfferWaitingActivityRider.this, "Offer was placed for another rider", Toasty.LENGTH_LONG).show();
                         finish();
                     }

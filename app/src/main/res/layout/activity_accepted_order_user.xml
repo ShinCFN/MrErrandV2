@@ -23,7 +23,7 @@
             android:fontFamily="@font/inter_extrabold"
             android:gravity="center"
             android:paddingVertical="70dp"
-            android:text="YOUR RIDER IS PICKING UP YOUR ORDER\n\n PLEASE PREPARE THE AMOUNT SPECIFIED"
+            android:text="YOUR RIDER IS PICKING UP YOUR ORDER"
 
             android:textSize="17sp" />
 
