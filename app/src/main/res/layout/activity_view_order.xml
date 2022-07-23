@@ -24,7 +24,14 @@
             android:textColor="@color/DarkMain"
             android:background="@color/GreyMain"
             android:padding="10dp"
-            android:elevation="3dp"/>
+            android:elevation="3dp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgorder"
+            android:visibility="gone"/>
 
         <!-- Offer -->
         <TextView

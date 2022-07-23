@@ -42,17 +42,16 @@ public class PaymentActivity extends AppCompatActivity {
 
         textview.setText(orderlist);
         String textFirstName = firebaseUser.getDisplayName();
-        String textOrderList = orderlist;
+
         String state = "false";
         String status = "null";
+        Boolean type = getIntent().getExtras().getBoolean("type");
 
         COD = findViewById(R.id.COD);
         COD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 //Get user details
-
                 userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -61,31 +60,57 @@ public class PaymentActivity extends AppCompatActivity {
                         String profilePic = snapshot.child("profileImage").getValue().toString();
                         String uid = firebaseUser.getUid();
 
-                        //Send order to DB
-
-                        Order ord = new Order(textFirstName, textOrderList, state, lastname,profilePic, status, uid);
-                        dbord.add(ord).addOnSuccessListener(suc -> {
-                            databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                                        String key = childSnapshot.getKey();
-                                        Log.e("Key", key);
-                                        Toast.makeText(PaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(PaymentActivity.this, ViewOfferActivity.class);
-                                        intent.putExtra("Key", key);
-                                        startActivity(intent);
-                                        finish();
+                        if (type){
+                            String textOrderList = getIntent().getStringExtra("imgorder");
+                            //Send order to DB
+                            Order ord = new Order(textFirstName, textOrderList, state, lastname,profilePic, status, uid, type.toString());
+                            dbord.add(ord).addOnSuccessListener(suc -> {
+                                databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                                            String key = childSnapshot.getKey();
+                                            Log.e("Key", key);
+                                            Toast.makeText(PaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(PaymentActivity.this, ViewOfferActivity.class);
+                                            intent.putExtra("Key", key);
+                                            startActivity(intent);
+                                            finish();
+                                        }
                                     }
-                                }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                }
+                                    }
+                                });
                             });
-                        });
+                        } else if (!type){
+                            String textOrderList = orderlist;
+                            //Send order to DB
+                            Order ord = new Order(textFirstName, textOrderList, state, lastname,profilePic, status, uid, type.toString());
+                            dbord.add(ord).addOnSuccessListener(suc -> {
+                                databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                                            String key = childSnapshot.getKey();
+                                            Log.e("Key", key);
+                                            Toast.makeText(PaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(PaymentActivity.this, ViewOfferActivity.class);
+                                            intent.putExtra("Key", key);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }
 
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            });
+                        }
                     }
 
                     @Override

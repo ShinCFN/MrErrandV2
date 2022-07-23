@@ -15,6 +15,7 @@ public class Order implements Serializable {
     String lastname;
     String UID;
     String profilePic;
+    String ordertype;
 
 
     public void setStatus(String status) {
@@ -24,7 +25,7 @@ public class Order implements Serializable {
     String status;
     public Order(){};
 
-    public Order(String firstname, String orderlist, String isAccepted, String lastname,String profilePic, String status, String UID) {
+    public Order(String firstname, String orderlist, String isAccepted, String lastname,String profilePic, String status, String UID, String ordertype) {
         this.firstname = firstname;
         this.orderlist = orderlist;
         this.isAccepted = isAccepted;
@@ -32,6 +33,7 @@ public class Order implements Serializable {
         this.profilePic = profilePic;
         this.status = status;
         this.UID = UID;
+        this.ordertype = ordertype;
     }
 
     public String getFirstname() {
@@ -76,5 +78,13 @@ public class Order implements Serializable {
 
     public void setUID(String UID) {
         this.UID = UID;
+    }
+
+    public String getOrdertype() {
+        return ordertype;
+    }
+
+    public void setOrdertype(String ordertype) {
+        this.ordertype = ordertype;
     }
 }

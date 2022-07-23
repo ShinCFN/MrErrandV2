@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".OrderActivity">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_regular"
         android:text="Order List"
         android:layout_marginBottom="5dp"
-        android:textColor="@color/DarkMain"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout" />
+        android:textColor="@color/DarkMain" />
+
     <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginHorizontal="30dp"
         android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_marginHorizontal="35dp"
-        android:layout_marginTop="70dp"
         android:background="@drawable/textboxmain"
         android:elevation="5dp"
         android:theme="@style/Widget.Design.TextInputLayout"
-        app:boxBackgroundColor="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:boxBackgroundColor="@android:color/transparent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/OrderList"
@@ -42,6 +43,44 @@
             android:textColor="@color/DarkMain"
             android:textSize="14dp"></com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_marginVertical="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/DarkMain"
+        android:text="or" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_regular"
+        android:text="Upload Image"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/DarkMain" />
+
+    <ImageView
+        android:layout_marginHorizontal="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@drawable/image_layout"
+        android:src="@drawable/gallery"
+        android:adjustViewBounds="true"
+        android:id="@+id/imgorder"/>
 
     <Button
         android:id="@+id/gotoPay"
@@ -61,4 +100,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
         android:layout_marginTop="30dp"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
+
+</ScrollView>
