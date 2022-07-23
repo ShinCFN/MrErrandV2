@@ -3,10 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.3145" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.3145" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/drawable/ic_baseline_visibility_24.xml" value="0.3145" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/drawable/image.xml" value="0.1635" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/drawable/image_layout.xml" value="0.3145" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/drawable/menu_top_cornered.xml" value="0.3145" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/drawable/menubutton.xml" value="0.3145" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/drawable/ordernow.xml" value="0.156" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_accepted_order_rider.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_accepted_order_user.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_delivery_rider.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_delivery_user.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_edit_profile.xml" value="0.33" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_edit_profile_rider.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />

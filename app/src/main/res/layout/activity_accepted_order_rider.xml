@@ -72,10 +72,13 @@
                     android:textColor="@color/DarkMain" />
 
                 <ImageView
+                    android:padding="140dp"
                     android:layout_width="match_parent"
                     android:layout_height="500dp"
-                    android:background="@color/GreyMain"
-                    android:id="@+id/receipt" />
+                    android:background="@drawable/image_layout"
+                    android:src="@drawable/gallery"
+                    android:adjustViewBounds="true"
+                    android:id="@+id/receipt"/>
 
 
                 <Button
@@ -84,6 +87,7 @@
                     android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="60dp"
+                    android:layout_marginBottom="30dp"
                     android:background="@drawable/menubutton"
                     android:elevation="5dp"
                     android:fontFamily="@font/inter_extrabold"
