@@ -103,7 +103,13 @@ public class RiderHomeFragment extends Fragment {
                 vh.itemView.startAnimation(AnimationUtils.loadAnimation(vh.itemView.getContext(), R.anim.slide_in));
 
                 vh.orderName.setText(ord.getFirstname());
-                vh.orderdesc.setText(ord.getOrderlist());
+
+                if (ord.getOrdertype().equals("true")){
+                    vh.orderdesc.setText("Open to view order list");
+                }else{
+                    vh.orderdesc.setText(ord.getOrderlist());
+                }
+
                 Picasso.get().load(ord.getProfilePic()).into(vh.profilePic);
 
                 vh.view.setOnClickListener(new View.OnClickListener() {
