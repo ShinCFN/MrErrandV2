@@ -11,12 +11,14 @@ public class AddOffer implements Serializable {
 
 
     String ridername, offer, state;
+    int rating;
     public AddOffer(){}
 
-    public AddOffer(String ridername, String offer, String state) {
+    public AddOffer(String ridername, String offer, String state, int rating) {
         this.ridername = ridername;
         this.offer = offer;
         this.state = state;
+        this.rating = rating;
     }
 
     public String getRidername() {
@@ -49,5 +51,13 @@ public class AddOffer implements Serializable {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 }

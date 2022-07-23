@@ -71,6 +71,11 @@ public class ViewOfferActivity extends AppCompatActivity
                 AddOffer off = (AddOffer) o;
                 vh.orderName.setText(off.getRidername());
                 vh.offer.setText(off.getOffer());
+
+                //Rating system
+                vh.rating.setRating(off.getRating());
+
+                //Options
                 vh.order_options.setOnClickListener(v->
                 {
                     PopupMenu popupMenu = new PopupMenu(ViewOfferActivity.this,vh.order_options);

@@ -28,6 +28,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
     CircleImageView profile;
     TextView name, email, cnum, plate;
     ImageView platepic, receipt;
+    Boolean activityDone = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,26 +70,33 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
         statusRef.child(getIntent().getStringExtra("ORDKEY")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child("status").getValue().toString().equals("inDelivery")) {
-                    TextView state = findViewById(R.id.status);
-                    state.setText("YOUR RIDER IS ON THE WAY\n\n PLEASE PREPARE THE AMOUNT SPECIFIED");
-                    receipt.setVisibility(View.VISIBLE);
-                    Picasso.get().load(snapshot.child("receipt").getValue().toString()).into(receipt);
+                if (!activityDone) {
+                    if (snapshot.child("status").getValue().toString().equals("inDelivery")) {
+                        TextView state = findViewById(R.id.status);
+                        state.setText("YOUR RIDER IS ON THE WAY\n\n PLEASE PREPARE THE AMOUNT SPECIFIED");
+                        receipt.setVisibility(View.VISIBLE);
+                        Picasso.get().load(snapshot.child("receipt").getValue().toString()).into(receipt);
 
-                    receipt.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent viewIMG = new Intent(AcceptedOrderActivityUser.this, ViewImageActivity.class);
-                            viewIMG.putExtra("image", snapshot.child("profilePic").getValue().toString());
-                            startActivity(viewIMG);
-                        }
-                    });
+                        receipt.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent viewIMG = new Intent(AcceptedOrderActivityUser.this, ViewImageActivity.class);
+                                viewIMG.putExtra("image", snapshot.child("profilePic").getValue().toString());
+                                startActivity(viewIMG);
+                            }
+                        });
+                    }
                 }
 
-                if (snapshot.child("status").getValue().toString().equals("complete")) {
-                    Intent intent = new Intent(AcceptedOrderActivityUser.this, RatingActivity.class);
-                    startActivity(intent);
-                    finish();
+                if (!activityDone) {
+                    if (snapshot.child("status").getValue().toString().equals("complete")) {
+                        activityDone = true;
+                        Intent intent = new Intent(AcceptedOrderActivityUser.this, RatingActivity.class);
+                        intent.putExtra("rider", getIntent().getStringExtra("RIDERKEY"));
+                        intent.putExtra("order", getIntent().getStringExtra("ORDKEY"));
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             }
 
