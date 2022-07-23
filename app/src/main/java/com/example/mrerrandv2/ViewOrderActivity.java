@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +21,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class ViewOrderActivity extends AppCompatActivity {
 
     TextView order;
     EditText offerIn;
+    ImageView imgorder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class ViewOrderActivity extends AppCompatActivity {
         order = findViewById(R.id.orderlistforoffer);
         order.setText(ord_open.getOrderlist());
         Button btnSend = findViewById(R.id.btnOffer);
+        offerIn = findViewById(R.id.editTextOfferInput);
+        imgorder = findViewById(R.id.imgorder);
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();
@@ -42,11 +47,28 @@ public class ViewOrderActivity extends AppCompatActivity {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
         DBOffer dboff = new DBOffer(ord_open.getKey());
 
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child("ordertype").getValue().toString().equals("true")){
+                    imgorder.setVisibility(View.VISIBLE);
+                    Picasso.get().load(snapshot.child("orderlist").getValue().toString()).into(imgorder);
+                }else{
+                    order.setVisibility(View.VISIBLE);
+                    order.setText(snapshot.child("orderlist").getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                offerIn = findViewById(R.id.editTextOfferInput);
-
                 String offerval = offerIn.getText().toString();
 
                 if (offerval.isEmpty()) {
