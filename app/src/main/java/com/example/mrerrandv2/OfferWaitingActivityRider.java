@@ -177,7 +177,7 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Order ord_open = (Order) getIntent().getSerializableExtra("ORD");
+        Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
         DBOffer dboff = new DBOffer(ord_open.getKey());
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();

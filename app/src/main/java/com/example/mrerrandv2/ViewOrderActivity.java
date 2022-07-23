@@ -53,6 +53,14 @@ public class ViewOrderActivity extends AppCompatActivity {
                 if(snapshot.child("ordertype").getValue().toString().equals("true")){
                     imgorder.setVisibility(View.VISIBLE);
                     Picasso.get().load(snapshot.child("orderlist").getValue().toString()).into(imgorder);
+                    imgorder.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent viewIMG = new Intent(ViewOrderActivity.this, ViewImageActivity.class);
+                            viewIMG.putExtra("image", snapshot.child("orderlist").getValue().toString());
+                            startActivity(viewIMG);
+                        }
+                    });
                 }else{
                     order.setVisibility(View.VISIBLE);
                     order.setText(snapshot.child("orderlist").getValue().toString());
