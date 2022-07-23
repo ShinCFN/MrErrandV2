@@ -55,7 +55,15 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_regular"
                     android:textColor="@color/DarkMain"
-                    android:id="@+id/orderlist"/>
+                    android:id="@+id/orderlist"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:id="@+id/imgorder"
+                    android:visibility="visible"/>
 
                 <View
                     android:layout_width="match_parent"

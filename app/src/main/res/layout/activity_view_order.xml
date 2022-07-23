@@ -32,7 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/imgorder"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:adjustViewBounds="true"/>
 
         <!-- Offer -->
         <TextView

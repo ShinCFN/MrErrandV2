@@ -39,13 +39,15 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.squareup.picasso.Picasso;
 
 import es.dmoral.toasty.Toasty;
 
 public class AcceptedOrderActivityRider extends AppCompatActivity {
 
     TextView list;
-    ImageView receipt;
+    ImageView receipt, order;
+
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private final int PICK_RECEIPT_CODE = 16;
 
@@ -58,11 +60,41 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         setContentView(R.layout.activity_accepted_order_rider);
         progressDialog = new ProgressDialog(AcceptedOrderActivityRider.this);
         Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
-
         list = findViewById(R.id.orderlist);
-        list.setText(ord_open.getOrderlist());
+        order = findViewById(R.id.imgorder);
+
+
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.child("ordertype").getValue().toString().equals("true")){
+                    order.setVisibility(View.VISIBLE);
+                    Picasso.get().load(ord_open.getOrderlist()).into(order);
+
+                    order.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent viewIMG = new Intent(AcceptedOrderActivityRider.this, ViewImageActivity.class);
+                            viewIMG.putExtra("image", ord_open.getOrderlist());
+                            startActivity(viewIMG);
+                        }
+                    });
+
+                }else{
+                    list.setVisibility(View.VISIBLE);
+                    list.setText(ord_open.getOrderlist());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         Button next = findViewById(R.id.btnAccToOTW);
         next.setOnClickListener(new View.OnClickListener() {
