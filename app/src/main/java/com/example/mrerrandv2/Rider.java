@@ -2,16 +2,16 @@ package com.example.mrerrandv2;
 
 import com.google.firebase.database.Exclude;
 
-public class User {
+public class Rider {
 
     String firstname,lastname, profileImage;
 
     @Exclude
     private String key;
 
-    public User(){};
+    public Rider(){};
 
-    public User(String firstname, String lastname, String profileImage) {
+    public Rider(String firstname, String lastname, String profileImage) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.profileImage = profileImage;

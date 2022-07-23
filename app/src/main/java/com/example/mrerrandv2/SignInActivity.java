@@ -128,7 +128,7 @@ public class SignInActivity extends AppCompatActivity {
                                 String usertype = readUserDetails.type;
 
                                 if (usertype.equals("admin")) {
-                                    startActivity(new Intent(SignInActivity.this, AdminActivity.class));
+                                    startActivity(new Intent(SignInActivity.this, AdminMainActivity.class));
                                     finish();
                                 }else if (usertype.equals("rider")) {
                                     startActivity(new Intent(SignInActivity.this, RiderLandingPage.class));

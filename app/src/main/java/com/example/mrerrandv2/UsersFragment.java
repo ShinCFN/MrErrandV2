@@ -36,12 +36,10 @@ import pl.droidsonroids.gif.GifImageButton;
 import pl.droidsonroids.gif.GifImageView;
 
 
-public class RiderHomeFragment extends Fragment {
+public class UsersFragment extends Fragment {
 
-    DatabaseReference newRef = FirebaseDatabase.getInstance().getReference("Riders");
-    FirebaseAuth auth = FirebaseAuth.getInstance();
     RecyclerView recyclerView;
-    DBOrder dbord;
+    DBUsers dbusers;
     FirebaseRecyclerAdapter adapter;
 
 
@@ -49,62 +47,47 @@ public class RiderHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_rider_home, container, false);
+        View v = inflater.inflate(R.layout.fragment_users, container, false);
 
         //Recycler View
 
-        recyclerView = v.findViewById(R.id.ordersrv);
+        recyclerView = v.findViewById(R.id.userlistrv);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        dbord = new DBOrder();
+        dbusers = new DBUsers();
 
-        FirebaseRecyclerOptions<Order> option =
-                new FirebaseRecyclerOptions.Builder<Order>()
-                        .setQuery(dbord.get(), new SnapshotParser<Order>() {
+        FirebaseRecyclerOptions<User> option =
+                new FirebaseRecyclerOptions.Builder<User>()
+                        .setQuery(dbusers.get(), new SnapshotParser<User>() {
                             @NonNull
                             @Override
-                            public Order parseSnapshot(@NonNull DataSnapshot snapshot) {
-                                Order ord = snapshot.getValue(Order.class);
-                                ord.setKey(snapshot.getKey());
-                                return ord;
+                            public User parseSnapshot(@NonNull DataSnapshot snapshot) {
+                                User user = snapshot.getValue(User.class);
+                                user.setKey(snapshot.getKey());
+                                return user;
                             }
                         }).build();
 
         adapter = new FirebaseRecyclerAdapter(option) {
             @Override
             protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
-                OrderVH vh = (OrderVH) viewHolder;
-                Order ord = (Order) o;
+                UserVH vh = (UserVH) viewHolder;
+                User user = (User) o;
 
                 vh.itemView.startAnimation(AnimationUtils.loadAnimation(vh.itemView.getContext(), R.anim.slide_in));
 
-                vh.orderName.setText(ord.getFirstname());
+                vh.name.setText(user.getFirstname()+" "+user.getLastname());
 
-                if (ord.getOrdertype().equals("true")){
-                    vh.orderdesc.setText("Open to view order list");
-                }else{
-                    vh.orderdesc.setText(ord.getOrderlist());
-                }
+                Picasso.get().load(user.getProfileImage()).into(vh.profile);
 
-                Picasso.get().load(ord.getProfilePic()).into(vh.profilePic);
-
-                vh.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        Intent intent = new Intent(getContext(), ViewOrderActivity.class);
-                        intent.putExtra("OPEN", ord);
-                        startActivity(intent);
-                    }
-                });
             }
 
             @NonNull
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_orders, parent, false);
-                return new OrderVH(view);
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_users, parent, false);
+                return new UserVH(view);
             }
 
             @Override
@@ -115,7 +98,7 @@ public class RiderHomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         return v;
-}
+    }
     @Override
     public void onStart() {
         super.onStart();

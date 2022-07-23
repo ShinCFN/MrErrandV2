@@ -13,6 +13,7 @@
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/drawable/ordernow.xml" value="0.156" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_accepted_order_rider.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_accepted_order_user.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_admin_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_delivery_rider.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_delivery_user.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/activity_edit_profile.xml" value="0.33" />
@@ -35,11 +36,14 @@
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/fragment_rider_error.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/fragment_rider_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/fragment_rider_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/fragment_riders.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/fragment_settings.xml" value="0.36102564102564105" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/fragment_users.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/layout_offers.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/layout_orders.xml" value="0.1" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/layout_orders.xml" value="0.33" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/layout_users.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/layout/toolbar.xml" value="0.36102564102564105" />
+        <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/menu/bottom_nav_admin.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Shin/AndroidStudioProjects/MrErrandV2/app/src/main/res/menu/options_offer.xml" value="0.36102564102564105" />
       </map>
     </option>

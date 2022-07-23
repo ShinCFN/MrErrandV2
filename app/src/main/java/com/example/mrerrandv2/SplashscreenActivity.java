@@ -59,7 +59,7 @@ public class SplashscreenActivity extends AppCompatActivity {
                         String usertype = readUserDetails.type;
 
                         if (usertype.equals("admin")) {
-                            startActivity(new Intent(SplashscreenActivity.this, AdminActivity.class));
+                            startActivity(new Intent(SplashscreenActivity.this, AdminMainActivity.class));
                             finish();
                         } else if (usertype.equals("rider")) {
                             startActivity(new Intent(SplashscreenActivity.this, RiderLandingPage.class));

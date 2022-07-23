@@ -61,9 +61,6 @@ public class HomeFragment extends Fragment {
                         } else {
                             Toast.makeText(getContext(),"Please complete your information", Toast.LENGTH_LONG).show();
                         }
-
-
-
                     }
 
                     @Override
