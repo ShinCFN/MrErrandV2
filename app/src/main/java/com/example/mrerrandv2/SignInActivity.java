@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +38,7 @@ import es.dmoral.toasty.Toasty;
 public class SignInActivity extends AppCompatActivity {
 
     private EditText editTextEmail, editTextPassword;
-    private LottieAnimationView progressBar;
+    private LinearLayout progressBar;
     private FirebaseAuth authProfile;
     private static final String TAG = "Login Activity";
     private String type;
@@ -59,6 +60,10 @@ public class SignInActivity extends AppCompatActivity {
 
         authProfile = FirebaseAuth.getInstance();
 
+        //Progress bar
+        progressBar.setVisibility(View.GONE);
+        dimmer.setVisibility(View.GONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         // Go to signup
         SignUpButton = (TextView)findViewById(R.id.gotosignup);

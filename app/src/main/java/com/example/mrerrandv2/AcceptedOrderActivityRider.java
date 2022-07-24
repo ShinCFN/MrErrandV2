@@ -240,4 +240,9 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

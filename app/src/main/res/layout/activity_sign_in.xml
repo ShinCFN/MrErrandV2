@@ -144,6 +144,9 @@
 
     </LinearLayout>
 
+
+<!-- Progress bar -->
+
     <TextView
         android:id="@+id/dimmer"
         android:visibility="gone"
@@ -153,18 +156,39 @@
         android:layout_height="match_parent"
         android:background="@color/black" />
 
-    <com.airbnb.lottie.LottieAnimationView
+    <LinearLayout
         android:id="@+id/progressbar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:elevation="11dp"
-        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="loading.json"
-        app:lottie_loop="true" />
+        android:elevation="11dp"
+        android:visibility="gone">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_gravity="center"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="loading.json"
+            app:lottie_loop="true" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please wait while we process this request"
+            android:fontFamily="@font/inter_regular"
+            android:textSize="12sp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
