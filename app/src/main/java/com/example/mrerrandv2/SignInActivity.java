@@ -38,13 +38,13 @@ import es.dmoral.toasty.Toasty;
 public class SignInActivity extends AppCompatActivity {
 
     private EditText editTextEmail, editTextPassword;
-    private LinearLayout progressBar;
     private FirebaseAuth authProfile;
     private static final String TAG = "Login Activity";
     private String type;
     private TextView SignUpButton;
     private TextView Ridersignup;
     private TextView dimmer;
+    private LinearLayout progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
