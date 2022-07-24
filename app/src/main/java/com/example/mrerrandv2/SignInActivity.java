@@ -8,6 +8,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,15 +32,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import es.dmoral.toasty.Toasty;
+
 public class SignInActivity extends AppCompatActivity {
 
     private EditText editTextEmail, editTextPassword;
-    private ProgressBar progressBar;
+    private LottieAnimationView progressBar;
     private FirebaseAuth authProfile;
     private static final String TAG = "Login Activity";
     private String type;
     private TextView SignUpButton;
     private TextView Ridersignup;
+    private TextView dimmer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +54,8 @@ public class SignInActivity extends AppCompatActivity {
 
         editTextEmail = findViewById(R.id.editTextEmail) ;
         editTextPassword = findViewById(R.id.editTextPassword) ;
-        progressBar = findViewById(R.id.progressBar1);
+        progressBar = findViewById(R.id.progressbar);
+        dimmer = findViewById(R.id.dimmer);
 
         authProfile = FirebaseAuth.getInstance();
 
@@ -87,17 +93,15 @@ public class SignInActivity extends AppCompatActivity {
                 String textEmail = editTextEmail.getText().toString();
                 String textPass = editTextPassword.getText().toString();
 
-                progressBar.setVisibility(View.VISIBLE);
-
                 if(TextUtils.isEmpty(textEmail)) {
-                    Toast.makeText(SignInActivity.this, "Please enter your email", Toast.LENGTH_LONG).show();
-                    editTextEmail.setError("Enter Email Address");
-                    editTextEmail.requestFocus();
+                    Toasty.error(SignInActivity.this, "Please enter your email address", Toasty.LENGTH_LONG).show();
                 }else if(TextUtils.isEmpty(textPass)) {
-                    Toast.makeText(SignInActivity.this, "Please your password", Toast.LENGTH_LONG).show();
-                    editTextPassword.setError("Enter Password");
-                    editTextPassword.requestFocus();
+                    Toasty.error(SignInActivity.this, "Please enter your password", Toasty.LENGTH_LONG).show();
                 }else {
+                    progressBar.setVisibility(View.VISIBLE);
+                    dimmer.setVisibility(View.VISIBLE);
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     loginUser(textEmail, textPass);
                 }
             }
@@ -112,7 +116,6 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(SignInActivity.this, "Already logged in!", Toast.LENGTH_LONG).show();
                     //GET USER PERMS FROM DB
                     FirebaseUser firebaseUser = authProfile.getCurrentUser();
                     String userID = firebaseUser.getUid();
@@ -139,29 +142,34 @@ public class SignInActivity extends AppCompatActivity {
                                 }
                             }
                             progressBar.setVisibility(View.GONE);
+                            dimmer.setVisibility(View.GONE);
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(SignInActivity.this, "Something went wrong!", Toast.LENGTH_LONG).show();
+                            Toasty.error(SignInActivity.this, "Something went wrong", Toasty.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
+                            dimmer.setVisibility(View.GONE);
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         }
                     });
                 }else{
                     try {
                         throw task.getException();
                     } catch (FirebaseAuthInvalidUserException e) {
-                        editTextEmail.setError("User does not exist or is no longer valid");
-                        editTextEmail.requestFocus();
+                        Toasty.error(SignInActivity.this, "User does not exist or is no longer valid", Toasty.LENGTH_LONG).show();
                     } catch (FirebaseAuthInvalidCredentialsException e ) {
-                        editTextEmail.setError("Invalid credentials");
-                        editTextEmail.requestFocus();
+                        Toasty.error(SignInActivity.this, "Invalid Credentials", Toasty.LENGTH_LONG).show();
                     } catch (Exception e ){
                         Log.e(TAG, e.getMessage());
-                        Toast.makeText(SignInActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                        Toasty.error(SignInActivity.this, "Something went wrong", Toasty.LENGTH_LONG).show();
                     }
+
                 }
                 progressBar.setVisibility(View.GONE);
+                dimmer.setVisibility(View.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         });
     }

@@ -36,7 +36,7 @@ public class SplashscreenActivity extends AppCompatActivity {
             public void run() {
                 start();
             }
-        }, 2000);
+        }, 2470);
     }
 
     private void start() {

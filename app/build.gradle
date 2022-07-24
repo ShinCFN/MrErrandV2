@@ -71,4 +71,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
     implementation 'com.github.GrenderG:Toasty:1.5.2'
     implementation 'com.github.MikeOrtiz:TouchImageView:3.2.1'
+    implementation 'com.airbnb.android:lottie:5.2.0'
 }
