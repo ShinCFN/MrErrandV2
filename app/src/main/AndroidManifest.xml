@@ -58,7 +58,8 @@
         <activity
             android:name=".OfferWaitingActivityRider"
             android:exported="false"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleInstance"
+            android:excludeFromRecents="true"/>
         <activity
             android:name=".ViewOrderActivity"
             android:exported="false"
