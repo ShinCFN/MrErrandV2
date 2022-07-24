@@ -186,4 +186,10 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
         mycurrentoffer.child(firebaseUser.getUid()).removeValue();
         finish();
     }
+
+    @Override
+    public void onStop () {
+        // Do your stuff here
+        super.onStop();
+    }
 }

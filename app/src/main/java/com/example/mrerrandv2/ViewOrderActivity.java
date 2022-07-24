@@ -143,4 +143,10 @@ public class ViewOrderActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
     }
+
+    @Override
+    public void onStop () {
+        // Do your stuff here
+        super.onStop();
+    }
 }

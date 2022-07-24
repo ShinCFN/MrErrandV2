@@ -245,4 +245,10 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
     public void onBackPressed() {
 
     }
+
+    @Override
+    public void onStop () {
+        // Do your stuff here
+        super.onStop();
+    }
 }

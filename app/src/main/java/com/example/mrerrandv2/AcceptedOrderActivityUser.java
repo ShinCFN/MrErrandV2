@@ -112,4 +112,10 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
     public void onBackPressed() {
         // Do Here what ever you want do on back press;
     }
+
+    @Override
+    public void onStop () {
+        // Do your stuff here
+        super.onStop();
+    }
 }
