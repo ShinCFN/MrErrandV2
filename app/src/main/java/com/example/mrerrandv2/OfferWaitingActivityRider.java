@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
+
 import es.dmoral.toasty.Toasty;
 
 public class OfferWaitingActivityRider extends AppCompatActivity {
@@ -29,16 +31,21 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
 
     Boolean accepted = false;
 
+    String key = null;
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser = auth.getCurrentUser();
+    Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_waiting);
 
-        Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
+
+
+       key = ord_open.getKey();
+
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
         DatabaseReference order = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
 
@@ -50,6 +57,9 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
 
         //Offer listener
         order.addValueEventListener(offerListener);
+
+
+
     }
 
     private void deleteOthers() {
@@ -100,10 +110,7 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
     }
 
     private ValueEventListener offerListener = new ValueEventListener() {
-
-        Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
-        DatabaseReference order = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
-
+        DatabaseReference order = FirebaseDatabase.getInstance().getReference("Order").child(key);
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             if (snapshot.child("Offers").child(firebaseUser.getUid()).exists()) {
@@ -126,8 +133,7 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
     };
 
     private ValueEventListener statusListener = new ValueEventListener() {
-        Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(key);
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             if (snapshot.exists()) {
