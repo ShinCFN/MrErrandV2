@@ -126,12 +126,15 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
     };
 
     private ValueEventListener statusListener = new ValueEventListener() {
+        Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             if (snapshot.exists()) {
 
             } else {
                 Toasty.warning(OfferWaitingActivityRider.this, "Order was cancelled", Toasty.LENGTH_SHORT).show();
+                databaseReference.removeEventListener(statusListener);
                 finish();
             }
         }
