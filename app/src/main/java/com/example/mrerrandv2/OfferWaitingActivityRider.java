@@ -35,28 +35,51 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser = auth.getCurrentUser();
-    Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_waiting);
 
+        Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
 
-
-       key = ord_open.getKey();
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
         DatabaseReference order = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
 
         textOffer = findViewById(R.id.waiting_offer);
         textOffer.setText(getIntent().getStringExtra("OFFER"));
 
-        //Order cancellation listener
-        databaseReference.child("status").addValueEventListener(statusListener);
-
         //Offer listener
-        order.addValueEventListener(offerListener);
+        order.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.exists()) {
+
+                } else {
+                    Toasty.warning(OfferWaitingActivityRider.this, "Order was cancelled", Toasty.LENGTH_SHORT).show();
+                    order.removeEventListener(this);
+                    finish();
+                }
+
+
+                if (snapshot.child("Offers").child(firebaseUser.getUid()).exists()) {
+                    if (snapshot.child("status").getValue().toString().equals("accepted")) {
+                        order.removeEventListener(this);
+                        deleteOthers();
+                    }
+
+
+                } else if (!snapshot.child("Offers").child(firebaseUser.getUid()).exists() && snapshot.exists()){
+                    Toasty.error(OfferWaitingActivityRider.this, "Offer was declined", Toasty.LENGTH_SHORT).show();
+                    order.removeEventListener(this);
+                    finish();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
 
 
@@ -81,9 +104,11 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
                         intent.putExtra("RKEY", getIntent().getStringExtra("RIDERKEY"));
                         intent.putExtra("ORDER", ord_open);
                         startActivity(intent);
+                        databaseReference.removeEventListener(this);
                         finish();
                     } else if((!firebaseUser.getUid().equals(chosenrider) && !accepted)) {
                         Toasty.info(OfferWaitingActivityRider.this, "Offer was placed for another rider", Toasty.LENGTH_LONG).show();
+                        databaseReference.removeEventListener(this);
                         finish();
                     }
                 }
@@ -96,7 +121,6 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
         });
     }
 
-
     @Override
     public void onBackPressed() {
         Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
@@ -108,46 +132,4 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
         mycurrentoffer.child(firebaseUser.getUid()).removeValue();
         finish();
     }
-
-    private ValueEventListener offerListener = new ValueEventListener() {
-        DatabaseReference order = FirebaseDatabase.getInstance().getReference("Order").child(key);
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-            if (snapshot.child("Offers").child(firebaseUser.getUid()).exists()) {
-                if (snapshot.child("status").getValue().toString().equals("accepted")) {
-                    deleteOthers();
-                }
-
-
-            } else if (!snapshot.child("Offers").child(firebaseUser.getUid()).exists() && snapshot.exists()){
-                Toasty.error(OfferWaitingActivityRider.this, "Offer was declined", Toasty.LENGTH_SHORT).show();
-                order.removeEventListener(offerListener);
-                finish();
-            }
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-
-        }
-    };
-
-    private ValueEventListener statusListener = new ValueEventListener() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(key);
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-            if (snapshot.exists()) {
-
-            } else {
-                Toasty.warning(OfferWaitingActivityRider.this, "Order was cancelled", Toasty.LENGTH_SHORT).show();
-                databaseReference.removeEventListener(statusListener);
-                finish();
-            }
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-
-        }
-    };
 }
