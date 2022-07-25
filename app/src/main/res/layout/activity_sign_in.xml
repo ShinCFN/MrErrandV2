@@ -7,15 +7,39 @@
     android:background="@drawable/menu_top_cornered"
     tools:context=".SignInActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:elevation="11dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+>
+
+        <ImageView
+            android:layout_marginTop="141dp"
+            android:layout_marginRight="50dp"
+            android:id="@+id/showhide"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/hide"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitXY"
+        android:src="@drawable/test"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/test" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:layout_marginTop="60dp"
@@ -38,7 +62,7 @@
 
     <LinearLayout
         android:clipToPadding="false"
-        android:elevation="100dp"
+        android:elevation="10dp"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,6 +94,7 @@
             android:hint="Enter email address"
             android:paddingHorizontal="15dp"
             android:textSize="15sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,25 +110,35 @@
             android:drawableLeft="@drawable/password"
             android:drawablePadding="10dp"
             android:inputType="textPassword"
+            android:longClickable="false"
             android:fontFamily="@font/asap_regular"
             android:hint="Enter password"
             android:paddingHorizontal="15dp"
             android:textSize="15sp"/>
 
-        <Button
+        <LinearLayout
             android:id="@+id/btnLogin"
-            android:layout_width="170dp"
-            android:layout_height="45dp"
-            android:text="Log In"
-            android:textAllCaps="false"
-            android:padding="1dp"
-            android:textColor="@color/white"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/menubutton"
-            android:elevation="6dp"
-            android:fontFamily="@font/asap_bold"
-            />
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="80dp"
+            android:background="@drawable/box_grey"
+            android:backgroundTint="@color/SecondaryMain"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingVertical="14dp"
+            android:elevation="5dp"
+            android:paddingHorizontal="15dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Log in"
+                android:fontFamily="@font/asap_medium"
+                android:textSize="14sp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/gotosignup"

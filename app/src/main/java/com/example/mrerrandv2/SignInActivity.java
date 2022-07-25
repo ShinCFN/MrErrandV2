@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,18 +44,15 @@ public class SignInActivity extends AppCompatActivity {
     private EditText editTextEmail, editTextPassword;
     private FirebaseAuth authProfile;
     private static final String TAG = "Login Activity";
-    private String type;
     private TextView SignUpButton;
     private TextView Ridersignup;
-    private TextView dimmer;
     private progressBar progressBar;
+    private ImageView showhide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
-//        getSupportActionBar("Login");
 
         editTextEmail = findViewById(R.id.editTextEmail) ;
         editTextPassword = findViewById(R.id.editTextPassword) ;
@@ -97,8 +95,27 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
+        //Show Hide pass
+
+        showhide = findViewById(R.id.showhide);
+        showhide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(editTextPassword.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
+                    //Hide
+                    editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    //Change icon
+                    showhide.setImageResource(R.drawable.hide);
+                }else{
+                    editTextPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    showhide.setImageResource(R.drawable.eye);
+                }
+            }
+        });
+
+
         //Login
-        Button btnLogin = findViewById(R.id.btnLogin);
+        LinearLayout btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

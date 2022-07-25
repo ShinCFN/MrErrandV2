@@ -12,7 +12,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingVertical="40dp">
-
     <LinearLayout
         android:id="@+id/btnLogout"
         android:layout_marginBottom="20dp"
@@ -33,7 +32,6 @@
             android:fontFamily="@font/asap_medium"
             android:textSize="14sp"
             android:textColor="@color/white"/>
-
 
     </LinearLayout>
 </LinearLayout>
