@@ -2,6 +2,7 @@ package com.example.mrerrandv2;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -49,9 +51,9 @@ public class SignUpRiderActivity extends AppCompatActivity {
 
 
     private EditText firstname, lastname, emailIn, numIN, passIn, passInC;
-    private ProgressBar progressBar;
     private static final String TAG = "SignUpActivity";
     private ImageView rLicense, rPlate;
+    private progressBar progressBar;
 
     private final int PICK_LICENSE_CODE = 12;
     private final int PICK_PLATE_CODE = 13;
@@ -61,17 +63,20 @@ public class SignUpRiderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ridersignup);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Register");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        progressBar = new progressBar(this);
+
+        // Status Bar
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
 
 
         Toast.makeText(SignUpRiderActivity.this, "You can register now", Toast.LENGTH_SHORT).show();
 
         //Get id from layout
 
-        progressBar = findViewById(R.id.progressBarSignupRider);
         firstname = findViewById(R.id.editFirstName);
         lastname = findViewById(R.id.editLastName);
         emailIn = findViewById(R.id.editTextEmail);
@@ -81,7 +86,7 @@ public class SignUpRiderActivity extends AppCompatActivity {
 
 
         // Signup Button
-        Button btnSignup = findViewById(R.id.btnSignupRider);
+        TextView btnSignup = findViewById(R.id.btnRegister);
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,7 +143,7 @@ public class SignUpRiderActivity extends AppCompatActivity {
                     numIN.setError("Mobile number invalid");
                     numIN.requestFocus();
                 } else {
-                    progressBar.setVisibility(View.VISIBLE);
+                    progressBar.show();
                     registerUser(textFirstName, textLastName, textEmail, textNum, textType, textPass);
                 }
             }
@@ -196,13 +201,13 @@ public class SignUpRiderActivity extends AppCompatActivity {
 
                             }
                             //Hide progressbar
-                            progressBar.setVisibility(View.GONE);
+                            progressBar.dismiss();
                         }
                     });
 
 
                 } else {
-                    progressBar.setVisibility(View.GONE);
+                    progressBar.dismiss();
                     try {
                         throw task.getException();
                     } catch (FirebaseAuthWeakPasswordException e) {
@@ -223,5 +228,10 @@ public class SignUpRiderActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

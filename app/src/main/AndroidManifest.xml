@@ -33,6 +33,7 @@
             android:launchMode="singleInstance" />
         <activity
             android:name=".EditProfileActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false"
             android:launchMode="singleInstance" />
         <activity
@@ -92,6 +93,7 @@
             android:launchMode="singleInstance" />
         <activity
             android:name=".SignUpActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true"
             android:launchMode="singleInstance"
             android:parentActivityName=".SignInActivity" />

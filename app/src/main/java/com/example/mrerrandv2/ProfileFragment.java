@@ -53,7 +53,6 @@ public class ProfileFragment extends Fragment {
 
         //Progress bar
         progressBar = new progressBar(getContext());
-
         progressBar.show();
 
         //Get data

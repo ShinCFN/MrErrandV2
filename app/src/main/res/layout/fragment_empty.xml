@@ -12,13 +12,11 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_gravity="center"
+        <pl.droidsonroids.gif.GifImageView
             android:layout_width="210dp"
             android:layout_height="210dp"
-            app:lottie_fileName="empty.json"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true" />
+            android:src="@drawable/error"
+            android:layout_gravity="center"/>
 
         <TextView
             android:layout_gravity="center"

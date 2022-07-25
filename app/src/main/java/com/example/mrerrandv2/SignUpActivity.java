@@ -9,14 +9,11 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,30 +31,32 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import es.dmoral.toasty.Toasty;
+
 public class SignUpActivity extends AppCompatActivity {
 
 
     private EditText firstname, lastname, emailIn, numIN, passIn, passInC;
-    private ProgressBar progressBar;
     private static final String TAG = "SignUpActivity";
     CardView etcardOne, etcardTwo, etcardThree, etcardFour, etcardFive, etcardSix;
     private boolean isAtleast6 = false, hasupper = false, haslower = false, hasnum = false, nothis = false, nospaces = false;
     boolean passisgo;
+    private progressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Register");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        progressBar = new progressBar(this);
 
+        // Status Bar
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-        Toast.makeText(SignUpActivity.this, "You can register now", Toast.LENGTH_SHORT).show();
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
 
-        progressBar = findViewById(R.id.progressBarSignup);
         firstname = findViewById(R.id.editFirstName);
         lastname = findViewById(R.id.editLastName);
         emailIn = findViewById(R.id.editTextEmail);
@@ -73,7 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
         etcardSix = findViewById(R.id.cardSix);
 
 
-        Button btnSignup = findViewById(R.id.btnSignup);
+        TextView btnSignup = findViewById(R.id.btnRegister);
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,47 +94,47 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                 if (TextUtils.isEmpty(textFirstName)) {
-                    Toast.makeText(SignUpActivity.this, "Please enter your first name", Toast.LENGTH_LONG).show();
+                    Toasty.error(SignUpActivity.this, "Please enter your first name", Toasty.LENGTH_LONG).show();
                     firstname.setError("First name is required");
                     firstname.requestFocus();
                 } else if (TextUtils.isEmpty(textLastName)) {
-                    Toast.makeText(SignUpActivity.this, "Please enter your last name", Toast.LENGTH_LONG).show();
+                    Toasty.error(SignUpActivity.this, "Please enter your last name", Toasty.LENGTH_LONG).show();
                     lastname.setError("Last name is required");
                     lastname.requestFocus();
                 } else if (TextUtils.isEmpty(textEmail)) {
-                    Toast.makeText(SignUpActivity.this, "Please enter your email", Toast.LENGTH_LONG).show();
+                    Toasty.error(SignUpActivity.this, "Please enter your email", Toasty.LENGTH_LONG).show();
                     emailIn.setError("Email is required");
                     emailIn.requestFocus();
                 } else if (TextUtils.isEmpty(textNum)) {
-                    Toast.makeText(SignUpActivity.this, "Please enter your mobile number", Toast.LENGTH_LONG).show();
+                    Toasty.error(SignUpActivity.this, "Please enter your mobile number", Toasty.LENGTH_LONG).show();
                     numIN.setError("Mobile Number is required");
                     numIN.requestFocus();
                 } else if (TextUtils.isEmpty(textPass)) {
-                    Toast.makeText(SignUpActivity.this, "Please enter your password", Toast.LENGTH_LONG).show();
+                    Toasty.error(SignUpActivity.this, "Please enter your password", Toasty.LENGTH_LONG).show();
                     passIn.setError("Password is required");
                     passIn.requestFocus();
                 } else if (TextUtils.isEmpty(textPassC)) {
-                    Toast.makeText(SignUpActivity.this, "Please enter your password", Toast.LENGTH_LONG).show();
+                    Toasty.error(SignUpActivity.this, "Please enter your password", Toasty.LENGTH_LONG).show();
                     passInC.setError("Password is required");
                     passInC.requestFocus();
                 } else if (!textPass.equals(textPassC)) {
-                    Toast.makeText(SignUpActivity.this, "Your password does not match", Toast.LENGTH_LONG).show();
+                    Toasty.error(SignUpActivity.this, "Your password does not match", Toasty.LENGTH_LONG).show();
                     passIn.setError("Password does not match");
                     passIn.requestFocus();
                 } else if (textNum.length() != 11) {
-                    Toast.makeText(SignUpActivity.this, "Your mobile number does not contain 11 digits", Toast.LENGTH_LONG).show();
+                    Toasty.error(SignUpActivity.this, "Your mobile number does not contain 11 digits", Toasty.LENGTH_LONG).show();
                     numIN.setError("Mobile number invalid");
                     numIN.requestFocus();
                 } else if (!mobileMatcher.find()) {
-                    Toast.makeText(SignUpActivity.this, "Please number is invalid", Toast.LENGTH_LONG).show();
+                    Toasty.error(SignUpActivity.this, "Please number is invalid", Toasty.LENGTH_LONG).show();
                     numIN.setError("Mobile number invalid");
                     numIN.requestFocus();
                 } else if (!passisgo) {
-                    Toast.makeText(SignUpActivity.this, "Your password is invalid", Toast.LENGTH_LONG).show();
+                    Toasty.error(SignUpActivity.this, "Your password is invalid", Toasty.LENGTH_LONG).show();
                     passIn.setError("Password invalid");
                     passIn.requestFocus();
                 } else {
-                    progressBar.setVisibility(View.VISIBLE);
+                    progressBar.show();
                     registerUser(textFirstName, textLastName, textEmail, textNum, textType, textPass);
                 }
 
@@ -270,7 +269,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                             if (task.isSuccessful()){
                                 //Send Email Verification [WIP]
-                                Toast.makeText(SignUpActivity.this, "User registered sucessfully", Toast.LENGTH_LONG).show();
+                                Toasty.success(SignUpActivity.this, "Registration successful", Toasty.LENGTH_LONG).show();
 
                                 //Open User Profile after success
 
@@ -285,15 +284,15 @@ public class SignUpActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }else{
-                                Toast.makeText(SignUpActivity.this, "User registration failed", Toast.LENGTH_LONG).show();
+                                Toasty.error(SignUpActivity.this, "User registration failed", Toasty.LENGTH_LONG).show();
 
                             }
                             //Hide progressbar
-                            progressBar.setVisibility(View.GONE);
+                            progressBar.dismiss();
                         }
                     });
                 }else{
-                    progressBar.setVisibility(View.GONE);
+                    progressBar.dismiss();
                     try {
                         throw task.getException();
                     } catch (FirebaseAuthWeakPasswordException e) {
@@ -307,10 +306,15 @@ public class SignUpActivity extends AppCompatActivity {
                         emailIn.setError("User is already registered with this email!");
                         emailIn.requestFocus();
                     } catch (Exception e) {
-                        Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toasty.error(SignUpActivity.this, e.getMessage(), Toasty.LENGTH_LONG).show();
                     }
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

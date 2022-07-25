@@ -7,11 +7,10 @@
     android:fillViewport="true"
     tools:ignore="SpeakableTextPresentCheck">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".EditProfileActivity">
+        android:layout_height="match_parent">
+
 
 
         <LinearLayout
@@ -23,6 +22,7 @@
             android:orientation="vertical"
             android:padding="32dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -39,6 +39,13 @@
 
 
             <!-- First Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/asap_medium"
+                android:text="First name"
+                android:textColor="@color/Gray" />
+
             <EditText
                 android:id="@+id/editproftFirst"
                 android:layout_width="match_parent"
@@ -48,11 +55,17 @@
                 android:drawableLeft="@drawable/profile"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
-                android:hint="Enter first name"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
             <!-- Last Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/asap_medium"
+                android:text="Last name"
+                android:textColor="@color/Gray" />
+
             <EditText
                 android:id="@+id/editproftLast"
                 android:layout_width="match_parent"
@@ -62,12 +75,19 @@
                 android:drawableLeft="@drawable/profile"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
-                android:hint="Enter last name"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
             <!-- Mobile -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/asap_medium"
+                android:text="Mobile Number"
+                android:textColor="@color/Gray" />
+
             <EditText
+                android:inputType="number"
                 android:id="@+id/editprofMobile"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -76,12 +96,18 @@
                 android:drawableLeft="@drawable/mobile"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
-                android:hint="Enter mobile number"
                 android:maxLength="11"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
             <!-- Street -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/asap_medium"
+                android:text="Street name"
+                android:textColor="@color/Gray" />
+
             <EditText
                 android:id="@+id/editprofStreet"
                 android:layout_width="match_parent"
@@ -91,11 +117,17 @@
                 android:drawableLeft="@drawable/location"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
-                android:hint="Enter street name"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
             <!-- City -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/asap_medium"
+                android:text="City"
+                android:textColor="@color/Gray" />
+
             <EditText
                 android:id="@+id/editprofCity"
                 android:layout_width="match_parent"
@@ -105,11 +137,17 @@
                 android:drawableLeft="@drawable/location"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
-                android:hint="Enter city name"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
             <!-- Province -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/asap_medium"
+                android:text="State/Province"
+                android:textColor="@color/Gray" />
+
             <EditText
                 android:id="@+id/editprofProvince"
                 android:layout_width="match_parent"
@@ -119,12 +157,19 @@
                 android:drawableLeft="@drawable/location"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
-                android:hint="Enter province name"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
             <!-- Zip Code -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/asap_medium"
+                android:text="Zip code"
+                android:textColor="@color/Gray" />
+
             <EditText
+                android:inputType="number"
                 android:id="@+id/editprofZip"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -133,7 +178,6 @@
                 android:drawableLeft="@drawable/location"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
-                android:hint="Enter zip code"
                 android:maxLength="4"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
@@ -151,5 +195,5 @@
                 android:textSize="14sp" />
 
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </ScrollView>

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="SpeakableTextPresentCheck"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@color/DarkMain">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -14,234 +15,164 @@
         tools:context=".SignUpActivity">
 
         <TextView
-            android:id="@+id/textView6"
+            android:paddingTop="30dp"
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/Main"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
+            android:layout_height="80dp"
+            android:text="Sign up"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="left|center"
+            android:drawableLeft="@drawable/arrow_right"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/asap_bold"
+            android:background="@color/DarkMain"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
 
         <LinearLayout
+            android:background="@drawable/menu_top_cornered"
             android:id="@+id/linearLayout2"
             android:padding="32dp"
+            android:elevation="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/menu_top_cornered"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
 
             <!-- First Name -->
             <TextView
-                android:id="@+id/textView13"
-                android:fontFamily="@font/inter_regular"
-                android:paddingLeft="5dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/asap_medium"
                 android:text="First name"
-                android:textColor="@color/MainText"/>
+                android:textColor="@color/Gray" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:theme="@style/Widget.Design.TextInputLayout"
+            <EditText
+                android:id="@+id/editFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginHorizontal="5dp"
-                android:elevation="3dp"
-                android:background="@drawable/textboxmain"
-                app:boxBackgroundColor="@android:color/transparent"
-                >
-                <com.google.android.material.textfield.TextInputEditText
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="4dp"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/MenuTextColor"
-                    android:textSize="14dp"
-                    android:id="@+id/editFirstName"
-                    >
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="20dp"
+                android:inputType="textPersonName"
+                android:background="@drawable/box_grey_input"
+                android:drawableLeft="@drawable/profile"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/asap_regular"
+                android:paddingHorizontal="15dp"
+                android:textSize="15sp" />
+
             <!-- Last Name -->
             <TextView
-                android:paddingTop="15dp"
-                android:id="@+id/textView14"
-                android:fontFamily="@font/inter_regular"
-                android:paddingLeft="5dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/asap_medium"
                 android:text="Last name"
-                android:textColor="@color/MainText"/>
+                android:textColor="@color/Gray" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:theme="@style/Widget.Design.TextInputLayout"
+            <EditText
+                android:id="@+id/editLastName"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginHorizontal="5dp"
-                android:elevation="5dp"
-                android:background="@drawable/textboxmain"
-                app:boxBackgroundColor="@android:color/transparent"
-                >
-                <com.google.android.material.textfield.TextInputEditText
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/MenuTextColor"
-                    android:textSize="14dp"
-                    android:id="@+id/editLastName"
-                    >
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="20dp"
+                android:inputType="textPersonName"
+                android:background="@drawable/box_grey_input"
+                android:drawableLeft="@drawable/profile"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/asap_regular"
+                android:paddingHorizontal="15dp"
+                android:textSize="15sp" />
+
             <!-- Email -->
             <TextView
-                android:paddingTop="15dp"
-                android:id="@+id/textView15"
-                android:fontFamily="@font/inter_regular"
-                android:paddingLeft="5dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email address"
-                android:textColor="@color/MainText"/>
+                android:fontFamily="@font/asap_medium"
+                android:text="Email"
+                android:textColor="@color/Gray" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:theme="@style/Widget.Design.TextInputLayout"
+            <EditText
+                android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginHorizontal="5dp"
-                android:elevation="3dp"
-                android:background="@drawable/textboxmain"
-                app:boxBackgroundColor="@android:color/transparent"
-                >
-                <com.google.android.material.textfield.TextInputEditText
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="4dp"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/MenuTextColor"
-                    android:textSize="14dp"
-                    android:id="@+id/editTextEmail"
-                    >
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
-            <!-- Mobile Number -->
+                android:layout_marginBottom="20dp"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/box_grey_input"
+                android:drawableLeft="@drawable/email"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/asap_regular"
+                android:paddingHorizontal="15dp"
+                android:textSize="15sp" />
+
+            <!-- Mobile -->
             <TextView
-                android:paddingTop="15dp"
-                android:id="@+id/textView16"
-                android:fontFamily="@font/inter_regular"
-                android:paddingLeft="5dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/asap_medium"
                 android:text="Mobile Number"
-                android:textColor="@color/MainText"/>
+                android:textColor="@color/Gray" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:theme="@style/Widget.Design.TextInputLayout"
+            <EditText
+                android:inputType="number"
+                android:id="@+id/editTextMobile"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginHorizontal="5dp"
-                android:elevation="3dp"
-                android:background="@drawable/textboxmain"
-                app:boxBackgroundColor="@android:color/transparent"
-                >
-                <com.google.android.material.textfield.TextInputEditText
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:paddingTop="3dp"
-                    android:maxLength="11"
-                    android:paddingBottom="4dp"
-                    android:inputType="number"
-                    android:textColor="@color/MenuTextColor"
-                    android:textSize="14dp"
-                    android:id="@+id/editTextMobile"
-                    >
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box_grey_input"
+                android:drawableLeft="@drawable/mobile"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/asap_regular"
+                android:maxLength="11"
+                android:paddingHorizontal="15dp"
+                android:textSize="15sp" />
+
             <!-- Password -->
             <TextView
-                android:paddingTop="15dp"
-                android:id="@+id/textView17"
-                android:fontFamily="@font/inter_regular"
-                android:paddingLeft="5dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/asap_medium"
                 android:text="Password"
-                android:textColor="@color/MainText"/>
+                android:textColor="@color/Gray" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:theme="@style/Widget.Design.TextInputLayout"
+            <EditText
+                android:inputType="textPassword"
+                android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginHorizontal="5dp"
-                android:elevation="3dp"
-                android:background="@drawable/textboxmain"
-                app:boxBackgroundColor="@android:color/transparent"
-                app:passwordToggleEnabled="true">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="4dp"
-                    android:inputType="textPassword"
-                    android:textColor="@color/MenuTextColor"
-                    android:textSize="14dp"
-                    android:id="@+id/editTextPassword"
-                    >
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box_grey_input"
+                android:drawableLeft="@drawable/password"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/asap_regular"
+                android:paddingHorizontal="15dp"
+                android:textSize="15sp" />
+
             <!-- Confirm Password -->
             <TextView
-                android:paddingTop="15dp"
-                android:id="@+id/textView18"
-                android:fontFamily="@font/inter_regular"
-                android:paddingLeft="5dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Confirm Password"
-                android:textColor="@color/MainText"/>
+                android:fontFamily="@font/asap_medium"
+                android:text="Confirm password"
+                android:textColor="@color/Gray" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:theme="@style/Widget.Design.TextInputLayout"
+            <EditText
+                android:inputType="textPassword"
+                android:id="@+id/editTextConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginHorizontal="5dp"
-                android:elevation="3dp"
-                android:background="@drawable/textboxmain"
-                app:boxBackgroundColor="@android:color/transparent"
-                app:passwordToggleEnabled="true">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="4dp"
-                    android:inputType="textPassword"
-                    android:textColor="@color/MenuTextColor"
-                    android:textSize="14dp"
-                    android:id="@+id/editTextConfirmPassword"
-                    >
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
-
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box_grey_input"
+                android:drawableLeft="@drawable/password"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/asap_regular"
+                android:paddingHorizontal="15dp"
+                android:textSize="15sp" />
 
             <!-- Validation -->
             <LinearLayout
                 android:paddingLeft="5dp"
                 android:layout_width="match_parent"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="5dp"
                 android:layout_height="30dp"
                 android:orientation="horizontal"
                 android:layout_gravity="center">
@@ -450,34 +381,20 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btnSignup"
-                android:layout_width="150dp"
-                android:layout_height="35dp"
-                android:text="Sign Up"
-                android:textAllCaps="false"
-                android:padding="1dp"
-                android:textColor="@color/MainText"
-                android:layout_gravity="center"
-                android:layout_marginTop="60dp"
-                android:background="@drawable/menubutton"
-                android:textStyle="bold"
-                android:elevation="5dp"
-                android:letterSpacing="-.01"
-                android:fontFamily="@font/inter_extrabold"
-                />
+            <TextView
+                android:layout_marginTop="30dp"
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box_secondary"
+                android:fontFamily="@font/asap_bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:paddingHorizontal="15dp"
+                android:text="Register"
+                android:textSize="14sp" />
 
         </LinearLayout>
-        <ProgressBar
-            android:id="@+id/progressBarSignup"
-            android:visibility="gone"
-            android:layout_gravity = "center"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
