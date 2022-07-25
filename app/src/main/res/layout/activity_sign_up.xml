@@ -258,7 +258,7 @@
                         android:layout_width="15dp"
                         android:layout_gravity="center"
                         android:layout_height="15dp"
-                        android:background="@drawable/ic_baseline_check_24"
+                        android:background="@drawable/check"
                         />
                 </androidx.cardview.widget.CardView>
                     />
@@ -293,7 +293,7 @@
                         android:layout_width="15dp"
                         android:layout_gravity="center"
                         android:layout_height="15dp"
-                        android:background="@drawable/ic_baseline_check_24"
+                        android:background="@drawable/check"
                         />
                 </androidx.cardview.widget.CardView>
                 />
@@ -328,7 +328,7 @@
                         android:layout_width="15dp"
                         android:layout_gravity="center"
                         android:layout_height="15dp"
-                        android:background="@drawable/ic_baseline_check_24"
+                        android:background="@drawable/check"
                         />
                 </androidx.cardview.widget.CardView>
                 />
@@ -363,7 +363,7 @@
                         android:layout_width="15dp"
                         android:layout_gravity="center"
                         android:layout_height="15dp"
-                        android:background="@drawable/ic_baseline_check_24"
+                        android:background="@drawable/check"
                         />
                 </androidx.cardview.widget.CardView>
                 />
@@ -398,7 +398,7 @@
                         android:layout_width="15dp"
                         android:layout_gravity="center"
                         android:layout_height="15dp"
-                        android:background="@drawable/ic_baseline_check_24"
+                        android:background="@drawable/check"
                         />
                 </androidx.cardview.widget.CardView>
                 />
@@ -433,7 +433,7 @@
                         android:layout_width="15dp"
                         android:layout_gravity="center"
                         android:layout_height="15dp"
-                        android:background="@drawable/ic_baseline_check_24"
+                        android:background="@drawable/check"
                         />
                 </androidx.cardview.widget.CardView>
                 />

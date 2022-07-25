@@ -44,7 +44,7 @@ public class SignInActivity extends AppCompatActivity {
     private TextView SignUpButton;
     private TextView Ridersignup;
     private TextView dimmer;
-    private LinearLayout progressBar;
+    private progressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +55,12 @@ public class SignInActivity extends AppCompatActivity {
 
         editTextEmail = findViewById(R.id.editTextEmail) ;
         editTextPassword = findViewById(R.id.editTextPassword) ;
-        progressBar = findViewById(R.id.progressbar);
-        dimmer = findViewById(R.id.dimmer);
+        progressBar = new progressBar(SignInActivity.this);
 
         authProfile = FirebaseAuth.getInstance();
 
         //Progress bar
-        progressBar.setVisibility(View.GONE);
-        dimmer.setVisibility(View.GONE);
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        progressBar.dismiss();
 
         // Go to signup
         SignUpButton = (TextView)findViewById(R.id.gotosignup);
@@ -103,10 +100,7 @@ public class SignInActivity extends AppCompatActivity {
                 }else if(TextUtils.isEmpty(textPass)) {
                     Toasty.error(SignInActivity.this, "Please enter your password", Toasty.LENGTH_LONG).show();
                 }else {
-                    progressBar.setVisibility(View.VISIBLE);
-                    dimmer.setVisibility(View.VISIBLE);
-                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    progressBar.show();
                     loginUser(textEmail, textPass);
                 }
             }
@@ -146,17 +140,13 @@ public class SignInActivity extends AppCompatActivity {
                                     finish();
                                 }
                             }
-                            progressBar.setVisibility(View.GONE);
-                            dimmer.setVisibility(View.GONE);
-                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            progressBar.dismiss();
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                             Toasty.error(SignInActivity.this, "Something went wrong", Toasty.LENGTH_LONG).show();
-                            progressBar.setVisibility(View.GONE);
-                            dimmer.setVisibility(View.GONE);
-                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            progressBar.dismiss();
                         }
                     });
                 }else{
@@ -172,9 +162,7 @@ public class SignInActivity extends AppCompatActivity {
                     }
 
                 }
-                progressBar.setVisibility(View.GONE);
-                dimmer.setVisibility(View.GONE);
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                progressBar.dismiss();
             }
         });
     }
