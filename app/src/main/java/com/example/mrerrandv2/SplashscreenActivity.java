@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,10 +25,21 @@ public class SplashscreenActivity extends AppCompatActivity {
 
     private FirebaseAuth authProfile;
 
+    private View mainView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
+
+        mainView = getWindow().getDecorView();
+        mainView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                |View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                |View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                |View.SYSTEM_UI_FLAG_FULLSCREEN
+                |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
 
         authProfile = FirebaseAuth.getInstance();
 

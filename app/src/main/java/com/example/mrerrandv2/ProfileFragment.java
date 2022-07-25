@@ -43,8 +43,7 @@ public class ProfileFragment extends Fragment {
 
     ImageView profilepic;
 
-    private TextView dimmer;
-    private LinearLayout progressBar;
+    private progressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,13 +52,9 @@ public class ProfileFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
         //Progress bar
-        progressBar = v.findViewById(R.id.progressbar);
-        dimmer = v.findViewById(R.id.dimmer);
+        progressBar = new progressBar(getContext());
 
-        progressBar.setVisibility(View.VISIBLE);
-        dimmer.setVisibility(View.VISIBLE);
-        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        progressBar.show();
 
         //Get data
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
@@ -139,18 +134,14 @@ public class ProfileFragment extends Fragment {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    progressBar.setVisibility(View.GONE);
-                                    dimmer.setVisibility(View.GONE);
-                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    progressBar.dismiss();
                                 }
                             }, 1000);
                         } else {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    progressBar.setVisibility(View.GONE);
-                                    dimmer.setVisibility(View.GONE);
-                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    progressBar.dismiss();
                                 }
                             }, 1000);
                         }

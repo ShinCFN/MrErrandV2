@@ -16,7 +16,7 @@
 
     <color name="Main">#d9c8c0</color>
     <color name="SecondaryMain">#f4717f</color>
-    <color name="GreyMain">#dad8d9</color>
+    <color name="GreyMain">#EDEDED</color>
     <color name="DarkMain">#544e50</color>
     <color name="MainText">#544e50</color>
     <color name="InputBoxes">#dad8d9</color>
