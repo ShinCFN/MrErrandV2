@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="5dp"
-    android:elevation="5dp">
-
+    app:cardElevation="5dp"
+    app:cardCornerRadius="15dp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,6 +16,7 @@
         android:paddingVertical="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:src="@drawable/blankuser"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
@@ -36,7 +39,7 @@
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
                 android:id="@+id/orderName"
-                android:fontFamily="@font/inter_medium"
+                android:fontFamily="@font/asap_medium"
                 android:textColor="@color/DarkMain"/>
 
             <TextView
@@ -47,7 +50,7 @@
                 android:text="Order"
                 android:textSize="15sp"
                 android:id="@+id/orderdesc"
-                android:fontFamily="@font/inter_regular"
+                android:fontFamily="@font/asap_regular"
                 android:textColor="@color/DarkMain"/>
 
         </LinearLayout>

@@ -73,6 +73,8 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+
+
         profpic = findViewById((R.id.editprofPic));
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -101,7 +103,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
-        Button updateBTN = findViewById(R.id.btnSave);
+        TextView updateBTN = findViewById(R.id.btnSave);
 
         //Update Button
         updateBTN.setOnClickListener(new View.OnClickListener() {

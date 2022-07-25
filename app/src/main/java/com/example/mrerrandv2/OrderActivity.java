@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.canhub.cropper.CropImage;
@@ -38,10 +39,12 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import es.dmoral.toasty.Toasty;
+
 public class OrderActivity extends AppCompatActivity {
 
-    Button pay;
-    ImageView imgorder;
+    LinearLayout pay;
+    LinearLayout imgorder;
     private final int PICK_IMAGE_CODE = 17;
     ProgressDialog progressDialog;
     Boolean isImageorder = false;
@@ -73,7 +76,7 @@ public class OrderActivity extends AppCompatActivity {
                 String orders = orderlist.getText().toString();
 
                 if(orders.isEmpty()){
-                    Toast.makeText(OrderActivity.this, "Order list is empty",Toast.LENGTH_SHORT).show();
+                    Toasty.error(OrderActivity.this, "Order list is empty",Toasty.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
                     intent.putExtra("ORDER",orders);
@@ -143,12 +146,10 @@ public class OrderActivity extends AppCompatActivity {
 
                 uploadReceipt(result.getUriContent());
 
-                imgorder.setImageURI(result.getUriContent());
-
             } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
 
             } else {
-                Toast.makeText(OrderActivity.this, "Failed", Toast.LENGTH_LONG).show();
+                Toasty.error(OrderActivity.this, "Failed", Toasty.LENGTH_LONG).show();
             }
         }
 

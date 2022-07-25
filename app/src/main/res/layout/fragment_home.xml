@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:fontFamily="@font/inter_semibold"
+            android:fontFamily="@font/asap_bold"
             android:gravity="left"
             android:text="Start ordering now"
             android:textColor="@color/white"
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:fontFamily="@font/inter_regular"
+            android:fontFamily="@font/asap_medium"
             android:gravity="left"
             android:text="Create a new order list to be\ndelivered right at your doorstep"
             android:textColor="@color/white"
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="6dp"
-            android:fontFamily="@font/inter_bold"
+            android:fontFamily="@font/asap_bold"
             android:text="Order now"
             android:textColor="@color/DarkMain" />
 

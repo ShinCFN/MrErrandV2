@@ -16,92 +16,76 @@
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_regular"
+        android:fontFamily="@font/asap_medium"
         android:text="Order List"
         android:layout_marginBottom="5dp"
         android:textColor="@color/DarkMain" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
         android:layout_marginHorizontal="30dp"
-        android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:background="@drawable/textboxmain"
-        android:elevation="5dp"
-        android:theme="@style/Widget.Design.TextInputLayout"
-        app:boxBackgroundColor="@android:color/transparent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/OrderList"
-            android:padding="20dp"
-            android:gravity="top|left"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/inter_regular"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:textColor="@color/DarkMain"
-            android:textSize="14dp"></com.google.android.material.textfield.TextInputEditText>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_marginTop="30dp"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
-
-    <TextView
-        android:layout_marginVertical="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:padding="20dp"
+        android:paddingTop="4dp"
+        android:id="@+id/OrderList"
+        android:paddingBottom="4dp"
+        android:fontFamily="@font/asap_regular"
+        android:gravity="top|left"
         android:textColor="@color/DarkMain"
-        android:text="or" />
+        android:textSize="14dp"
+        android:background="@drawable/box_grey_input" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
 
-    <TextView
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="30dp"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_regular"
-        android:text="Upload Image"
-        android:layout_marginBottom="5dp"
-        android:textColor="@color/DarkMain" />
-
-    <ImageView
-        android:padding="100dp"
-        android:layout_marginHorizontal="30dp"
+        android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:background="@drawable/image_layout"
-        android:src="@drawable/gallery"
-        android:adjustViewBounds="true"
-        android:id="@+id/imgorder"/>
+        android:layout_marginTop="30dp">
 
-    <Button
-        android:id="@+id/gotoPay"
-        android:layout_width="150dp"
-        android:layout_height="35dp"
-        android:layout_gravity="center"
-        android:background="@drawable/menubutton"
-        android:elevation="5dp"
-        android:fontFamily="@font/inter_extrabold"
-        android:letterSpacing="-.01"
-        android:padding="1dp"
-        android:text="Next"
-        android:textAllCaps="false"
-        android:textColor="@color/MainText"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-        android:layout_marginTop="30dp"/>
+        <LinearLayout
+            android:layout_marginRight="20dp"
+            android:id="@+id/imgorder"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_grey"
+            android:backgroundTint="@color/DarkMain"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingVertical="14dp"
+            android:paddingHorizontal="15dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Upload Image"
+                android:fontFamily="@font/asap_medium"
+                android:textSize="14sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gotoPay"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_grey"
+            android:backgroundTint="@color/SecondaryMain"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingVertical="14dp"
+            android:paddingHorizontal="15dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Next"
+                android:fontFamily="@font/asap_medium"
+                android:textSize="14sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </LinearLayout>
 

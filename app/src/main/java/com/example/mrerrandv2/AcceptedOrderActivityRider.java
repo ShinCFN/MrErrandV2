@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -48,7 +47,6 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
     TextView list;
     ImageView receipt, order;
 
-    private FirebaseAuth auth = FirebaseAuth.getInstance();
     private final int PICK_RECEIPT_CODE = 16;
 
     ProgressDialog progressDialog;

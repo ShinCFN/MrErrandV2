@@ -39,7 +39,7 @@ public class ProfileFragment extends Fragment {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    TextView editName, editMobile, editStreet, editCity, editProvince, editZip, editEmail;
+    TextView editFirst, editLast, editMobile, editStreet, editCity, editProvince, editZip, editEmail;
 
     ImageView profilepic;
 
@@ -64,7 +64,8 @@ public class ProfileFragment extends Fragment {
 
                 //Find Holders
 
-                editName = v.findViewById(R.id.profileName);
+                editFirst = v.findViewById(R.id.profileFirst);
+                editLast = v.findViewById(R.id.profileLast);
                 editMobile = v.findViewById(R.id.profileNumber);
                 editStreet = v.findViewById(R.id.profileStreet);
                 editCity = v.findViewById(R.id.profileCity);
@@ -83,9 +84,8 @@ public class ProfileFragment extends Fragment {
 
                 //Set text
 
-                String name = firstname + " " + lastname;
-
-                editName.setText(name);
+                editFirst.setText(firstname.toUpperCase());
+                editLast.setText(lastname.toUpperCase());
                 editMobile.setText(mobilenumber);
                 editEmail.setText(email);
 
@@ -156,7 +156,7 @@ public class ProfileFragment extends Fragment {
 
                 //Edit Profile
 
-                Button editProfile = v.findViewById(R.id.profileEdit);
+                LinearLayout editProfile = v.findViewById(R.id.profileEdit);
 
                 editProfile.setOnClickListener(new View.OnClickListener() {
                     @Override

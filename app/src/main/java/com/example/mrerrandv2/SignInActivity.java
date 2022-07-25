@@ -1,6 +1,8 @@
 package com.example.mrerrandv2;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -8,6 +10,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,6 +68,13 @@ public class SignInActivity extends AppCompatActivity {
         // Go to signup
         SignUpButton = (TextView)findViewById(R.id.gotosignup);
         Ridersignup = (TextView)findViewById(R.id.gotoridersignup);
+
+        // Status Bar
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
 
 
         SignUpButton.setOnClickListener(new View.OnClickListener() {

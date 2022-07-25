@@ -35,5 +35,13 @@
     <style name="MyTextInputLayout_overlay">
         <item name="colorOnSurface">@color/white</item>
     </style>
+    
+    <style name="NoStatus">
+
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+
+    </style>
 
 </resources>

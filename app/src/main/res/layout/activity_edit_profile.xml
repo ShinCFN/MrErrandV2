@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="SpeakableTextPresentCheck"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:ignore="SpeakableTextPresentCheck">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -14,315 +14,141 @@
         tools:context=".EditProfileActivity">
 
 
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/Main"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
-
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:padding="32dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/menu_top_cornered"
+            android:clipToPadding="false"
             android:orientation="vertical"
+            android:padding="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+            app:layout_constraintTop_toTopOf="parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/editprofPic"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:id="@+id/editprofPic"
                 android:layout_gravity="center"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
-                android:src="@drawable/logo"
-                app:civ_border_color="@color/DarkMain"
-                app:civ_border_width="2dp"
-                />
+                android:src="@drawable/blankuser"
+                app:civ_border_color="@color/GreyMain"
+                app:civ_border_width="1dp" />
 
 
             <!-- First Name -->
-            <TextView
-                android:id="@+id/textView13"
-                android:fontFamily="@font/inter_regular"
-                android:paddingLeft="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="First name"
-                android:textColor="@color/MainText"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:theme="@style/Widget.Design.TextInputLayout"
+            <EditText
+                android:id="@+id/editproftFirst"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginHorizontal="5dp"
-                android:elevation="3dp"
-                android:background="@drawable/textboxmain"
-                app:boxBackgroundColor="@android:color/transparent"
-                >
-                <com.google.android.material.textfield.TextInputEditText
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="4dp"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/MenuTextColor"
-                    android:textSize="14dp"
-                    android:id="@+id/editproftFirst"
-                    >
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box_grey_input"
+                android:drawableLeft="@drawable/profile"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/asap_regular"
+                android:hint="Enter first name"
+                android:paddingHorizontal="15dp"
+                android:textSize="15sp" />
+
             <!-- Last Name -->
-            <TextView
-                android:paddingTop="15dp"
-                android:id="@+id/textView14"
-                android:fontFamily="@font/inter_regular"
-                android:paddingLeft="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Last name"
-                android:textColor="@color/MainText"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:theme="@style/Widget.Design.TextInputLayout"
+            <EditText
+                android:id="@+id/editproftLast"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginHorizontal="5dp"
-                android:elevation="5dp"
-                android:background="@drawable/textboxmain"
-                app:boxBackgroundColor="@android:color/transparent"
-                >
-                <com.google.android.material.textfield.TextInputEditText
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/MenuTextColor"
-                    android:textSize="14dp"
-                    android:id="@+id/editproftLast"
-                    >
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box_grey_input"
+                android:drawableLeft="@drawable/profile"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/asap_regular"
+                android:hint="Enter last name"
+                android:paddingHorizontal="15dp"
+                android:textSize="15sp" />
 
-            <!-- Mobile Number -->
-            <TextView
-                android:paddingTop="15dp"
-                android:id="@+id/textView16"
-                android:fontFamily="@font/inter_regular"
-                android:paddingLeft="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Mobile Number"
-                android:textColor="@color/MainText"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:theme="@style/Widget.Design.TextInputLayout"
+            <!-- Mobile -->
+            <EditText
+                android:id="@+id/editprofMobile"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginHorizontal="5dp"
-                android:elevation="3dp"
-                android:background="@drawable/textboxmain"
-                app:boxBackgroundColor="@android:color/transparent"
-                >
-                <com.google.android.material.textfield.TextInputEditText
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="4dp"
-                    android:inputType="number"
-                    android:textColor="@color/MenuTextColor"
-                    android:textSize="14dp"
-                    android:id="@+id/editprofMobile"
-                    >
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box_grey_input"
+                android:drawableLeft="@drawable/mobile"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/asap_regular"
+                android:hint="Enter mobile number"
+                android:maxLength="11"
+                android:paddingHorizontal="15dp"
+                android:textSize="15sp" />
 
-            <!-- Address -->
-
-            <LinearLayout
+            <!-- Street -->
+            <EditText
+                android:id="@+id/editprofStreet"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="45dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box_grey_input"
+                android:drawableLeft="@drawable/location"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/asap_regular"
+                android:hint="Enter street name"
+                android:paddingHorizontal="15dp"
+                android:textSize="15sp" />
 
-
-
-                <TextView
-                    android:paddingTop="15dp"
-                    android:fontFamily="@font/inter_regular"
-                    android:paddingLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Street Address"
-                    android:textColor="@color/MainText"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:theme="@style/Widget.Design.TextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginHorizontal="5dp"
-                    android:elevation="3dp"
-                    android:background="@drawable/textboxmain"
-                    app:boxBackgroundColor="@android:color/transparent"
-                    >
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:fontFamily="@font/inter_regular"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="4dp"
-                        android:textColor="@color/MenuTextColor"
-                        android:textSize="14dp"
-                        android:id="@+id/editprofStreet"
-                        >
-                    </com.google.android.material.textfield.TextInputEditText>
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <!-- 2 -->
-
-            <LinearLayout
+            <!-- City -->
+            <EditText
+                android:id="@+id/editprofCity"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="45dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box_grey_input"
+                android:drawableLeft="@drawable/location"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/asap_regular"
+                android:hint="Enter city name"
+                android:paddingHorizontal="15dp"
+                android:textSize="15sp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+            <!-- Province -->
+            <EditText
+                android:id="@+id/editprofProvince"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box_grey_input"
+                android:drawableLeft="@drawable/location"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/asap_regular"
+                android:hint="Enter province name"
+                android:paddingHorizontal="15dp"
+                android:textSize="15sp" />
 
-                    <TextView
-                        android:paddingTop="15dp"
-                        android:fontFamily="@font/inter_regular"
-                        android:paddingLeft="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="City"
-                        android:textColor="@color/MainText"/>
+            <!-- Zip Code -->
+            <EditText
+                android:id="@+id/editprofZip"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box_grey_input"
+                android:drawableLeft="@drawable/location"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/asap_regular"
+                android:hint="Enter zip code"
+                android:maxLength="4"
+                android:paddingHorizontal="15dp"
+                android:textSize="15sp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:theme="@style/Widget.Design.TextInputLayout"
-                        android:layout_width="150dp"
-                        android:layout_height="45dp"
-                        android:layout_marginHorizontal="5dp"
-                        android:elevation="3dp"
-                        android:background="@drawable/textboxmain"
-                        app:boxBackgroundColor="@android:color/transparent"
-                        >
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:fontFamily="@font/inter_regular"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:paddingTop="3dp"
-                            android:paddingBottom="4dp"
-                            android:textColor="@color/MenuTextColor"
-                            android:textSize="14dp"
-                            android:id="@+id/editprofCity">
-                        </com.google.android.material.textfield.TextInputEditText>
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:paddingTop="15dp"
-                        android:fontFamily="@font/inter_regular"
-                        android:paddingLeft="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="State/Province"
-                        android:textColor="@color/MainText"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:theme="@style/Widget.Design.TextInputLayout"
-                        android:layout_width="150dp"
-                        android:layout_height="45dp"
-                        android:layout_marginHorizontal="5dp"
-                        android:elevation="3dp"
-                        android:background="@drawable/textboxmain"
-                        app:boxBackgroundColor="@android:color/transparent"
-                        >
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:fontFamily="@font/inter_regular"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:paddingTop="3dp"
-                            android:paddingBottom="4dp"
-                            android:textColor="@color/MenuTextColor"
-                            android:textSize="14dp"
-                            android:id="@+id/editprofProvince">
-                        </com.google.android.material.textfield.TextInputEditText>
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-                <!-- Zip Code -->
-                <TextView
-                    android:paddingTop="15dp"
-                    android:fontFamily="@font/inter_regular"
-                    android:paddingLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Zip Code"
-                    android:textColor="@color/MainText"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:theme="@style/Widget.Design.TextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginHorizontal="5dp"
-                    android:elevation="3dp"
-                    android:background="@drawable/textboxmain"
-                    app:boxBackgroundColor="@android:color/transparent"
-                    >
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:fontFamily="@font/inter_regular"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="4dp"
-                        android:inputType="number"
-                        android:textColor="@color/MenuTextColor"
-                        android:textSize="14dp"
-                        android:id="@+id/editprofZip"
-                        android:maxLength="4">
-                    </com.google.android.material.textfield.TextInputEditText>
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-            </LinearLayout>
-
-            <Button
+            <TextView
                 android:id="@+id/btnSave"
-                android:layout_width="150dp"
-                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box_secondary"
+                android:fontFamily="@font/asap_medium"
+                android:gravity="center"
+                android:paddingHorizontal="15dp"
                 android:text="Update"
-                android:textAllCaps="false"
-                android:padding="1dp"
-                android:textColor="@color/MainText"
-                android:layout_gravity="center"
-                android:layout_marginTop="60dp"
-                android:background="@drawable/menubutton"
-                android:textStyle="bold"
-                android:elevation="5dp"
-                android:letterSpacing="-.01"
-                android:fontFamily="@font/inter_extrabold" />
+                android:textSize="14sp" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
