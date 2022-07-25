@@ -72,8 +72,6 @@ public class PaymentActivity extends AppCompatActivity {
                         String totalrates = snapshot.child("totalrates").getValue().toString();
 
 
-
-
                         if (type && totalstars.equals("0") && totalrates.equals("0")){
                             int rating = 0;
                             String textOrderList = getIntent().getStringExtra("imgorder");
