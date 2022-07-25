@@ -75,6 +75,17 @@ public class UsersFragment extends Fragment {
                 UserVH vh = (UserVH) viewHolder;
                 User user = (User) o;
 
+                int totalrates = user.getTotalrates();
+                int totalstars = user.getTotalstars();
+
+                if (totalstars==0 && totalrates==0){
+                    vh.rating.setRating(0);
+                }else{
+                    vh.rating.setRating(totalstars/totalrates);
+                }
+
+
+
                 vh.itemView.startAnimation(AnimationUtils.loadAnimation(vh.itemView.getContext(), R.anim.slide_in));
 
                 vh.name.setText(user.getFirstname()+" "+user.getLastname());
@@ -86,7 +97,7 @@ public class UsersFragment extends Fragment {
             @NonNull
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_users, parent, false);
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_admin, parent, false);
                 return new UserVH(view);
             }
 

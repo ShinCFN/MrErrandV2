@@ -3,6 +3,7 @@ package com.example.mrerrandv2;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import es.dmoral.toasty.Toasty;
 import pl.droidsonroids.gif.GifImageButton;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -77,12 +79,13 @@ public class RiderHomeFragment extends Fragment {
                 OrderVH vh = (OrderVH) viewHolder;
                 Order ord = (Order) o;
 
-                vh.itemView.startAnimation(AnimationUtils.loadAnimation(vh.itemView.getContext(), R.anim.slide_in));
-
                 vh.orderName.setText(ord.getFirstname());
 
                 if (ord.getOrdertype().equals("true")){
                     vh.orderdesc.setText("Open to view order list");
+                }else if (ord.getStatus().equals("accepted")){
+                    vh.orderdesc.setText("Accepted");
+                    vh.orderdesc.setTextColor(Color.GREEN);
                 }else{
                     vh.orderdesc.setText(ord.getOrderlist());
                 }
@@ -93,9 +96,16 @@ public class RiderHomeFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
 
-                        Intent intent = new Intent(getContext(), ViewOrderActivity.class);
-                        intent.putExtra("OPEN", ord);
-                        startActivity(intent);
+
+                        if (ord.getStatus().equals("accepted")){
+                            Toasty.warning(getContext(), "Order was placed for another rider", Toasty.LENGTH_LONG).show();
+                        }else{
+                            Intent intent = new Intent(getContext(), ViewOrderActivity.class);
+                            intent.putExtra("OPEN", ord);
+                            startActivity(intent);
+                        }
+
+
                     }
                 });
             }

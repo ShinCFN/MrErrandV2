@@ -1,11 +1,11 @@
 package com.example.mrerrandv2;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RatingBar;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import es.dmoral.toasty.Toasty;
 
-public class RatingActivity extends AppCompatActivity {
+public class RatingActivityTowardsUser extends AppCompatActivity {
 
     RatingBar ratingBar;
 
@@ -26,9 +26,9 @@ public class RatingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rating);
+        setContentView(R.layout.activity_ratingtouser);
 
-        String riderkey = getIntent().getStringExtra("rider");
+        String userkey = getIntent().getStringExtra("user");
 
         ratingBar = findViewById(R.id.rating);
 
@@ -60,55 +60,53 @@ public class RatingActivity extends AppCompatActivity {
                         break;
                 }
 
-                Toasty.info(RatingActivity.this, message, Toasty.LENGTH_LONG).show();
+                Toasty.normal(RatingActivityTowardsUser.this, message, Toasty.LENGTH_LONG).show();
 
-                DatabaseReference rateRef = FirebaseDatabase.getInstance().getReference("Riders").child(riderkey).child("Rating");
+                DatabaseReference rateRef = FirebaseDatabase.getInstance().getReference("Users").child(userkey);
 
                 rateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        if (snapshot.exists()){
+                        if (snapshot.child("totalstars").exists() && snapshot.child("totalrates").exists()) {
                             String totalstars = snapshot.child("totalstars").getValue().toString();
                             String totalrates = snapshot.child("totalrates").getValue().toString();
 
                             int newtotalstars = Integer.valueOf(totalstars) + myRating;
                             int newtotalrates = Integer.valueOf(totalrates) + 1;
 
-                            Rating data = new Rating(newtotalstars, newtotalrates);
-
-                            rateRef.setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            rateRef.child("totalstars").setValue(newtotalstars).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order");
-
-                                    databaseReference.child(getIntent().getStringExtra("order")).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    rateRef.child("totalrates").setValue(newtotalrates).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-                                            finish();
-                                        }
-                                    });
-                                }
-                            });
-                        } else {
-                            int newrating = myRating;
-                            int newtotalrates = 1;
-                            Rating data = new Rating(newrating, newtotalrates);
 
-                            rateRef.setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order");
-                                    databaseReference.child(getIntent().getStringExtra("order")).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Intent intent = new Intent(RatingActivity.this, MainActivity.class);
+                                            Intent intent = new Intent(RatingActivityTowardsUser.this, RiderLandingPage.class);
                                             startActivity(intent);
                                             finish();
                                         }
                                     });
                                 }
                             });
+
+
+                        } else {
+                            int newrating = myRating;
+                            int newtotalrates = 1;
+
+                            rateRef.child("totalstars").setValue(newrating).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    rateRef.child("totalrates").setValue(newtotalrates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            finish();
+                                        }
+                                    });
+                                }
+                            });
+
                         }
                     }
 

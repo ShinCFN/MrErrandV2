@@ -107,7 +107,7 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
                         databaseReference.removeEventListener(this);
                         finish();
                     } else if((!firebaseUser.getUid().equals(chosenrider) && !accepted)) {
-                        Toasty.info(OfferWaitingActivityRider.this, "Offer was placed for another rider", Toasty.LENGTH_LONG).show();
+                        Toasty.info(OfferWaitingActivityRider.this, "Order was placed for another rider", Toasty.LENGTH_LONG).show();
                         databaseReference.removeEventListener(this);
                         finish();
                     }

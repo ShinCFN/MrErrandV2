@@ -1,8 +1,5 @@
 package com.example.mrerrandv2;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,26 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
-import pl.droidsonroids.gif.GifImageButton;
-import pl.droidsonroids.gif.GifImageView;
 
 
 public class RidersFragment extends Fragment {
@@ -75,6 +58,15 @@ public class RidersFragment extends Fragment {
                 RiderVH vh = (RiderVH) viewHolder;
                 Rider rider = (Rider) o;
 
+                int totalrates = rider.getTotalrates();
+                int totalstars = rider.getTotalstars();
+
+                if (totalstars==0 && totalrates==0){
+                    vh.rating.setRating(0);
+                }else{
+                    vh.rating.setRating(totalstars/totalrates);
+                }
+
                 vh.itemView.startAnimation(AnimationUtils.loadAnimation(vh.itemView.getContext(), R.anim.slide_in));
 
                 vh.name.setText(rider.getFirstname() + " " + rider.getLastname());
@@ -85,7 +77,7 @@ public class RidersFragment extends Fragment {
             @NonNull
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_riders, parent, false);
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_admin, parent, false);
                 return new RiderVH(view);
             }
 

@@ -25,7 +25,7 @@
             android:name=".ViewImageActivity"
             android:exported="false" />
         <activity
-            android:name=".RatingActivity"
+            android:name=".RatingActivityTowardsRider"
             android:exported="false" />
         <activity
             android:name=".EditProfileRiderActivity"
@@ -34,10 +34,6 @@
         <activity
             android:name=".EditProfileActivity"
             android:windowSoftInputMode="adjustPan"
-            android:exported="false"
-            android:launchMode="singleInstance" />
-        <activity
-            android:name=".DeliveryActivityUser"
             android:exported="false"
             android:launchMode="singleInstance" />
         <activity
@@ -106,8 +102,11 @@
             android:exported="true"
             android:launchMode="singleInstance" />
         <activity
+            android:name=".RatingActivityTowardsUser"
+            android:exported="true"
+            android:launchMode="singleInstance" />
+        <activity
             android:name="com.canhub.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
     </application>
-
 </manifest>

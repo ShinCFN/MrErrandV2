@@ -255,8 +255,12 @@ public class SignUpActivity extends AppCompatActivity {
                     UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(textFirstName).build();
                     firebaseUser.updateProfile(profileChangeRequest);
 
+                    //Defaults
+                    int totalstars = 0;
+                    int totalrates = 0;
+
                     //ReadWriteUserDetails
-                    ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(textFirstName,textLastName ,textEmail,textNum,textType);
+                    ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(textFirstName,textLastName ,textEmail,textNum,textType,totalstars, totalrates);
 
 
                     //Extract Users from db

@@ -50,7 +50,7 @@ public class ViewOrderActivity extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child("ordertype").getValue().toString().equals("true")){
+                if (snapshot.child("ordertype").getValue().toString().equals("true")) {
                     imgorder.setVisibility(View.VISIBLE);
                     Picasso.get().load(snapshot.child("orderlist").getValue().toString()).into(imgorder);
                     imgorder.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +61,7 @@ public class ViewOrderActivity extends AppCompatActivity {
                             startActivity(viewIMG);
                         }
                     });
-                }else{
+                } else {
                     order.setVisibility(View.VISIBLE);
                     order.setText(snapshot.child("orderlist").getValue().toString());
                 }
@@ -90,11 +90,11 @@ public class ViewOrderActivity extends AppCompatActivity {
                             String ridername = snapshot.child("firstname").getValue().toString();
                             String state = "open";
 
-                            if(snapshot.child("Rating").exists()){
-                                String totalstars = snapshot.child("Rating").child("totalstars").getValue().toString();
-                                String totalrates = snapshot.child("Rating").child("totalrates").getValue().toString();
+                            String totalstars = snapshot.child("totalstars").getValue().toString();
+                            String totalrates = snapshot.child("totalrates").getValue().toString();
 
-                                int rating = Integer.valueOf(totalstars) / Integer.valueOf(totalrates);
+                            if(totalstars.equals("0") && totalrates.equals("0")) {
+                                int rating = 0;
 
                                 AddOffer addOffer = new AddOffer(ridername, offerval, state, rating);
 
@@ -109,8 +109,8 @@ public class ViewOrderActivity extends AppCompatActivity {
                                         finish();
                                     }
                                 });
-                            }else{
-                                int rating = 0;
+                            } else {
+                                int rating = Integer.valueOf(totalstars) / Integer.valueOf(totalrates);
 
                                 AddOffer addOffer = new AddOffer(ridername, offerval, state, rating);
 
@@ -145,7 +145,7 @@ public class ViewOrderActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onStop () {
+    public void onStop() {
         // Do your stuff here
         super.onStop();
     }

@@ -162,15 +162,19 @@ public class SignUpRiderActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+
                     FirebaseUser firebaseUser = auth.getCurrentUser();
 
                     //Change user name
-
                     UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(textFirstName).build();
                     firebaseUser.updateProfile(profileChangeRequest);
 
+                    //Defaults
+                    int totalstars = 0;
+                    int totalrates = 0;
+
                     //ReadWriteUserDetails
-                    ReadWriteUserDetailsRider writeUserDetails = new ReadWriteUserDetailsRider(textFirstName, textLastName, textEmail, textNum, textType);
+                    ReadWriteUserDetailsRider writeUserDetails = new ReadWriteUserDetailsRider(textFirstName, textLastName, textEmail, textNum, textType, totalstars, totalrates);
 
                     //Extract Users from db
 

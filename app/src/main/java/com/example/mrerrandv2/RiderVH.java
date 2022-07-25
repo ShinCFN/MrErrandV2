@@ -13,12 +13,14 @@ public class RiderVH extends RecyclerView.ViewHolder {
     public TextView name;
     public CircleImageView profile;
     public View view;
+    public RatingBar rating;
 
     public RiderVH(@NonNull View itemView)
     {
         super(itemView);
         name = itemView.findViewById(R.id.name);
         profile = itemView.findViewById(R.id.profile);
+        rating = itemView.findViewById(R.id.rating);
         view = itemView;
     }
 }

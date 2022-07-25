@@ -3,6 +3,7 @@ package com.example.mrerrandv2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -24,7 +25,11 @@ public class DeliveryActivityRider extends AppCompatActivity {
     TextView name, mobile, street, city, province, zip, email;
     CircleImageView profile;
 
+    String userid = null;
+
     Button complete;
+
+    String key = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +37,18 @@ public class DeliveryActivityRider extends AppCompatActivity {
         setContentView(R.layout.activity_delivery_rider);
 
         Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
+        key = ord_open.getKey();
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order");
-
-        Log.e("test", ord_open.getKey());
 
         databaseReference.child(ord_open.getKey()).child("uid").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 String uid = snapshot.getValue().toString();
-
                 DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
+
+                userid = uid;
 
                 userRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -86,8 +91,12 @@ public class DeliveryActivityRider extends AppCompatActivity {
         complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
+                DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("Order").child(key);
                 orderRef.child("status").setValue("complete");
+                Intent intent = new Intent(DeliveryActivityRider.this, RatingActivityTowardsUser.class);
+                intent.putExtra("user", userid);
+                Log.e("userid", userid);
+                startActivity(intent);
                 finish();
             }
         });
