@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import es.dmoral.toasty.Toasty;
 import pl.droidsonroids.gif.GifImageButton;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -60,7 +61,7 @@ public class HomeFragment extends Fragment {
                             startActivity(intent);
 
                         } else {
-                            Toast.makeText(getContext(),"Please complete your information", Toast.LENGTH_LONG).show();
+                            Toasty.error(getContext(), "Please complete your information", Toasty.LENGTH_LONG).show();
                         }
                     }
 

@@ -73,7 +73,6 @@ public class ViewOrderActivity extends AppCompatActivity {
             }
         });
 
-
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

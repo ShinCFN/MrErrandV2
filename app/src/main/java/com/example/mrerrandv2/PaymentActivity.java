@@ -68,10 +68,17 @@ public class PaymentActivity extends AppCompatActivity {
                         String profilePic = snapshot.child("profileImage").getValue().toString();
                         String uid = firebaseUser.getUid();
 
-                        if (type){
+                        String totalstars = snapshot.child("totalstars").getValue().toString();
+                        String totalrates = snapshot.child("totalrates").getValue().toString();
+
+
+
+
+                        if (type && totalstars.equals("0") && totalrates.equals("0")){
+                            int rating = 0;
                             String textOrderList = getIntent().getStringExtra("imgorder");
                             //Send order to DB
-                            Order ord = new Order(textFirstName, textOrderList, state, lastname,profilePic, status, uid, type.toString());
+                            Order ord = new Order(textFirstName, textOrderList, state, lastname,profilePic, status, uid, type.toString(),rating);
                             dbord.add(ord).addOnSuccessListener(suc -> {
                                 databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -92,10 +99,41 @@ public class PaymentActivity extends AppCompatActivity {
                                     }
                                 });
                             });
-                        } else if (!type){
+                        } else if (type && !totalstars.equals("0") && !totalrates.equals("0")){
+
+                            int rating = Integer.valueOf(totalstars) / Integer.valueOf(totalrates);
+
+                            String textOrderList = getIntent().getStringExtra("imgorder");
+                            //Send order to DB
+                            Order ord = new Order(textFirstName, textOrderList, state, lastname,profilePic, status, uid, type.toString(),rating);
+                            dbord.add(ord).addOnSuccessListener(suc -> {
+                                databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                                            String key = childSnapshot.getKey();
+                                            Toast.makeText(PaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(PaymentActivity.this, ViewOfferActivity.class);
+                                            intent.putExtra("Key", key);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            });
+
+                        }else if (!type && totalstars.equals("0") && totalrates.equals("0")){
+
+                            int rating = 0;
+
                             String textOrderList = orderlist;
                             //Send order to DB
-                            Order ord = new Order(textFirstName, textOrderList, state, lastname,profilePic, status, uid, type.toString());
+                            Order ord = new Order(textFirstName, textOrderList, state, lastname,profilePic, status, uid, type.toString(),rating);
                             dbord.add(ord).addOnSuccessListener(suc -> {
                                 databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -117,6 +155,35 @@ public class PaymentActivity extends AppCompatActivity {
                                     }
                                 });
                             });
+                        } else if (!type && !totalstars.equals("0") && !totalrates.equals("0")){
+
+                            int rating = Integer.valueOf(totalstars) / Integer.valueOf(totalrates);
+
+                            String textOrderList = orderlist;
+                            //Send order to DB
+                            Order ord = new Order(textFirstName, textOrderList, state, lastname,profilePic, status, uid, type.toString(),rating);
+                            dbord.add(ord).addOnSuccessListener(suc -> {
+                                databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                                            String key = childSnapshot.getKey();
+                                            Log.e("Key", key);
+                                            Toast.makeText(PaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(PaymentActivity.this, ViewOfferActivity.class);
+                                            intent.putExtra("Key", key);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            });
+
                         }
                     }
 

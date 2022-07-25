@@ -1,5 +1,6 @@
 package com.example.mrerrandv2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -67,11 +68,18 @@ public class RidersFragment extends Fragment {
                     vh.rating.setRating(totalstars/totalrates);
                 }
 
-                vh.itemView.startAnimation(AnimationUtils.loadAnimation(vh.itemView.getContext(), R.anim.slide_in));
-
                 vh.name.setText(rider.getFirstname() + " " + rider.getLastname());
 
                 Picasso.get().load(rider.getProfileImage()).into(vh.profile);
+
+                vh.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), AdminViewRiderActivity.class);
+                        intent.putExtra("rider", rider);
+                        startActivity(intent);
+                    }
+                });
             }
 
             @NonNull

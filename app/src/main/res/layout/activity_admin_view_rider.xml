@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".RiderProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profilePic"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:civ_border_color="@color/GreyMain"
+                app:civ_border_width="2dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp">
+
+                <!-- Name -->
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="Name"
+                    android:textColor="@color/DarkMain" />
+
+                <TextView
+                    android:id="@+id/profileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter_regular"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/DarkMain" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="100dp"
+            android:layout_marginHorizontal="30dp"
+
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <!-- Mobile -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Mobile Number"
+                android:textColor="@color/DarkMain" />
+
+            <TextView
+                android:id="@+id/profileNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_regular"
+                android:paddingBottom="20dp"
+                android:textColor="@color/DarkMain" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- Email -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Email"
+                android:textColor="@color/DarkMain" />
+
+            <TextView
+                android:id="@+id/profileEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_regular"
+                android:paddingBottom="20dp"
+                android:textColor="@color/DarkMain" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- Driver's License -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Driver's License"
+                android:textColor="@color/DarkMain" />
+
+            <TextView
+                android:id="@+id/profileLicense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_regular"
+                android:paddingBottom="20dp"
+                android:textColor="@color/DarkMain" />
+
+            <ImageView
+                android:layout_width="290dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:background="@color/GreyMain"
+                android:id="@+id/rlicensePic" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- Plate Number -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Plate Number"
+                android:textColor="@color/DarkMain" />
+
+            <TextView
+                android:id="@+id/profilePlate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_regular"
+                android:paddingBottom="20dp"
+                android:textColor="@color/DarkMain" />
+
+            <ImageView
+                android:layout_width="290dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:background="@color/GreyMain"
+                android:id="@+id/rplatePic" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- OR/CR -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_semibold"
+                android:text="OR/CR"
+                android:textColor="@color/DarkMain" />
+
+            <TextView
+                android:id="@+id/profileOR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_regular"
+                android:paddingBottom="20dp"
+                android:textColor="@color/DarkMain" />
+
+            <ImageView
+                android:layout_width="290dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:background="@color/GreyMain"
+                android:id="@+id/rorcrPic"
+                android:layout_marginBottom="30dp"/>
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+</ScrollView>

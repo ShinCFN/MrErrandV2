@@ -19,6 +19,12 @@
         android:theme="@style/Theme.MrErrandV2"
         tools:targetApi="31">
         <activity
+            android:name=".AdminViewRiderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminViewUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminMainActivity"
             android:exported="false" />
         <activity
@@ -33,9 +39,9 @@
             android:launchMode="singleInstance" />
         <activity
             android:name=".EditProfileActivity"
-            android:windowSoftInputMode="adjustPan"
             android:exported="false"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".DeliveryActivityRider"
             android:exported="false"
@@ -54,9 +60,9 @@
             android:launchMode="singleInstance" />
         <activity
             android:name=".OfferWaitingActivityRider"
+            android:excludeFromRecents="true"
             android:exported="false"
-            android:launchMode="singleInstance"
-            android:excludeFromRecents="true"/>
+            android:launchMode="singleInstance" />
         <activity
             android:name=".ViewOrderActivity"
             android:exported="false"
@@ -89,10 +95,10 @@
             android:launchMode="singleInstance" />
         <activity
             android:name=".SignUpActivity"
-            android:windowSoftInputMode="adjustPan"
             android:exported="true"
             android:launchMode="singleInstance"
-            android:parentActivityName=".SignInActivity" />
+            android:parentActivityName=".SignInActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -109,4 +115,5 @@
             android:name="com.canhub.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
     </application>
+
 </manifest>

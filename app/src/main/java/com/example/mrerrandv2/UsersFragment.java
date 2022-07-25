@@ -84,13 +84,18 @@ public class UsersFragment extends Fragment {
                     vh.rating.setRating(totalstars/totalrates);
                 }
 
-
-
-                vh.itemView.startAnimation(AnimationUtils.loadAnimation(vh.itemView.getContext(), R.anim.slide_in));
-
                 vh.name.setText(user.getFirstname()+" "+user.getLastname());
 
                 Picasso.get().load(user.getProfileImage()).into(vh.profile);
+
+                vh.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), AdminViewUserActivity.class);
+                        intent.putExtra("user", user);
+                        startActivity(intent);
+                    }
+                });
 
             }
 

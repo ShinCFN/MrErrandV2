@@ -105,7 +105,6 @@ public class RiderHomeFragment extends Fragment {
                             startActivity(intent);
                         }
 
-
                     }
                 });
             }

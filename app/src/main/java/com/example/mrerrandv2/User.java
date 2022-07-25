@@ -2,7 +2,9 @@ package com.example.mrerrandv2;
 
 import com.google.firebase.database.Exclude;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     String firstname,lastname, profileImage;
     int totalstars, totalrates;
@@ -42,5 +44,9 @@ public class User {
 
     public int getTotalrates() {
         return totalrates;
+    }
+
+    public String getKey() {
+        return key;
     }
 }
