@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,15 +32,19 @@ public class RiderProfileFragment extends Fragment {
 
     ImageView profilepic,profLicense,profPlate,profOR;
 
-    private ProgressDialog progressDialog;
+
+    private progressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
+
+        //Progress bar
+        progressBar = new progressBar(getContext());
+
+
+        progressBar.show();
+
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_rider_profile, container, false);
 
@@ -91,10 +96,19 @@ public class RiderProfileFragment extends Fragment {
                                     .load(image)
                                     .into(profilepic);
 
-                            progressDialog.dismiss();
-
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.dismiss();
+                                }
+                            }, 1000);
                         } else {
-                            progressDialog.dismiss();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.dismiss();
+                                }
+                            }, 1000);
                         }
                         //Set license image
                         if (snapshot.child("licensePic").exists()) {
@@ -105,10 +119,20 @@ public class RiderProfileFragment extends Fragment {
                                     .load(image)
                                     .into(profLicense);
 
-                            progressDialog.dismiss();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.dismiss();
+                                }
+                            }, 1000);
 
                         } else {
-                            progressDialog.dismiss();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.dismiss();
+                                }
+                            }, 1000);
                         }
                         //Set plate image
                         if (snapshot.child("platePic").exists()) {
@@ -118,11 +142,20 @@ public class RiderProfileFragment extends Fragment {
                                     .get()
                                     .load(image)
                                     .into(profPlate);
-
-                            progressDialog.dismiss();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.dismiss();
+                                }
+                            }, 1000);
 
                         } else {
-                            progressDialog.dismiss();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.dismiss();
+                                }
+                            }, 1000);
                         }
                         //Set orcr image
                         if (snapshot.child("orcrPic").exists()) {
@@ -133,10 +166,20 @@ public class RiderProfileFragment extends Fragment {
                                     .load(image)
                                     .into(profOR);
 
-                            progressDialog.dismiss();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.dismiss();
+                                }
+                            }, 1000);
 
                         } else {
-                            progressDialog.dismiss();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.dismiss();
+                                }
+                            }, 1000);
                         }
 
 

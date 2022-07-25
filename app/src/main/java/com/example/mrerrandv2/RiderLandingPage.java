@@ -44,7 +44,7 @@ public class RiderLandingPage extends AppCompatActivity {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Riders");
-
+    DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("Order");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,23 @@ public class RiderLandingPage extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child("licensePic").exists() && snapshot.child("platePic").exists() && snapshot.child("orcrPic").exists()) {
-                    replaceFragment(new RiderHomeFragment());
+
+                    orderRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()){
+                                replaceFragment(new RiderHomeFragment());
+                                orderRef.removeEventListener(this);
+                            }else{
+                                replaceFragment(new EmptyFragment());
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 } else {
                     replaceFragment(new RiderErrorFragment());
                 }
@@ -82,7 +98,22 @@ public class RiderLandingPage extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.child("licensePic").exists() && snapshot.child("platePic").exists() && snapshot.child("orcrPic").exists()) {
-                                replaceFragment(new RiderHomeFragment());
+                                orderRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if(snapshot.exists()){
+                                            replaceFragment(new RiderHomeFragment());
+                                            orderRef.removeEventListener(this);
+                                        }else{
+                                            replaceFragment(new EmptyFragment());
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             } else {
                                 replaceFragment(new RiderErrorFragment());
                             }

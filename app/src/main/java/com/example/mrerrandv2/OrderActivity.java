@@ -46,9 +46,9 @@ public class OrderActivity extends AppCompatActivity {
     LinearLayout pay;
     LinearLayout imgorder;
     private final int PICK_IMAGE_CODE = 17;
-    ProgressDialog progressDialog;
     Boolean isImageorder = false;
     FirebaseAuth auth = FirebaseAuth.getInstance();
+    private progressBar progressBar;
 
 
     @Override
@@ -56,7 +56,9 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         pay = findViewById(R.id.gotoPay);
-        progressDialog = new ProgressDialog(OrderActivity.this);
+
+        progressBar = new progressBar(this);
+
         imgorder = findViewById(R.id.imgorder);
 
         //Set image order
@@ -160,15 +162,13 @@ public class OrderActivity extends AppCompatActivity {
 
             StorageReference storageReference = FirebaseStorage.getInstance().getReference("Orders");
 
-            progressDialog.setCancelable(false);
-            progressDialog.setMessage("Uploading...");
-            progressDialog.show();
+            progressBar.show();
 
             storageReference.child(auth.getCurrentUser().getUid()).putFile(uriContent).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     isImageorder = true;
-                    progressDialog.dismiss();
+                    progressBar.dismiss();
                     storageReference.child(auth.getCurrentUser().getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
@@ -183,7 +183,7 @@ public class OrderActivity extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    progressDialog.cancel();
+                    progressBar.cancel();
                 }
             });
 
