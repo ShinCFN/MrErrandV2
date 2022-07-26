@@ -89,6 +89,7 @@ public class RiderHomeFragment extends Fragment {
                 }else{
                     vh.orderdesc.setText(ord.getOrderlist());
                 }
+                vh.rating.setRating(ord.getRating());
 
                 Picasso.get().load(ord.getProfilePic()).into(vh.profilePic);
 
