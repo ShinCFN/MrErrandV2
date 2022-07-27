@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +29,7 @@ public class RiderProfileFragment extends Fragment {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    TextView editName, editMobile, editEmail, editLicense, editPlate;
+    TextView editFirst, editLast, editMobile, editEmail, editLicense, editPlate;
 
     ImageView profilepic,profLicense,profPlate,profOR;
 
@@ -56,7 +57,8 @@ public class RiderProfileFragment extends Fragment {
 
                 //Find Holders
 
-                editName = v.findViewById(R.id.profileName);
+                editFirst = v.findViewById(R.id.profileFirst);
+                editLast = v.findViewById(R.id.profileLast);
                 editMobile = v.findViewById(R.id.profileNumber);
                 editLicense = v.findViewById(R.id.profileLicense);
                 editPlate = v.findViewById(R.id.profilePlate);
@@ -73,9 +75,8 @@ public class RiderProfileFragment extends Fragment {
 
                 //Set text
 
-                String name = firstname + " " + lastname;
-
-                editName.setText(name);
+                editFirst.setText(firstname);
+                editLast.setText(lastname);
                 editMobile.setText(mobilenumber);
                 editEmail.setText(email);
 
@@ -119,6 +120,12 @@ public class RiderProfileFragment extends Fragment {
                                     .load(image)
                                     .into(profLicense);
 
+                            String licenseNum = snapshot.child("license").getValue().toString();
+                            String licenseFinal = licenseNum.replaceAll("\\w(?=\\w{4})", "•");
+
+
+                            editLicense.setText(licenseFinal);
+
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -142,6 +149,9 @@ public class RiderProfileFragment extends Fragment {
                                     .get()
                                     .load(image)
                                     .into(profPlate);
+
+                            editPlate.setText(snapshot.child("plate").getValue().toString());
+
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -194,7 +204,7 @@ public class RiderProfileFragment extends Fragment {
 
                 //Edit Profile
 
-                Button editProfile = v.findViewById(R.id.profileEdit);
+                LinearLayout editProfile = v.findViewById(R.id.profileEdit);
 
                 editProfile.setOnClickListener(new View.OnClickListener() {
                     @Override

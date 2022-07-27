@@ -10,11 +10,15 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.canhub.cropper.CropImage;
@@ -57,13 +61,14 @@ public class EditProfileRiderActivity extends AppCompatActivity {
 
     private ImageView profLicense, profPlate, profOR;
 
-    EditText editfirstname, editlastname, editmobilenum, editlicensenum, editplatenum,editLicense,editPlate;
+    private TextView profOrBtn;
+
+    EditText editfirstname, editlastname, editmobilenum, editlicensenum, editplatenum, editLicense, editPlate;
 
     private final int PICK_PROFILE_CODE = 12;
     private final int PICK_LICENSE_CODE = 13;
     private final int PICK_PLATE_CODE = 14;
     private final int PICK_OR_CODE = 15;
-
 
 
     @Override
@@ -81,6 +86,14 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         profLicense = findViewById((R.id.editriderLicensePic));
         profPlate = findViewById((R.id.editriderPlatePic));
         profOR = findViewById((R.id.rorcrPic));
+        profOrBtn = findViewById(R.id.btnUploadOR);
+
+        //Find Holders
+        editfirstname = findViewById(R.id.editriderFirst);
+        editlastname = findViewById(R.id.editriderLast);
+        editmobilenum = findViewById(R.id.editriderMobile);
+        editLicense = findViewById(R.id.editriderLicense);
+        editPlate = findViewById(R.id.editriderPlate);
 
         //Set Profile Pic
         profpic = findViewById((R.id.editprofPic));
@@ -88,7 +101,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(snapshot.child("profileImage").exists()){
+                if (snapshot.child("profileImage").exists()) {
                     String image = snapshot.child("profileImage").getValue().toString();
 
                     Picasso
@@ -100,23 +113,46 @@ public class EditProfileRiderActivity extends AppCompatActivity {
 
                 } else {
                     progressDialog.dismiss();
-                }}
+                }
+            }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
 
+        editPlate.addTextChangedListener(new TextWatcher() {
+            int prevL = 0;
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                prevL = editPlate.getText().toString().length();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int length = editable.length();
+
+                Log.e("test", "wat");
+
+                if ((prevL <= length) && length == 3) {
+                    String data = editPlate.getText().toString();
+
+                    editPlate.setText(data + "-");
+                    editPlate.setSelection(length + 1);
+                }
+            }
+        });
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Find Holders
-                editfirstname = findViewById(R.id.editriderFirst);
-                editlastname = findViewById(R.id.editriderLast);
-                editmobilenum = findViewById(R.id.editriderMobile);
-                editLicense = findViewById(R.id.editriderLicense);
-                editPlate = findViewById(R.id.editriderPlate);
+
 
                 //Get Information
 
@@ -130,17 +166,17 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                 editlastname.setText(lastname);
                 editmobilenum.setText(mobilenumber);
 
-                if(snapshot.child("license").exists()){
+                if (snapshot.child("license").exists()) {
                     String license = snapshot.child("license").getValue().toString();
                     editLicense.setText(license);
-                }else{
+                } else {
 
                 }
 
-                if(snapshot.child("plate").exists()){
+                if (snapshot.child("plate").exists()) {
                     String plate = snapshot.child("plate").getValue().toString();
                     editPlate.setText(plate);
-                }else{
+                } else {
 
                 }
 
@@ -213,7 +249,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
             }
         });
 
-        Button update = findViewById(R.id.btnSave);
+        TextView update = findViewById(R.id.btnSave);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -233,9 +269,9 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                 String license = editlicensenum.getText().toString();
                 String platenum = editplatenum.getText().toString();
 
-                if(firstname.isEmpty() || lastname.isEmpty() || mobilenumber.isEmpty() || license.isEmpty() || platenum.isEmpty() || license.isEmpty() || platenum.isEmpty()){
-                    Toast.makeText(EditProfileRiderActivity.this,"Please complete your information", Toast.LENGTH_LONG).show();
-                }else{
+                if (firstname.isEmpty() || lastname.isEmpty() || mobilenumber.isEmpty() || license.isEmpty() || platenum.isEmpty() || license.isEmpty() || platenum.isEmpty()) {
+                    Toast.makeText(EditProfileRiderActivity.this, "Please complete your information", Toast.LENGTH_LONG).show();
+                } else {
                     //Set Information
 
                     databaseReference.child("firstname").setValue(firstname);
@@ -245,9 +281,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                     databaseReference.child("plate").setValue(platenum).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Toasty.success(EditProfileRiderActivity.this, "Success", Toasty.LENGTH_LONG).show();
-                            Intent intent = new Intent(EditProfileRiderActivity.this, RiderLandingPage.class);
-                            startActivity(intent);
+                            Toasty.success(EditProfileRiderActivity.this, "Success", Toasty.LENGTH_SHORT).show();
                             finish();
                         }
                     });
@@ -286,7 +320,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         });
 
         //Crop OR
-        profOR.setOnClickListener(new View.OnClickListener() {
+        profOrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cropOR();
@@ -317,6 +351,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                     }
                 }).check();
     }
+
     private void cropLicense() {
         Dexter.withContext(this)
                 .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -340,6 +375,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                     }
                 }).check();
     }
+
     //Crop Plate
     private void cropPlate() {
         Dexter.withContext(this)
@@ -364,6 +400,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                     }
                 }).check();
     }
+
     //Crop OR/CR
     private void cropOR() {
         Dexter.withContext(this)
@@ -394,23 +431,23 @@ public class EditProfileRiderActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==PICK_PROFILE_CODE && resultCode==RESULT_OK){
-            if(data!=null){
+        if (requestCode == PICK_PROFILE_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
                 resizeProfile(data.getData());
             }
         }
-        if(requestCode==PICK_LICENSE_CODE && resultCode==RESULT_OK){
-            if(data!=null){
+        if (requestCode == PICK_LICENSE_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
                 resizeLicense(data.getData());
             }
         }
-        if(requestCode==PICK_PLATE_CODE && resultCode==RESULT_OK){
-            if(data!=null){
+        if (requestCode == PICK_PLATE_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
                 resizePlate(data.getData());
             }
         }
-        if(requestCode==PICK_OR_CODE && resultCode==RESULT_OK){
-            if(data!=null){
+        if (requestCode == PICK_OR_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
                 resizeOR(data.getData());
             }
         }
@@ -422,9 +459,9 @@ public class EditProfileRiderActivity extends AppCompatActivity {
             registerForActivityResult(new CropImageContract(), this::onCropProfileResult);
 
     public void resizeProfile(Uri uri) {
-        CropImageContractOptions options= new CropImageContractOptions(uri, new CropImageOptions())
+        CropImageContractOptions options = new CropImageContractOptions(uri, new CropImageOptions())
                 .setMultiTouchEnabled(true)
-                .setAspectRatio(1,1)
+                .setAspectRatio(1, 1)
                 .setCropShape(CropImageView.CropShape.OVAL)
                 .setOutputCompressQuality(50)
                 .setActivityTitle("")
@@ -447,14 +484,15 @@ public class EditProfileRiderActivity extends AppCompatActivity {
             Toast.makeText(EditProfileRiderActivity.this, "Failed", Toast.LENGTH_LONG).show();
         }
     }
+
     //Resize License
     private final ActivityResultLauncher<CropImageContractOptions> cropLicense =
             registerForActivityResult(new CropImageContract(), this::onCropLicenseResult);
 
     public void resizeLicense(Uri uri) {
-        CropImageContractOptions options= new CropImageContractOptions(uri, new CropImageOptions())
+        CropImageContractOptions options = new CropImageContractOptions(uri, new CropImageOptions())
                 .setMultiTouchEnabled(true)
-                .setAspectRatio(154,100)
+                .setAspectRatio(154, 100)
                 .setOutputCompressQuality(50)
                 .setActivityTitle("")
                 .setActivityMenuIconColor(0)
@@ -476,14 +514,15 @@ public class EditProfileRiderActivity extends AppCompatActivity {
             Toast.makeText(EditProfileRiderActivity.this, "Failed", Toast.LENGTH_LONG).show();
         }
     }
+
     //Resize Plate
     private final ActivityResultLauncher<CropImageContractOptions> cropPlate =
             registerForActivityResult(new CropImageContract(), this::onCropPlateResult);
 
     public void resizePlate(Uri uri) {
-        CropImageContractOptions options= new CropImageContractOptions(uri, new CropImageOptions())
+        CropImageContractOptions options = new CropImageContractOptions(uri, new CropImageOptions())
                 .setMultiTouchEnabled(true)
-                .setAspectRatio(25,10)
+                .setAspectRatio(25, 10)
                 .setOutputCompressQuality(50)
                 .setActivityTitle("")
                 .setActivityMenuIconColor(0)
@@ -505,12 +544,13 @@ public class EditProfileRiderActivity extends AppCompatActivity {
             Toast.makeText(EditProfileRiderActivity.this, "Failed", Toast.LENGTH_LONG).show();
         }
     }
+
     //Resize OR/CR
     private final ActivityResultLauncher<CropImageContractOptions> cropOR =
             registerForActivityResult(new CropImageContract(), this::onCropORResult);
 
     public void resizeOR(Uri uri) {
-        CropImageContractOptions options= new CropImageContractOptions(uri, new CropImageOptions())
+        CropImageContractOptions options = new CropImageContractOptions(uri, new CropImageOptions())
                 .setMultiTouchEnabled(true)
                 .setOutputCompressQuality(50)
                 .setActivityTitle("")
@@ -560,6 +600,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         });
 
     }
+
     //Uploading License
     private void uploadLicense(Uri uriContent) {
 
@@ -586,6 +627,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         });
 
     }
+
     //Uploading Plate
     private void uploadPlate(Uri uriContent) {
 
@@ -612,6 +654,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         });
 
     }
+
     //Uploading ORCR
     private void uploadOR(Uri uriContent) {
 
@@ -639,5 +682,8 @@ public class EditProfileRiderActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

@@ -55,6 +55,7 @@ import com.squareup.picasso.Picasso;
 import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -148,8 +149,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     databaseReference.child("zip").setValue(zip).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
-                            startActivity(intent);
+                            Toasty.success(EditProfileActivity.this, "Success", Toasty.LENGTH_SHORT).show();
                             finish();
                         }
                     });
@@ -326,5 +326,10 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

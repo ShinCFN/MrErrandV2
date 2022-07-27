@@ -46,6 +46,8 @@ public class RiderLandingPage extends AppCompatActivity {
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Riders");
     DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("Order");
 
+    ValueEventListener orderRefListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -60,7 +62,7 @@ public class RiderLandingPage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child("licensePic").exists() && snapshot.child("platePic").exists() && snapshot.child("orcrPic").exists()) {
 
-                    orderRef.addValueEventListener(new ValueEventListener() {
+                    orderRefListener = orderRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.exists()){
@@ -146,5 +148,13 @@ public class RiderLandingPage extends AppCompatActivity {
         fragmentTransaction.commit();
 
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (orderRef != null && orderRefListener != null) {
+            orderRef.removeEventListener(orderRefListener);
+        }
     }
 }
