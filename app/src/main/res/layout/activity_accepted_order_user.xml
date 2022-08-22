@@ -23,7 +23,7 @@
             android:fontFamily="@font/inter_extrabold"
             android:gravity="center"
             android:paddingVertical="70dp"
-            android:text="YOUR RIDER IS PICKING UP YOUR ORDER"
+            android:text="RIDER IS PURCHASING YOUR ORDER"
 
             android:textSize="17sp" />
 
@@ -62,7 +62,7 @@
                     android:id="@+id/profilePic"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:src="@drawable/logo"
+                    android:src="@drawable/blankuser"
                     app:civ_border_color="@color/GreyMain"
                     app:civ_border_width="2dp"
                     app:layout_constraintStart_toStartOf="parent"

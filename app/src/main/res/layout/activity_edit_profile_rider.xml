@@ -45,6 +45,7 @@
                 android:textColor="@color/Gray" />
 
             <EditText
+                android:maxLines="1"
                 android:id="@+id/editriderFirst"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -65,6 +66,7 @@
                 android:textColor="@color/Gray" />
 
             <EditText
+                android:maxLines="1"
                 android:id="@+id/editriderLast"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -85,6 +87,7 @@
                 android:textColor="@color/Gray" />
 
             <EditText
+                android:maxLines="1"
                 android:inputType="number"
                 android:id="@+id/editriderMobile"
                 android:layout_width="match_parent"
@@ -107,6 +110,7 @@
                 android:textColor="@color/Gray" />
 
             <EditText
+                android:maxLines="1"
                 android:inputType="textCapCharacters"
                 android:id="@+id/editriderLicense"
                 android:layout_width="match_parent"
@@ -140,6 +144,7 @@
                 android:textColor="@color/Gray" />
 
             <EditText
+                android:maxLines="1"
                 android:inputType="textCapCharacters"
                 android:id="@+id/editriderPlate"
                 android:layout_width="match_parent"

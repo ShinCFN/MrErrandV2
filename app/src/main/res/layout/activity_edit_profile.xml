@@ -45,6 +45,7 @@
                 android:textColor="@color/Gray" />
 
             <EditText
+                android:maxLines="1"
                 android:id="@+id/editproftFirst"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -65,6 +66,7 @@
                 android:textColor="@color/Gray" />
 
             <EditText
+                android:maxLines="1"
                 android:id="@+id/editproftLast"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -85,6 +87,7 @@
                 android:textColor="@color/Gray" />
 
             <EditText
+                android:maxLines="1"
                 android:inputType="number"
                 android:id="@+id/editprofMobile"
                 android:layout_width="match_parent"
@@ -107,6 +110,7 @@
                 android:textColor="@color/Gray" />
 
             <EditText
+                android:maxLines="1"
                 android:id="@+id/editprofStreet"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -120,6 +124,7 @@
 
             <!-- City -->
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/asap_medium"
@@ -127,6 +132,7 @@
                 android:textColor="@color/Gray" />
 
             <EditText
+                android:maxLines="1"
                 android:id="@+id/editprofCity"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -147,6 +153,7 @@
                 android:textColor="@color/Gray" />
 
             <EditText
+                android:maxLines="1"
                 android:id="@+id/editprofProvince"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -167,6 +174,7 @@
                 android:textColor="@color/Gray" />
 
             <EditText
+                android:maxLines="1"
                 android:inputType="number"
                 android:id="@+id/editprofZip"
                 android:layout_width="match_parent"
@@ -181,6 +189,7 @@
                 android:textSize="15sp" />
 
             <TextView
+                android:layout_marginTop="20dp"
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"

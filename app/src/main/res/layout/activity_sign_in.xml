@@ -82,6 +82,7 @@
             android:text="Email"
             android:textColor="@color/Gray" />
         <EditText
+            android:maxLines="1"
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -102,6 +103,7 @@
             android:text="Password"
             android:textColor="@color/Gray" />
         <EditText
+            android:maxLines="1"
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="45dp"
