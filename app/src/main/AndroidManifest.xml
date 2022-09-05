@@ -74,6 +74,7 @@
         <activity
             android:name=".OrderActivity"
             android:exported="false"
+            android:parentActivityName=".MainActivity"
             android:launchMode="singleInstance" />
         <activity
             android:name=".SplashscreenActivity"

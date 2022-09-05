@@ -6,6 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".SplashscreenActivity">
 
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/nonet"
+        android:layout_width="250dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:background="@drawable/textboxmain"
+        android:backgroundTint="@color/finalDark"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/wifioff" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/questrial"
+                    android:text="NO INTERNET CONNECTION"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/questrial"
+                    android:text="Check your Internet Connection and try again"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 <!--    <ImageView-->
 <!--        android:layout_width="527dp"-->
@@ -18,7 +77,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/DarkMain" />
+        android:background="@color/finalBG" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="350dp"
@@ -26,7 +85,7 @@
         android:elevation="5dp"
         app:lottie_autoPlay="true"
         app:lottie_fileName="splash.json"
-        app:lottie_loop="false"
+        app:lottie_loop="true"
 
 
 

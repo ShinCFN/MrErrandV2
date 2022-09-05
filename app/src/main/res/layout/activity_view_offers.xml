@@ -1,23 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:paddingTop="30dp"
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="Offers"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"
-        android:fontFamily="@font/asap_bold"
-        android:background="@color/DarkMain"
-        android:textColor="@color/GreyMain"
-        android:textSize="18sp"/>
+    <include layout="@layout/offertoolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

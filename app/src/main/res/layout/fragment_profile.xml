@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/finalBG"
     tools:context=".ProfileFragment">
 
     <ScrollView
@@ -17,227 +18,237 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_marginBottom="100dp"
-                android:paddingTop="40dp"
                 android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
                 android:orientation="vertical"
+                android:paddingTop="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
-                <LinearLayout
-                    android:layout_marginBottom="20dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
+                    android:layout_marginBottom="20dp"
                     android:background="@drawable/outlined_box"
-                    android:orientation="horizontal"
-                    android:paddingVertical="20dp"
-                    android:paddingHorizontal="15dp">
+                    android:orientation="horizontal">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:elevation="2dp"
                         android:id="@+id/profilePic"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:elevation="2dp"
                         android:src="@drawable/blankuser"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/profileEdit"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/settings"
+                        android:backgroundTint="@color/finalGray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="30dp">
+                        android:layout_marginLeft="20dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="@+id/profilePic"
+                        app:layout_constraintStart_toEndOf="@+id/profilePic"
+                        app:layout_constraintTop_toTopOf="@+id/profilePic">
 
                         <TextView
+                            android:id="@+id/profileFirst"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/asap_bold"
-                            android:textColor="@color/black"
-                            android:id="@+id/profileFirst"
-                            android:textSize="20sp"/>
+                            android:fontFamily="@font/questrial"
+                            android:textStyle="bold"
+                            android:textColor="@color/finalText"
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/profileLast"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/asap_bold"
-                            android:textColor="@color/black"
+                            android:fontFamily="@font/questrial"
+                            android:textStyle="bold"
+                            android:textColor="@color/finalText"
                             android:textSize="20sp" />
 
                     </LinearLayout>
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <LinearLayout
-                    android:layout_marginBottom="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
+                    android:layout_marginBottom="20dp"
                     android:background="@drawable/outlined_box"
                     android:orientation="vertical"
-                    android:paddingVertical="20dp"
-                    android:paddingHorizontal="15dp">
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/questrial"
                         android:text="Contact Information"
-                        android:fontFamily="@font/asap_bold"
-                        android:textSize="17sp"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/finalText"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mobile Number"
-                        android:fontFamily="@font/asap_medium"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/questrial"
+                        android:text="Mobile number"
                         android:textColor="@color/Gray"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/profileNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/asap_regular"
-                        android:textSize="16sp"
-                        android:textColor="@color/black" />
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/questrial"
+                        android:textColor="@color/finalText"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Email"
-                        android:fontFamily="@font/asap_medium"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/questrial"
+                        android:text="Email address"
                         android:textColor="@color/Gray"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/profileEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/asap_regular"
-                        android:textSize="16sp"
-                        android:textColor="@color/black" />
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/questrial"
+                        android:textColor="@color/finalText"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
 
                 <LinearLayout
-                    android:layout_marginBottom="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
+                    android:layout_marginBottom="20dp"
                     android:background="@drawable/outlined_box"
                     android:orientation="vertical"
-                    android:paddingVertical="20dp"
-                    android:paddingHorizontal="15dp">
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/questrial"
                         android:text="Address"
-                        android:fontFamily="@font/asap_bold"
-                        android:textSize="17sp"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/finalText"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/questrial"
                         android:text="Street"
-                        android:fontFamily="@font/asap_medium"
                         android:textColor="@color/Gray"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/profileStreet"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/asap_regular"
-                        android:textSize="16sp"
-                        android:textColor="@color/black" />
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/questrial"
+                        android:textColor="@color/finalText"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
 
+                        android:fontFamily="@font/questrial"
                         android:text="City"
-                        android:fontFamily="@font/asap_medium"
                         android:textColor="@color/Gray"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/profileCity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/asap_regular"
-                        android:textSize="16sp"
-                        android:textColor="@color/black" />
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/questrial"
+                        android:textColor="@color/finalText"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
 
+                        android:fontFamily="@font/questrial"
                         android:text="State/Province"
-                        android:fontFamily="@font/asap_medium"
                         android:textColor="@color/Gray"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/profileProvince"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/asap_regular"
-                        android:textSize="16sp"
-                        android:textColor="@color/black" />
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/questrial"
+                        android:textColor="@color/finalText"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
 
+                        android:fontFamily="@font/questrial"
                         android:text="Zip Code"
-                        android:fontFamily="@font/asap_medium"
                         android:textColor="@color/Gray"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/profileZip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/asap_regular"
-                        android:textSize="16sp"
-                        android:textColor="@color/black" />
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/profileEdit"
-                    android:layout_marginBottom="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
-                    android:background="@drawable/box_grey"
-                    android:orientation="vertical"
-                    android:paddingVertical="14dp"
-                    android:paddingHorizontal="15dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="Edit Profile"
-                        android:fontFamily="@font/asap_medium"
-                        android:textSize="14sp"
-                        android:textColor="@color/DarkMain"/>
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/questrial"
+                        android:textColor="@color/finalText"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

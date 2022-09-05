@@ -10,7 +10,7 @@ public class AddOffer implements Serializable {
     private String key;
 
 
-    String ridername, offer, state;
+    String ridername, offer, state, uid;
     int rating;
     public AddOffer(){}
 
@@ -19,6 +19,14 @@ public class AddOffer implements Serializable {
         this.offer = offer;
         this.state = state;
         this.rating = rating;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getRidername() {

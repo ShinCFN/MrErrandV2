@@ -1,7 +1,6 @@
 package com.example.mrerrandv2;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 

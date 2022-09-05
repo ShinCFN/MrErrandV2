@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".HomeFragment">
+    tools:context=".HomeFragment"
+    android:background="@color/finalBG">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:padding="10dp"
@@ -22,6 +23,7 @@
         android:layout_width="350dp"
         android:layout_height="0dp"
         android:background="@drawable/ordernow"
+        android:backgroundTint="@color/mustard"
         android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +37,7 @@
         android:layout_width="350dp"
         android:layout_height="120dp"
         android:background="@drawable/ordernow"
-        android:backgroundTint="@color/SecondaryMain"
+        android:backgroundTint="@color/queenpink"
         android:elevation="6dp"
         app:layout_constraintEnd_toEndOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="@+id/textView4"
@@ -58,7 +60,7 @@
             android:fontFamily="@font/asap_bold"
             android:gravity="left"
             android:text="Start ordering now"
-            android:textColor="@color/white"
+            android:textColor="@color/finalDark"
             android:textSize="14sp" />
 
         <TextView
@@ -68,7 +70,7 @@
             android:fontFamily="@font/asap_medium"
             android:gravity="left"
             android:text="Create a new order list to be\ndelivered right at your doorstep"
-            android:textColor="@color/white"
+            android:textColor="@color/finalDark"
             android:textSize="12sp" />
 
     </LinearLayout>
@@ -94,7 +96,7 @@
             android:elevation="6dp"
             android:fontFamily="@font/asap_bold"
             android:text="Order now"
-            android:textColor="@color/DarkMain" />
+            android:textColor="@color/finalTextStatic" />
 
 
     </LinearLayout>
@@ -102,6 +104,7 @@
     <TextView
         android:elevation="6dp"
         android:layout_marginRight="15dp"
+        android:backgroundTint="@color/finalDark"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/arrow_right"

@@ -1,18 +1,21 @@
 package com.example.mrerrandv2;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.database.SnapshotParser;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,29 +26,33 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import es.dmoral.toasty.Toasty;
+
 public class ViewOrderActivity extends AppCompatActivity {
 
-    TextView order;
+
     EditText offerIn;
     ImageView imgorder;
+
+    RecyclerView orderlistrv;
+    DBViewOrderList dbViewOrderList;
+    FirebaseRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_order);
         Order ord_open = (Order) getIntent().getSerializableExtra("OPEN");
-
-        order = findViewById(R.id.orderlistforoffer);
-        order.setText(ord_open.getOrderlist());
         Button btnSend = findViewById(R.id.btnOffer);
         offerIn = findViewById(R.id.editTextOfferInput);
         imgorder = findViewById(R.id.imgorder);
+        orderlistrv = findViewById(R.id.textorderrv);
+        dbViewOrderList = new DBViewOrderList(ord_open.getUID());
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();
         DatabaseReference riderRef = FirebaseDatabase.getInstance().getReference("Riders").child(firebaseUser.getUid());
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
-        DBOffer dboff = new DBOffer(ord_open.getKey());
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -62,8 +69,50 @@ public class ViewOrderActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    order.setVisibility(View.VISIBLE);
-                    order.setText(snapshot.child("orderlist").getValue().toString());
+                    orderlistrv.setVisibility(View.VISIBLE);
+
+
+                    //Recycler View
+                    orderlistrv.setLayoutManager(new WrapContentLinearLayoutManager(ViewOrderActivity.this));
+
+                    FirebaseRecyclerOptions<OrderList> options =
+                            new FirebaseRecyclerOptions.Builder<OrderList>()
+                                    .setQuery(dbViewOrderList.get(), new SnapshotParser<OrderList>() {
+                                        @NonNull
+                                        @Override
+                                        public OrderList parseSnapshot(@NonNull DataSnapshot snapshot) {
+                                            OrderList orl = snapshot.getValue(OrderList.class);
+                                            orl.setKey(snapshot.getKey());
+                                            return orl;
+                                        }
+                                    }).build();
+
+                    adapter = new FirebaseRecyclerAdapter(options) {
+                        @Override
+                        protected void onBindViewHolder(@android.support.annotation.NonNull RecyclerView.ViewHolder viewHolder, int position, @android.support.annotation.NonNull Object o) {
+                            OrderListVH vh = (OrderListVH) viewHolder;
+                            OrderList list = (OrderList) o;
+
+                            vh.item.setText(list.getItem());
+                            vh.qty.setText(list.getQty());
+
+                        }
+
+                        @android.support.annotation.NonNull
+                        @Override
+                        public RecyclerView.ViewHolder onCreateViewHolder(@android.support.annotation.NonNull ViewGroup parent, int viewType) {
+                            View view = LayoutInflater.from(ViewOrderActivity.this).inflate(R.layout.layout_vieworderlist, parent, false);
+                            return new OrderListVH(view);
+                        }
+
+                        @Override
+                        public void onDataChanged() {
+                        }
+                    };
+
+                    orderlistrv.setAdapter(adapter);
+                    adapter.startListening();
+
                 }
             }
 
@@ -79,7 +128,7 @@ public class ViewOrderActivity extends AppCompatActivity {
                 String offerval = offerIn.getText().toString();
 
                 if (offerval.isEmpty()) {
-
+                    Toasty.error(ViewOrderActivity.this, "Enter amount", Toasty.LENGTH_SHORT).show();
                 } else {
 
                     riderRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -140,12 +189,19 @@ public class ViewOrderActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Order ord_open = (Order) getIntent().getSerializableExtra("OPEN");
+        if(ord_open.getOrdertype().equals("false")){
+            adapter.stopListening();
+        }
         finish();
     }
 
     @Override
     public void onStop() {
-        // Do your stuff here
         super.onStop();
+        Order ord_open = (Order) getIntent().getSerializableExtra("OPEN");
+        if(ord_open.getOrdertype().equals("false")){
+            adapter.stopListening();
+        }
     }
 }

@@ -1,25 +1,16 @@
 package com.example.mrerrandv2;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mrerrandv2.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,8 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-
     ActivityMainBinding binding;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
 
     @Override
@@ -40,6 +31,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order");
+        databaseReference.orderByChild("uid").equalTo(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() == null) {
+                    // The child doesn't exist
+
+                }else{
+                    for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+
+                        String key = childSnapshot.getKey();
+                        Intent intent = new Intent(MainActivity.this, ViewOfferActivity.class);
+                        intent.putExtra("Key", key);
+                        startActivity(intent);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 

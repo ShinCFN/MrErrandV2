@@ -1,20 +1,22 @@
 package com.example.mrerrandv2;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,44 +25,119 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
+
 public class PaymentActivity extends AppCompatActivity {
 
-    LinearLayout COD;
+    ConstraintLayout COD;
+    RecyclerView orderlistrv;
+    ArrayList<OrderList> list;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    PaymentOrderListAdapter adapter;
 
+    TextView receiptdate, receiptname, purchasenum;
+    ImageView toolbarback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-        TextView textview = findViewById(R.id.orderlistforpay);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String orderlist = getIntent().getStringExtra("ORDER");
         FirebaseUser firebaseUser = auth.getCurrentUser();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order");
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid()).child("OrderList");
+
+        list = new ArrayList<>();
+        adapter = new PaymentOrderListAdapter(this, list);
+        orderlistrv = findViewById(R.id.orderlistrv);
+        orderlistrv.setHasFixedSize(true);
+        orderlistrv.setLayoutManager(new LinearLayoutManager(this));
+        orderlistrv.setAdapter(adapter);
+
+        toolbarback = findViewById(R.id.toolbarback);
+        receiptdate = findViewById(R.id.receiptdate);
+        receiptname = findViewById(R.id.receiptname);
+        purchasenum = findViewById(R.id.purchasenum);
 
         DBOrder dbord = new DBOrder();
 
-        // Status Bar
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        //Status bar
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(PaymentActivity.this, R.color.finalBG));
 
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-
-        textview.setText(orderlist);
         String textFirstName = firebaseUser.getDisplayName();
 
         String state = "false";
         String status = "null";
         Boolean type = getIntent().getExtras().getBoolean("type");
 
-        COD = findViewById(R.id.COD);
+        //Toolbar
+        toolbarback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        //Order List Recycler View
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    OrderList orderList = dataSnapshot.getValue(OrderList.class);
+                    list.add(orderList);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        //Set Receipt Info
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
+        format.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+        String time = format.format(calendar.getTime());
+        receiptdate.setText(time);
+
+        receiptname.setText(auth.getCurrentUser().getDisplayName());
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                long num = snapshot.getChildrenCount();
+
+                if (Integer.valueOf((int) num).equals(1)) {
+                    purchasenum.setText("(total " + num + " item)");
+                } else {
+                    purchasenum.setText("(total " + num + " items)");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        DatabaseReference proceed = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
+        //Proceed
+        COD = findViewById(R.id.payBtn);
         COD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Get user details
-                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                proceed.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -72,11 +149,11 @@ public class PaymentActivity extends AppCompatActivity {
                         String totalrates = snapshot.child("totalrates").getValue().toString();
 
 
-                        if (type && totalstars.equals("0") && totalrates.equals("0")){
+                        if (type && totalstars.equals("0") && totalrates.equals("0")) {
                             int rating = 0;
                             String textOrderList = getIntent().getStringExtra("imgorder");
                             //Send order to DB
-                            Order ord = new Order(textFirstName, textOrderList, state, lastname,profilePic, status, uid, type.toString(),rating);
+                            Order ord = new Order(textFirstName, textOrderList, state, lastname, profilePic, status, uid, type.toString(), rating);
                             dbord.add(ord).addOnSuccessListener(suc -> {
                                 databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -97,13 +174,13 @@ public class PaymentActivity extends AppCompatActivity {
                                     }
                                 });
                             });
-                        } else if (type && !totalstars.equals("0") && !totalrates.equals("0")){
+                        } else if (type && !totalstars.equals("0") && !totalrates.equals("0")) {
 
                             int rating = Integer.valueOf(totalstars) / Integer.valueOf(totalrates);
 
                             String textOrderList = getIntent().getStringExtra("imgorder");
                             //Send order to DB
-                            Order ord = new Order(textFirstName, textOrderList, state, lastname,profilePic, status, uid, type.toString(),rating);
+                            Order ord = new Order(textFirstName, textOrderList, state, lastname, profilePic, status, uid, type.toString(), rating);
                             dbord.add(ord).addOnSuccessListener(suc -> {
                                 databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -125,13 +202,13 @@ public class PaymentActivity extends AppCompatActivity {
                                 });
                             });
 
-                        }else if (!type && totalstars.equals("0") && totalrates.equals("0")){
+                        } else if (!type && totalstars.equals("0") && totalrates.equals("0")) {
 
                             int rating = 0;
 
                             String textOrderList = orderlist;
                             //Send order to DB
-                            Order ord = new Order(textFirstName, textOrderList, state, lastname,profilePic, status, uid, type.toString(),rating);
+                            Order ord = new Order(textFirstName, textOrderList, state, lastname, profilePic, status, uid, type.toString(), rating);
                             dbord.add(ord).addOnSuccessListener(suc -> {
                                 databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -153,13 +230,13 @@ public class PaymentActivity extends AppCompatActivity {
                                     }
                                 });
                             });
-                        } else if (!type && !totalstars.equals("0") && !totalrates.equals("0")){
+                        } else if (!type && !totalstars.equals("0") && !totalrates.equals("0")) {
 
                             int rating = Integer.valueOf(totalstars) / Integer.valueOf(totalrates);
 
                             String textOrderList = orderlist;
                             //Send order to DB
-                            Order ord = new Order(textFirstName, textOrderList, state, lastname,profilePic, status, uid, type.toString(),rating);
+                            Order ord = new Order(textFirstName, textOrderList, state, lastname, profilePic, status, uid, type.toString(), rating);
                             dbord.add(ord).addOnSuccessListener(suc -> {
                                 databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -194,5 +271,10 @@ public class PaymentActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

@@ -1,38 +1,25 @@
 package com.example.mrerrandv2;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
-import android.provider.ContactsContract;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class ProfileFragment extends Fragment {
@@ -72,7 +59,6 @@ public class ProfileFragment extends Fragment {
                 editZip = v.findViewById(R.id.profileZip);
                 editEmail = v.findViewById(R.id.profileEmail);
                 profilepic = v.findViewById(R.id.profilePic);
-
 
                 //Get Information
 
@@ -126,6 +112,7 @@ public class ProfileFragment extends Fragment {
 
                         if (snapshot.child("profileImage").exists()) {
                             String image = snapshot.child("profileImage").getValue().toString();
+
                             Picasso
                                     .get()
                                     .load(image)
@@ -155,7 +142,7 @@ public class ProfileFragment extends Fragment {
 
                 //Edit Profile
 
-                LinearLayout editProfile = v.findViewById(R.id.profileEdit);
+                ImageView editProfile = v.findViewById(R.id.profileEdit);
 
                 editProfile.setOnClickListener(new View.OnClickListener() {
                     @Override

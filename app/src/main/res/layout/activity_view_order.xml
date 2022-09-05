@@ -14,19 +14,11 @@
         android:paddingHorizontal="25dp"
         android:paddingBottom="60dp">
 
-        <TextView
-            android:id="@+id/orderlistforoffer"
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:id="@+id/textorderrv"/>
 
-            android:text="ORDER"
-            android:fontFamily="@font/inter_regular"
-            android:textColor="@color/DarkMain"
-            android:background="@color/GreyMain"
-            android:padding="10dp"
-            android:elevation="3dp"
-            android:visibility="gone"/>
 
         <ImageView
             android:layout_width="match_parent"

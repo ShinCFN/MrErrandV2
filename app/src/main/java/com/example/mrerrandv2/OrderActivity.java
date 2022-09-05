@@ -1,34 +1,44 @@
 package com.example.mrerrandv2;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.canhub.cropper.CropImage;
 import com.canhub.cropper.CropImageContract;
 import com.canhub.cropper.CropImageContractOptions;
 import com.canhub.cropper.CropImageOptions;
 import com.canhub.cropper.CropImageView;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.database.SnapshotParser;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -49,7 +59,13 @@ public class OrderActivity extends AppCompatActivity {
     Boolean isImageorder = false;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     private progressBar progressBar;
+    EditText addnewitem, addnewqty;
+    ImageView addButton;
+    DBOrderList dbOrderList;
+    ImageView toolbarback;
 
+    RecyclerView orderlistrv;
+    FirebaseRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +73,127 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
         pay = findViewById(R.id.gotoPay);
 
-        progressBar = new progressBar(this);
+        ActionBar actionBar = getSupportActionBar();
 
+        dbOrderList = new DBOrderList();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        progressBar = new progressBar(this);
         imgorder = findViewById(R.id.imgorder);
+        orderlistrv = findViewById(R.id.orderarray);
+        addButton = findViewById(R.id.addbutton);
+        addnewitem = findViewById(R.id.additem);
+        addnewqty = findViewById(R.id.addqty);
+        toolbarback = findViewById(R.id.toolbarback);
+
+        //Status bar
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        SharedPreferences appSettingPrefs = getSharedPreferences("AppSettingPrefs", 0);
+        Boolean isNightModeOn = appSettingPrefs.getBoolean("NightMode", false);
+        if (isNightModeOn) {
+            window.setStatusBarColor(ContextCompat.getColor(OrderActivity.this, R.color.queenpink));
+        } else {
+            window.setStatusBarColor(ContextCompat.getColor(OrderActivity.this, R.color.queenpink));
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decor = getWindow().getDecorView();
+            if (isNightModeOn) {
+                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            } else {
+                decor.setSystemUiVisibility(0);
+            }
+        }
+
+        //Recycler View
+        orderlistrv.setLayoutManager(new WrapContentLinearLayoutManager(this));
+        FirebaseRecyclerOptions<OrderList> options =
+                new FirebaseRecyclerOptions.Builder<OrderList>()
+                        .setQuery(dbOrderList.get(), new SnapshotParser<OrderList>() {
+                            @NonNull
+                            @Override
+                            public OrderList parseSnapshot(@NonNull DataSnapshot snapshot) {
+                                OrderList orl = snapshot.getValue(OrderList.class);
+                                orl.setKey(snapshot.getKey());
+                                return orl;
+                            }
+                        }).build();
+
+        adapter = new FirebaseRecyclerAdapter(options) {
+            @Override
+            protected void onBindViewHolder(@android.support.annotation.NonNull RecyclerView.ViewHolder viewHolder, int position, @android.support.annotation.NonNull Object o) {
+                OrderListVH vh = (OrderListVH) viewHolder;
+                OrderList list = (OrderList) o;
+
+                vh.item.setText(list.getItem());
+                vh.qty.setText(list.getQty());
+
+                vh.delItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DatabaseReference databaseReference;
+                        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid())
+                                .child("OrderList");
+                        databaseReference.child(list.getKey()).removeValue();
+                    }
+                });
+
+            }
+
+            @android.support.annotation.NonNull
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(@android.support.annotation.NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(OrderActivity.this).inflate(R.layout.layout_orderlist, parent, false);
+                return new OrderListVH(view);
+            }
+
+            @Override
+            public void onDataChanged() {
+            }
+        };
+        orderlistrv.setAdapter(adapter);
+
+        //Adding items
+        DatabaseReference databaseReference;
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid())
+                .child("OrderList");
+
+        String state = "false";
+
+        //Toolbar
+        toolbarback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!addnewitem.getText().toString().isEmpty() && !addnewqty.getText().toString().isEmpty()) {
+                    OrderList orderList = new OrderList(addnewitem.getText().toString(), addnewqty.getText().toString(), state);
+                    dbOrderList.add(orderList).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            addnewitem.setText("");
+                            addnewqty.setText("");
+                        }
+                    });
+
+                } else {
+                    if (addnewitem.getText().toString().isEmpty()) {
+                        Toasty.error(OrderActivity.this, "Enter item", Toasty.LENGTH_LONG).show();
+                    } else {
+                        Toasty.error(OrderActivity.this, "Enter quantity", Toasty.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+
 
         //Set image order
         imgorder.setOnClickListener(new View.OnClickListener() {
@@ -74,131 +208,147 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                EditText orderlist = findViewById(R.id.OrderList);
-                String orders = orderlist.getText().toString();
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.child("OrderList").exists()) {
+                            isImageorder = false;
+                            Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
+                            intent.putExtra("type", isImageorder);
+                            adapter.stopListening();
+                            startActivity(intent);
+                            finish();
 
-                if(orders.isEmpty()){
-                    Toasty.error(OrderActivity.this, "Order list is empty",Toasty.LENGTH_SHORT).show();
-                } else {
-                    Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
-                    intent.putExtra("ORDER",orders);
-                    intent.putExtra("state", isImageorder.toString());
-                    startActivity(intent);
-                    finish();
-                }
+                        } else {
+                            Toasty.error(OrderActivity.this, "Order list is empty", Toasty.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
     }
 
-        //Crop
-        private void cropOrder() {
-            Dexter.withContext(this)
-                    .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    .withListener(new PermissionListener() {
-                        @Override
-                        public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                            Intent intent = new Intent();
-                            intent.setAction(Intent.ACTION_GET_CONTENT);
-                            intent.setType("image/*");
-                            startActivityForResult(intent, PICK_IMAGE_CODE);
-                        }
+    //Crop
+    private void cropOrder() {
+        Dexter.withContext(this)
+                .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        intent.setType("image/*");
+                        startActivityForResult(intent, PICK_IMAGE_CODE);
+                    }
 
-                        @Override
-                        public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-                            permissionToken.continuePermissionRequest();
-                        }
-                    }).check();
-        }
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                        permissionToken.continuePermissionRequest();
+                    }
+                }).check();
+    }
 
-        //Handler
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
+    //Handler
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-            if(requestCode==PICK_IMAGE_CODE && resultCode==RESULT_OK){
-                if(data!=null){
-                    resizeOrder(data.getData());
-                }
-            }
-
-        }
-
-        //Resize Profile
-        private final ActivityResultLauncher<CropImageContractOptions> cropReceipt =
-                registerForActivityResult(new CropImageContract(), this::onCropOrderResult);
-
-        public void resizeOrder(Uri uri) {
-            CropImageContractOptions options= new CropImageContractOptions(uri, new CropImageOptions())
-                    .setMultiTouchEnabled(true)
-                    .setOutputCompressQuality(80)
-                    .setActivityTitle("")
-                    .setActivityMenuIconColor(0)
-                    .setNoOutputImage(false);
-
-            cropReceipt.launch(options);
-        }
-
-        public void onCropOrderResult(@NonNull CropImageView.CropResult result) {
-            if (result.isSuccessful()) {
-
-                uploadReceipt(result.getUriContent());
-
-            } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
-
-            } else {
-                Toasty.error(OrderActivity.this, "Failed", Toasty.LENGTH_LONG).show();
+        if (requestCode == PICK_IMAGE_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
+                resizeOrder(data.getData());
             }
         }
 
-        //Uploading
-        private void uploadReceipt(Uri uriContent) {
+    }
 
-            Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
+    //Resize Profile
+    private final ActivityResultLauncher<CropImageContractOptions> cropReceipt =
+            registerForActivityResult(new CropImageContract(), this::onCropOrderResult);
 
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference("Orders");
+    public void resizeOrder(Uri uri) {
+        CropImageContractOptions options = new CropImageContractOptions(uri, new CropImageOptions())
+                .setMultiTouchEnabled(true)
+                .setOutputCompressQuality(80)
+                .setActivityTitle("")
+                .setActivityMenuIconColor(0)
+                .setNoOutputImage(false);
 
-            progressBar.show();
+        cropReceipt.launch(options);
+    }
 
-            storageReference.child(auth.getCurrentUser().getUid()).putFile(uriContent).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    isImageorder = true;
-                    progressBar.dismiss();
-                    storageReference.child(auth.getCurrentUser().getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
-                            intent.putExtra("imgorder", uri.toString());
-                            intent.putExtra("type", isImageorder);
-                            startActivity(intent);
-                            finish();
-                        }
-                    });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressBar.cancel();
-                }
-            });
+    public void onCropOrderResult(@NonNull CropImageView.CropResult result) {
+        if (result.isSuccessful()) {
 
+            uploadReceipt(result.getUriContent());
+
+        } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
+
+        } else {
+            Toasty.error(OrderActivity.this, "Failed", Toasty.LENGTH_LONG).show();
         }
+    }
+
+    //Uploading
+    private void uploadReceipt(Uri uriContent) {
+
+        Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("Orders");
+
+        progressBar.show();
+
+        storageReference.child(auth.getCurrentUser().getUid()).putFile(uriContent).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                isImageorder = true;
+                progressBar.dismiss();
+                storageReference.child(auth.getCurrentUser().getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
+                        intent.putExtra("imgorder", uri.toString());
+                        intent.putExtra("type", isImageorder);
+                        adapter.stopListening();
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.cancel();
+            }
+        });
+    }
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage("Are you sure?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                }).setNegativeButton("No", null).show();
+        adapter.stopListening();
+        finish();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 }

@@ -1,7 +1,5 @@
 package com.example.mrerrandv2;
 
-import android.widget.Button;
-
 public class UpdateProfile {
 
     String firstname;

@@ -64,6 +64,8 @@ public class RatingActivityTowardsUser extends AppCompatActivity {
 
                 DatabaseReference rateRef = FirebaseDatabase.getInstance().getReference("Users").child(userkey);
 
+                rateRef.child("OrderList").removeValue();
+
                 rateRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

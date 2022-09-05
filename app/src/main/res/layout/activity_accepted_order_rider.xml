@@ -1,118 +1,388 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AcceptedOrderActivityRider"
-    android:background="@color/GreyMain">
+    tools:context=".AcceptedOrderActivityRider">
 
-    <TextView
-        android:elevation="5dp"
-        android:background="@color/white"
-        android:id="@+id/textView3"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_extrabold"
-        android:gravity="center"
-        android:paddingVertical="70dp"
-        android:text="YOUR OFFER HAS BEEN ACCEPTED\nSTART YOUR ERRAND"
-
-        android:textSize="17sp" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:layout_marginTop="5dp"
-        android:elevation="5dp">
-
-        <ScrollView
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:clipToPadding="false">
+        
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:elevation="3dp"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="160dp"
+            android:background="@drawable/ordernow"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="50dp" >
 
-            <LinearLayout
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profilePic"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:elevation="7dp"
+                android:src="@drawable/blankuser"
+                app:civ_border_color="@color/GreyMain"
+                app:civ_border_width="1dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/ordernow"
+                android:backgroundTint="@color/SecondaryMain"
+                android:elevation="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/profileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:elevation="6dp"
+                android:fontFamily="@font/asap_medium"
+                android:gravity="left"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/profilePic"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/profilePhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:elevation="6dp"
+                android:fontFamily="@font/asap_medium"
+                android:gravity="left"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/profilePic"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+            <RatingBar
+                android:theme="@style/RatingBarGold"
+                android:id="@+id/ratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="7dp"
+                app:layout_constraintStart_toStartOf="@+id/profileName"
+                app:layout_constraintTop_toBottomOf="@+id/profileName" />
+
+            <TextView
+                android:id="@+id/profileView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:elevation="3dp"
+                android:fontFamily="@font/asap_medium"
+                android:gravity="left"
+                android:text="@string/view_profile"
+                android:textColor="@color/SecondaryMain"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <TextView
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="10dp"
+                android:elevation="3dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/returnsymbol"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profileView"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:clipToPadding="false">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:elevation="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:background="@drawable/ordernow">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_regular"
-                    android:textColor="@color/DarkMain"
-                    android:text="Order List" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_regular"
-                    android:textColor="@color/DarkMain"
-                    android:id="@+id/orderlist"
-                    android:visibility="gone"/>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:id="@+id/imgorder"
-                    android:visibility="visible"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_marginVertical="5dp"
-                    android:layout_height="1dp"
-                    android:background="@android:color/darker_gray"/>
-
-                <TextView
-                    android:layout_marginTop="10dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/uploadbtn"
+                    android:visibility="gone"
+                    android:layout_marginRight="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Upload Receipt"
-                    android:fontFamily="@font/inter_regular"
-                    android:textColor="@color/DarkMain" />
+                    app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                    app:layout_constraintEnd_toEndOf="@+id/textView9"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:elevation="7dp">
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ordernow"
+                        android:backgroundTint="@color/SecondaryMain"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="8dp"
+                        android:fontFamily="@font/asap_medium"
+                        android:gravity="left"
+                        android:text="Upload Receipt"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                        app:layout_constraintEnd_toEndOf="@+id/textView10"
+                        app:layout_constraintStart_toStartOf="@+id/textView10"
+                        app:layout_constraintTop_toTopOf="@+id/textView10" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@drawable/ordernow"
+                    android:backgroundTint="@color/DarkMain"
+                    android:elevation="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:elevation="7dp"
+                    android:fontFamily="@font/asap_semibold"
+                    android:text="Order List"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView9" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView9">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:visibility="gone"
+                        android:id="@+id/riderorderlistrv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="10dp" />
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/orderimg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="10dp"
+                        android:adjustViewBounds="true" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:clipToPadding="false"
+            android:visibility="gone"
+            android:id="@+id/receiptholder">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:elevation="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ordernow">
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@drawable/ordernow"
+                    android:backgroundTint="@color/MainTheme"
+                    android:elevation="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:elevation="7dp"
+                    android:fontFamily="@font/asap_semibold"
+                    android:text="Receipt"
+                    android:textColor="@color/DarkMain"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView13"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView13" />
 
                 <ImageView
+                    android:id="@+id/receipt"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:background="@drawable/image_layout"
-                    android:src="@drawable/gallery"
+                    android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:id="@+id/receipt"/>
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <Button
-                    android:id="@+id/btnAccToOTW"
-                    android:layout_width="150dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginBottom="30dp"
-                    android:background="@drawable/menubutton"
-                    android:elevation="5dp"
-                    android:fontFamily="@font/inter_extrabold"
-                    android:letterSpacing="-.01"
-                    android:padding="1dp"
-                    android:text="Deliver"
-                    android:textAllCaps="false"
-                    android:textColor="@color/MainText"
-                    android:textStyle="bold" />
+        </LinearLayout>
 
-            </LinearLayout>
-
-
-        </ScrollView>
+        <TextView
+            android:visibility="gone"
+            android:elevation="3dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/btnNext"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/box_secondary"
+            android:fontFamily="@font/asap_semibold"
+            android:gravity="center"
+            android:paddingHorizontal="15dp"
+            android:text="Next"
+            android:textSize="14sp" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 
 
-</LinearLayout>
+
+<!--        <ScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@color/white"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="20dp">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/inter_regular"-->
+<!--                    android:textColor="@color/DarkMain"-->
+<!--                    android:text="Order List" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/inter_regular"-->
+<!--                    android:textColor="@color/DarkMain"-->
+<!--                    android:id="@+id/orderlist"-->
+<!--                    android:visibility="gone"/>-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true"-->
+<!--                    android:id="@+id/imgorder"-->
+<!--                    android:visibility="visible"/>-->
+
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_marginVertical="5dp"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:background="@android:color/darker_gray"/>-->
+
+<!--                <TextView-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Upload Receipt"-->
+<!--                    android:fontFamily="@font/inter_regular"-->
+<!--                    android:textColor="@color/DarkMain" />-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="500dp"-->
+<!--                    android:background="@drawable/image_layout"-->
+<!--                    android:src="@drawable/gallery"-->
+<!--                    android:adjustViewBounds="true"-->
+<!--                    android:id="@+id/receipt"/>-->
+
+
+<!--                <Button-->
+<!--                    android:id="@+id/btnAccToOTW"-->
+<!--                    android:layout_width="150dp"-->
+<!--                    android:layout_height="35dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginTop="60dp"-->
+<!--                    android:layout_marginBottom="30dp"-->
+<!--                    android:background="@drawable/menubutton"-->
+<!--                    android:elevation="5dp"-->
+<!--                    android:fontFamily="@font/inter_extrabold"-->
+<!--                    android:letterSpacing="-.01"-->
+<!--                    android:padding="1dp"-->
+<!--                    android:text="Deliver"-->
+<!--                    android:textAllCaps="false"-->
+<!--                    android:textColor="@color/MainText"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--            </LinearLayout>-->
+
+
+
+
+</ScrollView>

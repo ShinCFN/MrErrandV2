@@ -1,14 +1,13 @@
 package com.example.mrerrandv2;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-
 import com.example.mrerrandv2.databinding.ActivityAdminMainBinding;
-import com.example.mrerrandv2.databinding.ActivityMainBinding;
 
 public class AdminMainActivity extends AppCompatActivity {
 

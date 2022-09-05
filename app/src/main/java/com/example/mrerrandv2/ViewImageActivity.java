@@ -1,9 +1,8 @@
 package com.example.mrerrandv2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.ortiz.touchview.TouchImageView;
 import com.squareup.picasso.Picasso;

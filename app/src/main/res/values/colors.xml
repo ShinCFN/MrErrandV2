@@ -23,5 +23,28 @@
     <color name="MenuColor">#FFFFFF</color>
     <color name="MenuTextColor">#f4717f</color>
     <color name="Gray">#B5B5B5</color>
+    <color name="Gold">#ffc922</color>
+
+
+
+<!-- DARK MODE IMPLEMENTATION START -->
+    <color name="finalTextStatic">#201D1D</color>
+    <color name="finalText">#201D1D</color>
+    <color name="finalTextAlt">#FFFFFF</color>
+    <color name="finalBG">#ffffff</color>
+    <color name="finalBGAlt">#b8b8b8</color>
+    <color name="naplesyellow">#FFE070</color>
+    <color name="queenpink">#D6C3C9</color>
+    <color name="mustard">#FFD65C</color>
+    <color name="finalGray">#666666</color>
+    <color name="finalDark">#201D1D</color>
+    <color name="finalbottomNav">#D6C3C9</color>
+    <color name="finalbottomNavSelected">#201D1D</color>
+    <color name="finalbottomNavNotSelected">#666666</color>
+    <color name="finaloutlinedbox">#dad8d9</color>
+    <color name="finalinputbox">#dad8d9</color>
+    <color name="finalgreyx11">#b8b8b8</color>
+<!--    FFD65C-->
+<!--    FFE070-->
 
 </resources>

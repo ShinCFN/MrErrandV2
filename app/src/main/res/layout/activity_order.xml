@@ -4,39 +4,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrderActivity">
+    tools:context=".OrderActivity"
+    android:background="@color/finalBG">
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/asap_medium"
-        android:text="Order List"
-        android:layout_marginBottom="5dp"
-        android:textColor="@color/DarkMain" />
+    <include layout="@layout/ordertoolbar" />
 
-    <EditText
-        android:layout_marginHorizontal="30dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:padding="20dp"
-        android:paddingTop="4dp"
-        android:id="@+id/OrderList"
-        android:paddingBottom="4dp"
-        android:fontFamily="@font/asap_regular"
-        android:gravity="top|left"
-        android:textColor="@color/DarkMain"
-        android:textSize="14dp"
-        android:background="@drawable/box_grey_input" />
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingBottom="5dp">
 
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/ordernow"
+            android:backgroundTint="@color/finalBG"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="20dp"
+            android:id="@+id/orderarray"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:elevation="3dp"
+            app:layout_constraintEnd_toEndOf="@+id/textView4"
+            app:layout_constraintStart_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:elevation="3dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView4"
+            app:layout_constraintEnd_toEndOf="@+id/textView4"
+            app:layout_constraintStart_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/orderarray">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:hint="e.g. Pancit Canton"
+                    android:id="@+id/additem"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/box_grey_input"
+                    android:backgroundTint="@color/finalBGAlt"
+                    android:textColor="@color/finalDark"
+                    android:fontFamily="@font/asap_regular"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingHorizontal="15dp"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/addqty"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:hint="1 pack"
+                    android:id="@+id/addqty"
+                    android:layout_width="100dp"
+                    android:layout_height="45dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/box_grey_input"
+                    android:backgroundTint="@color/finalBGAlt"
+                    android:textColor="@color/finalDark"
+                    android:fontFamily="@font/asap_regular"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingHorizontal="15dp"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/addbutton"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/addbutton"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/add"
+                    android:backgroundTint="@color/finalText"
+                    android:elevation="3dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:layout_marginBottom="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -49,7 +133,7 @@
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:background="@drawable/box_grey"
-            android:backgroundTint="@color/DarkMain"
+            android:backgroundTint="@color/queenpink"
             android:orientation="horizontal"
             android:gravity="center"
             android:paddingVertical="14dp"
@@ -59,9 +143,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Upload Image"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/asap_bold"
                 android:textSize="14sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/finalDark"/>
         </LinearLayout>
 
         <LinearLayout
@@ -69,7 +153,7 @@
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:background="@drawable/box_grey"
-            android:backgroundTint="@color/SecondaryMain"
+            android:backgroundTint="@color/queenpink"
             android:orientation="horizontal"
             android:gravity="center"
             android:paddingVertical="14dp"
@@ -79,9 +163,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Next"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/asap_bold"
                 android:textSize="14sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/finalDark"/>
         </LinearLayout>
 
     </LinearLayout>

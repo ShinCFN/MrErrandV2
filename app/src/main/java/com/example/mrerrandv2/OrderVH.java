@@ -1,6 +1,5 @@
 package com.example.mrerrandv2;
 
-import android.media.Rating;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
