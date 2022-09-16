@@ -4,7 +4,8 @@
     android:layout_height="150dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="5dp"
-    app:cardElevation="5dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@android:color/transparent"
     android:layout_marginVertical="5dp">
 
     <LinearLayout
@@ -37,10 +38,11 @@
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
                 android:id="@+id/orderName"
-                android:fontFamily="@font/asap_medium"
-                android:textColor="@color/DarkMain"/>
+                android:fontFamily="@font/questrial"
+                android:textColor="@color/finalText"/>
 
             <RatingBar
+                android:theme="@style/RatingBarGold"
                 android:layout_marginLeft="20dp"
                 android:progressTint="@color/SecondaryMain"
                 android:layout_width="wrap_content"
@@ -62,7 +64,7 @@
 
         </LinearLayout>
 
-    </LinearLayout>
 
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

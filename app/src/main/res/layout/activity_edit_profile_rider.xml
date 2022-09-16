@@ -45,7 +45,6 @@
                 android:textColor="@color/Gray" />
 
             <EditText
-                android:maxLines="1"
                 android:id="@+id/editriderFirst"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -54,6 +53,7 @@
                 android:drawableLeft="@drawable/profile"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
+                android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
@@ -66,7 +66,6 @@
                 android:textColor="@color/Gray" />
 
             <EditText
-                android:maxLines="1"
                 android:id="@+id/editriderLast"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -75,6 +74,7 @@
                 android:drawableLeft="@drawable/profile"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
+                android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
@@ -87,8 +87,6 @@
                 android:textColor="@color/Gray" />
 
             <EditText
-                android:maxLines="1"
-                android:inputType="number"
                 android:id="@+id/editriderMobile"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -97,7 +95,9 @@
                 android:drawableLeft="@drawable/mobile"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
+                android:inputType="number"
                 android:maxLength="11"
+                android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
@@ -110,8 +110,6 @@
                 android:textColor="@color/Gray" />
 
             <EditText
-                android:maxLines="1"
-                android:inputType="textCapCharacters"
                 android:id="@+id/editriderLicense"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -120,32 +118,32 @@
                 android:drawableLeft="@drawable/card"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
+                android:inputType="textCapCharacters"
                 android:maxLength="11"
+                android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
             <ImageView
-                android:elevation="5dp"
+                android:id="@+id/editriderLicensePic"
                 android:layout_width="290dp"
                 android:layout_height="200dp"
                 android:layout_gravity="center"
-                android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 android:background="@color/GreyMain"
-                android:id="@+id/editriderLicensePic" />
+                android:elevation="5dp"
+                android:scaleType="centerCrop" />
 
             <!-- Plate -->
             <TextView
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/asap_medium"
                 android:text="Plate Number"
                 android:textColor="@color/Gray" />
 
             <EditText
-                android:maxLines="1"
-                android:inputType="textCapCharacters"
                 android:id="@+id/editriderPlate"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -154,54 +152,56 @@
                 android:drawableLeft="@drawable/car"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
+                android:inputType="textCapCharacters"
                 android:maxLength="8"
+                android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
             <ImageView
-                android:elevation="5dp"
+                android:id="@+id/editriderPlatePic"
                 android:layout_width="290dp"
                 android:layout_height="120dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
                 android:layout_gravity="center"
+                android:adjustViewBounds="true"
                 android:background="@color/GreyMain"
-                android:id="@+id/editriderPlatePic" />
+                android:elevation="5dp"
+                android:scaleType="centerCrop" />
 
             <!-- OR/CR -->
             <TextView
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/asap_medium"
                 android:text="Vehicle Registration"
-                android:textColor="@color/Gray" />
+                android:textColor="@color/Gray"
+                android:layout_marginBottom="20dp"
+                />
 
             <TextView
-                android:layout_marginTop="10dp"
                 android:id="@+id/btnUploadOR"
                 android:layout_width="100dp"
                 android:layout_height="45dp"
+                android:layout_gravity="left"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_secondary"
                 android:fontFamily="@font/asap_medium"
                 android:gravity="center"
                 android:paddingHorizontal="15dp"
-                android:layout_gravity="left"
                 android:text="Upload"
                 android:textSize="14sp" />
 
 
-
             <ImageView
+                android:id="@+id/rorcrPic"
                 android:layout_width="290dp"
                 android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                android:adjustViewBounds="true"
                 android:layout_gravity="center"
+                android:layout_marginBottom="30dp"
+                android:adjustViewBounds="true"
                 android:background="@color/GreyMain"
-                android:id="@+id/rorcrPic"
-                android:layout_marginBottom="30dp"/>
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/btnSave"

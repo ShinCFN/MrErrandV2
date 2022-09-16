@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".RiderProfileFragment">
+    tools:context=".RiderProfileFragment"
+    android:background="@color/finalBG">
 
     <LinearLayout
         android:paddingBottom="100dp"
@@ -40,19 +41,21 @@
                 android:layout_marginLeft="30dp">
 
                 <TextView
+                    android:id="@+id/profileFirst"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/asap_bold"
-                    android:textColor="@color/black"
-                    android:id="@+id/profileFirst"
-                    android:textSize="20sp"/>
+                    android:fontFamily="@font/questrial"
+                    android:textStyle="bold"
+                    android:textColor="@color/finalText"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/profileLast"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/asap_bold"
-                    android:textColor="@color/black"
+                    android:fontFamily="@font/questrial"
+                    android:textStyle="bold"
+                    android:textColor="@color/finalText"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -71,44 +74,49 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/questrial"
                 android:text="Contact Information"
-                android:fontFamily="@font/asap_bold"
-                android:textSize="17sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/finalText"
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mobile Number"
-                android:fontFamily="@font/asap_medium"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/questrial"
+                android:text="Mobile number"
                 android:textColor="@color/Gray"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/profileNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_regular"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/questrial"
+                android:textColor="@color/finalText"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
-                android:fontFamily="@font/asap_medium"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/questrial"
+                android:text="Email address"
                 android:textColor="@color/Gray"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/profileEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_regular"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/questrial"
+                android:textColor="@color/finalText"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -127,27 +135,30 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/questrial"
                 android:text="Driver's License"
-                android:fontFamily="@font/asap_bold"
-                android:textSize="17sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/finalText"
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/questrial"
                 android:text="License Number"
-                android:fontFamily="@font/asap_medium"
                 android:textColor="@color/Gray"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/profileLicense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_regular"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/questrial"
+                android:textColor="@color/finalText"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -173,27 +184,30 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/questrial"
                 android:text="Plate"
-                android:fontFamily="@font/asap_bold"
-                android:textSize="17sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/finalText"
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/questrial"
                 android:text="Plate Number"
-                android:fontFamily="@font/asap_medium"
                 android:textColor="@color/Gray"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/profilePlate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_regular"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/questrial"
+                android:textColor="@color/finalText"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="match_parent"
@@ -219,19 +233,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/questrial"
                 android:text="Vehicle"
-                android:fontFamily="@font/asap_bold"
-                android:textSize="17sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/finalText"
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/questrial"
                 android:text="OR/CR"
-                android:fontFamily="@font/asap_medium"
                 android:textColor="@color/Gray"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
             <ImageView
                 android:layout_width="match_parent"

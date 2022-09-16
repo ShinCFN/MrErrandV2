@@ -57,7 +57,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
 
-    private ImageView profLicense, profPlate, profOR;
+    private ImageView profLicense, profPlate, profOR, rorcrPic;
 
     private TextView profOrBtn;
 
@@ -92,6 +92,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         editmobilenum = findViewById(R.id.editriderMobile);
         editLicense = findViewById(R.id.editriderLicense);
         editPlate = findViewById(R.id.editriderPlate);
+        rorcrPic = findViewById(R.id.rorcrPic);
 
         //Set Profile Pic
         profpic = findViewById((R.id.editprofPic));
@@ -235,6 +236,8 @@ public class EditProfileRiderActivity extends AppCompatActivity {
 
                     progressDialog.dismiss();
 
+                    profOrBtn.setVisibility(View.GONE);
+
                 } else {
                     progressDialog.dismiss();
                 }
@@ -324,6 +327,16 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                 cropOR();
             }
         });
+
+        rorcrPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cropOR();
+            }
+        });
+
+
+
     }
 
     private void cropProfile() {
