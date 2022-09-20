@@ -72,6 +72,11 @@ public class OfferAdapter extends RecyclerView.Adapter {
             });
             popupMenu.show();
         });
+
+
+
+
+
     }
 
     @Override

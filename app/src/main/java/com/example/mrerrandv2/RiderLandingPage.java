@@ -135,4 +135,21 @@ public class RiderLandingPage extends AppCompatActivity {
             orderRef.removeEventListener(orderRefListener);
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (orderRefListener != null) {
+            orderRef.addValueEventListener(orderRefListener);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (orderRef != null && orderRefListener != null) {
+            orderRef.removeEventListener(orderRefListener);
+        }
+    }
+
 }

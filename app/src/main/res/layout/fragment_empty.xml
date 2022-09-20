@@ -19,8 +19,6 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_marginVertical="10dp"
-            android:backgroundTint="@color/white"
-            android:background="@drawable/box_grey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
@@ -29,17 +27,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <pl.droidsonroids.gif.GifImageView
-                android:layout_marginTop="10dp"
-                android:id="@+id/gifImageView"
+
+            <com.airbnb.lottie.LottieAnimationView
                 android:layout_width="210dp"
                 android:layout_height="210dp"
-                android:layout_gravity="center"
-                android:src="@drawable/error"
                 app:layout_constraintBottom_toTopOf="@+id/textView12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_fileName="err.json"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
 
             <TextView
                 android:id="@+id/textView12"
