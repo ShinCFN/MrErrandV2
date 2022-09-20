@@ -2,6 +2,7 @@ package com.example.mrerrandv2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -38,6 +39,7 @@ public class PaymentActivity extends AppCompatActivity {
     ArrayList<OrderList> list;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     PaymentOrderListAdapter adapter;
+    private long lastClickTime = 0;
 
     TextView receiptdate, receiptname, purchasenum;
     ImageView toolbarback;
@@ -71,6 +73,12 @@ public class PaymentActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(PaymentActivity.this, R.color.finalBG));
+
+        //Toolbar
+        TextView toolMain = findViewById(R.id.toolbarmain);
+        TextView toolSub = findViewById(R.id.toolbarsub);
+        toolMain.setText("Your cart");
+        toolSub.setText("List of items to be delivered");
 
         String textFirstName = firebaseUser.getDisplayName();
 
@@ -140,6 +148,12 @@ public class PaymentActivity extends AppCompatActivity {
                 proceed.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+                            return;
+                        }
+
+                        lastClickTime = SystemClock.elapsedRealtime();
 
                         String lastname = snapshot.child("lastname").getValue().toString();
                         String profilePic = snapshot.child("profileImage").getValue().toString();

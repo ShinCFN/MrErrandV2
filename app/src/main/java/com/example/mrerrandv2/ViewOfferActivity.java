@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -54,6 +55,12 @@ public class ViewOfferActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(ViewOfferActivity.this, R.color.finalBG));
+
+        //Toolbar
+        TextView toolMain = findViewById(R.id.toolbarmain);
+        TextView toolSub = findViewById(R.id.toolbarsub);
+        toolMain.setText("Offers");
+        toolSub.setText("Offers available to accept");
 
         String key = getIntent().getStringExtra("Key");
         dboff = new DBOffer(key);

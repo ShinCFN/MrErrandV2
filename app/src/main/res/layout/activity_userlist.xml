@@ -9,9 +9,4 @@
         android:layout_height="match_parent"
         android:layout_marginTop="00dp" />
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/ordertoolbar" />
-
-
 </RelativeLayout>

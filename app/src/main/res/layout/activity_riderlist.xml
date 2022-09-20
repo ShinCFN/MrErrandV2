@@ -11,10 +11,4 @@
         android:id="@+id/riderListRecycle"
         />
 
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/ordertoolbar" />
-
-
 </RelativeLayout>

@@ -14,12 +14,14 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,14 +55,12 @@ import es.dmoral.toasty.Toasty;
 
 public class OrderActivity extends AppCompatActivity {
 
-    LinearLayout pay;
-    LinearLayout imgorder;
+    View pay, imgorder, addbutton;
     private final int PICK_IMAGE_CODE = 17;
     Boolean isImageorder = false;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     private progressBar progressBar;
     EditText addnewitem, addnewqty;
-    ImageView addButton;
     DBOrderList dbOrderList;
     ImageView toolbarback;
 
@@ -71,7 +71,7 @@ public class OrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-        pay = findViewById(R.id.gotoPay);
+        pay = findViewById(R.id.btnNext);
 
         ActionBar actionBar = getSupportActionBar();
 
@@ -81,7 +81,7 @@ public class OrderActivity extends AppCompatActivity {
         progressBar = new progressBar(this);
         imgorder = findViewById(R.id.imgorder);
         orderlistrv = findViewById(R.id.orderarray);
-        addButton = findViewById(R.id.addbutton);
+        addbutton = findViewById(R.id.addbutton);
         addnewitem = findViewById(R.id.additem);
         addnewqty = findViewById(R.id.addqty);
         toolbarback = findViewById(R.id.toolbarback);
@@ -90,23 +90,14 @@ public class OrderActivity extends AppCompatActivity {
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.finalBG));
 
-        SharedPreferences appSettingPrefs = getSharedPreferences("AppSettingPrefs", 0);
-        Boolean isNightModeOn = appSettingPrefs.getBoolean("NightMode", false);
-        if (isNightModeOn) {
-            window.setStatusBarColor(ContextCompat.getColor(OrderActivity.this, R.color.queenpink));
-        } else {
-            window.setStatusBarColor(ContextCompat.getColor(OrderActivity.this, R.color.queenpink));
-        }
+        //Toolbar
+        TextView toolMain = findViewById(R.id.toolbarmain);
+        TextView toolSub = findViewById(R.id.toolbarsub);
+        toolMain.setText("Order List");
+        toolSub.setText("List of items to be delivered");
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            View decor = getWindow().getDecorView();
-            if (isNightModeOn) {
-                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-            } else {
-                decor.setSystemUiVisibility(0);
-            }
-        }
 
         //Recycler View
         orderlistrv.setLayoutManager(new WrapContentLinearLayoutManager(this));
@@ -141,6 +132,12 @@ public class OrderActivity extends AppCompatActivity {
                     }
                 });
 
+//                //Set color
+//                if (position % 2 == 0){
+//                    vh.holder.setBackgroundColor(getResources().getColor(R.color.Gray));
+//                } else {
+//                    vh.holder.setBackgroundColor(getResources().getColor(R.color.white));
+//                }
             }
 
             @android.support.annotation.NonNull
@@ -171,7 +168,7 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        addButton.setOnClickListener(new View.OnClickListener() {
+        addbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!addnewitem.getText().toString().isEmpty() && !addnewqty.getText().toString().isEmpty()) {
