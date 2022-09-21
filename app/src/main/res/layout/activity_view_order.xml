@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="Offer"
-            android:textColor="@color/MainText"/>
+            android:textColor="@color/black"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:theme="@style/Widget.Design.TextInputLayout"
@@ -58,7 +58,7 @@
                 android:textAlignment="textEnd"
                 android:hint="Amount"
                 android:inputType="number"
-                android:textColor="@color/MenuTextColor"
+                android:textColor="@color/black"
                 android:textSize="14dp"
                 android:id="@+id/editTextOfferInput"
                 >
@@ -80,7 +80,7 @@
             android:padding="1dp"
             android:text="Send Offer"
             android:textAllCaps="false"
-            android:textColor="@color/MainText"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
     </LinearLayout>

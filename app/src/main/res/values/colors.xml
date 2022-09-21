@@ -7,44 +7,23 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="ButtonColors">#F4717F</color>
+    <color name="ButtonColors">#8AC5A9</color>
     <color name="LoginText">#544E50</color>
     <color name="MainTheme">#D9C8C0</color>
     <color name="btnLogin">#CD265E</color>
-    <color name="colorPrimary">#F4717F</color>
+    <color name="colorPrimary">#8AC5A9</color>
     <color name="text_shadow">#7F000000</color>
 
-    <color name="Main">#d9c8c0</color>
-    <color name="SecondaryMain">#f4717f</color>
     <color name="GreyMain">#EDEDED</color>
     <color name="DarkMain">#544e50</color>
-    <color name="MainText">#544e50</color>
-    <color name="InputBoxes">#dad8d9</color>
-    <color name="MenuColor">#FFFFFF</color>
-    <color name="MenuTextColor">#f4717f</color>
     <color name="Gray">#B5B5B5</color>
     <color name="Gold">#ffc922</color>
 
-
-
-<!-- DARK MODE IMPLEMENTATION START -->
-    <color name="finalTextStatic">#201D1D</color>
-    <color name="finalText">#201D1D</color>
-    <color name="finalTextAlt">#FFFFFF</color>
-    <color name="finalBG">#ffffff</color>
-    <color name="finalBGAlt">#b8b8b8</color>
-    <color name="naplesyellow">#FFE070</color>
-    <color name="queenpink">#D6C3C9</color>
-    <color name="mustard">#FFD65C</color>
-    <color name="finalGray">#666666</color>
-    <color name="finalDark">#201D1D</color>
-    <color name="finalbottomNav">#D6C3C9</color>
-    <color name="finalbottomNavSelected">#201D1D</color>
-    <color name="finalbottomNavNotSelected">#666666</color>
-    <color name="finaloutlinedbox">#dad8d9</color>
-    <color name="finalinputbox">#dad8d9</color>
-    <color name="finalgreyx11">#b8b8b8</color>
-<!--    FFD65C-->
-<!--    FFE070-->
+<!-- FINAL -->
+    <color name="finalBackground">#F6F6EE</color>
+    <color name="finalDarkGray">#211F20</color>
+    <color name="finalLightGreen">#ACD1BF</color>
+    <color name="finalDarkGreen">#8AC5A9</color>
+    <color name="finalyellow">#E9DA73</color>
 
 </resources>

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.canhub.cropper.CropImage;
 import com.canhub.cropper.CropImageContract;
 import com.canhub.cropper.CropImageContractOptions;
@@ -63,6 +69,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private ImageView toolbarback;
 
+    private progressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,14 +81,13 @@ public class EditProfileActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        SharedPreferences appSettingPrefs = getSharedPreferences("AppSettingPrefs", 0);
-        Boolean isNightModeOn = appSettingPrefs.getBoolean("NightMode", false);
-        if (isNightModeOn) {
-            window.setStatusBarColor(ContextCompat.getColor(EditProfileActivity.this, R.color.queenpink));
-        } else {
-            window.setStatusBarColor(ContextCompat.getColor(EditProfileActivity.this, R.color.queenpink));
-        }
+        //Toolbar
+        TextView toolMain = findViewById(R.id.toolbarmain);
+        TextView toolSub = findViewById(R.id.toolbarsub);
+        toolMain.setText("");
+        toolSub.setText("");
 
+        progressBar = new progressBar(this);
         profpic = findViewById((R.id.editprofPic));
         toolbarback = findViewById(R.id.toolbarback);
 
@@ -88,7 +95,24 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child("profileImage").exists()) {
+
+                    progressBar.show();
                     String image = snapshot.child("profileImage").getValue().toString();
+
+                    Glide.with(EditProfileActivity.this).load(image).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            progressBar.dismiss();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            progressBar.dismiss();
+                            return false;
+                        }
+                    }).into(profpic);
+
                     Picasso
                             .get()
                             .load(image)
@@ -107,7 +131,6 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
 
-
         progressDialog = new ProgressDialog(this);
 
         TextView updateBTN = findViewById(R.id.btnSave);
@@ -124,7 +147,8 @@ public class EditProfileActivity extends AppCompatActivity {
         updateBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView editFirst,editLast,editMobile,editStreet,editCity,editProvince,editZip;
+                progressBar.show();
+                TextView editFirst, editLast, editMobile, editStreet, editCity, editProvince, editZip;
 
                 //Get ID
                 editFirst = findViewById(R.id.editproftFirst);
@@ -146,8 +170,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 //Push to DB
 
-                if(!firstname.isEmpty() && !lastname.isEmpty() && !mobile.isEmpty() && !street.isEmpty() && !city.isEmpty() && !province.isEmpty() && !zip.isEmpty()) {
-
+                if (!firstname.isEmpty() && !lastname.isEmpty() && !mobile.isEmpty() && !street.isEmpty() && !city.isEmpty() && !province.isEmpty() && !zip.isEmpty()) {
 
                     databaseReference.child("firstname").setValue(firstname);
                     databaseReference.child("lastname").setValue(lastname);
@@ -173,6 +196,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(EditProfileActivity.this, "Please complete your information", Toast.LENGTH_LONG).show();
                 }
+                progressBar.dismiss();
             }
         });
 
@@ -189,7 +213,7 @@ public class EditProfileActivity extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                TextView editFirst,editLast,editMobile,editStreet,editCity,editProvince,editZip;
+                TextView editFirst, editLast, editMobile, editStreet, editCity, editProvince, editZip;
 
                 //Get ID
                 editFirst = findViewById(R.id.editproftFirst);
@@ -201,7 +225,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 editZip = findViewById(R.id.editprofZip);
 
 
-
                 //Get Values
                 String firstname = snapshot.child("firstname").getValue().toString();
                 String lastname = snapshot.child("lastname").getValue().toString();
@@ -209,26 +232,25 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 //Check if address is given
 
-                if(snapshot.child("street").exists()){
+                if (snapshot.child("street").exists()) {
                     String street = snapshot.child("street").getValue().toString();
                     editStreet.setText(street);
                 }
 
-                if(snapshot.child("city").exists()){
+                if (snapshot.child("city").exists()) {
                     String city = snapshot.child("city").getValue().toString();
                     editCity.setText(city);
                 }
 
-                if(snapshot.child("province").exists()){
+                if (snapshot.child("province").exists()) {
                     String province = snapshot.child("province").getValue().toString();
                     editProvince.setText(province);
                 }
 
-                if(snapshot.child("zip").exists()){
+                if (snapshot.child("zip").exists()) {
                     String zipcode = snapshot.child("zip").getValue().toString();
                     editZip.setText(zipcode);
                 }
-
 
 
                 //Push
@@ -272,8 +294,8 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==PICK_IMAGE_CODE && resultCode==RESULT_OK){
-            if(data!=null){
+        if (requestCode == PICK_IMAGE_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
                 resizeImage(data.getData());
             }
         }
@@ -284,9 +306,9 @@ public class EditProfileActivity extends AppCompatActivity {
             registerForActivityResult(new CropImageContract(), this::onCropImageResult);
 
     public void resizeImage(Uri uri) {
-        CropImageContractOptions options= new CropImageContractOptions(uri, new CropImageOptions())
+        CropImageContractOptions options = new CropImageContractOptions(uri, new CropImageOptions())
                 .setMultiTouchEnabled(true)
-                .setAspectRatio(1,1)
+                .setAspectRatio(1, 1)
 //                .setMaxCropResultSize(512,512)
                 .setCropShape(CropImageView.CropShape.OVAL)
                 .setOutputCompressQuality(50)

@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,6 +64,7 @@ public class OrderActivity extends AppCompatActivity {
     EditText addnewitem, addnewqty;
     DBOrderList dbOrderList;
     ImageView toolbarback;
+    ConstraintLayout wholeorderrv;
 
     RecyclerView orderlistrv;
     FirebaseRecyclerAdapter adapter;
@@ -73,11 +75,10 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
         pay = findViewById(R.id.btnNext);
 
-        ActionBar actionBar = getSupportActionBar();
-
         dbOrderList = new DBOrderList();
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
+        wholeorderrv = findViewById(R.id.wholeorderrv);
         progressBar = new progressBar(this);
         imgorder = findViewById(R.id.imgorder);
         orderlistrv = findViewById(R.id.orderarray);
@@ -90,14 +91,35 @@ public class OrderActivity extends AppCompatActivity {
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(this, R.color.finalBG));
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.finalBackground));
+
+        //Nav Bar
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.finalDarkGray));
+            View view = getWindow().getDecorView();
+        }
 
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
         TextView toolSub = findViewById(R.id.toolbarsub);
-        toolMain.setText("Order List");
-        toolSub.setText("List of items to be delivered");
+        toolMain.setText("");
+        toolSub.setText("");
 
+        //RV visibility
+        DatabaseReference orderlistRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getUid());
+        orderlistRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.child("OrderList").exists()){
+                    wholeorderrv.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //Recycler View
         orderlistrv.setLayoutManager(new WrapContentLinearLayoutManager(this));
@@ -115,10 +137,9 @@ public class OrderActivity extends AppCompatActivity {
 
         adapter = new FirebaseRecyclerAdapter(options) {
             @Override
-            protected void onBindViewHolder(@android.support.annotation.NonNull RecyclerView.ViewHolder viewHolder, int position, @android.support.annotation.NonNull Object o) {
+            protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
                 OrderListVH vh = (OrderListVH) viewHolder;
                 OrderList list = (OrderList) o;
-
                 vh.item.setText(list.getItem());
                 vh.qty.setText(list.getQty());
 
@@ -140,9 +161,9 @@ public class OrderActivity extends AppCompatActivity {
 //                }
             }
 
-            @android.support.annotation.NonNull
+            @NonNull
             @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@android.support.annotation.NonNull ViewGroup parent, int viewType) {
+            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(OrderActivity.this).inflate(R.layout.layout_orderlist, parent, false);
                 return new OrderListVH(view);
             }
@@ -171,6 +192,7 @@ public class OrderActivity extends AppCompatActivity {
         addbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.show();
                 if (!addnewitem.getText().toString().isEmpty() && !addnewqty.getText().toString().isEmpty()) {
                     OrderList orderList = new OrderList(addnewitem.getText().toString(), addnewqty.getText().toString(), state);
                     dbOrderList.add(orderList).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -178,6 +200,7 @@ public class OrderActivity extends AppCompatActivity {
                         public void onSuccess(Void unused) {
                             addnewitem.setText("");
                             addnewqty.setText("");
+                            wholeorderrv.setVisibility(View.VISIBLE);
                         }
                     });
 
@@ -188,6 +211,7 @@ public class OrderActivity extends AppCompatActivity {
                         Toasty.error(OrderActivity.this, "Enter quantity", Toasty.LENGTH_LONG).show();
                     }
                 }
+                progressBar.dismiss();
             }
         });
 
@@ -204,7 +228,7 @@ public class OrderActivity extends AppCompatActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                progressBar.show();
                 DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
                 userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -220,6 +244,7 @@ public class OrderActivity extends AppCompatActivity {
                         } else {
                             Toasty.error(OrderActivity.this, "Order list is empty", Toasty.LENGTH_LONG).show();
                         }
+                        progressBar.dismiss();
                     }
 
                     @Override

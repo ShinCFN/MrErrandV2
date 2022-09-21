@@ -234,7 +234,7 @@
                 android:padding="1dp"
                 android:text="Complete"
                 android:textAllCaps="false"
-                android:textColor="@color/MainText"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginBottom="30dp"/>
 

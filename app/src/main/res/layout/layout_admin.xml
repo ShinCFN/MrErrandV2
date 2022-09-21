@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:id="@+id/rating"
-                    android:progressTint="@color/SecondaryMain"/>
+                    android:progressTint="@color/finalLightGreen"/>
 
 
             </LinearLayout>

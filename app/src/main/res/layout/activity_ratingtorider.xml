@@ -34,7 +34,7 @@
             android:numStars="5"
             android:rating="0"
 
-            android:progressTint="@color/SecondaryMain"
+            android:progressTint="@color/finalLightGreen"
             android:layout_gravity="center"/>
 
     </LinearLayout>

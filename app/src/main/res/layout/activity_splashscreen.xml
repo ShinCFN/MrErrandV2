@@ -13,7 +13,6 @@
         android:layout_height="300dp"
         android:layout_gravity="center"
         android:background="@drawable/textboxmain"
-        android:backgroundTint="@color/finalDark"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,15 +76,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/finalBG" />
+        android:background="@color/finalDarkGreen" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:elevation="5dp"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="splash.json"
-        app:lottie_loop="true"
+        app:lottie_fileName="helmet.json"
+        app:lottie_loop="false"
 
 
 

@@ -40,52 +40,12 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_settings, container, false);
         btnLogout = v.findViewById(R.id.btnLogout);
-        btnTheme = v.findViewById(R.id.darkswitch);
 
         //Status bar
         Window window = getActivity().getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalBG));
-
-        //Theme Changer
-        SharedPreferences appSettingPrefs = v.getContext().getSharedPreferences("AppSettingPrefs", 0);
-        Boolean isNightModeOn = appSettingPrefs.getBoolean("NightMode", false);
-
-        SharedPreferences.Editor sharedPrefEdit = appSettingPrefs.edit();
-
-        if (isNightModeOn) {
-            btnTheme.setChecked(true);
-        }else{
-            btnTheme.setChecked(false);
-        }
-
-        btnTheme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    sharedPrefEdit.putBoolean("NightMode", true).apply();
-                }else{
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    sharedPrefEdit.putBoolean("NightMode", false).apply();
-                }
-                Toasty.normal(getContext(), "Restart required", Toasty.LENGTH_SHORT).show();
-            }
-        });
-
-//        btnTheme.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (isNightModeOn) {
-//                    sharedPrefEdit.putBoolean("NightMode", false).apply();
-//                }else{
-//                    sharedPrefEdit.putBoolean("NightMode", true).apply();
-//                }
-//                Toasty.normal(getContext(), "Restart required", Toasty.LENGTH_SHORT).show();
-//            }
-//        });
-
+        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalBackground));
 
         //Logout
         btnLogout.setOnClickListener(new View.OnClickListener() {

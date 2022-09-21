@@ -7,8 +7,8 @@
     android:gravity="center">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             app:lottie_autoPlay="true"
             app:lottie_fileName="loading.json"
@@ -17,10 +17,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/asap_medium"
+            android:fontFamily="@font/questrial"
             android:text="Please wait while we process this request"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
 </LinearLayout>

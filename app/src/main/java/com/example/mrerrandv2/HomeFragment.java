@@ -1,13 +1,17 @@
 package com.example.mrerrandv2;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -26,6 +30,9 @@ import es.dmoral.toasty.Toasty;
 public class HomeFragment extends Fragment {
 
     ConstraintLayout Orderbtn;
+    progressBar progressBar;
+    ImageView info;
+    static int i = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,19 +44,45 @@ public class HomeFragment extends Fragment {
         Window window = getActivity().getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalBG));
+        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalBackground));
 
+        //Nav Bar
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getActivity().getWindow().setNavigationBarColor(getContext().getResources().getColor(R.color.finalDarkGray));
+            View view = getActivity().getWindow().getDecorView();
+        }
+
+        //Toolbar
+        info = v.findViewById(R.id.toolbarright);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (getActivity() == null) {
+                    return;
+                }
+                i++;
+                if (i == 5) {
+                    i = 0;
+                    Toasty.info(getActivity(), "This app is WIP", Toasty.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+        //Prog bar
+        progressBar = new progressBar(getContext());
         Orderbtn = v.findViewById(R.id.OrderNowButton);
         Orderbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                progressBar.show();
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
                 databaseReference.child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.child("city").exists() &&
+                        if (snapshot.child("city").exists() &&
                                 snapshot.child("email").exists() &&
                                 snapshot.child("firstname").exists() &&
                                 snapshot.child("lastname").exists() &&
@@ -65,6 +98,7 @@ public class HomeFragment extends Fragment {
                         } else {
                             Toasty.error(getContext(), "Please complete your information", Toasty.LENGTH_LONG).show();
                         }
+                        progressBar.dismiss();
                     }
 
                     @Override

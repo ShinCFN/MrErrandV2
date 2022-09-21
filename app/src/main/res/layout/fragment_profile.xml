@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/finalBG"
+    android:background="@color/finalBackground"
     tools:context=".ProfileFragment">
 
     <ScrollView
@@ -34,6 +34,7 @@
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/outlined_box"
+                    android:backgroundTint="@color/white"
                     android:orientation="horizontal">
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -54,7 +55,7 @@
                         android:layout_height="35dp"
                         android:layout_marginRight="20dp"
                         android:background="@drawable/settings"
-                        android:backgroundTint="@color/finalGray"
+                        android:backgroundTint="@color/finalDarkGray"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -75,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/questrial"
                             android:textStyle="bold"
-                            android:textColor="@color/finalText"
+                            android:textColor="@color/black"
                             android:textSize="20sp" />
 
                         <TextView
@@ -84,7 +85,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/questrial"
                             android:textStyle="bold"
-                            android:textColor="@color/finalText"
+                            android:textColor="@color/black"
                             android:textSize="20sp" />
 
                     </LinearLayout>
@@ -98,6 +99,7 @@
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/outlined_box"
+                    android:backgroundTint="@color/white"
                     android:orientation="vertical"
                     android:paddingHorizontal="15dp"
                     android:paddingVertical="20dp">
@@ -107,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/questrial"
                         android:text="Contact Information"
-                        android:textColor="@color/finalText"
+                        android:textColor="@color/black"
                         android:textSize="23sp"
                         android:textStyle="bold" />
 
@@ -126,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/questrial"
-                        android:textColor="@color/finalText"
+                        android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -145,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/questrial"
-                        android:textColor="@color/finalText"
+                        android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -158,6 +160,7 @@
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/outlined_box"
+                    android:backgroundTint="@color/white"
                     android:orientation="vertical"
                     android:paddingHorizontal="15dp"
                     android:paddingVertical="20dp">
@@ -167,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/questrial"
                         android:text="Address"
-                        android:textColor="@color/finalText"
+                        android:textColor="@color/black"
                         android:textSize="23sp"
                         android:textStyle="bold" />
 
@@ -186,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/questrial"
-                        android:textColor="@color/finalText"
+                        android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -206,7 +209,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/questrial"
-                        android:textColor="@color/finalText"
+                        android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -226,7 +229,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/questrial"
-                        android:textColor="@color/finalText"
+                        android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -246,7 +249,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/questrial"
-                        android:textColor="@color/finalText"
+                        android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
                 </LinearLayout>

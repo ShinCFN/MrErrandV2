@@ -17,11 +17,8 @@
 
     </FrameLayout>
 
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
-
-        android:layout_marginBottom="40dp"
-        android:layout_marginHorizontal="70dp"
-
         app:itemIconTint="@drawable/bottom_navigation_selector"
         app:itemTextColor="@drawable/bottom_navigation_selector"
         android:id="@+id/bottomNavigationView"

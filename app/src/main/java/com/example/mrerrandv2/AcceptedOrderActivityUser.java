@@ -103,7 +103,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
 
         adapter = new FirebaseRecyclerAdapter(options) {
             @Override
-            protected void onBindViewHolder(@android.support.annotation.NonNull RecyclerView.ViewHolder viewHolder, int position, @android.support.annotation.NonNull Object o) {
+            protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
                 UserOrderListVH vh = (UserOrderListVH) viewHolder;
                 OrderList list = (OrderList) o;
 
@@ -122,9 +122,9 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
                 }
             }
 
-            @android.support.annotation.NonNull
+            @NonNull
             @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@android.support.annotation.NonNull ViewGroup parent, int viewType) {
+            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(AcceptedOrderActivityUser.this).inflate(R.layout.layout_uservieworderlist, parent, false);
                 return new UserOrderListVH(view);
             }

@@ -40,6 +40,7 @@ public class PaymentActivity extends AppCompatActivity {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     PaymentOrderListAdapter adapter;
     private long lastClickTime = 0;
+    progressBar progressBar;
 
     TextView receiptdate, receiptname, purchasenum;
     ImageView toolbarback;
@@ -54,6 +55,7 @@ public class PaymentActivity extends AppCompatActivity {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order");
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid()).child("OrderList");
 
+        progressBar = new progressBar(this);
         list = new ArrayList<>();
         adapter = new PaymentOrderListAdapter(this, list);
         orderlistrv = findViewById(R.id.orderlistrv);
@@ -72,13 +74,13 @@ public class PaymentActivity extends AppCompatActivity {
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(PaymentActivity.this, R.color.finalBG));
+        window.setStatusBarColor(ContextCompat.getColor(PaymentActivity.this, R.color.finalBackground));
 
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
         TextView toolSub = findViewById(R.id.toolbarsub);
-        toolMain.setText("Your cart");
-        toolSub.setText("List of items to be delivered");
+        toolMain.setText("");
+        toolSub.setText("");
 
         String textFirstName = firebaseUser.getDisplayName();
 
@@ -144,6 +146,7 @@ public class PaymentActivity extends AppCompatActivity {
         COD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.show();
                 //Get user details
                 proceed.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -274,6 +277,7 @@ public class PaymentActivity extends AppCompatActivity {
                             });
 
                         }
+                        progressBar.dismiss();
                     }
 
                     @Override

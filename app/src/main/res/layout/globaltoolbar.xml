@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:elevation="0dp"
-    android:background="@color/finalBG"
+    android:background="@color/finalBackground"
     android:contentInsetStart="0dp"
     android:contentInsetLeft="0dp"
     android:contentInsetEnd="0dp"
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/arrowback"
-            android:backgroundTint="@color/finalText"
+            android:backgroundTint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +47,7 @@
                 android:fontFamily="@font/asap_bold"
                 android:gravity="left"
                 android:text="%main%"
-                android:textColor="@color/finalText"
+                android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <TextView
@@ -58,7 +58,7 @@
                 android:fontFamily="@font/asap_medium"
                 android:gravity="left"
                 android:text="%sub%"
-                android:textColor="@color/finalText"
+                android:textColor="@color/black"
                 android:textSize="12sp" />
 
 

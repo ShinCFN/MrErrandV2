@@ -12,19 +12,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="horizontal"
-            android:background="#F4E8EA">
+            android:background="@color/finalLightGreen">
 
             <TextView
                 android:id="@+id/item"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:backgroundTint="@color/finalBGAlt"
+                android:backgroundTint="@color/finalBackground"
                 android:fontFamily="@font/questrial"
                 android:gravity="left|center"
                 android:hint="e.g. Pancit Canton"
                 android:maxLines="1"
                 android:paddingHorizontal="15dp"
-                android:textColor="#B0838F"
+                android:textColor="@color/finalDarkGray"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/view"
@@ -37,7 +37,7 @@
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="120dp"
-                android:background="#B0838F"
+                android:background="@color/finalDarkGray"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +45,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="2dp"
-                android:background="#B0838F"
+                android:background="@color/finalDarkGray"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -63,13 +63,13 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_gravity="right"
-                android:backgroundTint="@color/finalBGAlt"
+                android:backgroundTint="@color/finalBackground"
                 android:fontFamily="@font/questrial"
                 android:gravity="left|center"
                 android:hint="1 pack"
                 android:maxLines="1"
                 android:paddingHorizontal="15dp"
-                android:textColor="#B0838F"
+                android:textColor="@color/finalDarkGray"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +82,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:background="@drawable/remove"
-                android:backgroundTint="#B0838F"
+                android:backgroundTint="@color/finalDarkGray"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

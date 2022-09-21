@@ -11,8 +11,21 @@
         android:orientation="horizontal">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/finalBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/helmetanim"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/view7"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="helmet.json" />
+
 
             <View
                 android:elevation="3dp"
@@ -21,24 +34,25 @@
                 android:layout_height="60dp"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/outlined_box"
-                android:backgroundTint="@color/mustard"
+                android:backgroundTint="@color/finalLightGreen"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/moto"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/view7"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <ImageView-->
+<!--                android:id="@+id/imageView2"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="100dp"-->
+<!--                android:src="@drawable/moto"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/view7"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
             <LinearLayout
-                android:elevation="4dp"
+                android:id="@+id/linearLayout7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:elevation="4dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="@+id/view7"
                 app:layout_constraintEnd_toEndOf="@+id/view7"
@@ -46,63 +60,67 @@
                 app:layout_constraintTop_toTopOf="@+id/view7">
 
                 <TextView
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="₱ "
+                    android:layout_gravity="center"
                     android:fontFamily="@font/questrial"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"/>
+                    android:text="₱ "
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/orderdesc"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="%offer%"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/questrial"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"/>
+                    android:text="%offer%"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginLeft="20dp"
+                android:id="@+id/linearLayout6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/imageView2">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/helmetanim"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:textColor="@color/black"
                     android:id="@+id/orderName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/questrial"
-                    android:textSize="20sp"
                     android:text="%name%"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     app:layout_constraintStart_toEndOf="@+id/imageView2" />
 
                 <RatingBar
 
-                    android:progressTint="@color/SecondaryMain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/rating"
                     style="@style/Widget.AppCompat.RatingBar.Small"
-                    />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:progressTint="@color/finalLightGreen" />
 
             </LinearLayout>
 
             <View
+                android:id="@+id/view8"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:background="@color/Gray"/>
+                android:background="@color/Gray"
+                app:layout_constraintTop_toTopOf="parent" />
 
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/Gray"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

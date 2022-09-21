@@ -4,21 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/queenpink"
+    android:background="@color/finalBackground"
     android:fillViewport="true"
     tools:ignore="SpeakableTextPresentCheck">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+            <include layout="@layout/globaltoolbar" />
+
+
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/menu_top_cornered"
-            android:backgroundTint="@color/finalBG"
             android:clipToPadding="false"
             android:orientation="vertical"
             android:padding="32dp"
@@ -45,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/asap_medium"
                 android:text="First name"
-                android:textColor="@color/finalText" />
+                android:textColor="@color/finalDarkGray" />
 
             <EditText
                 android:id="@+id/editproftFirst"
@@ -53,7 +55,7 @@
                 android:layout_height="45dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_grey_input"
-                android:backgroundTint="@color/finalBGAlt"
+                android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/profile"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
@@ -67,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/asap_medium"
                 android:text="Last name"
-                android:textColor="@color/finalText" />
+                android:textColor="@color/finalDarkGray" />
 
             <EditText
                 android:id="@+id/editproftLast"
@@ -75,7 +77,7 @@
                 android:layout_height="45dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_grey_input"
-                android:backgroundTint="@color/finalBGAlt"
+                android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/profile"
 
                 android:drawablePadding="10dp"
@@ -90,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/asap_medium"
                 android:text="Mobile Number"
-                android:textColor="@color/finalText" />
+                android:textColor="@color/finalDarkGray" />
 
             <EditText
                 android:id="@+id/editprofMobile"
@@ -98,7 +100,7 @@
                 android:layout_height="45dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_grey_input"
-                android:backgroundTint="@color/finalBGAlt"
+                android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/mobile"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
@@ -115,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/asap_medium"
                 android:text="Street name"
-                android:textColor="@color/finalText" />
+                android:textColor="@color/finalDarkGray" />
 
             <EditText
                 android:id="@+id/editprofStreet"
@@ -123,7 +125,7 @@
                 android:layout_height="45dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_grey_input"
-                android:backgroundTint="@color/finalBGAlt"
+                android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/location"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
@@ -139,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/asap_medium"
                 android:text="City"
-                android:textColor="@color/finalText" />
+                android:textColor="@color/finalDarkGray" />
 
             <EditText
                 android:id="@+id/editprofCity"
@@ -147,7 +149,7 @@
                 android:layout_height="45dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_grey_input"
-                android:backgroundTint="@color/finalBGAlt"
+                android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/location"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
@@ -162,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/asap_medium"
                 android:text="State/Province"
-                android:textColor="@color/finalText" />
+                android:textColor="@color/finalDarkGray" />
 
             <EditText
                 android:id="@+id/editprofProvince"
@@ -170,7 +172,7 @@
                 android:layout_height="45dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_grey_input"
-                android:backgroundTint="@color/finalBGAlt"
+                android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/location"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
@@ -185,7 +187,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/asap_medium"
                 android:text="Zip code"
-                android:textColor="@color/finalText" />
+                android:textColor="@color/finalDarkGray" />
 
             <EditText
                 android:id="@+id/editprofZip"
@@ -193,7 +195,7 @@
                 android:layout_height="45dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_grey_input"
-                android:backgroundTint="@color/finalBGAlt"
+                android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/location"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/asap_regular"
@@ -211,6 +213,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_secondary"
+                android:backgroundTint="@color/finalDarkGreen"
                 android:fontFamily="@font/asap_medium"
                 android:gravity="center"
                 android:paddingHorizontal="15dp"

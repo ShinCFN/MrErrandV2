@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MrErrandV2</string>
-    <string name="noaccount"><font color='#FF544E50'>No account?</font> <font color='#f4717f'><u>Sign Up</u></font></string>
-    <string name="wantrider"><font color='#FF544E50'>Want to become a rider? </font><font color='#f4717f'><u>Register here!</u></font></string>
+    <string name="noaccount"><font color='#211F20'>No account?</font> <font color='#8AC5A9'><u>Sign Up</u></font></string>
+    <string name="wantrider"><font color='#211F20'>Want to become a rider? </font><font color='#8AC5A9'><u>Register here!</u></font></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="view_profile"><u>View profile</u></string>

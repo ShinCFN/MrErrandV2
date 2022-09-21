@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".RiderProfileFragment"
-    android:background="@color/finalBG">
+    android:background="@color/finalBackground">
 
     <LinearLayout
         android:paddingBottom="100dp"
@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:background="@drawable/outlined_box"
+            android:backgroundTint="@color/white"
             android:orientation="horizontal"
             android:paddingVertical="20dp"
             android:paddingHorizontal="15dp">
@@ -46,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/questrial"
                     android:textStyle="bold"
-                    android:textColor="@color/finalText"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <TextView
@@ -55,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/questrial"
                     android:textStyle="bold"
-                    android:textColor="@color/finalText"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -67,6 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:background="@drawable/outlined_box"
+            android:backgroundTint="@color/white"
+
             android:orientation="vertical"
             android:paddingVertical="20dp"
             android:paddingHorizontal="15dp">
@@ -76,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/questrial"
                 android:text="Contact Information"
-                android:textColor="@color/finalText"
+                android:textColor="@color/black"
                 android:textSize="23sp"
                 android:textStyle="bold" />
 
@@ -95,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/questrial"
-                android:textColor="@color/finalText"
+                android:textColor="@color/black"
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
@@ -114,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/questrial"
-                android:textColor="@color/finalText"
+                android:textColor="@color/black"
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
@@ -128,6 +131,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:background="@drawable/outlined_box"
+            android:backgroundTint="@color/white"
+
             android:orientation="vertical"
             android:paddingVertical="20dp"
             android:paddingHorizontal="15dp">
@@ -137,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/questrial"
                 android:text="Driver's License"
-                android:textColor="@color/finalText"
+                android:textColor="@color/black"
                 android:textSize="23sp"
                 android:textStyle="bold" />
 
@@ -156,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/questrial"
-                android:textColor="@color/finalText"
+                android:textColor="@color/black"
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
@@ -177,6 +182,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:background="@drawable/outlined_box"
+            android:backgroundTint="@color/white"
+
             android:orientation="vertical"
             android:paddingVertical="20dp"
             android:paddingHorizontal="15dp">
@@ -186,7 +193,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/questrial"
                 android:text="Plate"
-                android:textColor="@color/finalText"
+                android:textColor="@color/black"
                 android:textSize="23sp"
                 android:textStyle="bold" />
 
@@ -205,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/questrial"
-                android:textColor="@color/finalText"
+                android:textColor="@color/black"
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
@@ -226,6 +233,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:background="@drawable/outlined_box"
+            android:backgroundTint="@color/white"
+
             android:orientation="vertical"
             android:paddingVertical="20dp"
             android:paddingHorizontal="15dp">
@@ -235,7 +244,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/questrial"
                 android:text="Vehicle"
-                android:textColor="@color/finalText"
+                android:textColor="@color/black"
                 android:textSize="23sp"
                 android:textStyle="bold" />
 
@@ -264,6 +273,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:background="@drawable/box_grey"
+            android:backgroundTint="@color/finalDarkGreen"
             android:orientation="vertical"
             android:paddingVertical="14dp"
             android:paddingHorizontal="15dp">
@@ -273,8 +283,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Edit Profile"
-                android:fontFamily="@font/asap_medium"
-                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/questrial"
+                android:textSize="15sp"
                 android:textColor="@color/DarkMain"/>
         </LinearLayout>
 

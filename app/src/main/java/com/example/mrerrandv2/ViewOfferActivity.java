@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +12,14 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,13 +42,19 @@ public class ViewOfferActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     DBOffer dboff;
     FirebaseRecyclerAdapter adapter;
+    ValueEventListener offerLis;
     ImageView toolbarback;
+    LinearLayout search;
+    DatabaseReference offerRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_offers);
+        offerRef = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("Key"));
+        search = findViewById(R.id.search);
+
         recyclerView = findViewById(R.id.offersrv);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(ViewOfferActivity.this, LinearLayoutManager.VERTICAL, false));
@@ -54,13 +63,19 @@ public class ViewOfferActivity extends AppCompatActivity {
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(ViewOfferActivity.this, R.color.finalBG));
+        window.setStatusBarColor(ContextCompat.getColor(ViewOfferActivity.this, R.color.finalBackground));
+
+        //Nav Bar
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.finalDarkGray));
+            View view = getWindow().getDecorView();
+        }
 
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
         TextView toolSub = findViewById(R.id.toolbarsub);
-        toolMain.setText("Offers");
-        toolSub.setText("Offers available to accept");
+        toolMain.setText("");
+        toolSub.setText("");
 
         String key = getIntent().getStringExtra("Key");
         dboff = new DBOffer(key);
@@ -71,6 +86,24 @@ public class ViewOfferActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+
+        //Offer Check
+        offerLis = offerRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child("Offers").exists()){
+                    //Hide search
+                    search.setVisibility(View.GONE);
+                }else{
+                    search.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
@@ -94,6 +127,59 @@ public class ViewOfferActivity extends AppCompatActivity {
                 AddOffer off = (AddOffer) o;
                 vh.orderName.setText(off.getRidername());
                 vh.offer.setText(off.getOffer());
+                vh.helmet.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        vh.helmet.reverseAnimationSpeed();
+                        vh.helmet.playAnimation();
+
+                        new AlertDialog.Builder(view.getContext())
+                                .setMessage("Accept offer?")
+                                .setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        DatabaseReference orderReference = FirebaseDatabase.getInstance().getReference("Order").child(key);
+                                        orderReference.child("status").setValue("accepted");
+                                        orderReference.child("Offers").child(off.getKey()).child("state").setValue("accepted").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                DatabaseReference refref = FirebaseDatabase.getInstance().getReference("Order").child(key);
+                                                refref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                        Intent intent = new Intent(ViewOfferActivity.this, AcceptedOrderActivityUser.class);
+                                                        intent.putExtra("ORDER", off);
+                                                        intent.putExtra("uid", off.getUid());
+                                                        intent.putExtra("type", snapshot.child("ordertype").getValue().toString());
+                                                        if (snapshot.child("orderlist").exists()) {
+                                                            intent.putExtra("orderlist", snapshot.child("orderlist").getValue().toString());
+                                                        }
+                                                        intent.putExtra("ORDKEY", key);
+                                                        intent.putExtra("RIDERKEY", off.getKey());
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                    }
+                                                });
+                                            }
+                                        });
+
+                                    }
+                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        vh.helmet.reverseAnimationSpeed();
+                                        vh.helmet.playAnimation();
+                                    }
+                                }).show();
+                    }
+                });
 
                 //Rating system
                 vh.rating.setRating(off.getRating());
@@ -124,68 +210,22 @@ public class ViewOfferActivity extends AppCompatActivity {
                     }
                 });
 
-
-                //Options
-                vh.order_options.setOnClickListener(v ->
-                {
-                    PopupMenu popupMenu = new PopupMenu(ViewOfferActivity.this, vh.order_options);
-
-                    popupMenu.inflate(R.menu.options_offer);
-                    popupMenu.setOnMenuItemClickListener(item ->
-                    {
-                        switch (item.getItemId()) {
-                            case R.id.menu_open:
-
-                                DatabaseReference orderReference = FirebaseDatabase.getInstance().getReference("Order").child(key);
-                                orderReference.child("status").setValue("accepted");
-                                orderReference.child("Offers").child(off.getKey()).child("state").setValue("accepted").addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        DatabaseReference refref = FirebaseDatabase.getInstance().getReference("Order").child(key);
-                                        refref.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                Intent intent = new Intent(ViewOfferActivity.this, AcceptedOrderActivityUser.class);
-                                                intent.putExtra("ORDER", off);
-                                                intent.putExtra("uid", off.getUid());
-                                                intent.putExtra("type", snapshot.child("ordertype").getValue().toString());
-                                                if (snapshot.child("orderlist").exists()) {
-                                                    intent.putExtra("orderlist", snapshot.child("orderlist").getValue().toString());
-                                                }
-                                                intent.putExtra("ORDKEY", key);
-                                                intent.putExtra("RIDERKEY", off.getKey());
-                                                startActivity(intent);
-                                                finish();
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
-                                    }
-                                });
-                                break;
-
-                            case R.id.menu_decline:
-
-                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(key).child("Offers");
-                                databaseReference.child(off.getKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(ViewOfferActivity.this, "Order declined", Toast.LENGTH_LONG).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(ViewOfferActivity.this, "" + e.getMessage(), Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                                break;
-                        }
-                        return false;
-                    });
-                    popupMenu.show();
+                vh.order_options.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(key).child("Offers");
+                        databaseReference.child(off.getKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(ViewOfferActivity.this, "Order declined", Toast.LENGTH_LONG).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(ViewOfferActivity.this, "" + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
                 });
             }
 
@@ -214,6 +254,7 @@ public class ViewOfferActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
+        offerRef.removeEventListener(offerLis);
     }
 
     @Override

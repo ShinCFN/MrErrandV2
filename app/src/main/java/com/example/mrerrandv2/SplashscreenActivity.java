@@ -7,6 +7,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -38,18 +40,8 @@ public class SplashscreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
-        nonet = findViewById(R.id.nonet);
+        nonet = findViewById(R.id   .nonet);
         status = false;
-
-        //Theme settings
-        SharedPreferences appSettingPrefs = getSharedPreferences("AppSettingPrefs",0);
-        Boolean isNightModeOn = appSettingPrefs.getBoolean("NightMode", false);
-        if(isNightModeOn){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }else{
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
 
         mainView = getWindow().getDecorView();
         mainView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -98,33 +90,28 @@ public class SplashscreenActivity extends AppCompatActivity {
                             //GET USER PERMS FROM DB
                             FirebaseUser firebaseUser = authProfile.getCurrentUser();
                             String userID = firebaseUser.getUid();
-                            DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("permissions");
 
+                            DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("permissions");
                             referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    ReadWriteUserDetails readUserDetails = snapshot.getValue(ReadWriteUserDetails.class);
 
-                                    if (readUserDetails != null) {
-
-                                        String usertype = readUserDetails.type;
+                                        String usertype = snapshot.child("type").getValue().toString();
 
                                         if (usertype.equals("admin")) {
                                             startActivity(new Intent(SplashscreenActivity.this, AdminMainActivity.class));
-                                            finish();
                                         } else if (usertype.equals("rider")) {
                                             startActivity(new Intent(SplashscreenActivity.this, RiderLandingPage.class));
-                                            finish();
                                         } else {
                                             startActivity(new Intent(SplashscreenActivity.this, MainActivity.class));
-                                            finish();
                                         }
-                                    }
+                                        finish();
                                 }
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
                                     Toast.makeText(SplashscreenActivity.this, "Something went wrong!", Toast.LENGTH_LONG).show();
+                                    throw error.toException();
                                 }
 
                             });

@@ -1,16 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/finalBG">
+    android:background="@color/finalBackground"
+    android:orientation="vertical">
 
-    <include layout="@layout/globaltoolbar" />
-
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
+        android:layout_marginBottom="-100dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/offersrv"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="1dp">
 
-</LinearLayout>
+        <TextView
+            android:elevation="2dp"
+            android:layout_marginBottom="-110dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order Placed"
+            android:fontFamily="@font/questrial"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@color/finalDarkGray" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="420dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="search.json"
+            app:lottie_loop="true" />
+
+    </LinearLayout>
+
+
+
+    <ImageView
+        android:layout_marginLeft="-200dp"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:src="@drawable/test1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <include layout="@layout/globaltoolbar" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/offersrv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,12 +39,12 @@
                 android:textSize="20sp"
                 android:id="@+id/orderName"
                 android:fontFamily="@font/questrial"
-                android:textColor="@color/finalText"/>
+                android:textColor="@color/black"/>
 
             <RatingBar
                 android:theme="@style/RatingBarGold"
                 android:layout_marginLeft="20dp"
-                android:progressTint="@color/SecondaryMain"
+                android:progressTint="@color/finalLightGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/rating"
