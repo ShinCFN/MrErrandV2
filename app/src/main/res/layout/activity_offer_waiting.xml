@@ -4,20 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OfferWaitingActivityRider">
+    tools:context=".OfferWaitingActivityRider"
+    android:background="@color/finalBackground">
+
+
+    <include
+        android:id="@+id/include3"
+        layout="@layout/globaltoolbar" />
 
     <TextView
         android:id="@+id/offertitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/questrial"
         android:text="WAITING FOR CUSTOMER TO ACCEPT"
-        android:fontFamily="@font/inter_extrabold"
         android:textColor="@color/DarkMain"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="18sp"/>
+        app:layout_constraintTop_toBottomOf="@+id/include3" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -41,7 +48,7 @@
             android:id="@+id/waiting_offer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_regular"
+            android:fontFamily="@font/questrial"
             android:text="1000"
             android:textColor="@color/finalLightGreen"
             android:textSize="20sp"
