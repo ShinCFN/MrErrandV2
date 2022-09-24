@@ -24,6 +24,7 @@
                 android:layout_marginBottom="100dp"
                 android:orientation="vertical"
                 android:paddingTop="40dp"
+                android:layout_marginHorizontal="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
@@ -31,7 +32,6 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/outlined_box"
                     android:backgroundTint="@color/finalLightGreen"
@@ -96,7 +96,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/outlined_box"
                     android:backgroundTint="@color/white"
@@ -109,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/questrial"
                         android:text="Contact Information"
-                        android:textColor="@color/black"
+                        android:textColor="@color/finalDarkGray"
                         android:textSize="23sp"
                         android:textStyle="bold" />
 
@@ -128,7 +127,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/questrial"
-                        android:textColor="@color/black"
+                        android:textColor="@color/finalDarkGray"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -147,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/questrial"
-                        android:textColor="@color/black"
+                        android:textColor="@color/finalDarkGray"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -157,7 +156,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/outlined_box"
                     android:backgroundTint="@color/white"

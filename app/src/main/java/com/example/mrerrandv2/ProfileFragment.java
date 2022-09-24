@@ -125,7 +125,7 @@ public class ProfileFragment extends Fragment {
 
                             progressBar.show();
 
-                            Glide.with(ProfileFragment.this).load(image).placeholder(R.drawable.user).listener(new RequestListener<Drawable>() {
+                            Glide.with(ProfileFragment.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
                                 @Override
                                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                                     progressBar.dismiss();
