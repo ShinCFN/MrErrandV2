@@ -1,10 +1,16 @@
 package com.example.mrerrandv2;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +18,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,12 +36,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import es.dmoral.toasty.Toasty;
+
 public class SignUpRiderActivity extends AppCompatActivity {
 
 
     private EditText firstname, lastname, emailIn, numIN, passIn, passInC;
     private static final String TAG = "SignUpActivity";
-    private ImageView rLicense, rPlate;
+    private ImageView rLicense, rPlate, toolbarback;
+    CardView etcardOne, etcardTwo, etcardThree, etcardFour, etcardFive, etcardSix;
+    private boolean isAtleast6 = false, hasupper = false, haslower = false, hasnum = false, nothis = false, nospaces = false;
+    boolean passisgo;
     private progressBar progressBar;
 
     private final int PICK_LICENSE_CODE = 12;
@@ -45,16 +58,31 @@ public class SignUpRiderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ridersignup);
 
         progressBar = new progressBar(this);
+        toolbarback = findViewById(R.id.toolbarback);
 
-        // Status Bar
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        //Status bar
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.finalBackground));
 
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
+        //Nav Bar
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.finalDarkGray));
+        }
 
+        //Toolbar
+        TextView toolMain = findViewById(R.id.toolbarmain);
+        TextView toolSub = findViewById(R.id.toolbarsub);
+        toolMain.setText("");
+        toolSub.setText("");
 
-        Toast.makeText(SignUpRiderActivity.this, "You can register now", Toast.LENGTH_SHORT).show();
+        toolbarback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         //Get id from layout
 
@@ -64,6 +92,13 @@ public class SignUpRiderActivity extends AppCompatActivity {
         numIN = findViewById(R.id.editTextMobile);
         passIn = findViewById(R.id.editTextPassword);
         passInC = findViewById(R.id.editTextConfirmPassword);
+
+        etcardOne = findViewById(R.id.cardOne);
+        etcardTwo = findViewById(R.id.cardTwo);
+        etcardThree = findViewById(R.id.cardThree);
+        etcardFour = findViewById(R.id.cardFour);
+        etcardFive = findViewById(R.id.cardFive);
+        etcardSix = findViewById(R.id.cardSix);
 
 
         // Signup Button
@@ -123,12 +158,111 @@ public class SignUpRiderActivity extends AppCompatActivity {
                     Toast.makeText(SignUpRiderActivity.this, "Please number is invalid", Toast.LENGTH_LONG).show();
                     numIN.setError("Mobile number invalid");
                     numIN.requestFocus();
+                } else if (!passisgo) {
+                    Toasty.error(SignUpRiderActivity.this, "Your password is invalid", Toasty.LENGTH_LONG).show();
+                    passIn.setError("Password invalid");
+                    passIn.requestFocus();
                 } else {
                     progressBar.show();
                     registerUser(textFirstName, textLastName, textEmail, textNum, textType, textPass);
                 }
             }
         });
+        inputChange();
+    }
+
+
+    @SuppressLint("ResourceType")
+    public void passwordcheck() {
+        String pass = passIn.getText().toString();
+
+        // For 6 Char
+        if (pass.length() >= 6 && pass.length()<= 20) {
+            isAtleast6 = true;
+            etcardOne.setCardBackgroundColor(Color.parseColor(getString(R.color.colorPrimary)));
+        } else {
+            isAtleast6 = false;
+            etcardOne.setCardBackgroundColor(Color.parseColor(getString(R.color.Gray)));
+        }
+
+        // For uppercase
+        if (pass.matches("(.*[A-Z].*)")) {
+            hasupper = true;
+            etcardTwo.setCardBackgroundColor(Color.parseColor(getString(R.color.colorPrimary)));
+        } else {
+            hasupper = false;
+            etcardTwo.setCardBackgroundColor(Color.parseColor(getString(R.color.Gray)));
+        }
+
+        // For lowercase
+        if (pass.matches("(.*[a-z].*)")) {
+            haslower = true;
+            etcardThree.setCardBackgroundColor(Color.parseColor(getString(R.color.colorPrimary)));
+        } else {
+            hasupper = false;
+            etcardThree.setCardBackgroundColor(Color.parseColor(getString(R.color.Gray)));
+        }
+
+        // For numbers
+        if (pass.matches("(.*[0-9].*)")) {
+            hasnum = true;
+            etcardFour.setCardBackgroundColor(Color.parseColor(getString(R.color.colorPrimary)));
+        } else {
+            hasnum = false;
+            etcardFour.setCardBackgroundColor(Color.parseColor(getString(R.color.Gray)));
+        }
+
+        // For symbol
+        if (pass.matches("^[a-zA-Z0-9]{1,20}$")) {
+            nothis = true;
+            etcardFive.setCardBackgroundColor(Color.parseColor(getString(R.color.colorPrimary)));
+        } else {
+            nothis = false;
+            etcardFive.setCardBackgroundColor(Color.parseColor(getString(R.color.Gray)));
+        }
+
+        // For spaces
+        if (pass.matches("^[a-zA-Z0-9]{1,20}$")) {
+            nospaces = true;
+            etcardSix.setCardBackgroundColor(Color.parseColor(getString(R.color.colorPrimary)));
+        } else {
+            nospaces = false;
+            etcardSix.setCardBackgroundColor(Color.parseColor(getString(R.color.Gray)));
+        }
+        checkAllData();
+    }
+
+    // if all fields are filled properly the btn color will change
+    @SuppressLint("ResourceType")
+    private void checkAllData() {
+
+        if(isAtleast6 && hasupper && haslower && hasnum && nothis && nospaces) {
+            passisgo = true;
+        }else{
+            passisgo = false;
+        }
+
+
+    }
+
+    private void inputChange(){
+        passIn.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                passwordcheck();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
     }
 
 

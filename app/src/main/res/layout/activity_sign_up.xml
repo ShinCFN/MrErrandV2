@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,64 +7,52 @@
     tools:ignore="SpeakableTextPresentCheck"
     android:fillViewport="true">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".SignUpActivity">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
+        <include
+            android:id="@+id/include2"
+            layout="@layout/globaltoolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/DarkMain"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:paddingTop="30dp"
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="Sign up"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="left|center"
-            android:drawableLeft="@drawable/arrow_right"
-            android:layout_marginLeft="30dp"
-            android:fontFamily="@font/asap_bold"
-            android:background="@color/DarkMain"
-            android:textColor="@color/white"
-            android:textSize="18sp"/>
 
         <LinearLayout
-            android:background="@drawable/menu_top_cornered"
             android:id="@+id/linearLayout2"
-            android:padding="32dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="50dp"
+            android:paddingHorizontal="20dp"
+            android:background="@color/finalBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
+            app:layout_constraintTop_toBottomOf="@+id/include2">
 
             <!-- First Name -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="First name"
                 android:textColor="@color/Gray" />
 
             <EditText
-                android:maxLines="1"
                 android:id="@+id/editFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginBottom="20dp"
-                android:inputType="textPersonName"
                 android:background="@drawable/box_grey_input"
                 android:drawableLeft="@drawable/profile"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
+                android:inputType="textPersonName"
+                android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
@@ -72,21 +60,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="Last name"
                 android:textColor="@color/Gray" />
 
             <EditText
-                android:maxLines="1"
                 android:id="@+id/editLastName"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginBottom="20dp"
-                android:inputType="textPersonName"
                 android:background="@drawable/box_grey_input"
                 android:drawableLeft="@drawable/profile"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
+                android:inputType="textPersonName"
+                android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
@@ -94,21 +82,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="Email"
                 android:textColor="@color/Gray" />
 
             <EditText
-                android:maxLines="1"
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginBottom="20dp"
-                android:inputType="textEmailAddress"
                 android:background="@drawable/box_grey_input"
                 android:drawableLeft="@drawable/email"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
@@ -116,13 +104,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="Mobile Number"
                 android:textColor="@color/Gray" />
 
             <EditText
-                android:maxLines="1"
-                android:inputType="number"
                 android:id="@+id/editTextMobile"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -130,8 +116,10 @@
                 android:background="@drawable/box_grey_input"
                 android:drawableLeft="@drawable/mobile"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
+                android:inputType="number"
                 android:maxLength="11"
+                android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
@@ -139,13 +127,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="Password"
                 android:textColor="@color/Gray" />
 
             <EditText
-                android:maxLines="1"
-                android:inputType="textPassword"
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -153,7 +139,9 @@
                 android:background="@drawable/box_grey_input"
                 android:drawableLeft="@drawable/password"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
+                android:inputType="textPassword"
+                android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
@@ -161,13 +149,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="Confirm password"
                 android:textColor="@color/Gray" />
 
             <EditText
-                android:maxLines="1"
-                android:inputType="textPassword"
                 android:id="@+id/editTextConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -175,237 +161,232 @@
                 android:background="@drawable/box_grey_input"
                 android:drawableLeft="@drawable/password"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
+                android:inputType="textPassword"
+                android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
 
             <!-- Validation -->
             <LinearLayout
-                android:paddingLeft="5dp"
                 android:layout_width="match_parent"
-                android:layout_marginTop="5dp"
                 android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                android:layout_gravity="center">
+                android:paddingLeft="5dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardOne"
-                    android:layout_gravity="center"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    app:cardCornerRadius="25dp"
-                    app:cardBackgroundColor="@color/Gray">
+                    android:layout_gravity="center"
+                    app:cardBackgroundColor="@color/Gray"
+                    app:cardCornerRadius="25dp">
 
                     <ImageView
                         android:layout_width="15dp"
-                        android:layout_gravity="center"
                         android:layout_height="15dp"
-                        android:background="@drawable/check"
-                        />
+                        android:layout_gravity="center"
+                        android:background="@drawable/check" />
                 </androidx.cardview.widget.CardView>
-                    />
+                />
 
                 <TextView
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/Gray"
-                    android:text="6-20 characters"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/inter_regular"
                     android:gravity="center|start"
-                    />
+                    android:text="6-20 characters"
+                    android:textColor="@color/Gray" />
 
             </LinearLayout>
+
             <LinearLayout
-                android:paddingLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:layout_gravity="center">
+                android:paddingLeft="5dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardTwo"
-                    android:layout_gravity="center"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    app:cardCornerRadius="25dp"
-                    app:cardBackgroundColor="@color/Gray">
+                    android:layout_gravity="center"
+                    app:cardBackgroundColor="@color/Gray"
+                    app:cardCornerRadius="25dp">
 
                     <ImageView
                         android:layout_width="15dp"
-                        android:layout_gravity="center"
                         android:layout_height="15dp"
-                        android:background="@drawable/check"
-                        />
+                        android:layout_gravity="center"
+                        android:background="@drawable/check" />
                 </androidx.cardview.widget.CardView>
                 />
 
                 <TextView
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/Gray"
-                    android:text="At least one capital letter ( A to Z )"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/inter_regular"
                     android:gravity="center|start"
-                    />
+                    android:text="At least one capital letter ( A to Z )"
+                    android:textColor="@color/Gray" />
 
             </LinearLayout>
+
             <LinearLayout
-                android:paddingLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:layout_gravity="center">
+                android:paddingLeft="5dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardThree"
-                    android:layout_gravity="center"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    app:cardCornerRadius="25dp"
-                    app:cardBackgroundColor="@color/Gray">
+                    android:layout_gravity="center"
+                    app:cardBackgroundColor="@color/Gray"
+                    app:cardCornerRadius="25dp">
 
                     <ImageView
                         android:layout_width="15dp"
-                        android:layout_gravity="center"
                         android:layout_height="15dp"
-                        android:background="@drawable/check"
-                        />
+                        android:layout_gravity="center"
+                        android:background="@drawable/check" />
                 </androidx.cardview.widget.CardView>
                 />
 
                 <TextView
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/Gray"
-                    android:text="At least one lowercase letter ( a to z )"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/inter_regular"
                     android:gravity="center|start"
-                    />
+                    android:text="At least one lowercase letter ( a to z )"
+                    android:textColor="@color/Gray" />
 
             </LinearLayout>
+
             <LinearLayout
-                android:paddingLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:layout_gravity="center">
+                android:paddingLeft="5dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardFour"
-                    android:layout_gravity="center"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    app:cardCornerRadius="25dp"
-                    app:cardBackgroundColor="@color/Gray">
+                    android:layout_gravity="center"
+                    app:cardBackgroundColor="@color/Gray"
+                    app:cardCornerRadius="25dp">
 
                     <ImageView
                         android:layout_width="15dp"
-                        android:layout_gravity="center"
                         android:layout_height="15dp"
-                        android:background="@drawable/check"
-                        />
+                        android:layout_gravity="center"
+                        android:background="@drawable/check" />
                 </androidx.cardview.widget.CardView>
                 />
 
                 <TextView
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/Gray"
-                    android:text="At least one number ( 0 to 9 )"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/inter_regular"
                     android:gravity="center|start"
-                    />
+                    android:text="At least one number ( 0 to 9 )"
+                    android:textColor="@color/Gray" />
 
             </LinearLayout>
+
             <LinearLayout
-                android:paddingLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:layout_gravity="center">
+                android:paddingLeft="5dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardFive"
-                    android:layout_gravity="center"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    app:cardCornerRadius="25dp"
-                    app:cardBackgroundColor="@color/Gray">
+                    android:layout_gravity="center"
+                    app:cardBackgroundColor="@color/Gray"
+                    app:cardCornerRadius="25dp">
 
                     <ImageView
                         android:layout_width="15dp"
-                        android:layout_gravity="center"
                         android:layout_height="15dp"
-                        android:background="@drawable/check"
-                        />
+                        android:layout_gravity="center"
+                        android:background="@drawable/check" />
                 </androidx.cardview.widget.CardView>
                 />
 
                 <TextView
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/Gray"
-                    android:text="Don’t use : ; . “ ‘ / \"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/inter_regular"
                     android:gravity="center|start"
-                    />
+                    android:text="Don’t use : ; . “ ‘ / \"
+                    android:textColor="@color/Gray" />
 
             </LinearLayout>
+
             <LinearLayout
-                android:paddingLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:layout_gravity="center">
+                android:paddingLeft="5dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardSix"
-                    android:layout_gravity="center"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    app:cardCornerRadius="25dp"
-                    app:cardBackgroundColor="@color/Gray">
+                    android:layout_gravity="center"
+                    app:cardBackgroundColor="@color/Gray"
+                    app:cardCornerRadius="25dp">
 
                     <ImageView
                         android:layout_width="15dp"
-                        android:layout_gravity="center"
                         android:layout_height="15dp"
-                        android:background="@drawable/check"
-                        />
+                        android:layout_gravity="center"
+                        android:background="@drawable/check" />
                 </androidx.cardview.widget.CardView>
                 />
 
                 <TextView
-                    android:fontFamily="@font/inter_regular"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/Gray"
-                    android:text="No spaces"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/inter_regular"
                     android:gravity="center|start"
-                    />
+                    android:text="No spaces"
+                    android:textColor="@color/Gray" />
 
             </LinearLayout>
 
             <TextView
-                android:layout_marginTop="30dp"
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_secondary"
                 android:fontFamily="@font/asap_bold"
-                android:textColor="@color/white"
                 android:gravity="center"
                 android:paddingHorizontal="15dp"
                 android:text="Register"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
