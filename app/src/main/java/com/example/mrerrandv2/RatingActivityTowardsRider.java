@@ -131,6 +131,6 @@ public class RatingActivityTowardsRider extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        finish();
     }
 }

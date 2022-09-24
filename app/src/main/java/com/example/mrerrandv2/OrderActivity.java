@@ -105,6 +105,13 @@ public class OrderActivity extends AppCompatActivity {
         toolMain.setText("");
         toolSub.setText("");
 
+        toolbarback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
         //RV visibility
         DatabaseReference orderlistRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getUid());
         orderlistRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -174,21 +181,9 @@ public class OrderActivity extends AppCompatActivity {
         };
         orderlistrv.setAdapter(adapter);
 
-        //Adding items
-        DatabaseReference databaseReference;
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid())
-                .child("OrderList");
 
+        //Add item
         String state = "false";
-
-        //Toolbar
-        toolbarback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
         addbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -212,6 +207,7 @@ public class OrderActivity extends AppCompatActivity {
                     }
                 }
                 progressBar.dismiss();
+                addnewitem.requestFocus();
             }
         });
 

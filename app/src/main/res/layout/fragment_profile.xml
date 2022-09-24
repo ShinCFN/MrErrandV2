@@ -34,7 +34,7 @@
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/outlined_box"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="@color/finalLightGreen"
                     android:orientation="horizontal">
 
                     <de.hdodenhof.circleimageview.CircleImageView

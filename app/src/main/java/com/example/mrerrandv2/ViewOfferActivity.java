@@ -153,9 +153,6 @@ public class ViewOfferActivity extends AppCompatActivity {
                                                         intent.putExtra("ORDER", off);
                                                         intent.putExtra("uid", off.getUid());
                                                         intent.putExtra("type", snapshot.child("ordertype").getValue().toString());
-                                                        if (snapshot.child("orderlist").exists()) {
-                                                            intent.putExtra("orderlist", snapshot.child("orderlist").getValue().toString());
-                                                        }
                                                         intent.putExtra("ORDKEY", key);
                                                         intent.putExtra("RIDERKEY", off.getKey());
                                                         startActivity(intent);
@@ -194,9 +191,6 @@ public class ViewOfferActivity extends AppCompatActivity {
                             intent.putExtra("ORDER", off);
                             intent.putExtra("uid", snapshot.child("uid").getValue().toString());
                             intent.putExtra("type", snapshot.child("ordertype").getValue().toString());
-                            if (snapshot.child("orderlist").exists()) {
-                                intent.putExtra("orderlist", snapshot.child("orderlist").getValue().toString());
-                            }
                             intent.putExtra("ORDKEY", key);
                             intent.putExtra("RIDERKEY", off.getKey());
                             startActivity(intent);
@@ -259,24 +253,27 @@ public class ViewOfferActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage("Are you sure you want to cancel your order?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+        finish();
 
-                        // PUT DELETE ORDER HERE
+//        new AlertDialog.Builder(this)
+//                .setMessage("Are you sure you want to cancel your order?")
+//                .setCancelable(false)
+//                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                        // PUT DELETE ORDER HERE
+//
+//                        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("Key"));
+//                        firebaseDatabase.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void unused) {
+//                                finish();
+//                            }
+//                        });
+//                    }
+//                }).setNegativeButton("No", null).show();
 
-                        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("Key"));
-                        firebaseDatabase.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                finish();
-                            }
-                        });
-                    }
-                }).setNegativeButton("No", null).show();
     }
 
 }

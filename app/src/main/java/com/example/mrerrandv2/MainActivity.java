@@ -2,9 +2,11 @@ package com.example.mrerrandv2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    FirebaseAuth auth = FirebaseAuth.getInstance();
 
 
     @Override
@@ -32,29 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order");
-        databaseReference.orderByChild("uid").equalTo(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.getValue() == null) {
-                    // The child doesn't exist
-
-                }else{
-                    for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-
-                        String key = childSnapshot.getKey();
-                        Intent intent = new Intent(MainActivity.this, ViewOfferActivity.class);
-                        intent.putExtra("Key", key);
-                        startActivity(intent);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 

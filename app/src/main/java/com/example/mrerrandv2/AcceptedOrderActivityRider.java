@@ -76,7 +76,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         setContentView(R.layout.activity_accepted_order_rider);
         progressDialog = new ProgressDialog(AcceptedOrderActivityRider.this);
         Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
-        order = findViewById(R.id.imgorder);
+        order = findViewById(R.id.orderimg);
 
         dbViewOrderList = new DBViewOrderList(ord_open.getUID());
 

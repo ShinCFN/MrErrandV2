@@ -2,6 +2,7 @@ package com.example.mrerrandv2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -182,7 +183,18 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
             orderlistrv.setVisibility(View.VISIBLE);
         }else{
             orderImage.setVisibility(View.VISIBLE);
-            Picasso.get().load(getIntent().getStringExtra("orderlist")).into(orderImage);
+            DatabaseReference imgOrd = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("ORDKEY"));
+            imgOrd.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Picasso.get().load(snapshot.child("orderlist").getValue().toString()).into(orderImage);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
 
             orderImage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -198,6 +210,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // Do Here what ever you want do on back press;
+        finish();
     }
 
     @Override

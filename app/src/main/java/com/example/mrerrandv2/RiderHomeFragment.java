@@ -78,7 +78,7 @@ public class RiderHomeFragment extends Fragment {
 
                 if (ord.getOrdertype().equals("true")){
                     vh.orderdesc.setText("Open to view order list");
-                }else if (ord.getStatus().equals("accepted")){
+                }else if (ord.getStatus().equals("accepted") || ord.getStatus().equals("inDelivery") || ord.getStatus().equals("complete")){
                     vh.orderdesc.setText("Accepted");
                     vh.orderdesc.setTextColor(Color.GREEN);
                 }else{
@@ -93,7 +93,7 @@ public class RiderHomeFragment extends Fragment {
                     public void onClick(View view) {
 
 
-                        if (ord.getStatus().equals("accepted")){
+                        if (ord.getStatus().equals("accepted") || ord.getStatus().equals("inDelivery") || ord.getStatus().equals("complete")){
                             Toasty.warning(getContext(), "Order was placed for another rider", Toasty.LENGTH_LONG).show();
                         }else{
                             Intent intent = new Intent(getContext(), ViewOrderActivity.class);

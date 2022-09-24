@@ -59,6 +59,8 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
                 if (snapshot.child("Offers").child(firebaseUser.getUid()).exists()) {
                     if (snapshot.child("status").getValue().toString().equals("accepted")) {
                         order.removeEventListener(this);
+                        DatabaseReference order = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
+                        order.child("rider").setValue(auth.getCurrentUser().getUid());
                         deleteOthers();
                     }
 

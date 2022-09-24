@@ -1,6 +1,7 @@
 package com.example.mrerrandv2;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -12,12 +13,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,13 +42,15 @@ import java.util.TimeZone;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    ConstraintLayout COD;
+    ConstraintLayout COD, textorderlayout, imgorderlayout;
     RecyclerView orderlistrv;
     ArrayList<OrderList> list;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     PaymentOrderListAdapter adapter;
     private long lastClickTime = 0;
     progressBar progressBar;
+    Boolean ordertype;
+    ImageView orderImageView;
 
     TextView receiptdate, receiptname, purchasenum;
     ImageView toolbarback;
@@ -67,6 +77,9 @@ public class PaymentActivity extends AppCompatActivity {
         receiptdate = findViewById(R.id.receiptdate);
         receiptname = findViewById(R.id.receiptname);
         purchasenum = findViewById(R.id.purchasenum);
+        textorderlayout = findViewById(R.id.textorderlayout);
+        imgorderlayout = findViewById(R.id.imgorderlayout);
+        orderImageView = findViewById(R.id.orderImageView);
 
         DBOrder dbord = new DBOrder();
 
@@ -75,6 +88,22 @@ public class PaymentActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(PaymentActivity.this, R.color.finalBackground));
+
+        //Set Order Type
+        ordertype = getIntent().getExtras().getBoolean("type");
+
+
+        if(ordertype){
+            imgorderlayout.setVisibility(View.VISIBLE);
+
+            String img = getIntent().getExtras().getString("imgorder");
+            Log.e("TEST", img);
+
+            Picasso.get().load(img).into(orderImageView);
+
+        } else {
+            textorderlayout.setVisibility(View.VISIBLE);
+        }
 
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
@@ -113,31 +142,33 @@ public class PaymentActivity extends AppCompatActivity {
         });
 
         //Set Receipt Info
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
-        format.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
-        String time = format.format(calendar.getTime());
-        receiptdate.setText(time);
+        if (!ordertype) {
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault());
+            format.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+            String time = format.format(calendar.getTime());
+            receiptdate.setText(time);
 
-        receiptname.setText(auth.getCurrentUser().getDisplayName());
+            receiptname.setText(auth.getCurrentUser().getDisplayName());
 
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                long num = snapshot.getChildrenCount();
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    long num = snapshot.getChildrenCount();
 
-                if (Integer.valueOf((int) num).equals(1)) {
-                    purchasenum.setText("(total " + num + " item)");
-                } else {
-                    purchasenum.setText("(total " + num + " items)");
+                    if (Integer.valueOf((int) num).equals(1)) {
+                        purchasenum.setText("(total " + num + " item)");
+                    } else {
+                        purchasenum.setText("(total " + num + " items)");
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
 
 
         DatabaseReference proceed = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
@@ -152,7 +183,7 @@ public class PaymentActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+                        if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
                             return;
                         }
 
