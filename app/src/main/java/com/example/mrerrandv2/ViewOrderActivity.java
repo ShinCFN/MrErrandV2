@@ -128,66 +128,78 @@ public class ViewOrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                DatabaseReference ordRef = FirebaseDatabase.getInstance().getReference("Order").orderByChild("")
-
-
-
-                String offerval = offerIn.getText().toString();
-                if (offerval.isEmpty()) {
-                    Toasty.error(ViewOrderActivity.this, "Enter amount", Toasty.LENGTH_SHORT).show();
-                } else {
-
-                    riderRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                            String ridername = snapshot.child("firstname").getValue().toString();
-                            String state = "open";
-
-                            String totalstars = snapshot.child("totalstars").getValue().toString();
-                            String totalrates = snapshot.child("totalrates").getValue().toString();
-
-                            if(totalstars.equals("0") && totalrates.equals("0")) {
-                                int rating = 0;
-
-                                AddOffer addOffer = new AddOffer(ridername, offerval, state, rating);
-
-                                databaseReference.child("Offers").child(firebaseUser.getUid()).setValue(addOffer).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Intent intent = new Intent(ViewOrderActivity.this, OfferWaitingActivityRider.class);
-                                        intent.putExtra("ORDER", ord_open);
-                                        intent.putExtra("OFFER", offerval);
-                                        intent.putExtra("RIDERID", firebaseUser.getUid());
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                });
+                DatabaseReference ordRef = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getUID());
+                ordRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            String offerval = offerIn.getText().toString();
+                            if (offerval.isEmpty()) {
+                                Toasty.error(ViewOrderActivity.this, "Enter amount", Toasty.LENGTH_SHORT).show();
                             } else {
-                                int rating = Integer.valueOf(totalstars) / Integer.valueOf(totalrates);
 
-                                AddOffer addOffer = new AddOffer(ridername, offerval, state, rating);
-
-                                databaseReference.child("Offers").child(firebaseUser.getUid()).setValue(addOffer).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                riderRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
-                                    public void onSuccess(Void unused) {
-                                        Intent intent = new Intent(ViewOrderActivity.this, OfferWaitingActivityRider.class);
-                                        intent.putExtra("ORDER", ord_open);
-                                        intent.putExtra("OFFER", offerval);
-                                        intent.putExtra("RIDERID", firebaseUser.getUid());
-                                        startActivity(intent);
-                                        finish();
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                        String ridername = snapshot.child("firstname").getValue().toString();
+                                        String state = "open";
+
+                                        String totalstars = snapshot.child("totalstars").getValue().toString();
+                                        String totalrates = snapshot.child("totalrates").getValue().toString();
+
+                                        if (totalstars.equals("0") && totalrates.equals("0")) {
+                                            int rating = 0;
+
+                                            AddOffer addOffer = new AddOffer(ridername, offerval, state, rating);
+
+                                            databaseReference.child("Offers").child(firebaseUser.getUid()).setValue(addOffer).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Intent intent = new Intent(ViewOrderActivity.this, OfferWaitingActivityRider.class);
+                                                    intent.putExtra("ORDER", ord_open);
+                                                    intent.putExtra("OFFER", offerval);
+                                                    intent.putExtra("RIDERID", firebaseUser.getUid());
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            });
+                                        } else {
+                                            int rating = Integer.valueOf(totalstars) / Integer.valueOf(totalrates);
+
+                                            AddOffer addOffer = new AddOffer(ridername, offerval, state, rating);
+
+                                            databaseReference.child("Offers").child(firebaseUser.getUid()).setValue(addOffer).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Intent intent = new Intent(ViewOrderActivity.this, OfferWaitingActivityRider.class);
+                                                    intent.putExtra("ORDER", ord_open);
+                                                    intent.putExtra("OFFER", offerval);
+                                                    intent.putExtra("RIDERID", firebaseUser.getUid());
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
                                     }
                                 });
                             }
+                        } else {
+                            Toasty.warning(ViewOrderActivity.this, "Order was cancelled", Toasty.LENGTH_LONG).show();
+                            finish();
                         }
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
-                }
+                    }
+                });
             }
         });
     }
@@ -196,7 +208,7 @@ public class ViewOrderActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Order ord_open = (Order) getIntent().getSerializableExtra("OPEN");
-        if(ord_open.getOrdertype().equals("false")){
+        if (ord_open.getOrdertype().equals("false")) {
             adapter.stopListening();
         }
         finish();
@@ -206,7 +218,7 @@ public class ViewOrderActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         Order ord_open = (Order) getIntent().getSerializableExtra("OPEN");
-        if(ord_open.getOrdertype().equals("false")){
+        if (ord_open.getOrdertype().equals("false")) {
             adapter.stopListening();
         }
     }
