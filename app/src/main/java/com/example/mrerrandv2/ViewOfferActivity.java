@@ -43,7 +43,7 @@ public class ViewOfferActivity extends AppCompatActivity {
     DBOffer dboff;
     FirebaseRecyclerAdapter adapter;
     ValueEventListener offerLis;
-    ImageView toolbarback;
+    ImageView toolbarback, toolbarcancel;
     LinearLayout search;
     DatabaseReference offerRef;
 
@@ -54,6 +54,7 @@ public class ViewOfferActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_offers);
         offerRef = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("Key"));
         search = findViewById(R.id.search);
+        toolbarcancel = findViewById(R.id.toolbarcancel);
 
         recyclerView = findViewById(R.id.offersrv);
         recyclerView.setHasFixedSize(true);
@@ -104,6 +105,30 @@ public class ViewOfferActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        //Cancel order
+        toolbarcancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                        new AlertDialog.Builder(ViewOfferActivity.this)
+                .setMessage("Are you sure you want to cancel your order?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        // PUT DELETE ORDER HERE
+                        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("Key"));
+                        firebaseDatabase.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                finish();
+                            }
+                        });
+                    }
+                }).setNegativeButton("No", null).show();
             }
         });
 

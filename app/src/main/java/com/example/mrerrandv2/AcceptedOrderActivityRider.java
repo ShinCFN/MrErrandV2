@@ -155,6 +155,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         if (ord_open.getOrdertype().equals("false")){
             orderlistrv.setVisibility(View.VISIBLE);
         }else{
+            uploadbtn.setVisibility(View.VISIBLE);
             orderImage.setVisibility(View.VISIBLE);
             Picasso.get().load(ord_open.getOrderlist()).into(orderImage);
 

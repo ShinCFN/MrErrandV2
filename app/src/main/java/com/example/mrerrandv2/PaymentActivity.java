@@ -92,17 +92,32 @@ public class PaymentActivity extends AppCompatActivity {
         //Set Order Type
         ordertype = getIntent().getExtras().getBoolean("type");
 
+        //Prog bar
+        progressBar.show();
 
         if(ordertype){
             imgorderlayout.setVisibility(View.VISIBLE);
-
             String img = getIntent().getExtras().getString("imgorder");
             Log.e("TEST", img);
+//            Picasso.get().load(img).into(orderImageView);
 
-            Picasso.get().load(img).into(orderImageView);
+            Glide.with(this).load(img).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    progressBar.dismiss();
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    progressBar.dismiss();
+                    return false;
+                }
+            }).into(orderImageView);
 
         } else {
             textorderlayout.setVisibility(View.VISIBLE);
+            progressBar.dismiss();
         }
 
         //Toolbar
