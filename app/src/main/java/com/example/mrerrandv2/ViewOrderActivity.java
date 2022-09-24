@@ -127,8 +127,12 @@ public class ViewOrderActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String offerval = offerIn.getText().toString();
 
+//                DatabaseReference ordRef = FirebaseDatabase.getInstance().getReference("Order").orderByChild("")
+
+
+
+                String offerval = offerIn.getText().toString();
                 if (offerval.isEmpty()) {
                     Toasty.error(ViewOrderActivity.this, "Enter amount", Toasty.LENGTH_SHORT).show();
                 } else {

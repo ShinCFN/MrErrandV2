@@ -69,6 +69,8 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
     boolean receiptStatus = false;
     CircleImageView profilePic;
     RatingBar ratingBar;
+    Boolean ordertype = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +156,9 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         //Check Order Type
         if (ord_open.getOrdertype().equals("false")){
             orderlistrv.setVisibility(View.VISIBLE);
+            ordertype = false;
         }else{
+            ordertype = true;
             uploadbtn.setVisibility(View.VISIBLE);
             orderImage.setVisibility(View.VISIBLE);
             Picasso.get().load(ord_open.getOrderlist()).into(orderImage);
@@ -221,6 +225,9 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         CBCheck.orderByChild("state").equalTo("false").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(ordertype){
+                    return;
+                }
                 if (snapshot.exists()){
                     uploadbtn.setVisibility(View.GONE);
                 }else{
