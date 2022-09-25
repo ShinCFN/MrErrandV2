@@ -3,12 +3,15 @@ package com.example.mrerrandv2;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +22,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.canhub.cropper.CropImage;
 import com.canhub.cropper.CropImageContract;
 import com.canhub.cropper.CropImageContractOptions;
@@ -55,11 +63,13 @@ public class EditProfileRiderActivity extends AppCompatActivity {
 
     private CircleImageView profpic;
 
-    private ProgressDialog progressDialog;
+    private progressBar progressBar;
 
-    private ImageView profLicense, profPlate, profOR, rorcrPic;
+    private ImageView profLicense, profPlate, profOR, rorcrPic, toolbarback;
 
     private TextView profOrBtn;
+
+    private Boolean pfpOk, licpOk, drvlOk, orcrOk;
 
     EditText editfirstname, editlastname, editmobilenum, editlicensenum, editplatenum, editLicense, editPlate;
 
@@ -74,12 +84,35 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile_rider);
 
+        //Bool
+        pfpOk = false;
+        licpOk = false;
+        drvlOk = false;
+        orcrOk = false;
 
-        //Progress Dialog
-        progressDialog = new ProgressDialog(EditProfileRiderActivity.this);
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
+        //Status bar
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        //Toolbar
+        TextView toolMain = findViewById(R.id.toolbarmain);
+        TextView toolSub = findViewById(R.id.toolbarsub);
+        toolMain.setText("");
+        toolSub.setText("");
+
+        //Toolbar
+        toolbarback = findViewById(R.id.toolbarback);
+        toolbarback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        //Prog bar
+        progressBar = new progressBar(this);
+        progressBar.show();
 
         profLicense = findViewById((R.id.editriderLicensePic));
         profPlate = findViewById((R.id.editriderPlatePic));
@@ -93,36 +126,11 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         editLicense = findViewById(R.id.editriderLicense);
         editPlate = findViewById(R.id.editriderPlate);
         rorcrPic = findViewById(R.id.rorcrPic);
-
-        //Set Profile Pic
-        profpic = findViewById((R.id.editprofPic));
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                if (snapshot.child("profileImage").exists()) {
-                    String image = snapshot.child("profileImage").getValue().toString();
-
-                    Picasso
-                            .get()
-                            .load(image)
-                            .into(profpic);
-
-                    progressDialog.dismiss();
-
-                } else {
-                    progressDialog.dismiss();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        profpic = findViewById(R.id.editprofPic);
 
         editPlate.addTextChangedListener(new TextWatcher() {
             int prevL = 0;
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 prevL = editPlate.getText().toString().length();
@@ -136,8 +144,6 @@ public class EditProfileRiderActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 int length = editable.length();
-
-                Log.e("test", "wat");
 
                 if ((prevL <= length) && length == 3) {
                     String data = editPlate.getText().toString();
@@ -179,67 +185,88 @@ public class EditProfileRiderActivity extends AppCompatActivity {
 
                 }
 
-
-                //Set profile image
+                //Pfp
                 if (snapshot.child("profileImage").exists()) {
                     String image = snapshot.child("profileImage").getValue().toString();
+                    Glide.with(EditProfileRiderActivity.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            pfpOk = true;
+                            return false;
+                        }
 
-                    Picasso
-                            .get()
-                            .load(image)
-                            .into(profpic);
-
-                    progressDialog.dismiss();
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            pfpOk = true;
+                            return false;
+                        }
+                    }).into(profpic);
 
                 } else {
-                    progressDialog.dismiss();
+                    pfpOk = true;
                 }
 
                 //Set license image
                 if (snapshot.child("licensePic").exists()) {
                     String image = snapshot.child("licensePic").getValue().toString();
 
-                    Picasso
-                            .get()
-                            .load(image)
-                            .into(profLicense);
+                    Glide.with(EditProfileRiderActivity.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            drvlOk = true;
+                            return false;
+                        }
 
-                    progressDialog.dismiss();
-
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            drvlOk = true;
+                            return false;
+                        }
+                    }).into(profLicense);
                 } else {
-                    progressDialog.dismiss();
+                    drvlOk = true;
                 }
 
                 //Set plate image
                 if (snapshot.child("platePic").exists()) {
                     String image = snapshot.child("platePic").getValue().toString();
 
-                    Picasso
-                            .get()
-                            .load(image)
-                            .into(profPlate);
+                    Glide.with(EditProfileRiderActivity.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            licpOk = true;
+                            return false;
+                        }
 
-                    progressDialog.dismiss();
-
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            licpOk = true;
+                            return false;
+                        }
+                    }).into(profPlate);
                 } else {
-                    progressDialog.dismiss();
+                    licpOk = true;
                 }
 
                 //Set orcr image
                 if (snapshot.child("orcrPic").exists()) {
                     String image = snapshot.child("orcrPic").getValue().toString();
 
-                    Picasso
-                            .get()
-                            .load(image)
-                            .into(profOR);
+                    Glide.with(EditProfileRiderActivity.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            orcrOk = true;
+                            return false;
+                        }
 
-                    progressDialog.dismiss();
-
-                    profOrBtn.setVisibility(View.GONE);
-
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            orcrOk = true;
+                            return false;
+                        }
+                    }).into(profOR);
                 } else {
-                    progressDialog.dismiss();
+                    orcrOk = true;
                 }
 
             }
@@ -250,10 +277,21 @@ public class EditProfileRiderActivity extends AppCompatActivity {
             }
         });
 
+        //Image status check
+        if (pfpOk = licpOk = drvlOk = orcrOk = true) {
+
+            progressBar.dismiss();
+            pfpOk = false;
+            licpOk = false;
+            drvlOk = false;
+            orcrOk = false;
+        }
+
         TextView update = findViewById(R.id.btnSave);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.show();
 
                 //Find Holders
                 editfirstname = findViewById(R.id.editriderFirst);
@@ -274,7 +312,6 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                     Toast.makeText(EditProfileRiderActivity.this, "Please complete your information", Toast.LENGTH_LONG).show();
                 } else {
                     //Set Information
-
                     databaseReference.child("firstname").setValue(firstname);
                     databaseReference.child("lastname").setValue(lastname);
                     databaseReference.child("mobile").setValue(mobilenumber);
@@ -283,6 +320,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void unused) {
                             Toasty.success(EditProfileRiderActivity.this, "Success", Toasty.LENGTH_SHORT).show();
+                            progressBar.dismiss();
                             finish();
                         }
                     });
@@ -334,7 +372,6 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                 cropOR();
             }
         });
-
 
 
     }
@@ -588,14 +625,12 @@ public class EditProfileRiderActivity extends AppCompatActivity {
     //Uploading Profile
     private void uploadProfile(Uri uriContent) {
 
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Uploading...");
-        progressDialog.show();
+        progressBar.show();
 
         storageReference.child("Profile").putFile(uriContent).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                progressDialog.dismiss();
+                progressBar.dismiss();
                 storageReference.child("Profile").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -606,7 +641,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                progressDialog.cancel();
+                progressBar.dismiss();
             }
         });
 
@@ -615,14 +650,12 @@ public class EditProfileRiderActivity extends AppCompatActivity {
     //Uploading License
     private void uploadLicense(Uri uriContent) {
 
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Uploading...");
-        progressDialog.show();
+        progressBar.show();
 
         storageReference.child("License").putFile(uriContent).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                progressDialog.dismiss();
+                progressBar.dismiss();
                 storageReference.child("License").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -633,7 +666,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                progressDialog.cancel();
+                progressBar.dismiss();
             }
         });
 
@@ -642,14 +675,12 @@ public class EditProfileRiderActivity extends AppCompatActivity {
     //Uploading Plate
     private void uploadPlate(Uri uriContent) {
 
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Uploading...");
-        progressDialog.show();
+        progressBar.show();
 
         storageReference.child("Plate").putFile(uriContent).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                progressDialog.dismiss();
+                progressBar.dismiss();
                 storageReference.child("Plate").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -660,7 +691,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                progressDialog.cancel();
+                progressBar.dismiss();
             }
         });
 
@@ -669,14 +700,12 @@ public class EditProfileRiderActivity extends AppCompatActivity {
     //Uploading ORCR
     private void uploadOR(Uri uriContent) {
 
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Uploading...");
-        progressDialog.show();
+        progressBar.show();
 
         storageReference.child("orcr").putFile(uriContent).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                progressDialog.dismiss();
+                progressBar.dismiss();
                 storageReference.child("orcr").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -687,7 +716,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                progressDialog.cancel();
+                progressBar.dismiss();
             }
         });
 

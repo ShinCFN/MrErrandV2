@@ -1,6 +1,7 @@
 package com.example.mrerrandv2;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,15 +39,16 @@ public class RiderLandingPage extends AppCompatActivity {
         databaseReference.child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 if (snapshot.child("licensePic").exists() && snapshot.child("platePic").exists() && snapshot.child("orcrPic").exists()) {
 
                     orderRefListener = orderRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.exists()){
+                            if (snapshot.exists()) {
                                 replaceFragment(new RiderHomeFragment());
                                 orderRef.removeEventListener(this);
-                            }else{
+                            } else {
                                 replaceFragment(new EmptyFragment());
                             }
                         }
@@ -81,10 +83,10 @@ public class RiderLandingPage extends AppCompatActivity {
                                 orderRef.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if(snapshot.exists()){
+                                        if (snapshot.exists()) {
                                             replaceFragment(new RiderHomeFragment());
                                             orderRef.removeEventListener(this);
-                                        }else{
+                                        } else {
                                             replaceFragment(new EmptyFragment());
                                         }
                                     }
@@ -136,9 +138,7 @@ public class RiderLandingPage extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    public void listener() {
         if (orderRefListener != null) {
             orderRef.addValueEventListener(orderRefListener);
         }

@@ -153,7 +153,7 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
         DBOffer dboff = new DBOffer(ord_open.getKey());
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();
-        Log.e("Delete Offer Key", ord_open.getKey());
+
         DatabaseReference mycurrentoffer = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey()).child("Offers");
         mycurrentoffer.child(firebaseUser.getUid()).removeValue();
         finish();

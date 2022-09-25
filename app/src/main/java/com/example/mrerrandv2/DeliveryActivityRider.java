@@ -94,7 +94,7 @@ public class DeliveryActivityRider extends AppCompatActivity {
                 orderRef.child("status").setValue("complete");
                 Intent intent = new Intent(DeliveryActivityRider.this, RatingActivityTowardsUser.class);
                 intent.putExtra("user", userid);
-                Log.e("userid", userid);
+
                 startActivity(intent);
                 finish();
             }

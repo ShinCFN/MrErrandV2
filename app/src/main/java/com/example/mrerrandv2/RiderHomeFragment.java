@@ -34,6 +34,7 @@ public class RiderHomeFragment extends Fragment {
     RecyclerView recyclerView;
     DBOrder dbord;
     FirebaseRecyclerAdapter adapter;
+    RiderLandingPage landingPage;
 
 
     @Override
@@ -41,6 +42,9 @@ public class RiderHomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_rider_home, container, false);
+
+        //Listener
+        landingPage = new RiderLandingPage();
 
         //Status bar
         Window window = getActivity().getWindow();
@@ -126,6 +130,13 @@ public class RiderHomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         adapter.startListening();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.startListening();
+        landingPage.listener();
     }
 
     @Override

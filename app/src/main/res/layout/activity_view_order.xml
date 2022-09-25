@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/questrial"
-                    android:text="Item"
+                    android:text="Order list"
                     android:textColor="@color/finalDarkGray"
                     android:textSize="18sp"
                     android:textStyle="bold"

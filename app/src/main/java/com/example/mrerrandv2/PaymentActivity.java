@@ -98,7 +98,6 @@ public class PaymentActivity extends AppCompatActivity {
         if(ordertype){
             imgorderlayout.setVisibility(View.VISIBLE);
             String img = getIntent().getExtras().getString("imgorder");
-            Log.e("TEST", img);
 //            Picasso.get().load(img).into(orderImageView);
 
             Glide.with(this).load(img).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
@@ -278,7 +277,7 @@ public class PaymentActivity extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                                             String key = childSnapshot.getKey();
-                                            Log.e("Key", key);
+
                                             Toast.makeText(PaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(PaymentActivity.this, ViewOfferActivity.class);
                                             intent.putExtra("Key", key);
@@ -306,7 +305,7 @@ public class PaymentActivity extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                                             String key = childSnapshot.getKey();
-                                            Log.e("Key", key);
+
                                             Toast.makeText(PaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(PaymentActivity.this, ViewOfferActivity.class);
                                             intent.putExtra("Key", key);

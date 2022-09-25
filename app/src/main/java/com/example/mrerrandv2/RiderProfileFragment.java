@@ -1,8 +1,10 @@
 package com.example.mrerrandv2;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,10 +38,12 @@ public class RiderProfileFragment extends Fragment {
 
     TextView editFirst, editLast, editMobile, editEmail, editLicense, editPlate;
 
-    ImageView profilepic,profLicense,profPlate,profOR;
+    ImageView profilepic, profLicense, profPlate, profOR;
 
 
     private progressBar progressBar;
+
+    private Boolean pfpOk, licpOk, drvlOk, orcrOk;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,12 +52,17 @@ public class RiderProfileFragment extends Fragment {
 
         //Progress bar
         progressBar = new progressBar(getContext());
-
-
         progressBar.show();
 
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_rider_profile, container, false);
+
+
+        //Bool
+        pfpOk = false;
+        licpOk = false;
+        drvlOk = false;
+        orcrOk = false;
 
         //Status bar
         Window window = getActivity().getWindow();
@@ -91,142 +106,104 @@ public class RiderProfileFragment extends Fragment {
                 profOR = v.findViewById((R.id.rorcrPic));
 
 
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        //Set profile image
-                        if (snapshot.child("profileImage").exists()) {
-                            String image = snapshot.child("profileImage").getValue().toString();
+                //Set profile image
+                if (snapshot.child("profileImage").exists()) {
+                    String image = snapshot.child("profileImage").getValue().toString();
 
-                            Picasso
-                                    .get()
-                                    .load(image)
-                                    .into(profilepic);
-
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.dismiss();
-                                }
-                            }, 1000);
-                        } else {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.dismiss();
-                                }
-                            }, 1000);
-                        }
-                        //Set license image
-                        if (snapshot.child("licensePic").exists()) {
-                            String image = snapshot.child("licensePic").getValue().toString();
-
-                            Picasso
-                                    .get()
-                                    .load(image)
-                                    .into(profLicense);
-
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.dismiss();
-                                }
-                            }, 1000);
-
-                        } else {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.dismiss();
-                                }
-                            }, 1000);
+                    Glide.with(RiderProfileFragment.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            pfpOk = true;
+                            return false;
                         }
 
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            pfpOk = true;
+                            return false;
+                        }
+                    }).into(profilepic);
 
-                        if(snapshot.child("license").exists()){
-                            String licenseNum = snapshot.child("license").getValue().toString();
-                            String licenseFinal = licenseNum.replaceAll("\\w(?=\\w{4})", "•");
+                } else {
+                    pfpOk = true;
+                }
+                //Set license image
+                if (snapshot.child("licensePic").exists()) {
+                    String image = snapshot.child("licensePic").getValue().toString();
 
-                            editLicense.setText(licenseFinal);
+                    Glide.with(RiderProfileFragment.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            drvlOk = true;
+                            return false;
                         }
 
-                        if(snapshot.child("plate").exists()){
-                            editPlate.setText(snapshot.child("plate").getValue().toString());
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            drvlOk = true;
+                            return false;
+                        }
+                    }).into(profLicense);
+
+                } else {
+                    drvlOk = true;
+                }
+
+
+                if (snapshot.child("license").exists()) {
+                    String licenseNum = snapshot.child("license").getValue().toString();
+                    String licenseFinal = licenseNum.replaceAll("\\w(?=\\w{4})", "•");
+
+                    editLicense.setText(licenseFinal);
+                }
+
+                if (snapshot.child("plate").exists()) {
+                    editPlate.setText(snapshot.child("plate").getValue().toString());
+                }
+
+                //Set plate image
+                if (snapshot.child("platePic").exists()) {
+                    String image = snapshot.child("platePic").getValue().toString();
+
+                    Glide.with(RiderProfileFragment.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            licpOk = true;
+                            return false;
                         }
 
-                        //Set plate image
-                        if (snapshot.child("platePic").exists()) {
-                            String image = snapshot.child("platePic").getValue().toString();
-
-                            Picasso
-                                    .get()
-                                    .load(image)
-                                    .into(profPlate);
-
-
-
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.dismiss();
-                                }
-                            }, 1000);
-
-                        } else {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.dismiss();
-                                }
-                            }, 1000);
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            licpOk = true;
+                            return false;
                         }
-                        //Set orcr image
-                        if (snapshot.child("orcrPic").exists()) {
-                            String image = snapshot.child("orcrPic").getValue().toString();
+                    }).into(profPlate);
 
-                            Picasso
-                                    .get()
-                                    .load(image)
-                                    .into(profOR);
+                } else {
+                    licpOk = true;
+                }
 
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.dismiss();
-                                }
-                            }, 1000);
+                //Set orcr image
+                if (snapshot.child("orcrPic").exists()) {
+                    String image = snapshot.child("orcrPic").getValue().toString();
 
-                        } else {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.dismiss();
-                                }
-                            }, 1000);
+                    Glide.with(RiderProfileFragment.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            orcrOk = true;
+                            return false;
                         }
 
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            orcrOk = true;
+                            return false;
+                        }
+                    }).into(profOR);
 
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-
-                //Edit Profile
-
-                LinearLayout editProfile = v.findViewById(R.id.profileEdit);
-
-                editProfile.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(new Intent(getActivity(), EditProfileRiderActivity.class));
-                        getActivity();
-                    }
-                });
-
+                } else {
+                    orcrOk = true;
+                }
             }
 
             @Override
@@ -234,6 +211,27 @@ public class RiderProfileFragment extends Fragment {
 
             }
         });
+
+        //Edit Profile
+        LinearLayout editProfile = v.findViewById(R.id.profileEdit);
+
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getActivity(), EditProfileRiderActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //Image status check
+        if (pfpOk = licpOk = drvlOk = orcrOk = true) {
+            progressBar.dismiss();
+            pfpOk = false;
+            licpOk = false;
+            drvlOk = false;
+            orcrOk = false;
+        }
 
         return v;
     }

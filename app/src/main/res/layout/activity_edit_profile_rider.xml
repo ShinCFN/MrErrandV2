@@ -4,12 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="SpeakableTextPresentCheck"
-    android:fillViewport="true">
+    android:background="@color/finalBackground"
+    android:fillViewport="true"
+    tools:ignore="SpeakableTextPresentCheck">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/globaltoolbar" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,11 +44,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="First name"
-                android:textColor="@color/Gray" />
+                android:textColor="@color/finalDarkGray" />
 
             <EditText
+                android:textColor="@color/finalDarkGray"
                 android:id="@+id/editriderFirst"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -52,7 +57,7 @@
                 android:background="@drawable/box_grey_input"
                 android:drawableLeft="@drawable/profile"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
                 android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
@@ -61,11 +66,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="Last name"
-                android:textColor="@color/Gray" />
+                android:textColor="@color/finalDarkGray" />
 
             <EditText
+                android:textColor="@color/finalDarkGray"
                 android:id="@+id/editriderLast"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -73,7 +79,7 @@
                 android:background="@drawable/box_grey_input"
                 android:drawableLeft="@drawable/profile"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
                 android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
@@ -82,9 +88,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="Mobile Number"
-                android:textColor="@color/Gray" />
+                android:textColor="@color/finalDarkGray" />
 
             <EditText
                 android:id="@+id/editriderMobile"
@@ -92,9 +98,10 @@
                 android:layout_height="45dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_grey_input"
+                android:textColor="@color/finalDarkGray"
                 android:drawableLeft="@drawable/mobile"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
                 android:inputType="number"
                 android:maxLength="11"
                 android:maxLines="1"
@@ -105,11 +112,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="Driver's License"
-                android:textColor="@color/Gray" />
+                android:textColor="@color/finalDarkGray" />
 
             <EditText
+                android:textColor="@color/finalDarkGray"
                 android:id="@+id/editriderLicense"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -117,7 +125,7 @@
                 android:background="@drawable/box_grey_input"
                 android:drawableLeft="@drawable/card"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
                 android:inputType="textCapCharacters"
                 android:maxLength="11"
                 android:maxLines="1"
@@ -139,11 +147,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="Plate Number"
-                android:textColor="@color/Gray" />
+                android:textColor="@color/finalDarkGray" />
 
             <EditText
+                android:textColor="@color/finalDarkGray"
                 android:id="@+id/editriderPlate"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -151,7 +160,7 @@
                 android:background="@drawable/box_grey_input"
                 android:drawableLeft="@drawable/car"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
                 android:inputType="textCapCharacters"
                 android:maxLength="8"
                 android:maxLines="1"
@@ -173,11 +182,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/asap_medium"
-                android:text="Vehicle Registration"
-                android:textColor="@color/Gray"
                 android:layout_marginBottom="20dp"
-                />
+                android:fontFamily="@font/questrial"
+                android:text="Vehicle Registration"
+                android:textColor="@color/finalDarkGray" />
 
             <TextView
                 android:id="@+id/btnUploadOR"
@@ -186,7 +194,7 @@
                 android:layout_gravity="left"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_secondary"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:gravity="center"
                 android:paddingHorizontal="15dp"
                 android:text="Upload"
@@ -200,8 +208,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="30dp"
                 android:adjustViewBounds="true"
-                android:background="@color/GreyMain"
-                android:scaleType="centerCrop" />
+                android:background="@color/GreyMain"/>
 
             <TextView
                 android:id="@+id/btnSave"
@@ -209,7 +216,7 @@
                 android:layout_height="45dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_secondary"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:gravity="center"
                 android:paddingHorizontal="15dp"
                 android:text="Update"
@@ -217,5 +224,5 @@
 
 
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </ScrollView>

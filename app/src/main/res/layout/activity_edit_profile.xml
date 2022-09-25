@@ -8,14 +8,12 @@
     android:fillViewport="true"
     tools:ignore="SpeakableTextPresentCheck">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-            <include layout="@layout/globaltoolbar" />
-
+        <include layout="@layout/globaltoolbar" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -45,7 +43,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="First name"
                 android:textColor="@color/finalDarkGray" />
 
@@ -58,7 +56,7 @@
                 android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/profile"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
                 android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
@@ -67,7 +65,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="Last name"
                 android:textColor="@color/finalDarkGray" />
 
@@ -81,7 +79,7 @@
                 android:drawableLeft="@drawable/profile"
 
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
                 android:maxLines="1"
                 android:paddingHorizontal="15dp"
                 android:textSize="15sp" />
@@ -90,7 +88,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="Mobile Number"
                 android:textColor="@color/finalDarkGray" />
 
@@ -103,7 +101,7 @@
                 android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/mobile"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
                 android:inputType="number"
 
                 android:maxLength="11"
@@ -115,7 +113,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="Street name"
                 android:textColor="@color/finalDarkGray" />
 
@@ -128,7 +126,7 @@
                 android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/location"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
 
                 android:maxLines="1"
                 android:paddingHorizontal="15dp"
@@ -139,7 +137,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="City"
                 android:textColor="@color/finalDarkGray" />
 
@@ -152,7 +150,7 @@
                 android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/location"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
                 android:maxLines="1"
                 android:paddingHorizontal="15dp"
 
@@ -162,7 +160,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="State/Province"
                 android:textColor="@color/finalDarkGray" />
 
@@ -175,7 +173,7 @@
                 android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/location"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
 
                 android:maxLines="1"
                 android:paddingHorizontal="15dp"
@@ -185,7 +183,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:text="Zip code"
                 android:textColor="@color/finalDarkGray" />
 
@@ -198,7 +196,7 @@
                 android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/location"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/asap_regular"
+                android:fontFamily="@font/questrial"
                 android:inputType="number"
 
                 android:maxLength="4"
@@ -214,7 +212,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_secondary"
                 android:backgroundTint="@color/finalDarkGreen"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:gravity="center"
                 android:paddingHorizontal="15dp"
                 android:text="Update"
