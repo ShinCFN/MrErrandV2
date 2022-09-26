@@ -27,6 +27,8 @@ public class RiderLandingPage extends AppCompatActivity {
 
     ValueEventListener orderRefListener;
 
+    RiderHomeFragment golist;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -35,6 +37,7 @@ public class RiderLandingPage extends AppCompatActivity {
         setContentView(R.layout.activity_rider_main);
         setContentView(binding.getRoot());
 //        replaceFragment(new RiderHomeFragment());
+        golist = new RiderHomeFragment();
 
         databaseReference.child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

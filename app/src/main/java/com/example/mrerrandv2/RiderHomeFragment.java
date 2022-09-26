@@ -55,9 +55,8 @@ public class RiderHomeFragment extends Fragment {
         //Recycler View
 
         recyclerView = v.findViewById(R.id.ordersrv);
-        recyclerView.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getContext()));
         dbord = new DBOrder();
 
         FirebaseRecyclerOptions<Order> option =
@@ -142,6 +141,6 @@ public class RiderHomeFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        adapter.stopListening();
+//        adapter.stopListening();
     }
 }
