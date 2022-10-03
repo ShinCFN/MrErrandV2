@@ -67,7 +67,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
     LinearLayout receiptholder;
     ImageView orderImage;
     boolean receiptStatus = false;
-    CircleImageView profilePic;
+    CircleImageView profilePic, chatvh;
     RatingBar ratingBar;
     Boolean ordertype = false;
 
@@ -103,6 +103,28 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         profilePhone = findViewById(R.id.profilePhone);
         profileView = findViewById(R.id.profileView);
+        chatvh = findViewById(R.id.chatbtn);
+
+        //View profile
+        profileView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Open rider profile
+                Toasty.info(AcceptedOrderActivityRider.this, "open rider profile", Toasty.LENGTH_SHORT).show();
+            }
+        });
+
+        //Open chat
+        chatvh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Open chat activity
+                Intent intent = new Intent(AcceptedOrderActivityRider.this, OrderChatActivity.class);
+                intent.putExtra("type", "Riders");
+                intent.putExtra("ORDKEY", ord_open.getKey());
+                startActivity(intent);
+            }
+        });
 
         //Recycler View
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -144,7 +166,6 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         });
 
         //View profile
-
         profileView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -324,7 +345,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference("Receipt").child(ord_open.getKey());
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("Users").child(ord_open.getUID()).child("Orders").child(ord_open.getKey());
 
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Uploading...");

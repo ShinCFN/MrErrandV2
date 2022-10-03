@@ -1,26 +1,36 @@
 package com.example.mrerrandv2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import es.dmoral.toasty.Toasty;
 
 public class RatingActivityTowardsRider extends AppCompatActivity {
 
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
     RatingBar ratingBar;
 
-    int myRating = 0;
+    DatabaseReference transacRef;
 
+    int myRating = 0;
+    SaveTransaction transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +38,9 @@ public class RatingActivityTowardsRider extends AppCompatActivity {
         setContentView(R.layout.activity_ratingtorider);
 
         String riderkey = getIntent().getStringExtra("rider");
-
         ratingBar = findViewById(R.id.rating);
+
+        transacRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid()).child("Transactions");
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -82,6 +93,63 @@ public class RatingActivityTowardsRider extends AppCompatActivity {
                                         public void onSuccess(Void unused) {
                                             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order");
 
+                                            //Save to Transaction history
+                                            databaseReference.child(getIntent().getStringExtra("order")).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                    //Get date
+                                                    String currentDate = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(new Date());
+
+                                                    //Get simple ate
+                                                    String simpleDate = new SimpleDateFormat("MMM dd", Locale.getDefault()).format(new Date());
+
+                                                    //Get time
+                                                    String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
+
+                                                    //Get timestamp
+                                                    Long tsLong = System.currentTimeMillis()/1000;
+                                                    String ts = tsLong.toString();
+
+                                                    //If using text order
+
+                                                    if (snapshot.child("ordertype").getValue().toString().equals("false")) {
+                                                        transaction = new SaveTransaction("none", "false", currentDate, simpleDate, ts, currentTime, snapshot.child("rider").getValue().toString(), myRating);
+                                                        String transacKey = transacRef.push().getKey();
+                                                        transacRef.child(transacKey).setValue(transaction).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void unused) {
+                                                                DatabaseReference orderlistRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid()).child("OrderList");
+                                                                orderlistRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                    @Override
+                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                        transacRef.child(transacKey).child("OrderList").setValue(snapshot.getValue());
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
+
+                                                        // If using IMG order
+                                                    } else {
+
+                                                        transaction = new SaveTransaction(snapshot.child("orderlist").getValue().toString(), "true", currentDate, simpleDate, ts, currentTime, snapshot.child("rider").getValue().toString(), myRating);
+                                                        String transacKey = transacRef.push().getKey();
+                                                        transacRef.child(transacKey).setValue(transaction);
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+
+                                            //Delete order
                                             databaseReference.child(getIntent().getStringExtra("order")).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {

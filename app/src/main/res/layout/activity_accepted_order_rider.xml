@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AcceptedOrderActivityRider">
+    tools:context=".AcceptedOrderActivityRider"
+    android:background="@color/finalBackground">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/chat"
+        android:backgroundTint="@color/finalDarkGray"
+        android:elevation="11dp"
+        app:layout_constraintBottom_toBottomOf="@+id/chatbtn"
+        app:layout_constraintEnd_toEndOf="@+id/chatbtn"
+        app:layout_constraintStart_toStartOf="@+id/chatbtn"
+        app:layout_constraintTop_toTopOf="@+id/chatbtn" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_margin="30dp"
+        android:id="@+id/chatbtn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:clipToOutline="false"
+        android:elevation="10dp"
+        android:src="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +45,7 @@
             android:elevation="3dp"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:background="@drawable/ordernow"
+            android:background="@drawable/homebox1"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="50dp" >
 
@@ -39,7 +66,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:background="@drawable/ordernow"
+                android:background="@drawable/homebox1"
                 android:backgroundTint="@color/finalLightGreen"
                 android:elevation="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +81,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="30dp"
                 android:elevation="6dp"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:gravity="left"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -67,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:elevation="6dp"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:gravity="left"
                 android:textColor="@color/white"
                 android:textSize="14sp"
@@ -90,22 +117,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:elevation="3dp"
-                android:fontFamily="@font/asap_medium"
+                android:fontFamily="@font/questrial"
                 android:gravity="left"
                 android:text="@string/view_profile"
-                android:textColor="@color/finalLightGreen"
+                android:textColor="@color/finalDarkGray"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <TextView
-                android:layout_marginTop="3dp"
-                android:layout_marginLeft="10dp"
-                android:elevation="3dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
                 android:background="@drawable/returnsymbol"
+                android:backgroundTint="@color/finalDarkGray"
+                android:elevation="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/profileView"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -383,6 +411,7 @@
 <!--            </LinearLayout>-->
 
 
+    </androidx.core.widget.NestedScrollView>
 
 
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -325,6 +325,8 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                         }
                     });
 
+                    //Update Firebase Display Name
+
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(firstname).build();
 
@@ -627,11 +629,11 @@ public class EditProfileRiderActivity extends AppCompatActivity {
 
         progressBar.show();
 
-        storageReference.child("Profile").putFile(uriContent).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        storageReference.child("profileImage").putFile(uriContent).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 progressBar.dismiss();
-                storageReference.child("Profile").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                storageReference.child("profileImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
                         databaseReference.child("profileImage").setValue(uri.toString());

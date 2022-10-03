@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 public class AcceptedOrderActivityUser extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
     FirebaseRecyclerAdapter adapter;
     DBViewOrderList dbViewOrderList;
     LinearLayout receiptholder, orderdesc;
-
+    CircleImageView chatvh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
         orderdesc = findViewById(R.id.orderdesc);
         receiptholder = findViewById(R.id.receiptholder);
         receipt = findViewById(R.id.receipt);
+        chatvh = findViewById(R.id.chat);
 
         //Set Profile
         DatabaseReference riderReference = FirebaseDatabase.getInstance().getReference("Riders").child(getIntent().getStringExtra("RIDERKEY"));
@@ -63,14 +65,14 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
                 Picasso.get().load(snapshot.child("profileImage").getValue().toString()).into(profilePic);
                 profilePhone.setText(snapshot.child("mobile").getValue().toString());
 
-                if(snapshot.child("totalstars").exists() && snapshot.child("totalrates").exists()){
+                if (snapshot.child("totalstars").exists() && snapshot.child("totalrates").exists()) {
                     String stars = snapshot.child("totalstars").getValue().toString();
                     String rates = snapshot.child("totalrates").getValue().toString();
 
-                    if (stars.equals("0") && rates.equals("0")){
+                    if (stars.equals("0") && rates.equals("0")) {
                         int ratenum = 0;
                         ratingBar.setRating(ratenum);
-                    }else{
+                    } else {
                         int ratenum = Integer.valueOf(stars) / Integer.valueOf(rates);
                         ratingBar.setRating(ratenum);
                     }
@@ -82,6 +84,27 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        //View profile
+        profileView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Open rider profile
+                Toasty.info(AcceptedOrderActivityUser.this, "open rider profile", Toasty.LENGTH_SHORT).show();
+            }
+        });
+
+        //Open chat
+        chatvh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Open chat activity
+                Intent intent = new Intent(AcceptedOrderActivityUser.this, OrderChatActivity.class);
+                intent.putExtra("type", "Users");
+                intent.putExtra("ORDKEY", getIntent().getStringExtra("ORDKEY"));
+                startActivity(intent);
             }
         });
 
@@ -111,13 +134,13 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
                 vh.item.setText(list.getItem());
                 vh.qty.setText(list.getQty());
 
-                if(list.getState().equals("true")){
+                if (list.getState().equals("true")) {
                     vh.check.setVisibility(View.VISIBLE);
                     vh.xmark.setVisibility(View.GONE);
-                }else if (list.getState().equals("false")){
+                } else if (list.getState().equals("false")) {
                     vh.check.setVisibility(View.GONE);
                     vh.xmark.setVisibility(View.GONE);
-                }else if(list.getState().equals("none")){
+                } else if (list.getState().equals("none")) {
                     vh.xmark.setVisibility(View.VISIBLE);
                     vh.check.setVisibility(View.GONE);
                 }
@@ -143,8 +166,8 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
         statusRef.child(getIntent().getStringExtra("ORDKEY")).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    if (snapshot.child("status").getValue().toString().equals("inDelivery")){
+                if (snapshot.exists()) {
+                    if (snapshot.child("status").getValue().toString().equals("inDelivery")) {
                         orderdesc.setVisibility(View.GONE);
                         receiptholder.setVisibility(View.VISIBLE);
                         Picasso.get().load(snapshot.child("receipt").getValue().toString()).into(receipt);
@@ -160,7 +183,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
                     }
                 }
 
-                if(snapshot.exists()) {
+                if (snapshot.exists()) {
                     if (snapshot.child("status").getValue().toString().equals("complete")) {
                         Intent intent = new Intent(AcceptedOrderActivityUser.this, RatingActivityTowardsRider.class);
                         intent.putExtra("rider", getIntent().getStringExtra("RIDERKEY"));
@@ -179,9 +202,9 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
         });
 
         //Check Order Type
-        if (getIntent().getStringExtra("type").equals("false")){
+        if (getIntent().getStringExtra("type").equals("false")) {
             orderlistrv.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             orderImage.setVisibility(View.VISIBLE);
             DatabaseReference imgOrd = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("ORDKEY"));
             imgOrd.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -207,6 +230,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
         }
 
     }
+
     @Override
     public void onBackPressed() {
         // Do Here what ever you want do on back press;
@@ -214,7 +238,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
     }
 
     @Override
-    public void onStop () {
+    public void onStop() {
         // Do your stuff here
         super.onStop();
         adapter.stopListening();

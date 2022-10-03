@@ -59,7 +59,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
-    private StorageReference storageReference = FirebaseStorage.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
+    private StorageReference storageReference = FirebaseStorage.getInstance().getReference("Users").child(auth.getCurrentUser().getUid()).child("profileImage");
 
     private CircleImageView profpic;
 
@@ -99,7 +99,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     progressBar.show();
                     String image = snapshot.child("profileImage").getValue().toString();
 
-                    Glide.with(EditProfileActivity.this).load(image).listener(new RequestListener<Drawable>() {
+                    Glide.with(EditProfileActivity.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             progressBar.dismiss();

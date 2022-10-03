@@ -1,11 +1,13 @@
 package com.example.mrerrandv2;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Rating;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -19,7 +21,13 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.database.SnapshotParser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +35,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.protobuf.Value;
+import com.squareup.picasso.Picasso;
 
 import es.dmoral.toasty.Toasty;
 
@@ -42,7 +51,10 @@ public class HomeFragment extends Fragment {
     ValueEventListener activeOrdListener;
     DatabaseReference activeOrderRef;
     String key;
-    TextView orderdesc;
+    TextView orderdesc, history;
+    RecyclerView transactionrv;
+    DBTransaction dbTransaction;
+    FirebaseRecyclerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +65,7 @@ public class HomeFragment extends Fragment {
         activeorder = v.findViewById(R.id.activeorder);
         Orderbtn = v.findViewById(R.id.OrderNowButton);
         orderdesc = v.findViewById(R.id.orderdesc);
+        history = v.findViewById(R.id.history);
 
         //Status bar
         Window window = getActivity().getWindow();
@@ -158,6 +171,92 @@ public class HomeFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
+        //Transaction History
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        transactionrv = v.findViewById(R.id.transactionrv);
+        transactionrv.setLayoutManager(layoutManager);
+        dbTransaction = new DBTransaction(auth.getCurrentUser().getUid());
+
+//        SaveTransaction testsav = new SaveTransaction("test","test","test","test","test",5);
+//        dbTransaction.add(testsav);
+
+        FirebaseRecyclerOptions<SaveTransaction> option =
+                new FirebaseRecyclerOptions.Builder<SaveTransaction>()
+                        .setQuery(dbTransaction.getFive(), new SnapshotParser<SaveTransaction>() {
+                            @NonNull
+                            @Override
+                            public SaveTransaction parseSnapshot(@NonNull DataSnapshot snapshot) {
+                                SaveTransaction saveTransaction = snapshot.getValue(SaveTransaction.class);
+                                saveTransaction.setKey(snapshot.getKey());
+                                return saveTransaction;
+                            }
+                        }).build();
+
+        adapter = new FirebaseRecyclerAdapter(option) {
+            @Override
+            protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
+                TransactionVH vh = (TransactionVH) viewHolder;
+                SaveTransaction saveTransaction = (SaveTransaction) o;
+
+                //Get order type
+                String ordertype = saveTransaction.getOrdertype();
+
+                DatabaseReference riderRef = FirebaseDatabase.getInstance().getReference("Riders").child(saveTransaction.getRideruid());
+                riderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Glide.with(getContext()).load(snapshot.child("profileImage").getValue().toString()).into(vh.image);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                vh.info.setText(saveTransaction.getSimpleDate());
+
+                vh.holder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //View transaction
+
+                        String message = "open order " + saveTransaction.getKey();
+                        Toasty.info(getContext(), message, Toasty.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+
+            @NonNull
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_transactions, parent, false);
+                return new TransactionVH(view);
+            }
+
+            @Override
+            public void onDataChanged() {
+            }
+        };
+
+        //Disable scroll
+        transactionrv.setOnTouchListener((view, motionEvent) -> true);
+        transactionrv.setAdapter(adapter);
+        adapter.startListening();
+
+        //Open transaction history
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Start activity
+                Intent intent = new Intent(getContext(), TransactionHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return v;
     }
 
@@ -165,11 +264,24 @@ public class HomeFragment extends Fragment {
     public void onPause() {
         super.onPause();
         activeOrderRef.removeEventListener(activeOrdListener);
+        adapter.stopListening();
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        transactionrv.getRecycledViewPool().clear();
+        adapter.notifyDataSetChanged();
+        adapter.startListening();
+        activeOrderRef.addValueEventListener(activeOrdListener);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        transactionrv.getRecycledViewPool().clear();
+        adapter.notifyDataSetChanged();
+        adapter.startListening();
         activeOrderRef.addValueEventListener(activeOrdListener);
     }
 
@@ -177,6 +289,7 @@ public class HomeFragment extends Fragment {
     public void onStop() {
         super.onStop();
         activeOrderRef.removeEventListener(activeOrdListener);
+        adapter.stopListening();
     }
 
     public void Order() {
