@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-    String firstname,lastname, profileImage, coords;
+    String firstname,lastname, profileImage;
     int totalstars, totalrates;
 
     @Exclude
@@ -14,13 +14,12 @@ public class User implements Serializable {
 
     public User(){};
 
-    public User(String firstname, String lastname, String profileImage, int totalstars, int totalrates, String coords) {
+    public User(String firstname, String lastname, String profileImage, int totalstars, int totalrates) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.profileImage = profileImage;
         this.totalstars = totalstars;
         this.totalrates = totalrates;
-        this.coords = coords;
     }
 
     public String getFirstname() {
@@ -49,13 +48,5 @@ public class User implements Serializable {
 
     public String getKey() {
         return key;
-    }
-
-    public String getCoords() {
-        return coords;
-    }
-
-    public void setCoords(String coords) {
-        this.coords = coords;
     }
 }
