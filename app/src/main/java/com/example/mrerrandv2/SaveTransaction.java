@@ -17,10 +17,11 @@ public class SaveTransaction implements Serializable {
     public String time;
     public String rideruid;
     public int rating;
+    public String receiptimg;
 
     public SaveTransaction(){};
 
-    public SaveTransaction(String order, String ordertype, String date, String simpleDate, String timestamp, String time, String rideruid, int rating) {
+    public SaveTransaction(String order, String ordertype, String date, String simpleDate, String timestamp, String time, String rideruid, int rating, String receiptimg) {
         this.order = order;
         this.ordertype = ordertype;
         this.date = date;
@@ -29,6 +30,7 @@ public class SaveTransaction implements Serializable {
         this.time = time;
         this.rideruid = rideruid;
         this.rating = rating;
+        this.receiptimg = receiptimg;
     }
 
     public String getKey() {
@@ -101,5 +103,13 @@ public class SaveTransaction implements Serializable {
 
     public void setSimpleDate(String simpleDate) {
         this.simpleDate = simpleDate;
+    }
+
+    public String getReceiptimg() {
+        return receiptimg;
+    }
+
+    public void setReceiptimg(String receiptimg) {
+        this.receiptimg = receiptimg;
     }
 }

@@ -1,223 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/finalBackground"
-    android:fillViewport="true"
-    tools:ignore="SpeakableTextPresentCheck">
+    tools:ignore="SpeakableTextPresentCheck"
+    android:isScrollContainer="false">
 
-    <LinearLayout
+    <include
+        android:id="@+id/include9"
+        layout="@layout/globaltoolbar" />
+
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include layout="@layout/globaltoolbar" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/include9">
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:padding="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/editprofPic"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/blankuser"
-                app:civ_border_color="@color/GreyMain"
-                app:civ_border_width="1dp" />
+            android:orientation="vertical">
 
 
-            <!-- First Name -->
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="First name"
-                android:textColor="@color/finalDarkGray" />
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:padding="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <EditText
-                android:id="@+id/editproftFirst"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_grey_input"
-                android:backgroundTint="@color/white"
-                android:drawableLeft="@drawable/profile"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/questrial"
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
-                android:textSize="15sp" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/editprofPic"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:src="@drawable/blankuser"
+                    app:civ_border_color="@color/GreyMain"
+                    app:civ_border_width="1dp" />
 
-            <!-- Last Name -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="Last name"
-                android:textColor="@color/finalDarkGray" />
 
-            <EditText
-                android:id="@+id/editproftLast"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_grey_input"
-                android:backgroundTint="@color/white"
-                android:drawableLeft="@drawable/profile"
+                <!-- First Name -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:text="First name"
+                    android:textColor="@color/finalDarkGray" />
 
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/questrial"
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
-                android:textSize="15sp" />
+                <EditText
+                    android:id="@+id/editproftFirst"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/box_grey_input"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/profile"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/questrial"
+                    android:maxLines="1"
+                    android:paddingHorizontal="15dp"
+                    android:textSize="15sp" />
 
-            <!-- Mobile -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="Mobile Number"
-                android:textColor="@color/finalDarkGray" />
+                <!-- Last Name -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:text="Last name"
+                    android:textColor="@color/finalDarkGray" />
 
-            <EditText
-                android:id="@+id/editprofMobile"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_grey_input"
-                android:backgroundTint="@color/white"
-                android:drawableLeft="@drawable/mobile"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/questrial"
-                android:inputType="number"
+                <EditText
+                    android:id="@+id/editproftLast"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/box_grey_input"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/profile"
 
-                android:maxLength="11"
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
-                android:textSize="15sp" />
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/questrial"
+                    android:maxLines="1"
+                    android:paddingHorizontal="15dp"
+                    android:textSize="15sp" />
 
-            <!-- Street -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="Street name"
-                android:textColor="@color/finalDarkGray" />
+                <!-- Mobile -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:text="Mobile Number"
+                    android:textColor="@color/finalDarkGray" />
 
-            <EditText
-                android:id="@+id/editprofStreet"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_grey_input"
-                android:backgroundTint="@color/white"
-                android:drawableLeft="@drawable/location"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/questrial"
+                <EditText
+                    android:id="@+id/editprofMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/box_grey_input"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/mobile"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/questrial"
+                    android:inputType="number"
 
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
-                android:textSize="15sp" />
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:paddingHorizontal="15dp"
+                    android:textSize="15sp" />
 
-            <!-- City -->
-            <TextView
+                <!-- Street -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:text="Street name"
+                    android:textColor="@color/finalDarkGray" />
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="City"
-                android:textColor="@color/finalDarkGray" />
+                <EditText
+                    android:id="@+id/editprofStreet"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/box_grey_input"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/location"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/questrial"
 
-            <EditText
-                android:id="@+id/editprofCity"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_grey_input"
-                android:backgroundTint="@color/white"
-                android:drawableLeft="@drawable/location"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/questrial"
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
+                    android:maxLines="1"
+                    android:paddingHorizontal="15dp"
+                    android:textSize="15sp" />
 
-                android:textSize="15sp" />
+                <!-- City -->
+                <TextView
 
-            <!-- Province -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="State/Province"
-                android:textColor="@color/finalDarkGray" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:text="City"
+                    android:textColor="@color/finalDarkGray" />
 
-            <EditText
-                android:id="@+id/editprofProvince"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_grey_input"
-                android:backgroundTint="@color/white"
-                android:drawableLeft="@drawable/location"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/questrial"
+                <EditText
+                    android:id="@+id/editprofCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/box_grey_input"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/location"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/questrial"
+                    android:maxLines="1"
+                    android:paddingHorizontal="15dp"
 
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
-                android:textSize="15sp" />
+                    android:textSize="15sp" />
 
-            <!-- Zip Code -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="Zip code"
-                android:textColor="@color/finalDarkGray" />
+                <!-- Province -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:text="State/Province"
+                    android:textColor="@color/finalDarkGray" />
 
-            <EditText
-                android:id="@+id/editprofZip"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_grey_input"
-                android:backgroundTint="@color/white"
-                android:drawableLeft="@drawable/location"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/questrial"
-                android:inputType="number"
+                <EditText
+                    android:id="@+id/editprofProvince"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/box_grey_input"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/location"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/questrial"
 
-                android:maxLength="4"
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
-                android:textSize="15sp" />
+                    android:maxLines="1"
+                    android:paddingHorizontal="15dp"
+                    android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/btnSave"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_secondary"
-                android:backgroundTint="@color/finalDarkGreen"
-                android:fontFamily="@font/questrial"
-                android:gravity="center"
-                android:paddingHorizontal="15dp"
-                android:text="Update"
-                android:textSize="14sp" />
+                <!-- Zip Code -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:text="Zip code"
+                    android:textColor="@color/finalDarkGray" />
 
+                <EditText
+                    android:id="@+id/editprofZip"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/box_grey_input"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/location"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/questrial"
+                    android:inputType="number"
+
+                    android:maxLength="4"
+                    android:maxLines="1"
+                    android:paddingHorizontal="15dp"
+                    android:textSize="15sp" />
+
+                <FrameLayout
+                    android:id="@+id/map_frame_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp" />
+
+                <TextView
+                    android:id="@+id/btnChoose"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/box_secondary"
+                    android:backgroundTint="@color/finalDarkGreen"
+                    android:fontFamily="@font/questrial"
+                    android:gravity="center"
+                    android:paddingHorizontal="15dp"
+                    android:text="Choose from map"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/btnSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/box_secondary"
+                    android:backgroundTint="@color/finalDarkGreen"
+                    android:fontFamily="@font/questrial"
+                    android:gravity="center"
+                    android:paddingHorizontal="15dp"
+                    android:text="Update"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

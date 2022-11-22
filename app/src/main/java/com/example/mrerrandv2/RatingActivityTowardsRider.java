@@ -29,6 +29,8 @@ public class RatingActivityTowardsRider extends AppCompatActivity {
 
     DatabaseReference transacRef;
 
+    String receiptimg;
+
     int myRating = 0;
     SaveTransaction transaction;
 
@@ -111,10 +113,12 @@ public class RatingActivityTowardsRider extends AppCompatActivity {
                                                     Long tsLong = System.currentTimeMillis()/1000;
                                                     String ts = tsLong.toString();
 
-                                                    //If using text order
+                                                    //Get receipt
+                                                    receiptimg = snapshot.child("receipt").getValue().toString();
 
+                                                    //If using text order
                                                     if (snapshot.child("ordertype").getValue().toString().equals("false")) {
-                                                        transaction = new SaveTransaction("none", "false", currentDate, simpleDate, ts, currentTime, snapshot.child("rider").getValue().toString(), myRating);
+                                                        transaction = new SaveTransaction("none", "false", currentDate, simpleDate, ts, currentTime, snapshot.child("rider").getValue().toString(), myRating, receiptimg);
                                                         String transacKey = transacRef.push().getKey();
                                                         transacRef.child(transacKey).setValue(transaction).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                             @Override
@@ -124,6 +128,7 @@ public class RatingActivityTowardsRider extends AppCompatActivity {
                                                                     @Override
                                                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                                         transacRef.child(transacKey).child("OrderList").setValue(snapshot.getValue());
+                                                                            transacRef.child(transacKey).child("receipt").setValue(receiptimg);
                                                                     }
 
                                                                     @Override
@@ -137,7 +142,7 @@ public class RatingActivityTowardsRider extends AppCompatActivity {
                                                         // If using IMG order
                                                     } else {
 
-                                                        transaction = new SaveTransaction(snapshot.child("orderlist").getValue().toString(), "true", currentDate, simpleDate, ts, currentTime, snapshot.child("rider").getValue().toString(), myRating);
+                                                        transaction = new SaveTransaction(snapshot.child("orderlist").getValue().toString(), "true", currentDate, simpleDate, ts, currentTime, snapshot.child("rider").getValue().toString(), myRating, receiptimg);
                                                         String transacKey = transacRef.push().getKey();
                                                         transacRef.child(transacKey).setValue(transaction);
                                                     }

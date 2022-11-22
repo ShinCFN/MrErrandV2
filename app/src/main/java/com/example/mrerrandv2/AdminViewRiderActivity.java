@@ -2,6 +2,8 @@ package com.example.mrerrandv2;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,18 +19,22 @@ import com.squareup.picasso.Picasso;
 
 public class AdminViewRiderActivity extends AppCompatActivity {
 
-    TextView editName, editMobile, editEmail, editLicense, editPlate;
+    TextView editName, editMobile, editEmail, editLicense, editPlate, verify;
 
     ImageView profilepic,profLicense,profPlate,profOR;
 
     progressBar progressBar;
+
+    DatabaseReference riderRef = FirebaseDatabase.getInstance().getReference("Riders");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_view_rider);
 
+
         Rider rider = (Rider) getIntent().getSerializableExtra("rider");
+
 
         progressBar = new progressBar(this);
         progressBar.show();
@@ -41,6 +47,15 @@ public class AdminViewRiderActivity extends AppCompatActivity {
         editPlate = findViewById(R.id.profilePlate);
         editEmail = findViewById(R.id.profileEmail);
         profilepic = findViewById(R.id.profilePic);
+        verify = findViewById(R.id.btnVerify);
+
+        verify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                riderRef.child(rider.getKey()).child("verified").setValue("true");
+                finish();
+            }
+        });
 
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Riders").child(rider.getKey());

@@ -49,6 +49,8 @@ public class SignUpRiderActivity extends AppCompatActivity {
     boolean passisgo;
     private progressBar progressBar;
 
+    private String verified;
+
     private final int PICK_LICENSE_CODE = 12;
     private final int PICK_PLATE_CODE = 13;
 
@@ -288,8 +290,10 @@ public class SignUpRiderActivity extends AppCompatActivity {
                     int totalstars = 0;
                     int totalrates = 0;
 
+                    verified = "false";
+
                     //ReadWriteUserDetails
-                    ReadWriteUserDetailsRider writeUserDetails = new ReadWriteUserDetailsRider(textFirstName, textLastName, textEmail, textNum, textType, totalstars, totalrates);
+                    ReadWriteUserDetailsRider writeUserDetails = new ReadWriteUserDetailsRider(textFirstName, textLastName, textEmail, textNum, textType, totalstars, totalrates, verified);
 
                     //Extract Users from db
 

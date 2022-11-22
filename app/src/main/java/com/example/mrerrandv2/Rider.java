@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Rider implements Serializable {
 
-    String firstname,lastname, profileImage;
+    String firstname,lastname, profileImage, verified;
     int totalstars, totalrates;
 
     @Exclude
@@ -14,12 +14,13 @@ public class Rider implements Serializable {
 
     public Rider(){};
 
-    public Rider(String firstname, String lastname, String profileImage, int totalstars, int totalrates) {
+    public Rider(String firstname, String lastname, String profileImage, int totalstars, int totalrates, String verified) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.profileImage = profileImage;
         this.totalstars = totalstars;
         this.totalrates = totalrates;
+        this.verified = verified;
     }
 
     public String getFirstname() {
@@ -48,5 +49,13 @@ public class Rider implements Serializable {
 
     public int getTotalrates() {
         return totalrates;
+    }
+
+    public String getVerified() {
+        return verified;
+    }
+
+    public void setVerified(String verified) {
+        this.verified = verified;
     }
 }

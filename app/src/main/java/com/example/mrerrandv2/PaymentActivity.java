@@ -61,6 +61,7 @@ public class PaymentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String orderlist = getIntent().getStringExtra("ORDER");
+        String desiredStore = getIntent().getStringExtra("store");
         FirebaseUser firebaseUser = auth.getCurrentUser();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order");
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid()).child("OrderList");
@@ -215,7 +216,7 @@ public class PaymentActivity extends AppCompatActivity {
                             int rating = 0;
                             String textOrderList = getIntent().getStringExtra("imgorder");
                             //Send order to DB
-                            Order ord = new Order(textFirstName, textOrderList, state, lastname, profilePic, status, uid, type.toString(), rating);
+                            Order ord = new Order(textFirstName, textOrderList, state, lastname, profilePic, status, uid, type.toString(), rating, desiredStore);
                             dbord.add(ord).addOnSuccessListener(suc -> {
                                 databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -242,7 +243,7 @@ public class PaymentActivity extends AppCompatActivity {
 
                             String textOrderList = getIntent().getStringExtra("imgorder");
                             //Send order to DB
-                            Order ord = new Order(textFirstName, textOrderList, state, lastname, profilePic, status, uid, type.toString(), rating);
+                            Order ord = new Order(textFirstName, textOrderList, state, lastname, profilePic, status, uid, type.toString(), rating, desiredStore);
                             dbord.add(ord).addOnSuccessListener(suc -> {
                                 databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -270,7 +271,7 @@ public class PaymentActivity extends AppCompatActivity {
 
                             String textOrderList = orderlist;
                             //Send order to DB
-                            Order ord = new Order(textFirstName, textOrderList, state, lastname, profilePic, status, uid, type.toString(), rating);
+                            Order ord = new Order(textFirstName, textOrderList, state, lastname, profilePic, status, uid, type.toString(), rating, desiredStore);
                             dbord.add(ord).addOnSuccessListener(suc -> {
                                 databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -298,7 +299,7 @@ public class PaymentActivity extends AppCompatActivity {
 
                             String textOrderList = orderlist;
                             //Send order to DB
-                            Order ord = new Order(textFirstName, textOrderList, state, lastname, profilePic, status, uid, type.toString(), rating);
+                            Order ord = new Order(textFirstName, textOrderList, state, lastname, profilePic, status, uid, type.toString(), rating, desiredStore);
                             dbord.add(ord).addOnSuccessListener(suc -> {
                                 databaseReference.orderByChild("firstname").equalTo(firebaseUser.getDisplayName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override

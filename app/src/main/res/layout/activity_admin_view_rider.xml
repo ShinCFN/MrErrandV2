@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".RiderProfileFragment">
+    tools:context=".RiderProfileFragment"
+    android:background="@color/finalBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -217,6 +218,22 @@
                 android:background="@color/GreyMain"
                 android:id="@+id/rorcrPic"
                 android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:id="@+id/btnVerify"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box_secondary"
+                android:fontFamily="@font/asap_bold"
+                android:gravity="center"
+                android:paddingHorizontal="15dp"
+                android:text="Verify"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+
         </LinearLayout>
 
 

@@ -15,6 +15,7 @@ public class Order implements Serializable {
     String UID;
     String profilePic;
     String ordertype;
+    String desiredStore;
     int rating;
 
 
@@ -25,7 +26,7 @@ public class Order implements Serializable {
     String status;
     public Order(){};
 
-    public Order(String firstname, String orderlist, String isAccepted, String lastname,String profilePic, String status, String UID, String ordertype, int rating) {
+    public Order(String firstname, String orderlist, String isAccepted, String lastname,String profilePic, String status, String UID, String ordertype, int rating, String desiredStore) {
         this.firstname = firstname;
         this.orderlist = orderlist;
         this.lastname = lastname;
@@ -34,6 +35,7 @@ public class Order implements Serializable {
         this.UID = UID;
         this.ordertype = ordertype;
         this.rating = rating;
+        this.desiredStore = desiredStore;
     }
 
     public String getFirstname() {
@@ -86,5 +88,13 @@ public class Order implements Serializable {
 
     public int getRating() {
         return rating;
+    }
+
+    public String getDesiredStore() {
+        return desiredStore;
+    }
+
+    public void setDesiredStore(String desiredStore) {
+        this.desiredStore = desiredStore;
     }
 }

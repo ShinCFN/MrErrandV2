@@ -184,7 +184,7 @@
                     android:layout_marginVertical="2dp"
                     android:background="@color/finalyellow"
                     android:fontFamily="@font/questrial"
-                    android:hint="e.g. 3000"
+                    android:hint="Enter desired delivery fee"
                     android:inputType="number"
                     android:maxLines="1"
                     android:textColor="@color/finalDarkGray"

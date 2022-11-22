@@ -7,110 +7,119 @@
     android:background="@color/finalBackground"
     tools:context=".ProfileFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout12"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/finalDarkGray"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/blurbg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/blankuser" />
+
+        <eightbitlab.com.blurview.BlurView
+            android:id="@+id/blurView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#AA303030" />
+
+        <ImageView
+            android:id="@+id/profilePic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/blankuser"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/profileFull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/questrial"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/profilePic"
+            app:layout_constraintTop_toTopOf="@+id/profilePic" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/profileEdit"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/box_smooth"
+            android:backgroundTint="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/profilePic"
+            app:layout_constraintStart_toEndOf="@+id/profilePic">
+
+            <eightbitlab.com.blurview.BlurView
+                android:id="@+id/btnbg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/box_smooth"
+                android:backgroundTint="#26FFFFFF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/questrial"
+                android:gravity="center"
+                android:text="Edit Profile"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/btnbg"
+                app:layout_constraintEnd_toEndOf="@+id/btnbg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnbg"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout12">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/linearLayout3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="100dp"
-                android:orientation="vertical"
-                android:paddingTop="40dp"
-                android:layout_marginHorizontal="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/outlined_box"
-                    android:backgroundTint="@color/finalLightGreen"
-                    android:orientation="horizontal">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/profilePic"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_marginVertical="10dp"
-                        android:layout_marginLeft="15dp"
-                        android:elevation="2dp"
-                        android:src="@drawable/blankuser"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/profileEdit"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_marginRight="20dp"
-                        android:background="@drawable/settings"
-                        android:backgroundTint="@color/finalDarkGray"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="20dp"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="@+id/profilePic"
-                        app:layout_constraintStart_toEndOf="@+id/profilePic"
-                        app:layout_constraintTop_toTopOf="@+id/profilePic">
-
-                        <TextView
-                            android:id="@+id/profileFirst"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/questrial"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/profileLast"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/questrial"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"
-                            android:textSize="20sp" />
-
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/outlined_box"
-                    android:backgroundTint="@color/white"
                     android:orientation="vertical"
-                    android:paddingHorizontal="15dp"
-                    android:paddingVertical="20dp">
+                    android:paddingHorizontal="25dp"
+                    android:paddingVertical="40dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/questrial"
-                        android:text="Contact Information"
-                        android:textColor="@color/finalDarkGray"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:text="CONTACT INFORMATION"
+                        android:textColor="@color/Gray"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -128,7 +137,7 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/questrial"
                         android:textColor="@color/finalDarkGray"
-                        android:textSize="17sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -147,7 +156,7 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/questrial"
                         android:textColor="@color/finalDarkGray"
-                        android:textSize="17sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -157,19 +166,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/outlined_box"
-                    android:backgroundTint="@color/white"
                     android:orientation="vertical"
-                    android:paddingHorizontal="15dp"
-                    android:paddingVertical="20dp">
+                    android:paddingHorizontal="25dp"
+                    android:paddingVertical="40dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/questrial"
-                        android:text="Address"
-                        android:textColor="@color/finalDarkGray"
-                        android:textSize="23sp"
+                        android:text="ADDRESS"
+                        android:textColor="@color/Gray"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -188,7 +195,7 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/questrial"
                         android:textColor="@color/finalDarkGray"
-                        android:textSize="17sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -208,7 +215,7 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/questrial"
                         android:textColor="@color/finalDarkGray"
-                        android:textSize="17sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -228,7 +235,7 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/questrial"
                         android:textColor="@color/finalDarkGray"
-                        android:textSize="17sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -248,10 +255,9 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/questrial"
                         android:textColor="@color/finalDarkGray"
-                        android:textSize="17sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

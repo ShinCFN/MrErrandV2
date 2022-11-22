@@ -110,7 +110,7 @@ public class RiderProfileFragment extends Fragment {
                 if (snapshot.child("profileImage").exists()) {
                     String image = snapshot.child("profileImage").getValue().toString();
 
-                    Glide.with(RiderProfileFragment.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
+                    Glide.with(getContext()).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             pfpOk = true;
@@ -165,7 +165,7 @@ public class RiderProfileFragment extends Fragment {
                 if (snapshot.child("platePic").exists()) {
                     String image = snapshot.child("platePic").getValue().toString();
 
-                    Glide.with(RiderProfileFragment.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
+                    Glide.with(getContext()).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             licpOk = true;
@@ -187,7 +187,7 @@ public class RiderProfileFragment extends Fragment {
                 if (snapshot.child("orcrPic").exists()) {
                     String image = snapshot.child("orcrPic").getValue().toString();
 
-                    Glide.with(RiderProfileFragment.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
+                        Glide.with(getContext()).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             orcrOk = true;

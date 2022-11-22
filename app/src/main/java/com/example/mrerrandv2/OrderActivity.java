@@ -6,14 +6,20 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -61,13 +67,24 @@ public class OrderActivity extends AppCompatActivity {
     Boolean isImageorder = false;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     private progressBar progressBar;
-    EditText addnewitem, addnewqty;
+    EditText addnewitem, addnewqty, storeedit;
     DBOrderList dbOrderList;
     ImageView toolbarback;
     ConstraintLayout wholeorderrv;
-
+    Spinner storespinner;
     RecyclerView orderlistrv;
     FirebaseRecyclerAdapter adapter;
+    ConstraintLayout storeholder;
+
+    String DesiredStore;
+
+    String[] store = {
+            "7-Eleven",
+            "SM",
+            "Robinsons",
+            "Shell Select",
+            "Custom"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +103,9 @@ public class OrderActivity extends AppCompatActivity {
         addnewitem = findViewById(R.id.additem);
         addnewqty = findViewById(R.id.addqty);
         toolbarback = findViewById(R.id.toolbarback);
+        storespinner = findViewById(R.id.storeSpinner);
+        storeholder = findViewById(R.id.storeholder);
+        storeedit = findViewById(R.id.storeedit);
 
         //Status bar
         Window window = getWindow();
@@ -98,6 +118,46 @@ public class OrderActivity extends AppCompatActivity {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.finalDarkGray));
             View view = getWindow().getDecorView();
         }
+
+        //Spinner
+        ArrayAdapter<String> spinAdapt = new ArrayAdapter<String>(OrderActivity.this, android.R.layout.simple_spinner_item, store);
+        spinAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        storespinner.setAdapter(spinAdapt);
+
+        storespinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                String value = adapterView.getItemAtPosition(position).toString();
+
+                if (value.equals("Custom")) {
+                    storeholder.setVisibility(View.VISIBLE);
+                    storeedit.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            DesiredStore = storeedit.getText().toString();
+                        }
+                    });
+                } else {
+                    storeholder.setVisibility(View.GONE);
+                    DesiredStore = value;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
@@ -117,7 +177,7 @@ public class OrderActivity extends AppCompatActivity {
         orderlistRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.child("OrderList").exists()){
+                if (!snapshot.child("OrderList").exists()) {
                     wholeorderrv.setVisibility(View.GONE);
                 }
             }
@@ -159,13 +219,6 @@ public class OrderActivity extends AppCompatActivity {
                         databaseReference.child(list.getKey()).removeValue();
                     }
                 });
-
-//                //Set color
-//                if (position % 2 == 0){
-//                    vh.holder.setBackgroundColor(getResources().getColor(R.color.Gray));
-//                } else {
-//                    vh.holder.setBackgroundColor(getResources().getColor(R.color.white));
-//                }
             }
 
             @NonNull
@@ -230,13 +283,17 @@ public class OrderActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.child("OrderList").exists()) {
-                            isImageorder = false;
-                            Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
-                            intent.putExtra("type", isImageorder);
-                            adapter.stopListening();
-                            startActivity(intent);
-                            finish();
-
+                            if(DesiredStore != null){
+                                isImageorder = false;
+                                Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
+                                intent.putExtra("store", DesiredStore);
+                                intent.putExtra("type", isImageorder);
+                                adapter.stopListening();
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toasty.error(OrderActivity.this, "Select desired store", Toasty.LENGTH_LONG).show();
+                            }
                         } else {
                             Toasty.error(OrderActivity.this, "Order list is empty", Toasty.LENGTH_LONG).show();
                         }

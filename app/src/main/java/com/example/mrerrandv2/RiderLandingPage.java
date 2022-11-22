@@ -43,7 +43,7 @@ public class RiderLandingPage extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if (snapshot.child("licensePic").exists() && snapshot.child("platePic").exists() && snapshot.child("orcrPic").exists()) {
+                if (snapshot.child("verified").getValue().equals("true")) {
 
                     orderRefListener = orderRef.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -61,6 +61,8 @@ public class RiderLandingPage extends AppCompatActivity {
 
                         }
                     });
+                } else if (snapshot.child("verified").getValue().equals("pending")) {
+                    replaceFragment(new RiderPendingFragment());
                 } else {
                     replaceFragment(new RiderErrorFragment());
                 }
@@ -82,7 +84,7 @@ public class RiderLandingPage extends AppCompatActivity {
                     databaseReference.child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.child("licensePic").exists() && snapshot.child("platePic").exists() && snapshot.child("orcrPic").exists()) {
+                            if (snapshot.child("verified").getValue().equals("true")) {
                                 orderRef.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -99,6 +101,8 @@ public class RiderLandingPage extends AppCompatActivity {
 
                                     }
                                 });
+                            } else if (snapshot.child("verified").getValue().equals("pending")) {
+                                replaceFragment(new RiderPendingFragment());
                             } else {
                                 replaceFragment(new RiderErrorFragment());
                             }

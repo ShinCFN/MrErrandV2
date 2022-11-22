@@ -97,7 +97,9 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         //View order info
-//                        Intent intent = new Intent(TransactionHistoryActivity.this, )
+                        Intent intent = new Intent(TransactionHistoryActivity.this, ViewTransaction.class);
+                        intent.putExtra("transaction", saveTransaction);
+                        startActivity(intent);
                     }
                 });
 

@@ -309,28 +309,45 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                 String platenum = editplatenum.getText().toString();
 
                 if (firstname.isEmpty() || lastname.isEmpty() || mobilenumber.isEmpty() || license.isEmpty() || platenum.isEmpty() || license.isEmpty() || platenum.isEmpty()) {
+                    progressBar.dismiss();
                     Toast.makeText(EditProfileRiderActivity.this, "Please complete your information", Toast.LENGTH_LONG).show();
                 } else {
-                    //Set Information
-                    databaseReference.child("firstname").setValue(firstname);
-                    databaseReference.child("lastname").setValue(lastname);
-                    databaseReference.child("mobile").setValue(mobilenumber);
-                    databaseReference.child("license").setValue(license);
-                    databaseReference.child("plate").setValue(platenum).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    //Set verification
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onSuccess(Void unused) {
-                            Toasty.success(EditProfileRiderActivity.this, "Success", Toasty.LENGTH_SHORT).show();
-                            progressBar.dismiss();
-                            finish();
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.child("verified").getValue().equals("false")) {
+                                databaseReference.child("verified").setValue("pending");
+
+                                //Set Information
+                                databaseReference.child("firstname").setValue(firstname);
+                                databaseReference.child("lastname").setValue(lastname);
+                                databaseReference.child("mobile").setValue(mobilenumber);
+                                databaseReference.child("license").setValue(license);
+                                databaseReference.child("plate").setValue(platenum).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toasty.success(EditProfileRiderActivity.this, "Success", Toasty.LENGTH_SHORT).show();
+                                        progressBar.dismiss();
+                                        finish();
+                                    }
+                                });
+
+                                //Update Firebase Display Name
+
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(firstname).build();
+
+                                auth.getCurrentUser().updateProfile(profileUpdates);
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
                         }
                     });
-
-                    //Update Firebase Display Name
-
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(firstname).build();
-
-                    auth.getCurrentUser().updateProfile(profileUpdates);
 
                 }
             }

@@ -30,7 +30,10 @@ public class AdminMainActivity extends AppCompatActivity {
                     replaceFragment(new UsersFragment());
                     break;
                 case R.id.profile:
-                    replaceFragment(new RidersFragment());
+                    replaceFragment(new AdminVerifiedRidersFragment());
+                    break;
+                case R.id.pending:
+                    replaceFragment(new AdminPendingRidersFragment());
                     break;
                 case R.id.settings:
                     replaceFragment(new SettingsFragment());
