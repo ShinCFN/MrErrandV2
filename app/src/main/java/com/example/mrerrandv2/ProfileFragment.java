@@ -85,12 +85,12 @@ public class ProfileFragment extends Fragment {
                 blurbg = v.findViewById(R.id.blurbg);
                 blurview = v.findViewById(R.id.blurView);
 
-                View decorView = getActivity().getWindow().getDecorView();
-                // ViewGroup you want to start blur from. Choose root as close to BlurView in hierarchy as possible.
-                ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
-
-//                Set Blur
-                blurview.setupWith(rootView, new RenderScriptBlur(getActivity())).setBlurRadius(10);
+//                View decorView = getActivity().getWindow().getDecorView();
+//                // ViewGroup you want to start blur from. Choose root as close to BlurView in hierarchy as possible.
+//                ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
+//
+////                Set Blur
+//                blurview.setupWith(rootView, new RenderScriptBlur(getActivity())).setBlurRadius(10);
 
                 //Get Information
                 String firstname = snapshot.child("firstname").getValue().toString();
