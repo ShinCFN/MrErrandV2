@@ -147,8 +147,10 @@ public class HomeFragment extends Fragment {
                     public void onClick(View view) {
                         //View transaction
 
-                        String message = "open order " + saveTransaction.getKey();
-                        Toasty.info(getContext(), message, Toasty.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity(), ViewTransaction.class);
+                        intent.putExtra("transaction", saveTransaction);
+                        startActivity(intent);
+
                     }
                 });
 
