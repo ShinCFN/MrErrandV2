@@ -34,7 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AcceptedOrderActivityUser extends AppCompatActivity {
 
     ConstraintLayout profileView, orderdesc;
-    TextView profileName;
+    TextView profileName, deliveryFee;
     RatingBar ratingBar;
     ImageView orderImage, receipt;
     RecyclerView orderlistrv;
@@ -59,6 +59,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
         receipt = findViewById(R.id.receipt);
         chatvh = findViewById(R.id.chat);
         toolbarback = findViewById(R.id.toolbarback);
+        deliveryFee = findViewById(R.id.deliveryFee);
 
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
@@ -135,6 +136,20 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
             }
         });
 
+        //Set fee
+        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("ORDKEY"));
+        orderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                deliveryFee.setText("₱ " + snapshot.child("price").getValue());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         //Recycler View
         String UID = getIntent().getStringExtra("uid");
         dbViewOrderList = new DBViewOrderList(UID);
@@ -202,13 +217,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
 
         DatabaseReference statusRef = FirebaseDatabase.getInstance().getReference("Order");
 
-        statusRef.child(
-
-                        getIntent().
-
-                                getStringExtra("ORDKEY")).
-
-                addValueEventListener(new ValueEventListener() {
+        statusRef.child(getIntent().getStringExtra("ORDKEY")).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {

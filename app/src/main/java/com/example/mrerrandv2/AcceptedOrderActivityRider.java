@@ -67,7 +67,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
     ArrayList<OrderList> list;
     String key;
     ConstraintLayout uploadbtn, profileView, orderlabel;
-    TextView NextBTN, profileName;
+    TextView NextBTN, profileName, deliveryFee;
     LinearLayout receiptholder;
     ImageView orderImage;
     boolean receiptStatus = false;
@@ -107,6 +107,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         profileView = findViewById(R.id.profileView);
         chatvh = findViewById(R.id.chatbtn);
         orderlabel = findViewById(R.id.orderlabel);
+        deliveryFee = findViewById(R.id.deliveryFee);
 
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
@@ -177,7 +178,18 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
             }
         });
 
+        //Set fee
+        orderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                deliveryFee.setText("₱ " + snapshot.child("price").getValue());
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //Check Order Type
         if (ord_open.getOrdertype().equals("false")){
@@ -285,9 +297,9 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                         Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
                         intent.setType("image/*");
-                        startActivityForResult(intent, PICK_RECEIPT_CODE);
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Select Image"),PICK_RECEIPT_CODE);
                     }
 
                     @Override

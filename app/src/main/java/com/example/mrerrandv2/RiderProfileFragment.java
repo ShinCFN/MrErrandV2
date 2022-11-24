@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -32,14 +33,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import eightbitlab.com.blurview.BlurView;
+import eightbitlab.com.blurview.RenderScriptBlur;
+
 public class RiderProfileFragment extends Fragment {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    TextView editFirst, editLast, editMobile, editEmail, editLicense, editPlate;
+    TextView profileFull, editMobile, editEmail, editLicense, editPlate;
 
-    ImageView profilepic, profLicense, profPlate, profOR;
+    ImageView profilepic, profLicense, profPlate, profOR, blurbg;
 
+    BlurView blurView;
 
     private progressBar progressBar;
 
@@ -76,19 +81,20 @@ public class RiderProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(!RiderProfileFragment.this.isVisible()){
+                if (!RiderProfileFragment.this.isVisible()) {
                     return;
                 }
 
                 //Find Holders
 
-                editFirst = v.findViewById(R.id.profileFirst);
-                editLast = v.findViewById(R.id.profileLast);
+                profileFull = v.findViewById(R.id.profileFull);
                 editMobile = v.findViewById(R.id.profileNumber);
                 editLicense = v.findViewById(R.id.profileLicense);
                 editPlate = v.findViewById(R.id.profilePlate);
                 editEmail = v.findViewById(R.id.profileEmail);
                 profilepic = v.findViewById(R.id.profilePic);
+                blurView = v.findViewById(R.id.blurView);
+                blurbg = v.findViewById(R.id.blurbg);
 
 
                 //Get Information
@@ -100,8 +106,7 @@ public class RiderProfileFragment extends Fragment {
 
                 //Set text
 
-                editFirst.setText(firstname);
-                editLast.setText(lastname);
+                profileFull.setText(firstname);
                 editMobile.setText(mobilenumber);
                 editEmail.setText(email);
 
@@ -109,6 +114,7 @@ public class RiderProfileFragment extends Fragment {
                 profPlate = v.findViewById((R.id.rplatePic));
                 profOR = v.findViewById((R.id.rorcrPic));
 
+                blurBackground();
 
                 //Set profile image
                 if (snapshot.child("profileImage").exists()) {
@@ -127,6 +133,20 @@ public class RiderProfileFragment extends Fragment {
                             return false;
                         }
                     }).into(profilepic);
+
+                    Glide.with(getContext()).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            progressBar.dismiss();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            progressBar.dismiss();
+                            return false;
+                        }
+                    }).into(blurbg);
 
                 } else {
                     pfpOk = true;
@@ -191,7 +211,7 @@ public class RiderProfileFragment extends Fragment {
                 if (snapshot.child("orcrPic").exists()) {
                     String image = snapshot.child("orcrPic").getValue().toString();
 
-                        Glide.with(getContext()).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
+                    Glide.with(getContext()).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             orcrOk = true;
@@ -217,7 +237,7 @@ public class RiderProfileFragment extends Fragment {
         });
 
         //Edit Profile
-        LinearLayout editProfile = v.findViewById(R.id.profileEdit);
+        ConstraintLayout editProfile = v.findViewById(R.id.profileEdit);
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,5 +258,18 @@ public class RiderProfileFragment extends Fragment {
         }
 
         return v;
+    }
+
+    private void blurBackground(){
+        View decorView = getActivity().getWindow().getDecorView();
+        ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
+
+        Drawable windowsBackground = decorView.getBackground();
+
+        blurView.setupWith(rootView, new RenderScriptBlur(getActivity()))
+                .setFrameClearDrawable(windowsBackground)
+                .setBlurAutoUpdate(true)
+                .setBlurRadius(10f)
+        ;
     }
 }

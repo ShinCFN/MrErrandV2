@@ -95,8 +95,8 @@ public class EditProfileActivity extends AppCompatActivity{
 
         getSupportFragmentManager()
                 .beginTransaction()
-                        .replace(R.id.map_frame_layout, fragment)
-                                .commit();
+                .replace(R.id.map_frame_layout, fragment)
+                .commit();
 
         maplayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -288,9 +288,9 @@ public class EditProfileActivity extends AppCompatActivity{
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                         Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
                         intent.setType("image/*");
-                        startActivityForResult(intent, PICK_IMAGE_CODE);
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Select Image"),PICK_IMAGE_CODE);
                     }
 
                     @Override
@@ -324,8 +324,6 @@ public class EditProfileActivity extends AppCompatActivity{
         CropImageContractOptions options = new CropImageContractOptions(uri, new CropImageOptions())
                 .setMultiTouchEnabled(true)
                 .setAspectRatio(1, 1)
-//                .setMaxCropResultSize(512,512)
-                .setCropShape(CropImageView.CropShape.OVAL)
                 .setOutputCompressQuality(50)
                 .setActivityTitle("")
                 .setActivityMenuIconColor(0)

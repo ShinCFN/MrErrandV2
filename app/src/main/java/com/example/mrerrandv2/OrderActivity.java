@@ -318,9 +318,9 @@ public class OrderActivity extends AppCompatActivity {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                         Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
                         intent.setType("image/*");
-                        startActivityForResult(intent, PICK_IMAGE_CODE);
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Select Image"),PICK_IMAGE_CODE);
                     }
 
                     @Override

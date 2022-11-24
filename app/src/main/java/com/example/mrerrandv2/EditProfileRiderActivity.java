@@ -340,6 +340,27 @@ public class EditProfileRiderActivity extends AppCompatActivity {
 
                                 auth.getCurrentUser().updateProfile(profileUpdates);
 
+                            }else{
+                                //Set Information
+                                databaseReference.child("firstname").setValue(firstname);
+                                databaseReference.child("lastname").setValue(lastname);
+                                databaseReference.child("mobile").setValue(mobilenumber);
+                                databaseReference.child("license").setValue(license);
+                                databaseReference.child("plate").setValue(platenum).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toasty.success(EditProfileRiderActivity.this, "Success", Toasty.LENGTH_SHORT).show();
+                                        progressBar.dismiss();
+                                        finish();
+                                    }
+                                });
+
+                                //Update Firebase Display Name
+
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(firstname).build();
+
+                                auth.getCurrentUser().updateProfile(profileUpdates);
                             }
                         }
 
@@ -402,9 +423,9 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                         Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
                         intent.setType("image/*");
-                        startActivityForResult(intent, PICK_PROFILE_CODE);
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Select Image"),PICK_PROFILE_CODE);
                     }
 
                     @Override
@@ -426,9 +447,9 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                         Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
                         intent.setType("image/*");
-                        startActivityForResult(intent, PICK_LICENSE_CODE);
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Select Image"),PICK_LICENSE_CODE);
                     }
 
                     @Override
@@ -451,9 +472,9 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                         Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
                         intent.setType("image/*");
-                        startActivityForResult(intent, PICK_PLATE_CODE);
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Select Image"),PICK_PLATE_CODE);
                     }
 
                     @Override
@@ -476,9 +497,9 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                         Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
                         intent.setType("image/*");
-                        startActivityForResult(intent, PICK_OR_CODE);
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Select Image"),PICK_OR_CODE);
                     }
 
                     @Override
@@ -529,7 +550,6 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         CropImageContractOptions options = new CropImageContractOptions(uri, new CropImageOptions())
                 .setMultiTouchEnabled(true)
                 .setAspectRatio(1, 1)
-                .setCropShape(CropImageView.CropShape.OVAL)
                 .setOutputCompressQuality(50)
                 .setActivityTitle("")
                 .setActivityMenuIconColor(0)

@@ -94,10 +94,10 @@ public class ViewOfferActivity extends AppCompatActivity {
         offerLis = offerRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child("Offers").exists()){
+                if (snapshot.child("Offers").exists()) {
                     //Hide search
                     search.setVisibility(View.GONE);
-                }else{
+                } else {
                     search.setVisibility(View.VISIBLE);
                 }
             }
@@ -112,23 +112,23 @@ public class ViewOfferActivity extends AppCompatActivity {
         toolbarcancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                        new AlertDialog.Builder(ViewOfferActivity.this)
-                .setMessage("Are you sure you want to cancel your order?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        // PUT DELETE ORDER HERE
-                        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("Key"));
-                        firebaseDatabase.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                new AlertDialog.Builder(ViewOfferActivity.this)
+                        .setMessage("Are you sure you want to cancel your order?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onSuccess(Void unused) {
-                                finish();
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                // PUT DELETE ORDER HERE
+                                DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("Key"));
+                                firebaseDatabase.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        finish();
+                                    }
+                                });
                             }
-                        });
-                    }
-                }).setNegativeButton("No", null).show();
+                        }).setNegativeButton("No", null).show();
             }
         });
 
@@ -170,18 +170,32 @@ public class ViewOfferActivity extends AppCompatActivity {
                                         orderReference.child("Offers").child(off.getKey()).child("state").setValue("accepted").addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
-                                                DatabaseReference refref = FirebaseDatabase.getInstance().getReference("Order").child(key);
-                                                refref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                orderReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                        Intent intent = new Intent(ViewOfferActivity.this, AcceptedOrderActivityUser.class);
-                                                        intent.putExtra("ORDER", off);
-                                                        intent.putExtra("uid", off.getUid());
-                                                        intent.putExtra("type", snapshot.child("ordertype").getValue().toString());
-                                                        intent.putExtra("ORDKEY", key);
-                                                        intent.putExtra("RIDERKEY", off.getKey());
-                                                        startActivity(intent);
-                                                        finish();
+
+                                                        String ordertype = snapshot.child("ordertype").getValue().toString();
+
+                                                        orderReference.child("Offers").child(off.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                orderReference.child("price").setValue(snapshot.child("offer").getValue());
+                                                                Intent intent = new Intent(ViewOfferActivity.this, AcceptedOrderActivityUser.class);
+                                                                intent.putExtra("ORDER", off);
+                                                                intent.putExtra("uid", off.getUid());
+                                                                intent.putExtra("type", ordertype);
+                                                                intent.putExtra("ORDKEY", key);
+                                                                intent.putExtra("RIDERKEY", off.getKey());
+                                                                startActivity(intent);
+                                                                finish();
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                            }
+                                                        });
+
                                                     }
 
                                                     @Override

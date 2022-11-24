@@ -18,19 +18,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MrErrandV2"
         tools:targetApi="31">
-        <activity
-            android:name=".PopupViewProfile"
-            android:theme="@style/Theme.AppCompat.Popup"></activity>
 
         <activity
+            android:name="com.canhub.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"
+            />
+        <activity
+            android:name=".PopupViewProfile"
+            android:theme="@style/Theme.AppCompat.Popup" />
+        <activity
             android:name=".PopupViewProfileRider"
-            android:theme="@style/Theme.AppCompat.Popup"></activity>
+            android:theme="@style/Theme.AppCompat.Popup" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB1g1Xy2VHAVNbB00HKCC0YwJelB23_LKM" />
-
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
