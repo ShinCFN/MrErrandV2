@@ -48,13 +48,13 @@ public class HomeFragment extends Fragment {
     static int i = 0;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     ConstraintLayout activeorder;
-    ValueEventListener activeOrdListener;
     DatabaseReference activeOrderRef;
     String key;
     TextView orderdesc, history;
     RecyclerView transactionrv;
     DBTransaction dbTransaction;
     FirebaseRecyclerAdapter adapter;
+    Boolean status = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,80 +97,6 @@ public class HomeFragment extends Fragment {
 
         //Prog bar
         progressBar = new progressBar(getContext());
-
-        //Active order
-        activeOrderRef = FirebaseDatabase.getInstance().getReference("Order");
-        activeOrdListener = activeOrderRef.orderByChild("uid").equalTo(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                Boolean status;
-
-                if (snapshot.getValue() == null) {
-                    // The child doesn't exist
-                    activeorder.setVisibility(View.GONE);
-                    status = false;
-                } else {
-                    status = true;
-                    for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-
-                        key = childSnapshot.getKey();
-                        orderdesc.setText("#" + key);
-                        activeorder.setVisibility(View.VISIBLE);
-                        activeorder.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                                if (childSnapshot.child("status").getValue().toString().equals("null")) {
-                                    Intent intent = new Intent(getActivity(), ViewOfferActivity.class);
-                                    intent.putExtra("Key", key);
-                                    startActivity(intent);
-                                }
-
-                                if (childSnapshot.child("status").getValue().toString().equals("accepted") || childSnapshot.child("status").getValue().toString().equals("inDelivery")) {
-                                    Intent intent = new Intent(getActivity(), AcceptedOrderActivityUser.class);
-                                    intent.putExtra("ORDKEY", key);
-                                    intent.putExtra("RIDERKEY", childSnapshot.child("rider").getValue().toString());
-                                    intent.putExtra("uid", childSnapshot.child("uid").getValue().toString());
-                                    intent.putExtra("type", childSnapshot.child("ordertype").getValue().toString());
-
-                                    startActivity(intent);
-                                }
-
-                                if (childSnapshot.child("status").getValue().toString().equals("complete")) {
-                                    Intent intent = new Intent(getActivity(), RatingActivityTowardsRider.class);
-                                    intent.putExtra("order", key);
-                                    intent.putExtra("rider", childSnapshot.child("rider").getValue().toString());
-                                    startActivity(intent);
-                                }
-
-
-                            }
-                        });
-
-                    }
-                }
-
-                Orderbtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        if (status) {
-                            Toasty.warning(getActivity(), "You already have an active order", Toasty.LENGTH_SHORT).show();
-                        } else {
-                            Order();
-                        }
-
-                    }
-                });
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
 
         //Transaction History
         LinearLayoutManager layoutManager
@@ -263,32 +189,21 @@ public class HomeFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        activeOrderRef.removeEventListener(activeOrdListener);
         adapter.stopListening();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        transactionrv.getRecycledViewPool().clear();
-        adapter.notifyDataSetChanged();
-        adapter.startListening();
-        activeOrderRef.addValueEventListener(activeOrdListener);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        checkActiveOrder();
         transactionrv.getRecycledViewPool().clear();
         adapter.notifyDataSetChanged();
         adapter.startListening();
-        activeOrderRef.addValueEventListener(activeOrdListener);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        activeOrderRef.removeEventListener(activeOrdListener);
         adapter.stopListening();
     }
 
@@ -316,6 +231,88 @@ public class HomeFragment extends Fragment {
                     Toasty.error(getContext(), "Please complete your information", Toasty.LENGTH_LONG).show();
                 }
                 progressBar.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+
+    //Active order
+    public void checkActiveOrder() {
+
+        DatabaseReference queryFirebase;
+
+        queryFirebase = FirebaseDatabase.getInstance().getReference("Order");
+
+        queryFirebase.orderByChild("uid").equalTo(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                Orderbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if (status) {
+                            Toasty.warning(getActivity(), "You already have an active order", Toasty.LENGTH_SHORT).show();
+                        } else {
+                            Order();
+                        }
+
+                    }
+                });
+
+                if (!snapshot.exists()) {
+                    status = false;
+                    activeorder.setVisibility(View.GONE);
+                    return;
+                } else {
+                    Log.e("TESTING", snapshot.getValue().toString());
+                    //Has an active order
+                    status = true;
+
+                    for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+
+                        key = childSnapshot.getKey();
+                        orderdesc.setText("#" + key);
+                        activeorder.setVisibility(View.VISIBLE);
+                        activeorder.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                if (childSnapshot.child("status").getValue().toString().equals("null")) {
+                                    Intent intent = new Intent(getActivity(), ViewOfferActivity.class);
+                                    intent.putExtra("Key", key);
+                                    startActivity(intent);
+                                }
+
+                                if (childSnapshot.child("status").getValue().toString().equals("accepted") || childSnapshot.child("status").getValue().toString().equals("inDelivery")) {
+                                    Intent intent = new Intent(getActivity(), AcceptedOrderActivityUser.class);
+                                    intent.putExtra("ORDKEY", key);
+                                    intent.putExtra("RIDERKEY", childSnapshot.child("rider").getValue().toString());
+                                    intent.putExtra("uid", childSnapshot.child("uid").getValue().toString());
+                                    intent.putExtra("type", childSnapshot.child("ordertype").getValue().toString());
+
+                                    startActivity(intent);
+                                }
+
+                                if (childSnapshot.child("status").getValue().toString().equals("complete")) {
+                                    Intent intent = new Intent(getActivity(), RatingActivityTowardsRider.class);
+                                    intent.putExtra("order", key);
+                                    intent.putExtra("rider", childSnapshot.child("rider").getValue().toString());
+                                    startActivity(intent);
+                                }
+                            }
+                        });
+
+
+                    }
+                }
+
             }
 
             @Override
