@@ -65,7 +65,7 @@ public class DeliveryActivityRider extends AppCompatActivity {
 
                         Picasso.get().load(snapshot.child("profileImage").getValue().toString()).into(profile);
                         name.setText(username);
-                        mobile.setText(snapshot.child("mobilenum").getValue().toString());
+                        mobile.setText(snapshot.child("mobile").getValue().toString());
                         street.setText(snapshot.child("street").getValue().toString());
                         city.setText(snapshot.child("city").getValue().toString());
                         province.setText(snapshot.child("province").getValue().toString());

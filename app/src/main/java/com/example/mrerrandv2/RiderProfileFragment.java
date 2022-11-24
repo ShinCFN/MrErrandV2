@@ -91,7 +91,7 @@ public class RiderProfileFragment extends Fragment {
 
                 String firstname = snapshot.child("firstname").getValue().toString();
                 String lastname = snapshot.child("lastname").getValue().toString();
-                String mobilenumber = snapshot.child("mobilenum").getValue().toString();
+                String mobilenumber = snapshot.child("mobile").getValue().toString();
                 String email = snapshot.child("email").getValue().toString();
 
                 //Set text

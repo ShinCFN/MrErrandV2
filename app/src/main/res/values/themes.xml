@@ -66,5 +66,13 @@
         </item>
     </style>
 
+    <style name="Theme.AppCompat.Popup">
+
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+
+    </style>
+
 
 </resources>

@@ -243,7 +243,7 @@ public class EditProfileActivity extends AppCompatActivity{
                 //Get Values
                 String firstname = snapshot.child("firstname").getValue().toString();
                 String lastname = snapshot.child("lastname").getValue().toString();
-                String mobilenum = snapshot.child("mobilenum").getValue().toString();
+                String mobile = snapshot.child("mobile").getValue().toString();
 
                 //Check if address is given
 
@@ -271,7 +271,7 @@ public class EditProfileActivity extends AppCompatActivity{
                 //Push
                 editFirst.setText(firstname);
                 editLast.setText(lastname);
-                editMobile.setText(mobilenum);
+                editMobile.setText(mobile);
             }
 
             @Override

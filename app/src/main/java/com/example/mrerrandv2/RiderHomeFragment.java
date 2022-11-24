@@ -3,6 +3,8 @@ package com.example.mrerrandv2;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +22,13 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.io.Serializable;
 
 import es.dmoral.toasty.Toasty;
 
@@ -35,6 +41,7 @@ public class RiderHomeFragment extends Fragment {
     DBOrder dbord;
     FirebaseRecyclerAdapter adapter;
     RiderLandingPage landingPage;
+    DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("Order");
 
 
     @Override
@@ -53,7 +60,6 @@ public class RiderHomeFragment extends Fragment {
         window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalBackground));
 
         //Recycler View
-
         recyclerView = v.findViewById(R.id.ordersrv);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getContext()));
@@ -122,6 +128,31 @@ public class RiderHomeFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
         adapter.startListening();
+
+        //Order check
+        orderRef.orderByChild("rider").equalTo(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                    Order ord = childSnapshot.getValue(Order.class);
+                    ord.setKey(childSnapshot.getKey());
+                    if(snapshot.exists()){
+
+                        Log.e("te", ord.getFirstname());
+                        Intent intent = new Intent(getActivity(), AcceptedOrderActivityRider.class);
+                        intent.putExtra("RKEY", childSnapshot.child("rider").getValue().toString());
+                        intent.putExtra("ORDER", ord);
+                        startActivity(intent);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         return v;
 }

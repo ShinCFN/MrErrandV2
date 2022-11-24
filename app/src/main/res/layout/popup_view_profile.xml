@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:id="@+id/popup_view_profile"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="15dp"
+    android:layout_marginHorizontal="20dp"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:background="@color/finalDarkGray"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="center"
+            android:id="@+id/profilePic"
+            android:layout_width="130dp"
+            android:layout_height="130dp"/>
+
+        <LinearLayout
+            android:layout_marginLeft="15dp"
+            android:gravity="left|center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/profileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/questrial"
+                android:textColor="@color/white"
+                android:text="NAME TEST HERE"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_marginTop="16dp"
+                android:id="@+id/profileNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/questrial"
+                android:textColor="@color/white"
+                android:text="NAME TEST HERE"
+                android:textSize="17dp" />
+
+            <TextView
+                android:layout_marginTop="2dp"
+                android:id="@+id/profileAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/questrial"
+                android:textColor="@color/white"
+                android:text="NAME TEST HERE"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>

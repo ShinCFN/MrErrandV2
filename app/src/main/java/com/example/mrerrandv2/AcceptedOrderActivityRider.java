@@ -1,13 +1,21 @@
 package com.example.mrerrandv2;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListPopupWindow;
+import android.widget.PopupWindow;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,12 +71,12 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
     RiderOrderListAdapter adapter;
     ArrayList<OrderList> list;
     String key;
-    ConstraintLayout uploadbtn;
-    TextView NextBTN, profileName, profilePhone, profileView;
+    ConstraintLayout uploadbtn, profileView, orderlabel;
+    TextView NextBTN, profileName;
     LinearLayout receiptholder;
     ImageView orderImage;
     boolean receiptStatus = false;
-    CircleImageView profilePic, chatvh;
+    CircleImageView chatvh;
     RatingBar ratingBar;
     Boolean ordertype = false;
 
@@ -93,17 +102,35 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         adapter = new RiderOrderListAdapter(this, list, ord_open.getUID());
         orderlistrv.setAdapter(adapter);
         dbViewOrderList = new DBViewOrderList(ord_open.getUID());
-        uploadbtn = findViewById(R.id.uploadbtn);
+        uploadbtn = findViewById(R.id.btnUpload);
         receipt = findViewById(R.id.receipt);
         NextBTN = findViewById(R.id.btnNext);
         receiptholder = findViewById(R.id.receiptholder);
         orderImage = findViewById(R.id.orderimg);
-        profilePic = findViewById(R.id.profilePic);
         profileName = findViewById(R.id.profileName);
         ratingBar = findViewById(R.id.ratingBar);
-        profilePhone = findViewById(R.id.profilePhone);
         profileView = findViewById(R.id.profileView);
         chatvh = findViewById(R.id.chatbtn);
+        orderlabel = findViewById(R.id.orderlabel);
+
+        //Toolbar
+        TextView toolMain = findViewById(R.id.toolbarmain);
+        TextView toolSub = findViewById(R.id.toolbarsub);
+        toolMain.setText("");
+        toolSub.setText("");
+
+        //Status bar
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.finalDarkGreen));
+
+        //Nav Bar
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setNavigationBarColor(getResources().getColor(R.color.finalBackground));
+            View view = getWindow().getDecorView();
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+        }
 
         //View profile
         profileView.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +138,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
             public void onClick(View view) {
                 //Open rider profile
                 Toasty.info(AcceptedOrderActivityRider.this, "open rider profile", Toasty.LENGTH_SHORT).show();
+
             }
         });
 
@@ -146,37 +174,25 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         });
 
         //Set Profile
-        Picasso.get().load(ord_open.getProfilePic()).into(profilePic);
-
         ratingBar.setRating(ord_open.getRating());
 
         String name = ord_open.getFirstname().toUpperCase() + " " + ord_open.getLastname().toUpperCase();
         profileName.setText(name);
 
-        DatabaseReference profileRef = FirebaseDatabase.getInstance().getReference("Users").child(ord_open.getUID());
-        profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                profilePhone.setText(snapshot.child("mobile").getValue().toString());
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         //View profile
         profileView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(AcceptedOrderActivityRider.this, DialogViewProfile.class);
+                intent.putExtra("details", ord_open.getUID());
+                startActivity(intent);
             }
         });
-
 
         //Check Order Type
         if (ord_open.getOrdertype().equals("false")){
             orderlistrv.setVisibility(View.VISIBLE);
+            orderlabel.setVisibility(View.VISIBLE);
             ordertype = false;
         }else{
             ordertype = true;
@@ -193,7 +209,6 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
                 }
             });
         }
-
 
         NextBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -384,4 +399,5 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         // Do your stuff here
         super.onStop();
     }
+
 }

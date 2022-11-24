@@ -1,7 +1,7 @@
 package com.example.mrerrandv2;
 
 public class ReadWriteUserDetails {
-    public String firstname,lastname ,email, mobilenum, type;
+    public String firstname,lastname ,email, mobile, type;
     public int totalstars, totalrates;
 
     //Constructor
@@ -11,7 +11,7 @@ public class ReadWriteUserDetails {
         this.firstname = textFirstName;
         this.lastname = textLastName;
         this.email = textEmail;
-        this.mobilenum = textNum;
+        this.mobile = textNum;
         this.type = textType;
         this.totalstars = totalstars;
         this.totalrates = totalrates;

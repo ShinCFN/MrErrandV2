@@ -4,7 +4,7 @@ public class UpdateProfile {
 
     String firstname;
     String lastname;
-    String mobilenum;
+    String mobile;
     String street;
     String city;
     String province;
@@ -12,10 +12,10 @@ public class UpdateProfile {
 
     public UpdateProfile(){}
 
-    public UpdateProfile(String firstname, String lastname, String mobilenum, String street, String city, String province, String zip) {
+    public UpdateProfile(String firstname, String lastname, String mobile, String street, String city, String province, String zip) {
         this.firstname = firstname;
         this.lastname = lastname;
-        this.mobilenum = mobilenum;
+        this.mobile = mobile;
         this.street = street;
         this.city = city;
         this.province = province;
@@ -39,12 +39,12 @@ public class UpdateProfile {
         this.lastname = lastname;
     }
 
-    public String getMobilenum() {
-        return mobilenum;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setMobilenum(String mobilenum) {
-        this.mobilenum = mobilenum;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getStreet() {
