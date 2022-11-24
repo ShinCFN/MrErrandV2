@@ -83,6 +83,15 @@ public class OrderActivity extends AppCompatActivity {
             "SM",
             "Robinsons",
             "Shell Select",
+            "All Day Supermarket",
+            "Unimart",
+            "City Supermarket",
+            "Gaisano",
+            "Iloilo Supermart",
+            "Injap Supermart",
+            "Puregold",
+            "Robinsons",
+            "Unitop Supermarket",
             "Custom"
     };
 
