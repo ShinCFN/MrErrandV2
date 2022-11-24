@@ -50,6 +50,10 @@ public class RiderProfileFragment extends Fragment {
 
     private Boolean pfpOk, licpOk, drvlOk, orcrOk;
 
+    DatabaseReference databaseReference;
+
+    ValueEventListener updateListener;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,12 +79,11 @@ public class RiderProfileFragment extends Fragment {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalBackground));
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Riders").child(auth.getCurrentUser().getUid());
+        databaseReference = FirebaseDatabase.getInstance().getReference("Riders").child(auth.getCurrentUser().getUid());
 
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        updateListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 if (!RiderProfileFragment.this.isVisible()) {
                     return;
                 }
@@ -234,7 +237,7 @@ public class RiderProfileFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        };
 
         //Edit Profile
         ConstraintLayout editProfile = v.findViewById(R.id.profileEdit);
@@ -271,5 +274,13 @@ public class RiderProfileFragment extends Fragment {
                 .setBlurAutoUpdate(true)
                 .setBlurRadius(10f)
         ;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        databaseReference.addListenerForSingleValueEvent(updateListener);
+
     }
 }

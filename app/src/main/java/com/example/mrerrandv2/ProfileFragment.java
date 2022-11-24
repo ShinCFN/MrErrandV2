@@ -33,6 +33,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.protobuf.Value;
 import com.squareup.picasso.Picasso;
 
 import eightbitlab.com.blurview.BlurView;
@@ -52,6 +53,10 @@ public class ProfileFragment extends Fragment {
 
     private progressBar progressBar;
 
+    DatabaseReference databaseReference;
+
+    ValueEventListener updateListener;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,26 +72,26 @@ public class ProfileFragment extends Fragment {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalBackground));
 
+        //Find Holders
+        editName = v.findViewById(R.id.profileFull);
+        editMobile = v.findViewById(R.id.profileNumber);
+        editStreet = v.findViewById(R.id.profileStreet);
+        editCity = v.findViewById(R.id.profileCity);
+        editProvince = v.findViewById(R.id.profileProvince);
+        editZip = v.findViewById(R.id.profileZip);
+        editEmail = v.findViewById(R.id.profileEmail);
+        profilepic = v.findViewById(R.id.profilePic);
+        blurbg = v.findViewById(R.id.blurbg);
+        blurview = v.findViewById(R.id.blurView);
+
+//        blurBackground();
+
         //Get data
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
+
+        updateListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                //Find Holders
-                editName = v.findViewById(R.id.profileFull);
-                editMobile = v.findViewById(R.id.profileNumber);
-                editStreet = v.findViewById(R.id.profileStreet);
-                editCity = v.findViewById(R.id.profileCity);
-                editProvince = v.findViewById(R.id.profileProvince);
-                editZip = v.findViewById(R.id.profileZip);
-                editEmail = v.findViewById(R.id.profileEmail);
-                profilepic = v.findViewById(R.id.profilePic);
-                blurbg = v.findViewById(R.id.blurbg);
-                blurview = v.findViewById(R.id.blurView);
-
-//                blurBackground();
-
                 //Get Information
                 String firstname = snapshot.child("firstname").getValue().toString();
                 String lastname = snapshot.child("lastname").getValue().toString();
@@ -126,54 +131,43 @@ public class ProfileFragment extends Fragment {
                     editZip.setText("--");
                 }
 
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(getActivity() == null){
+                    return;
+                }
 
-                        if(getActivity() == null){
-                            return;
+                if (snapshot.child("profileImage").exists()) {
+                    String image = snapshot.child("profileImage").getValue().toString();
+
+                    progressBar.show();
+
+                    Glide.with(ProfileFragment.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            progressBar.dismiss();
+                            return false;
                         }
 
-                        if (snapshot.child("profileImage").exists()) {
-                            String image = snapshot.child("profileImage").getValue().toString();
-
-                            progressBar.show();
-
-                            Glide.with(ProfileFragment.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
-                                @Override
-                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                    progressBar.dismiss();
-                                    return false;
-                                }
-
-                                @Override
-                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                    progressBar.dismiss();
-                                    return false;
-                                }
-                            }).into(profilepic);
-
-                            Glide.with(ProfileFragment.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
-                                @Override
-                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                    progressBar.dismiss();
-                                    return false;
-                                }
-
-                                @Override
-                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                    progressBar.dismiss();
-                                    return false;
-                                }
-                            }).into(blurbg);
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            progressBar.dismiss();
+                            return false;
                         }
-                    }
+                    }).into(profilepic);
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                    Glide.with(ProfileFragment.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            progressBar.dismiss();
+                            return false;
+                        }
 
-                    }
-                });
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            progressBar.dismiss();
+                            return false;
+                        }
+                    }).into(blurbg);
+                }
 
 
                 //Edit Profile
@@ -187,15 +181,13 @@ public class ProfileFragment extends Fragment {
                         getActivity();
                     }
                 });
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
-
+        };
 
         return v;
     }
@@ -212,4 +204,11 @@ public class ProfileFragment extends Fragment {
                 .setBlurRadius(10f)
         ;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        databaseReference.addListenerForSingleValueEvent(updateListener);
+    }
+
 }

@@ -146,18 +146,20 @@ public class RiderHomeFragment extends Fragment {
                     if(snapshot.exists()){
 
                         if(childSnapshot.child("status").getValue().equals("inDelivery")){
-                            Log.e("te", ord.getFirstname());
                             Intent intent = new Intent(getActivity(), DeliveryActivityRider.class);
                             intent.putExtra("RKEY", childSnapshot.child("rider").getValue().toString());
                             intent.putExtra("ORDER", ord);
                             startActivity(intent);
-                        }else{
-                            Log.e("te", ord.getFirstname());
+                        }else if(childSnapshot.child("status").getValue().equals("complete")) {
+
+                        }else {
                             Intent intent = new Intent(getActivity(), AcceptedOrderActivityRider.class);
                             intent.putExtra("RKEY", childSnapshot.child("rider").getValue().toString());
                             intent.putExtra("ORDER", ord);
                             startActivity(intent);
                         }
+
+
                     }
                 }
             }

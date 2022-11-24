@@ -3,6 +3,7 @@ package com.example.mrerrandv2;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,20 +137,6 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
             }
         });
 
-        //Set fee
-        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("ORDKEY"));
-        orderRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                deliveryFee.setText("₱ " + snapshot.child("price").getValue());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         //Recycler View
         String UID = getIntent().getStringExtra("uid");
         dbViewOrderList = new DBViewOrderList(UID);
@@ -222,7 +209,6 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             if (snapshot.child("status").getValue().toString().equals("inDelivery")) {
-                                orderdesc.setVisibility(View.GONE);
                                 receiptholder.setVisibility(View.VISIBLE);
                                 Picasso.get().load(snapshot.child("receipt").getValue().toString()).into(receipt);
 
@@ -289,6 +275,20 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
             });
         }
 
+        //Set fee
+        DatabaseReference priceRef = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("ORDKEY"));
+        priceRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                deliveryFee.setText("₱ " + snapshot.child("price").getValue());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override
@@ -302,5 +302,11 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
         // Do your stuff here
         super.onStop();
         adapter.stopListening();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.startListening();
     }
 }
