@@ -24,21 +24,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-public class DialogViewProfile extends AppCompatActivity {
+public class PopupViewProfileRider extends AppCompatActivity {
 
-    TextView profileName, profileNumber, profileAdd;
+    TextView profileName, profileNumber, profilePlate;
     ImageView profilePic;
 
-    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
+    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Riders");
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.popup_view_profile);
+        setContentView(R.layout.popup_view_profile_rider);
 
         profileName = findViewById(R.id.profileName);
         profileNumber = findViewById(R.id.profileNumber);
-        profileAdd = findViewById(R.id.profileAdd);
+        profilePlate = findViewById(R.id.profilePlate);
         profilePic = findViewById(R.id.profilePic);
 
         String UserID = getIntent().getStringExtra("details");
@@ -50,8 +50,8 @@ public class DialogViewProfile extends AppCompatActivity {
                 profileName.setText(name);
                 profileNumber.setText(snapshot.child("mobile").getValue().toString());
 
-                String addressFull = snapshot.child("street").getValue() + ", " + snapshot.child("province").getValue() + ", " + snapshot.child("city").getValue();
-                profileAdd.setText(addressFull);
+                String platenum = snapshot.child("plate").getValue().toString();
+                profilePlate.setText(platenum);
 
                 Picasso.get().load(snapshot.child("profileImage").getValue().toString()).into(profilePic);
             }

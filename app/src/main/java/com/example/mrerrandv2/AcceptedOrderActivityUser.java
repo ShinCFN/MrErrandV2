@@ -1,11 +1,13 @@
 package com.example.mrerrandv2;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -26,19 +30,19 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import es.dmoral.toasty.Toasty;
 
 public class AcceptedOrderActivityUser extends AppCompatActivity {
 
-    CircleImageView profilePic;
-    TextView profileName, profilePhone, profileView;
+    ConstraintLayout profileView, orderdesc;
+    TextView profileName;
     RatingBar ratingBar;
     ImageView orderImage, receipt;
     RecyclerView orderlistrv;
     FirebaseRecyclerAdapter adapter;
     DBViewOrderList dbViewOrderList;
-    LinearLayout receiptholder, orderdesc;
+    LinearLayout receiptholder;
     CircleImageView chatvh;
+    ImageView toolbarback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,24 +50,46 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
         setContentView(R.layout.activity_accepted_order_user);
 
         orderImage = findViewById(R.id.orderimg);
-        profilePic = findViewById(R.id.profilePic);
         profileName = findViewById(R.id.profileName);
         ratingBar = findViewById(R.id.ratingBar);
-        profilePhone = findViewById(R.id.profilePhone);
         profileView = findViewById(R.id.profileView);
         orderlistrv = findViewById(R.id.userorderlistrv);
-        orderdesc = findViewById(R.id.orderdesc);
+        orderdesc = findViewById(R.id.orderlabel);
         receiptholder = findViewById(R.id.receiptholder);
         receipt = findViewById(R.id.receipt);
         chatvh = findViewById(R.id.chat);
+        toolbarback = findViewById(R.id.toolbarback);
+
+        //Toolbar
+        TextView toolMain = findViewById(R.id.toolbarmain);
+        TextView toolSub = findViewById(R.id.toolbarsub);
+        toolMain.setText("");
+        toolSub.setText("");
+        toolbarback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        //Status bar
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.finalDarkGreen));
+
+        //Nav Bar
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setNavigationBarColor(getResources().getColor(R.color.finalBackground));
+            View view = getWindow().getDecorView();
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+        }
 
         //Set Profile
         DatabaseReference riderReference = FirebaseDatabase.getInstance().getReference("Riders").child(getIntent().getStringExtra("RIDERKEY"));
         riderReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Picasso.get().load(snapshot.child("profileImage").getValue().toString()).into(profilePic);
-                profilePhone.setText(snapshot.child("mobile").getValue().toString());
 
                 if (snapshot.child("totalstars").exists() && snapshot.child("totalrates").exists()) {
                     String stars = snapshot.child("totalstars").getValue().toString();
@@ -91,8 +117,9 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
         profileView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Open rider profile
-                Toasty.info(AcceptedOrderActivityUser.this, "open rider profile", Toasty.LENGTH_SHORT).show();
+                Intent intent = new Intent(AcceptedOrderActivityUser.this, PopupViewProfileRider.class);
+                intent.putExtra("details", getIntent().getStringExtra("RIDERKEY"));
+                startActivity(intent);
             }
         });
 
@@ -134,15 +161,15 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
                 vh.item.setText(list.getItem());
                 vh.qty.setText(list.getQty());
 
+                vh.check.setEnabled(false);
                 if (list.getState().equals("true")) {
-                    vh.check.setVisibility(View.VISIBLE);
-                    vh.xmark.setVisibility(View.GONE);
+                    vh.check.setButtonDrawable(R.drawable.custom_checkbox_green);
+                    vh.check.setChecked(true);
                 } else if (list.getState().equals("false")) {
-                    vh.check.setVisibility(View.GONE);
-                    vh.xmark.setVisibility(View.GONE);
+                    vh.check.setChecked(false);
                 } else if (list.getState().equals("none")) {
-                    vh.xmark.setVisibility(View.VISIBLE);
-                    vh.check.setVisibility(View.GONE);
+                    vh.check.setButtonDrawable(R.drawable.custom_checkbox_red);
+                    vh.check.setChecked(true);
                 }
             }
 

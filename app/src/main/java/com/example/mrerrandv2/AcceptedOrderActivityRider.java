@@ -1,21 +1,16 @@
 package com.example.mrerrandv2;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListPopupWindow;
-import android.widget.PopupWindow;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -132,16 +127,6 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
             view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         }
 
-        //View profile
-        profileView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Open rider profile
-                Toasty.info(AcceptedOrderActivityRider.this, "open rider profile", Toasty.LENGTH_SHORT).show();
-
-            }
-        });
-
         //Open chat
         chatvh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,7 +171,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         profileView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AcceptedOrderActivityRider.this, DialogViewProfile.class);
+                Intent intent = new Intent(AcceptedOrderActivityRider.this, PopupViewProfile.class);
                 intent.putExtra("details", ord_open.getUID());
                 startActivity(intent);
             }

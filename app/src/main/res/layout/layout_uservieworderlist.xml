@@ -1,89 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="10dp"
     app:cardElevation="0dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/finalBackground"
         android:orientation="horizontal">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
+        <TextView
+            android:id="@+id/item"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:fontFamily="@font/questrial"
+            android:gravity="left|center"
+            android:hint="e.g. Pancit Canton"
+            android:maxLines="1"
+            android:textColor="@color/finalDarkGray"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/qty"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:visibility="gone"
-                android:id="@+id/checkmark"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/check"
-                android:backgroundTint="@color/finalLightGreen"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/qty"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_gravity="right"
+            android:fontFamily="@font/questrial"
+            android:gravity="left|center"
+            android:hint="1 pack"
+            android:maxLines="1"
+            android:paddingHorizontal="15dp"
+            android:textColor="@color/finalDarkGray"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textPrice"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:visibility="visible"
-                android:id="@+id/xmark"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/remove"
-                android:backgroundTint="@color/btnLogin"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_marginRight="10dp"
+            android:id="@+id/textPrice"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_gravity="right"
+            android:fontFamily="@font/questrial"
+            android:gravity="left|center"
+            android:hint="price"
+            android:maxLines="1"
+            android:paddingHorizontal="15dp"
+            android:textColor="@color/finalDarkGray"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ordercomp"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:id="@+id/item"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/box_grey_input"
-                android:fontFamily="@font/asap_regular"
-                android:gravity="left|center"
-                android:hint="e.g. Pancit Canton"
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/qty"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/ordercomp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:button="@drawable/custom_checkbox_green"
+            android:scaleX="0.4"
+            android:scaleY="0.4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/qty"
-                android:layout_width="80dp"
-                android:layout_height="45dp"
-                android:layout_gravity="right"
-                android:background="@drawable/box_grey_input"
-                android:fontFamily="@font/asap_regular"
-                android:gravity="left|center"
-                android:hint="1 pack"
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
