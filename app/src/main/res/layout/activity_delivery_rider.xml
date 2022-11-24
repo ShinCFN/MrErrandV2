@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/include5"
-        layout="@layout/globaltoolbargreen"
+        layout="@layout/globaltoolbarsecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="50dp"
-                android:background="@color/finalDarkGreen"
+                android:background="@color/finalBrown"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
