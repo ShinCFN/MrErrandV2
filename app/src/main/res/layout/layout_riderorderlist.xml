@@ -56,7 +56,6 @@
             android:gravity="center"
             android:hint="₱"
             android:inputType="number"
-            android:maxLength="5"
             android:maxLines="1"
             android:paddingHorizontal="5dp"
             android:textColor="@color/finalDarkGray"

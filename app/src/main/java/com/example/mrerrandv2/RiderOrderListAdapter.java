@@ -30,8 +30,6 @@ public class RiderOrderListAdapter extends RecyclerView.Adapter<RiderOrderListAd
     String uid;
     ArrayList<OrderList> list;
 
-    String itemPrice;
-
     public RiderOrderListAdapter(Context context, ArrayList<OrderList> list, String uid) {
         this.context = context;
         this.list = list;
@@ -48,6 +46,8 @@ public class RiderOrderListAdapter extends RecyclerView.Adapter<RiderOrderListAd
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
 
+
+
         OrderList orderList = list.get(position);
         holder.item.setText(orderList.getItem());
         holder.qty.setText(orderList.getQty());
@@ -61,25 +61,6 @@ public class RiderOrderListAdapter extends RecyclerView.Adapter<RiderOrderListAd
             holder.state.setChecked(true);
         }
 
-        holder.price.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                itemPrice = holder.price.getText().toString();
-            }
-        });
-
-
-
         DatabaseReference checkboxRef = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("OrderList").child(orderList.getKey());
 
         holder.state.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -88,7 +69,7 @@ public class RiderOrderListAdapter extends RecyclerView.Adapter<RiderOrderListAd
                 if (b) {
                     new AlertDialog.Builder(holder.item.getContext())
                             .setMessage("Is this item available")
-                            .setCancelable(true)
+                            .setCancelable(false)
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -99,8 +80,8 @@ public class RiderOrderListAdapter extends RecyclerView.Adapter<RiderOrderListAd
                                         holder.state.setButtonDrawable(R.drawable.custom_checkbox_green);
                                         checkboxRef.child("state").setValue("true");
                                         holder.price.setEnabled(false);
-                                        checkboxRef.child("price").setValue(itemPrice);
-                                        holder.price.setText("₱ " + itemPrice);
+                                        checkboxRef.child("price").setValue(holder.price.getText().toString());
+                                        holder.price.setText("₱ " + holder.price.getText().toString());
                                     }
                                 }
                             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -111,15 +92,6 @@ public class RiderOrderListAdapter extends RecyclerView.Adapter<RiderOrderListAd
                                     holder.price.setEnabled(false);
                                     checkboxRef.child("price").setValue("0");
                                     holder.price.setText("₱ 0");
-                                }
-                            }).setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(DialogInterface dialogInterface) {
-                                    checkboxRef.child("state").setValue("false");
-                                    holder.price.setEnabled(true);
-                                    checkboxRef.child("price").removeValue();
-                                    holder.price.setText("");
-                                    holder.state.setChecked(false);
                                 }
                             }).show();
 
