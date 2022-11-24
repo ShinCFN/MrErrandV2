@@ -162,8 +162,8 @@ public class OrderActivity extends AppCompatActivity {
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
         TextView toolSub = findViewById(R.id.toolbarsub);
-        toolMain.setText("");
-        toolSub.setText("");
+        toolMain.setText("Item list");
+        toolSub.setText("Choose your products and store");
 
         toolbarback.setOnClickListener(new View.OnClickListener() {
             @Override

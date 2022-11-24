@@ -171,6 +171,16 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
                     vh.check.setButtonDrawable(R.drawable.custom_checkbox_red);
                     vh.check.setChecked(true);
                 }
+
+                if (list.getPrice() == (null)) {
+                    vh.price.setText("-");
+                } else if (list.getPrice().equals(0)) {
+                    vh.price.setText("N/A");
+                } else {
+                    vh.price.setText("₱ " + list.getPrice());
+
+                }
+
             }
 
             @NonNull
@@ -183,53 +193,67 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
             @Override
             public void onDataChanged() {
             }
-        };
+        }
+
+        ;
 
         orderlistrv.setAdapter(adapter);
         adapter.startListening();
 
         DatabaseReference statusRef = FirebaseDatabase.getInstance().getReference("Order");
 
-        statusRef.child(getIntent().getStringExtra("ORDKEY")).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    if (snapshot.child("status").getValue().toString().equals("inDelivery")) {
-                        orderdesc.setVisibility(View.GONE);
-                        receiptholder.setVisibility(View.VISIBLE);
-                        Picasso.get().load(snapshot.child("receipt").getValue().toString()).into(receipt);
+        statusRef.child(
 
-                        receipt.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent viewIMG = new Intent(AcceptedOrderActivityUser.this, ViewImageActivity.class);
-                                viewIMG.putExtra("image", snapshot.child("receipt").getValue().toString());
-                                startActivity(viewIMG);
+                        getIntent().
+
+                                getStringExtra("ORDKEY")).
+
+                addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            if (snapshot.child("status").getValue().toString().equals("inDelivery")) {
+                                orderdesc.setVisibility(View.GONE);
+                                receiptholder.setVisibility(View.VISIBLE);
+                                Picasso.get().load(snapshot.child("receipt").getValue().toString()).into(receipt);
+
+                                receipt.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent viewIMG = new Intent(AcceptedOrderActivityUser.this, ViewImageActivity.class);
+                                        viewIMG.putExtra("image", snapshot.child("receipt").getValue().toString());
+                                        startActivity(viewIMG);
+                                    }
+                                });
                             }
-                        });
+                        }
+
+                        if (snapshot.exists()) {
+                            if (snapshot.child("status").getValue().toString().equals("complete")) {
+                                Intent intent = new Intent(AcceptedOrderActivityUser.this, RatingActivityTowardsRider.class);
+                                intent.putExtra("rider", getIntent().getStringExtra("RIDERKEY"));
+                                intent.putExtra("order", getIntent().getStringExtra("ORDKEY"));
+                                statusRef.removeEventListener(this);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
                     }
-                }
 
-                if (snapshot.exists()) {
-                    if (snapshot.child("status").getValue().toString().equals("complete")) {
-                        Intent intent = new Intent(AcceptedOrderActivityUser.this, RatingActivityTowardsRider.class);
-                        intent.putExtra("rider", getIntent().getStringExtra("RIDERKEY"));
-                        intent.putExtra("order", getIntent().getStringExtra("ORDKEY"));
-                        statusRef.removeEventListener(this);
-                        startActivity(intent);
-                        finish();
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
                     }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+                });
 
         //Check Order Type
-        if (getIntent().getStringExtra("type").equals("false")) {
+        if (
+
+                getIntent().
+
+                        getStringExtra("type").
+
+                        equals("false")) {
             orderlistrv.setVisibility(View.VISIBLE);
         } else {
             orderImage.setVisibility(View.VISIBLE);

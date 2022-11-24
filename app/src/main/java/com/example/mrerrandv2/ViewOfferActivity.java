@@ -75,8 +75,8 @@ public class ViewOfferActivity extends AppCompatActivity {
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
         TextView toolSub = findViewById(R.id.toolbarsub);
-        toolMain.setText("");
-        toolSub.setText("");
+        toolMain.setText("Delivery fee offers");
+        toolSub.setText("Click the helmet to accept an offer");
 
         String key = getIntent().getStringExtra("Key");
         dboff = new DBOffer(key);

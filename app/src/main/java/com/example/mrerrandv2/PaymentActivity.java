@@ -52,7 +52,7 @@ public class PaymentActivity extends AppCompatActivity {
     Boolean ordertype;
     ImageView orderImageView;
 
-    TextView receiptdate, receiptname, purchasenum;
+    TextView receiptdate, receiptname, purchasenum, textDesiredStore;
     ImageView toolbarback;
 
     @Override
@@ -81,6 +81,7 @@ public class PaymentActivity extends AppCompatActivity {
         textorderlayout = findViewById(R.id.textorderlayout);
         imgorderlayout = findViewById(R.id.imgorderlayout);
         orderImageView = findViewById(R.id.orderImageView);
+        textDesiredStore = findViewById(R.id.textDesiredStore);
 
         DBOrder dbord = new DBOrder();
 
@@ -164,8 +165,6 @@ public class PaymentActivity extends AppCompatActivity {
             String time = format.format(calendar.getTime());
             receiptdate.setText(time);
 
-            receiptname.setText(auth.getCurrentUser().getDisplayName());
-
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -183,6 +182,24 @@ public class PaymentActivity extends AppCompatActivity {
 
                 }
             });
+
+            DatabaseReference userDetails = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
+            userDetails.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    String username = snapshot.child("firstname").getValue() + " " + snapshot.child("lastname").getValue();
+                    receiptname.setText(username);
+                    textDesiredStore.setText("Store: " + desiredStore);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
         }
 
 

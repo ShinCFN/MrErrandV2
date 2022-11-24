@@ -6,6 +6,10 @@
     android:background="@color/finalBackground"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/include10"
+        layout="@layout/ordertoolbar" />
+
     <LinearLayout
         android:layout_marginBottom="-100dp"
         android:layout_width="match_parent"
@@ -57,10 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <include layout="@layout/ordertoolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/include10">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/offersrv"

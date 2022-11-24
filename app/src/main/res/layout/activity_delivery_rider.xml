@@ -101,19 +101,18 @@
                     android:layout_width="120dp"
                     android:layout_height="40dp"
                     android:layout_marginRight="30dp"
-                    android:layout_marginBottom="30dp"
                     android:background="@drawable/box_smooth"
                     android:backgroundTint="@android:color/transparent"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/profileName"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="@+id/profileName">
 
                     <eightbitlab.com.blurview.BlurView
                         android:id="@+id/btnbg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/box_smooth"
-                        android:backgroundTint="#26FFFFFF"
+                        android:backgroundTint="#26000000"
                         app:layout_constraintEnd_toEndOf="parent" />
 
                     <TextView
@@ -157,7 +156,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/questrial"
-                    android:text="Address"
+                    android:text="Contact Information"
                     android:textColor="@color/finalDarkGray"
                     android:textSize="24sp"
                     android:textStyle="bold"

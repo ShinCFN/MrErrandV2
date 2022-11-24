@@ -80,8 +80,8 @@ public class ViewOrderActivity extends AppCompatActivity {
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
         TextView toolSub = findViewById(R.id.toolbarsub);
-        toolMain.setText("");
-        toolSub.setText("");
+        toolMain.setText("Order list");
+        toolSub.setText("List of items request by the client");
 
         toolbarback.setOnClickListener(new View.OnClickListener() {
             @Override
