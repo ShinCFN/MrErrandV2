@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class DialogViewProfile extends AppCompatActivity {
 
@@ -48,6 +49,11 @@ public class DialogViewProfile extends AppCompatActivity {
                 String name = snapshot.child("firstname").getValue() + " " + snapshot.child("lastname").getValue();
                 profileName.setText(name);
                 profileNumber.setText(snapshot.child("mobile").getValue().toString());
+
+                String addressFull = snapshot.child("street").getValue() + ", " + snapshot.child("province").getValue() + ", " + snapshot.child("city").getValue();
+                profileAdd.setText(addressFull);
+
+                Picasso.get().load(snapshot.child("profileImage").getValue().toString()).into(profilePic);
             }
 
             @Override

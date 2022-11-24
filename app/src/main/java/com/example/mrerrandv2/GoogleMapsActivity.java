@@ -9,6 +9,8 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -34,6 +36,8 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private int LOCATION_REQUEST_CODE = 1001;
     FusedLocationProviderClient fusedLocationProviderClient;
     FirebaseAuth auth = FirebaseAuth.getInstance();
+    private LatLng targetPos;
+    LinearLayout btnSave;
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
 
@@ -44,6 +48,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
         binding = ActivityGoogleMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        btnSave = findViewById(R.id.btnSave);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -52,6 +57,17 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                databaseReference.child("coords").setValue(targetPos);
+                finish();
+            }
+        });
+
     }
 
     /**
@@ -85,13 +101,10 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             public void onCameraChange(@NonNull CameraPosition cameraPosition) {
                 LatLng centerOfMap = mMap.getCameraPosition().target;
 
-                databaseReference.child("coords").setValue(centerOfMap);
+                targetPos = centerOfMap;
 
             }
         });
-
-
-
 
     }
 

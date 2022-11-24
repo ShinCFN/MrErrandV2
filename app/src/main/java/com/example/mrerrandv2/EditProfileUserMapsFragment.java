@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -27,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 public class EditProfileUserMapsFragment extends Fragment {
 
     GoogleMap mMap;
+
+    private boolean mLocationPermissionGranted = false;
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -54,6 +57,7 @@ public class EditProfileUserMapsFragment extends Fragment {
                     //                                          int[] grantResults)
                     // to handle the case where the user grants the permission. See the documentation
                     // for ActivityCompat#requestPermissions for more details.
+
                     return;
                 }
 

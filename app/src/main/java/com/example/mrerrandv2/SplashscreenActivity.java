@@ -21,6 +21,9 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +41,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import es.dmoral.toasty.Toasty;
 
 public class SplashscreenActivity extends AppCompatActivity {
@@ -47,7 +54,11 @@ public class SplashscreenActivity extends AppCompatActivity {
     private View mainView;
     private boolean status;
     RelativeLayout nonet;
-    private boolean mLocationPermissionGranted = false;
+
+    ActivityResultLauncher<String[]> mPermissionResultLauncher;
+
+    private boolean isLocationGranted = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +78,18 @@ public class SplashscreenActivity extends AppCompatActivity {
 
         authProfile = FirebaseAuth.getInstance();
 
-        new Handler().postDelayed(new Runnable() {
+        mPermissionResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
             @Override
-            public void run() {
-                start();
+            public void onActivityResult(Map<String, Boolean> result) {
+
+                if(result.get(Manifest.permission.ACCESS_FINE_LOCATION) != null) {
+                    isLocationGranted = result.get(Manifest.permission.ACCESS_FINE_LOCATION);
+                }
+
             }
-        }, 1700);
+        });
+
+        requestLocationPerm();
 
     }
 
@@ -156,5 +173,42 @@ public class SplashscreenActivity extends AppCompatActivity {
                 }
             }, 3000);
         }
+    }
+
+    public void requestLocationPerm() {
+
+        isLocationGranted = ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED;
+
+        List<String> permissionRequest = new ArrayList<String>();
+
+        if(!isLocationGranted){
+            permissionRequest.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+
+        if(!permissionRequest.isEmpty()){
+            mPermissionResultLauncher.launch(permissionRequest.toArray(new String[0]));
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        requestLocationPerm();
+
+        if(isLocationGranted){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    start();
+                }
+            }, 1700);
+        }
+
+
     }
 }
