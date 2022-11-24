@@ -275,20 +275,6 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
             });
         }
 
-        //Set fee
-        DatabaseReference priceRef = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("ORDKEY"));
-        priceRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                deliveryFee.setText("₱ " + snapshot.child("price").getValue());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
     }
 
     @Override
@@ -308,5 +294,18 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         adapter.startListening();
+        //Set fee
+        DatabaseReference priceRef = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("ORDKEY"));
+        priceRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                deliveryFee.setText("₱ " + snapshot.child("price").getValue());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
