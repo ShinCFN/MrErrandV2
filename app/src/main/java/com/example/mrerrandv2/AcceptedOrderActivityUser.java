@@ -242,15 +242,10 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
                 });
 
         //Check Order Type
-        if (
-
-                getIntent().
-
-                        getStringExtra("type").
-
-                        equals("false")) {
+        if (getIntent().getStringExtra("type").equals("false")) {
             orderlistrv.setVisibility(View.VISIBLE);
         } else {
+            orderdesc.setVisibility(View.GONE);
             orderImage.setVisibility(View.VISIBLE);
             DatabaseReference imgOrd = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("ORDKEY"));
             imgOrd.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -268,9 +263,21 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
             orderImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent viewIMG = new Intent(AcceptedOrderActivityUser.this, ViewImageActivity.class);
-                    viewIMG.putExtra("image", getIntent().getStringExtra("orderlist"));
-                    startActivity(viewIMG);
+                    DatabaseReference listRef = FirebaseDatabase.getInstance().getReference("Order").child(getIntent().getStringExtra("ORDKEY"));
+                    listRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Intent viewIMG = new Intent(AcceptedOrderActivityUser.this, ViewImageActivity.class);
+                            viewIMG.putExtra("image", snapshot.child("orderlist").getValue().toString());
+                            startActivity(viewIMG);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 }
             });
         }
