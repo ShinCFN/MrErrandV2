@@ -82,7 +82,7 @@
                     android:textColor="@color/white"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/profileView"
+                    app:layout_constraintEnd_toStartOf="@+id/btnComplt"
                     app:layout_constraintStart_toStartOf="@+id/textView2"
                     app:layout_constraintTop_toBottomOf="@+id/textView2" />
 

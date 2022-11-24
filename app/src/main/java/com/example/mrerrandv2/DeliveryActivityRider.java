@@ -42,6 +42,8 @@ public class DeliveryActivityRider extends AppCompatActivity {
 
     Double lat, lng;
 
+    CircleImageView chatvh;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +74,19 @@ public class DeliveryActivityRider extends AppCompatActivity {
             View view = getWindow().getDecorView();
             view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         }
+
+        //Open chat
+        chatvh = findViewById(R.id.chatbtn);
+        chatvh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Open chat activity
+                Intent intent = new Intent(DeliveryActivityRider.this, OrderChatActivity.class);
+                intent.putExtra("type", "Riders");
+                intent.putExtra("ORDKEY", ord_open.getKey());
+                startActivity(intent);
+            }
+        });
 
         //Map
         Fragment fragment = new RiderDeliveryMapsFragment();
