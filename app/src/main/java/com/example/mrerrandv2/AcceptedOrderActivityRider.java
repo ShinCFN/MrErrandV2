@@ -208,31 +208,45 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.child("receipt").exists() && receiptStatus) {
-                            DatabaseReference CBCheck = FirebaseDatabase.getInstance().getReference("Users").child(ord_open.getUID()).child("OrderList");
-                            CBCheck.orderByChild("state").equalTo("false").addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists()){
-                                        Toasty.error(AcceptedOrderActivityRider.this, "Complete the order list", Toasty.LENGTH_SHORT).show();
-                                    }else{
-                                        orderRef.child("status").setValue("inDelivery").addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void unused) {
-                                                Intent intent = new Intent(AcceptedOrderActivityRider.this, DeliveryActivityRider.class);
-                                                intent.putExtra("ORDER", ord_open);
-                                                intent.putExtra("RKEY", getIntent().getStringExtra("RKEY"));
-                                                startActivity(intent);
-                                                finish();
-                                            }
-                                        });
+
+                            if(ord_open.getOrdertype().equals("true")){
+                                orderRef.child("status").setValue("inDelivery").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Intent intent = new Intent(AcceptedOrderActivityRider.this, DeliveryActivityRider.class);
+                                        intent.putExtra("ORDER", ord_open);
+                                        intent.putExtra("RKEY", getIntent().getStringExtra("RKEY"));
+                                        startActivity(intent);
+                                        finish();
                                     }
-                                }
+                                });
+                            }else{
+                                DatabaseReference CBCheck = FirebaseDatabase.getInstance().getReference("Users").child(ord_open.getUID()).child("OrderList");
+                                CBCheck.orderByChild("state").equalTo("false").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()){
+                                            Toasty.error(AcceptedOrderActivityRider.this, "Complete the order list", Toasty.LENGTH_SHORT).show();
+                                        }else{
+                                            orderRef.child("status").setValue("inDelivery").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Intent intent = new Intent(AcceptedOrderActivityRider.this, DeliveryActivityRider.class);
+                                                    intent.putExtra("ORDER", ord_open);
+                                                    intent.putExtra("RKEY", getIntent().getStringExtra("RKEY"));
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            });
+                                        }
+                                    }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                }
-                            });
+                                    }
+                                });
+                            }
                         } else {
                             Toasty.error(AcceptedOrderActivityRider.this, "Upload receipt", Toasty.LENGTH_SHORT).show();
                         }
