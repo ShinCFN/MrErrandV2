@@ -51,7 +51,7 @@ public class ViewOrderActivity extends AppCompatActivity {
     RecyclerView orderlistrv;
     DBViewOrderList dbViewOrderList;
     FirebaseRecyclerAdapter adapter;
-    ConstraintLayout wholeorderrv, wholeimgorder;
+    ConstraintLayout wholeorderrv, wholeimgorder, desiredStoreHolder;
     progressBar progressBar;
 
     @Override
@@ -71,6 +71,7 @@ public class ViewOrderActivity extends AppCompatActivity {
         toolbarback = findViewById(R.id.toolbarback);
         textidcenter = findViewById(R.id.textidcenter);
         textDesiredStore = findViewById(R.id.textDesiredStore);
+        desiredStoreHolder = findViewById(R.id.desiredStoreHolder);
 
         dbViewOrderList = new DBViewOrderList(ord_open.getUID());
         progressBar = new progressBar(ViewOrderActivity.this);
@@ -105,6 +106,7 @@ public class ViewOrderActivity extends AppCompatActivity {
                     textid.setVisibility(View.GONE);
                     textqty.setVisibility(View.GONE);
                     textidcenter.setVisibility(View.VISIBLE);
+                    desiredStoreHolder.setVisibility(View.GONE);
 
                     Glide.with(ViewOrderActivity.this).load(snapshot.child("orderlist").getValue().toString()).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
                         @Override
