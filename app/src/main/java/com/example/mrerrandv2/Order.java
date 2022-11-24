@@ -16,6 +16,7 @@ public class Order implements Serializable {
     String profilePic;
     String ordertype;
     String desiredStore;
+    String receipt;
     int rating;
 
 
@@ -38,6 +39,10 @@ public class Order implements Serializable {
         this.desiredStore = desiredStore;
     }
 
+    public String getReceipt() {
+        return receipt;
+    }
+    
     public String getFirstname() {
         return firstname;
     }

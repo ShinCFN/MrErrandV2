@@ -76,6 +76,7 @@ public class RiderOrderListAdapter extends RecyclerView.Adapter<RiderOrderListAd
                                     }else{
                                         holder.state.setButtonDrawable(R.drawable.custom_checkbox_green);
                                         checkboxRef.child("state").setValue("true");
+                                        holder.price.setEnabled(false);
                                     }
                                 }
                             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -83,11 +84,13 @@ public class RiderOrderListAdapter extends RecyclerView.Adapter<RiderOrderListAd
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     holder.state.setButtonDrawable(R.drawable.custom_checkbox_red);
                                     checkboxRef.child("state").setValue("none");
+                                    holder.price.setEnabled(false);
                                 }
                             }).show();
 
                 } else {
                     checkboxRef.child("state").setValue("false");
+                    holder.price.setEnabled(true);
                 }
             }
         });

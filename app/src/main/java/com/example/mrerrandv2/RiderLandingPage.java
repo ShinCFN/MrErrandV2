@@ -117,9 +117,11 @@ public class RiderLandingPage extends AppCompatActivity {
                     break;
                 case R.id.profile:
                     replaceFragment(new RiderProfileFragment());
+                    orderRef.removeEventListener(orderRefListener);
                     break;
                 case R.id.settings:
                     replaceFragment(new SettingsFragment());
+                    orderRef.removeEventListener(orderRefListener);
                     break;
             }
             return true;

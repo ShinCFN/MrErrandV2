@@ -173,6 +173,9 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
             }
         });
 
+        //Disable RV scrolling
+        orderlistrv.setNestedScrollingEnabled(false);
+
         //Set Profile
         ratingBar.setRating(ord_open.getRating());
 
@@ -188,6 +191,8 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
         //Check Order Type
         if (ord_open.getOrdertype().equals("false")){
