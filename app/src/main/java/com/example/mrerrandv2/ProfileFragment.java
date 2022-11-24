@@ -85,7 +85,7 @@ public class ProfileFragment extends Fragment {
                 blurbg = v.findViewById(R.id.blurbg);
                 blurview = v.findViewById(R.id.blurView);
 
-                blurBackground();
+//                blurBackground();
 
                 //Get Information
                 String firstname = snapshot.child("firstname").getValue().toString();

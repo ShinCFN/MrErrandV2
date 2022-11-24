@@ -114,7 +114,7 @@ public class RiderProfileFragment extends Fragment {
                 profPlate = v.findViewById((R.id.rplatePic));
                 profOR = v.findViewById((R.id.rorcrPic));
 
-                blurBackground();
+//                blurBackground();
 
                 //Set profile image
                 if (snapshot.child("profileImage").exists()) {
