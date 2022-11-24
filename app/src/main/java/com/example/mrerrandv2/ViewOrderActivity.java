@@ -45,7 +45,7 @@ public class ViewOrderActivity extends AppCompatActivity {
 
     EditText offerIn;
     ImageView imgorder, toolbarback;
-    TextView textqty, textid, textidcenter;
+    TextView textqty, textid, textidcenter, textDesiredStore;
     View offerbtn, textdivide;
 
     RecyclerView orderlistrv;
@@ -70,6 +70,7 @@ public class ViewOrderActivity extends AppCompatActivity {
         textqty = findViewById(R.id.textqty);
         toolbarback = findViewById(R.id.toolbarback);
         textidcenter = findViewById(R.id.textidcenter);
+        textDesiredStore = findViewById(R.id.textDesiredStore);
 
         dbViewOrderList = new DBViewOrderList(ord_open.getUID());
         progressBar = new progressBar(ViewOrderActivity.this);
@@ -97,6 +98,10 @@ public class ViewOrderActivity extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                //Set desired store
+                textDesiredStore.setText(snapshot.child("desiredStore").getValue().toString());
+
                 if (snapshot.child("ordertype").getValue().toString().equals("true")) {
                     wholeimgorder.setVisibility(View.VISIBLE);
                     textdivide.setVisibility(View.GONE);

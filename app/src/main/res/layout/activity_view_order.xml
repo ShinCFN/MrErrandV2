@@ -7,10 +7,10 @@
     tools:context=".ViewOrderActivity">
 
     <ImageView
-        android:layout_marginTop="-120dp"
-        android:layout_marginRight="-450dp"
         android:layout_width="700dp"
         android:layout_height="700dp"
+        android:layout_marginTop="-120dp"
+        android:layout_marginRight="-450dp"
         android:background="@drawable/test1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollview21" />
@@ -27,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <include layout="@layout/globaltoolbar" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,7 +62,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/textidcenter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,6 +70,7 @@
                     android:textColor="@color/finalDarkGray"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -94,14 +95,14 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/wholeorderrv"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/ordermid"
                 android:paddingHorizontal="2dp"
-                android:paddingTop="2dp">
+                android:paddingTop="2dp"
+                android:visibility="gone">
 
                 <View
                     android:layout_width="0dp"
@@ -134,7 +135,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:visibility="gone"
                 android:id="@+id/wholeimgorder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -142,7 +142,8 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/ordermid"
                 android:paddingHorizontal="2dp"
-                android:paddingTop="2dp">
+                android:paddingTop="2dp"
+                android:visibility="gone">
 
 
                 <View
@@ -167,6 +168,47 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ordermid">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="2dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/finalyellow"
+                    android:fontFamily="@font/questrial"
+                    android:gravity="left|center"
+                    android:text="Store: "
+                    android:textColor="@color/finalDarkGray"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textDesiredStore"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="2dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/finalyellow"
+                    android:fontFamily="@font/questrial"
+                    android:gravity="left|center"
+                    android:textColor="@color/finalDarkGray"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView4"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -228,7 +270,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

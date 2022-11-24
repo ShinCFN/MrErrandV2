@@ -105,9 +105,6 @@ public class HomeFragment extends Fragment {
         transactionrv.setLayoutManager(layoutManager);
         dbTransaction = new DBTransaction(auth.getCurrentUser().getUid());
 
-//        SaveTransaction testsav = new SaveTransaction("test","test","test","test","test",5);
-//        dbTransaction.add(testsav);
-
         FirebaseRecyclerOptions<SaveTransaction> option =
                 new FirebaseRecyclerOptions.Builder<SaveTransaction>()
                         .setQuery(dbTransaction.getFive(), new SnapshotParser<SaveTransaction>() {
@@ -123,6 +120,7 @@ public class HomeFragment extends Fragment {
         adapter = new FirebaseRecyclerAdapter(option) {
             @Override
             protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
+
                 TransactionVH vh = (TransactionVH) viewHolder;
                 SaveTransaction saveTransaction = (SaveTransaction) o;
 
@@ -271,7 +269,6 @@ public class HomeFragment extends Fragment {
                     activeorder.setVisibility(View.GONE);
                     return;
                 } else {
-                    Log.e("TESTING", snapshot.getValue().toString());
                     //Has an active order
                     status = true;
 
