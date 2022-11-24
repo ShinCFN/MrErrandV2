@@ -8,6 +8,7 @@
     android:layout_marginVertical="1dp">
 
     <LinearLayout
+        android:background="@color/finalBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">

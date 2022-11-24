@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -64,6 +65,12 @@ public class RiderHomeFragment extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getContext()));
         dbord = new DBOrder();
+
+        //Toolbar
+        TextView toolMain = v.findViewById(R.id.toolbarmain);
+        TextView toolSub = v.findViewById(R.id.toolbarsub);
+        toolMain.setText("Rider home page");
+        toolSub.setText("List of active orders");
 
         FirebaseRecyclerOptions<Order> option =
                 new FirebaseRecyclerOptions.Builder<Order>()

@@ -29,7 +29,7 @@ public class UsersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_users, container, false);
+        View v = inflater.inflate(R.layout.fragment_admin_users, container, false);
 
         //Recycler View
 
