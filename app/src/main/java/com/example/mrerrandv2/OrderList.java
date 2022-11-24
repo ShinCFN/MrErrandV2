@@ -9,7 +9,7 @@ public class OrderList implements Serializable {
     @Exclude
     private String key;
 
-    private String item,qty,state;
+    String item,qty,state, price;
 
     public OrderList() {
 
@@ -53,5 +53,13 @@ public class OrderList implements Serializable {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

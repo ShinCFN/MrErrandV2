@@ -3,6 +3,8 @@ package com.example.mrerrandv2;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,8 @@ public class RiderOrderListAdapter extends RecyclerView.Adapter<RiderOrderListAd
     Context context;
     String uid;
     ArrayList<OrderList> list;
+
+    String itemPrice;
 
     public RiderOrderListAdapter(Context context, ArrayList<OrderList> list, String uid) {
         this.context = context;
@@ -57,6 +61,24 @@ public class RiderOrderListAdapter extends RecyclerView.Adapter<RiderOrderListAd
             holder.state.setChecked(true);
         }
 
+        holder.price.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                itemPrice = holder.price.getText().toString();
+            }
+        });
+
+
 
         DatabaseReference checkboxRef = FirebaseDatabase.getInstance().getReference("Users").child(uid).child("OrderList").child(orderList.getKey());
 
@@ -77,6 +99,8 @@ public class RiderOrderListAdapter extends RecyclerView.Adapter<RiderOrderListAd
                                         holder.state.setButtonDrawable(R.drawable.custom_checkbox_green);
                                         checkboxRef.child("state").setValue("true");
                                         holder.price.setEnabled(false);
+                                        checkboxRef.child("price").setValue(itemPrice);
+                                        holder.price.setText("₱ " + itemPrice);
                                     }
                                 }
                             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -85,12 +109,26 @@ public class RiderOrderListAdapter extends RecyclerView.Adapter<RiderOrderListAd
                                     holder.state.setButtonDrawable(R.drawable.custom_checkbox_red);
                                     checkboxRef.child("state").setValue("none");
                                     holder.price.setEnabled(false);
+                                    checkboxRef.child("price").setValue("0");
+                                    holder.price.setText("₱ 0");
+                                }
+                            }).setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialogInterface) {
+                                    checkboxRef.child("state").setValue("false");
+                                    holder.price.setEnabled(true);
+                                    checkboxRef.child("price").removeValue();
+                                    holder.price.setText("");
+                                    holder.state.setChecked(false);
                                 }
                             }).show();
 
                 } else {
+                    holder.price.setText("");
                     checkboxRef.child("state").setValue("false");
                     holder.price.setEnabled(true);
+                    checkboxRef.child("price").removeValue();
+                    holder.state.setChecked(false);
                 }
             }
         });
