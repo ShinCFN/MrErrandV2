@@ -74,6 +74,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
     CircleImageView chatvh;
     RatingBar ratingBar;
     Boolean ordertype = false;
+    DatabaseReference orderRef;
 
 
     @Override
@@ -86,7 +87,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
 
         dbViewOrderList = new DBViewOrderList(ord_open.getUID());
 
-        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
+        orderRef = FirebaseDatabase.getInstance().getReference("Order").child(ord_open.getKey());
 
         orderlistrv = findViewById(R.id.riderorderlistrv);
         orderlistrv.setHasFixedSize(true);
@@ -175,19 +176,6 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
                 Intent intent = new Intent(AcceptedOrderActivityRider.this, PopupViewProfile.class);
                 intent.putExtra("details", ord_open.getUID());
                 startActivity(intent);
-            }
-        });
-
-        //Set fee
-        orderRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                deliveryFee.setText("₱ " + snapshot.child("price").getValue());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
@@ -402,4 +390,20 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         super.onStop();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Set fee
+        orderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                deliveryFee.setText("₱ " + snapshot.child("price").getValue());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }

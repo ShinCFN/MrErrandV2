@@ -52,6 +52,9 @@ public class PaymentActivity extends AppCompatActivity {
     Boolean ordertype;
     ImageView orderImageView;
 
+    TextView toolMain;
+    TextView toolSub;
+
     TextView receiptdate, receiptname, purchasenum, textDesiredStore;
     ImageView toolbarback;
 
@@ -97,6 +100,17 @@ public class PaymentActivity extends AppCompatActivity {
         //Prog bar
         progressBar.show();
 
+        //Toolbar
+        toolMain = findViewById(R.id.toolbarmain);
+        toolSub = findViewById(R.id.toolbarsub);
+
+        toolbarback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
         if(ordertype){
             imgorderlayout.setVisibility(View.VISIBLE);
             String img = getIntent().getExtras().getString("imgorder");
@@ -116,16 +130,17 @@ public class PaymentActivity extends AppCompatActivity {
                 }
             }).into(orderImageView);
 
+            toolMain.setText("Image order");
+            toolSub.setText("");
+
         } else {
+
+            toolMain.setText("Order list");
+            toolSub.setText("");
+
             textorderlayout.setVisibility(View.VISIBLE);
             progressBar.dismiss();
         }
-
-        //Toolbar
-        TextView toolMain = findViewById(R.id.toolbarmain);
-        TextView toolSub = findViewById(R.id.toolbarsub);
-        toolMain.setText("");
-        toolSub.setText("");
 
         String textFirstName = firebaseUser.getDisplayName();
 

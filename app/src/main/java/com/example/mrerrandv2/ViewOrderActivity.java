@@ -99,9 +99,6 @@ public class ViewOrderActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                //Set desired store
-                textDesiredStore.setText(snapshot.child("desiredStore").getValue().toString());
-
                 if (snapshot.child("ordertype").getValue().toString().equals("true")) {
                     wholeimgorder.setVisibility(View.VISIBLE);
                     textdivide.setVisibility(View.GONE);
@@ -133,6 +130,8 @@ public class ViewOrderActivity extends AppCompatActivity {
                         }
                     });
                 } else {
+                    //Set desired store
+                    textDesiredStore.setText(snapshot.child("desiredStore").getValue().toString());
                     wholeorderrv.setVisibility(View.VISIBLE);
                     progressBar.dismiss();
 
