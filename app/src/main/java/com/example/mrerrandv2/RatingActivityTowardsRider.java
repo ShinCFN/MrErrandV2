@@ -1,5 +1,7 @@
 package com.example.mrerrandv2;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RatingBar;
@@ -7,7 +9,9 @@ import android.widget.RatingBar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +31,7 @@ public class RatingActivityTowardsRider extends AppCompatActivity {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     RatingBar ratingBar;
 
-    DatabaseReference transacRef;
+    DatabaseReference transacRef, orderRef;
 
     String receiptimg;
 
@@ -40,9 +44,12 @@ public class RatingActivityTowardsRider extends AppCompatActivity {
         setContentView(R.layout.activity_ratingtorider);
 
         String riderkey = getIntent().getStringExtra("rider");
+        String orderKey = getIntent().getStringExtra("order");
+
         ratingBar = findViewById(R.id.rating);
 
         transacRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid()).child("Transactions");
+        orderRef = FirebaseDatabase.getInstance().getReference("Order").child(orderKey);
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -118,7 +125,7 @@ public class RatingActivityTowardsRider extends AppCompatActivity {
 
                                                     //If using text order
                                                     if (snapshot.child("ordertype").getValue().toString().equals("false")) {
-                                                        transaction = new SaveTransaction("none", "false", currentDate, simpleDate, ts, currentTime, snapshot.child("rider").getValue().toString(), myRating, receiptimg);
+                                                        transaction = new SaveTransaction("none", "false", currentDate, simpleDate, ts, currentTime, snapshot.child("rider").getValue().toString(), myRating, receiptimg, auth.getCurrentUser().getUid());
                                                         String transacKey = transacRef.push().getKey();
                                                         transacRef.child(transacKey).setValue(transaction).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                             @Override
@@ -129,6 +136,30 @@ public class RatingActivityTowardsRider extends AppCompatActivity {
                                                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                                         transacRef.child(transacKey).child("OrderList").setValue(snapshot.getValue());
                                                                             transacRef.child(transacKey).child("receipt").setValue(receiptimg);
+                                                                            //Save Chat
+                                                                        orderRef.child("Chat").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                transacRef.child(transacKey).child("Chat").setValue(snapshot.getValue()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                    @Override
+                                                                                    public void onSuccess(Void unused) {
+
+                                                                                        //Delete order
+                                                                                        databaseReference.child(getIntent().getStringExtra("order")).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                            @Override
+                                                                                            public void onSuccess(Void unused) {
+                                                                                                finish();
+                                                                                            }
+                                                                                        });
+                                                                                    }
+                                                                                });
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                            }
+                                                                        });
                                                                     }
 
                                                                     @Override
@@ -142,23 +173,39 @@ public class RatingActivityTowardsRider extends AppCompatActivity {
                                                         // If using IMG order
                                                     } else {
 
-                                                        transaction = new SaveTransaction(snapshot.child("orderlist").getValue().toString(), "true", currentDate, simpleDate, ts, currentTime, snapshot.child("rider").getValue().toString(), myRating, receiptimg);
+                                                        transaction = new SaveTransaction(snapshot.child("orderlist").getValue().toString(), "true", currentDate, simpleDate, ts, currentTime, snapshot.child("rider").getValue().toString(), myRating, receiptimg, auth.getCurrentUser().getUid());
                                                         String transacKey = transacRef.push().getKey();
                                                         transacRef.child(transacKey).setValue(transaction);
+                                                        //Save Chat
+                                                        orderRef.child("Chat").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                transacRef.child(transacKey).child("Chat").setValue(snapshot.getValue()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void unused) {
+
+                                                                        //Delete order
+                                                                        databaseReference.child(getIntent().getStringExtra("order")).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            @Override
+                                                                            public void onSuccess(Void unused) {
+                                                                                finish();
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                });
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                            }
+                                                        });
                                                     }
                                                 }
 
                                                 @Override
                                                 public void onCancelled(@NonNull DatabaseError error) {
 
-                                                }
-                                            });
-
-                                            //Delete order
-                                            databaseReference.child(getIntent().getStringExtra("order")).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    finish();
                                                 }
                                             });
                                         }
@@ -206,4 +253,5 @@ public class RatingActivityTowardsRider extends AppCompatActivity {
     public void onBackPressed() {
         finish();
     }
+
 }

@@ -2,6 +2,7 @@ package com.example.mrerrandv2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +14,10 @@ public class ViewTransaction extends AppCompatActivity {
 
     ImageView receipt, toolbarback;
 
+    TextView viewConvo;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +25,7 @@ public class ViewTransaction extends AppCompatActivity {
 
         receipt = findViewById(R.id.receipt);
         toolbarback= findViewById(R.id.toolbarback);
+        viewConvo = findViewById(R.id.btnChat);
 
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
@@ -34,10 +40,21 @@ public class ViewTransaction extends AppCompatActivity {
         });
 
 
+
+
         SaveTransaction transaction = (SaveTransaction) getIntent().getSerializableExtra("transaction");
 
         Glide.with(ViewTransaction.this).load(transaction.getReceiptimg()).into(receipt);
 
+
+        viewConvo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewTransaction.this, OrderChatTransactionActivity.class);
+                intent.putExtra("DETAILS" ,transaction);
+                startActivity(intent);
+            }
+        });
 
     }
 

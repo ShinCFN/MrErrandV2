@@ -56,7 +56,21 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".TransactionHistoryAdminActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".OrderChatActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".OrderChatTransactionActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -157,10 +171,6 @@
             android:name=".RatingActivityTowardsUser"
             android:exported="true"
             android:launchMode="singleInstance" />
-        <activity
-            android:name="com.canhub.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

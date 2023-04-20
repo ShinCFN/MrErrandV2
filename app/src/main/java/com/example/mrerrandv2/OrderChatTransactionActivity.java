@@ -1,19 +1,21 @@
 package com.example.mrerrandv2;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.RecyclerView;
+import static android.content.ContentValues.TAG;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -24,26 +26,28 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
-import org.checkerframework.checker.units.qual.C;
-
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class OrderChatActivity extends AppCompatActivity {
+public class OrderChatTransactionActivity extends AppCompatActivity {
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     RecyclerView chatrv;
-    DBChat dbChat;
+    DBChatTransaction dbChatTransaction;
     FirebaseRecyclerAdapter adapter;
     ImageView sendbtn, toolbarback;
     EditText inputmsg;
     Chat chat;
     NestedScrollView nestedScrollView;
     String type, profimg;
+
+    ConstraintLayout chatbox;
 
 
     @Override
@@ -55,9 +59,15 @@ public class OrderChatActivity extends AppCompatActivity {
         inputmsg = findViewById(R.id.inputmsg);
         toolbarback = findViewById(R.id.toolbarback);
         nestedScrollView = findViewById(R.id.nestedScrollView);
+        chatbox = findViewById(R.id.constraintLayout);
+
+        //Hide text box
+        chatbox.setVisibility(View.GONE);
+
+        SaveTransaction DETAILS = (SaveTransaction) getIntent().getSerializableExtra("DETAILS");
 
         //Set type
-        type = getIntent().getStringExtra("type");
+        type = DETAILS.getOrdertype();
 
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
@@ -75,13 +85,12 @@ public class OrderChatActivity extends AppCompatActivity {
 //        chatRef.getReference("Order").child(getIntent().getStringExtra("ORDERKEY")).child("Chat");
 
         //Recycler View
-        String UID = getIntent().getStringExtra("ORDKEY");
-        dbChat = new DBChat(UID);
-        chatrv.setLayoutManager(new WrapContentLinearLayoutManager(OrderChatActivity.this));
+        dbChatTransaction = new DBChatTransaction(DETAILS.getUserID(), DETAILS.getKey());
+        chatrv.setLayoutManager(new WrapContentLinearLayoutManager(OrderChatTransactionActivity.this));
 
         FirebaseRecyclerOptions<Chat> options =
                 new FirebaseRecyclerOptions.Builder<Chat>()
-                        .setQuery(dbChat.get(), new SnapshotParser<Chat>() {
+                        .setQuery(dbChatTransaction.get(), new SnapshotParser<Chat>() {
                             @NonNull
                             @Override
                             public Chat parseSnapshot(@NonNull DataSnapshot snapshot) {
@@ -98,7 +107,6 @@ public class OrderChatActivity extends AppCompatActivity {
                 Chat chat = (Chat) o;
 
                 if (chat.getUid().equals(auth.getCurrentUser().getUid())) {
-                    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
                     vh.holder.setVisibility(View.VISIBLE);
                     vh.name.setText(chat.getName());
                     vh.message.setText(chat.getMessage());
@@ -111,8 +119,8 @@ public class OrderChatActivity extends AppCompatActivity {
                     vh.timeL.setText(chat.getTime());
                 }
 
-                Glide.with(OrderChatActivity.this).load(chat.getProfImg()).into(vh.profile);
-                Glide.with(OrderChatActivity.this).load(chat.getProfImg()).into(vh.profileL);
+                Glide.with(OrderChatTransactionActivity.this).load(chat.getProfImg()).into(vh.profile);
+                Glide.with(OrderChatTransactionActivity.this).load(chat.getProfImg()).into(vh.profileL);
             }
 
             @NonNull
@@ -120,7 +128,7 @@ public class OrderChatActivity extends AppCompatActivity {
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
-                View view = LayoutInflater.from(OrderChatActivity.this).inflate(R.layout.layout_chat, parent, false);
+                View view = LayoutInflater.from(OrderChatTransactionActivity.this).inflate(R.layout.layout_chat, parent, false);
                 return new ChatVH(view);
             }
 
@@ -130,45 +138,6 @@ public class OrderChatActivity extends AppCompatActivity {
         };
 
         chatrv.setAdapter(adapter);
-
-        sendbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String msg = inputmsg.getText().toString();
-                String UID = getIntent().getStringExtra("ORDKEY");
-                dbChat = new DBChat(UID);
-
-                //return if empty
-                if (inputmsg.getText().toString().isEmpty()) {
-                    return;
-                }
-
-                //Get timestamp
-                Long tsLong = System.currentTimeMillis() / 1000;
-                String ts = tsLong.toString();
-
-                //Get time
-                String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
-
-                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference(getIntent().getStringExtra("type")).child(auth.getCurrentUser().getUid()).child("profileImage");
-                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        profimg = snapshot.getValue().toString();
-                        chat = new Chat(auth.getCurrentUser().getDisplayName(), msg, ts, currentTime, "false", auth.getCurrentUser().getUid(), type, profimg);
-                        dbChat.add(chat);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-                inputmsg.setText("");
-            }
-        });
-
-
     }
 
     @Override

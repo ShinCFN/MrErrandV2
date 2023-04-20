@@ -1,15 +1,18 @@
 package com.example.mrerrandv2;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -32,6 +35,8 @@ public class AdminViewUserActivity extends AppCompatActivity {
     ImageView profilepic, blurbg;
     progressBar progressBar;
 
+    ConstraintLayout tHistBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class AdminViewUserActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.profileEmail);
         profilepic = findViewById(R.id.profilePic);
         blurbg = findViewById(R.id.blurbg);
+        tHistBtn = findViewById(R.id.tHistBtn);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(user.getKey());
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -142,6 +148,15 @@ public class AdminViewUserActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        tHistBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminViewUserActivity.this, TransactionHistoryAdminActivity.class);
+                intent.putExtra("USER", user);
+                startActivity(intent);
             }
         });
 

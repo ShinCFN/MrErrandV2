@@ -140,6 +140,22 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <TextView
+                android:visibility="visible"
+                android:id="@+id/btnChat"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/box_secondary"
+                android:fontFamily="@font/asap_bold"
+                android:gravity="center"
+                android:paddingHorizontal="15dp"
+                android:text="View conversation"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_marginHorizontal="30dp"/>
+
 
         </LinearLayout>
 
