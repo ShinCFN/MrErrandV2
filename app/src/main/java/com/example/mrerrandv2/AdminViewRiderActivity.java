@@ -1,5 +1,6 @@
 package com.example.mrerrandv2;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -8,8 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +28,7 @@ public class AdminViewRiderActivity extends AppCompatActivity {
 
     TextView editName, editMobile, editEmail, editLicense, editPlate, verify;
 
-    ImageView profilepic,profLicense,profPlate,profOR;
+    ImageView profilepic,profLicense,profPlate,profOR, blurbg;
 
     progressBar progressBar;
 
@@ -41,22 +48,14 @@ public class AdminViewRiderActivity extends AppCompatActivity {
 
         //Find Holders
 
-        editName = findViewById(R.id.profileName);
+        editName = findViewById(R.id.profileFull);
         editMobile = findViewById(R.id.profileNumber);
         editLicense = findViewById(R.id.profileLicense);
         editPlate = findViewById(R.id.profilePlate);
         editEmail = findViewById(R.id.profileEmail);
         profilepic = findViewById(R.id.profilePic);
+        blurbg = findViewById(R.id.blurbg);
         verify = findViewById(R.id.btnVerify);
-
-        verify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                riderRef.child(rider.getKey()).child("verified").setValue("true");
-                finish();
-            }
-        });
-
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Riders").child(rider.getKey());
 
@@ -80,6 +79,19 @@ public class AdminViewRiderActivity extends AppCompatActivity {
                 profPlate = findViewById((R.id.rplatePic));
                 profOR = findViewById((R.id.rorcrPic));
 
+                //Check if verified
+                if (snapshot.child("verified").getValue().toString().equals("pending")){
+                    verify.setVisibility(View.VISIBLE);
+                }
+
+                verify.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        riderRef.child(rider.getKey()).child("verified").setValue("true");
+                        finish();
+                    }
+                });
+
                 //Set profile image
                 if (snapshot.child("profileImage").exists()) {
                     String image = snapshot.child("profileImage").getValue().toString();
@@ -88,6 +100,20 @@ public class AdminViewRiderActivity extends AppCompatActivity {
                             .get()
                             .load(image)
                             .into(profilepic);
+
+                    Glide.with(AdminViewRiderActivity.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            progressBar.dismiss();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            progressBar.dismiss();
+                            return false;
+                        }
+                    }).into(blurbg);
 
                     new Handler().postDelayed(new Runnable() {
                         @Override

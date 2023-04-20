@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +31,10 @@ public class UsersFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_admin_users, container, false);
+
+        //Toolbar
+        TextView toolMain = v.findViewById(R.id.toolbarmain);
+        toolMain.setText("Customers");
 
         //Recycler View
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -33,12 +34,18 @@ public class AdminPendingRidersFragment extends Fragment {
 
     DatabaseReference ref;
 
+    TextView verifybtn;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_riderlist, container, false);
+
+        //Toolbar
+        TextView toolMain = v.findViewById(R.id.toolbarmain);
+        toolMain.setText("Unverified Riders");
 
         //SwipeRefresh
         swipeRefreshLayout = v.findViewById(R.id.swipeRefreshLayout);

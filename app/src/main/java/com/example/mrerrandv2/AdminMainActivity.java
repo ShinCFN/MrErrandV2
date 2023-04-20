@@ -20,6 +20,8 @@ public class AdminMainActivity extends AppCompatActivity {
         binding = ActivityAdminMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_main);
         setContentView(binding.getRoot());
+
+
         replaceFragment(new UsersFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {

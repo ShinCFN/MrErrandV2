@@ -1,224 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/finalBackground"
     tools:context=".ProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout12"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/finalDarkGray"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/blurbg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/blankuser" />
+
+        <eightbitlab.com.blurview.BlurView
+            android:id="@+id/blurView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#AA303030" />
+
+        <ImageView
+            android:id="@+id/profilePic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/blankuser"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_marginRight="15dp"
+            android:id="@+id/profileFull"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/questrial"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/blurbg"
+            app:layout_constraintStart_toEndOf="@+id/profilePic"
+            app:layout_constraintTop_toTopOf="@+id/profilePic" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout12">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
+
             <LinearLayout
-                android:layout_marginBottom="100dp"
-                android:paddingTop="40dp"
-                android:id="@+id/linearLayout3"
+                android:background="@drawable/outlined_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-                >
+                android:paddingHorizontal="25dp"
+                android:paddingVertical="40dp"
+                android:layout_margin="20dp">
 
-                <LinearLayout
-                    android:layout_marginBottom="20dp"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
-                    android:background="@drawable/outlined_box"
-                    android:orientation="horizontal"
-                    android:paddingVertical="20dp"
-                    android:paddingHorizontal="15dp">
+                    android:fontFamily="@font/questrial"
+                    android:text="CONTACT INFORMATION"
+                    android:textColor="@color/Gray"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:elevation="2dp"
-                        android:id="@+id/profilePic"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:src="@drawable/blankuser"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="30dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/asap_bold"
-                            android:textColor="@color/black"
-                            android:id="@+id/profileFirst"
-                            android:textSize="20sp"/>
-
-                        <TextView
-                            android:id="@+id/profileLast"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/asap_bold"
-                            android:textColor="@color/black"
-                            android:textSize="20sp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_marginBottom="20dp"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
-                    android:background="@drawable/outlined_box"
-                    android:orientation="vertical"
-                    android:paddingVertical="20dp"
-                    android:paddingHorizontal="15dp">
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/questrial"
+                    android:text="Mobile number"
+                    android:textColor="@color/Gray"
+                    android:textSize="12sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Contact Information"
-                        android:fontFamily="@font/asap_bold"
-                        android:textSize="17sp"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mobile Number"
-                        android:fontFamily="@font/asap_medium"
-                        android:textColor="@color/Gray"
-                        android:textSize="12sp"/>
-
-                    <TextView
-                        android:id="@+id/profileNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/asap_regular"
-                        android:textSize="16sp"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Email"
-                        android:fontFamily="@font/asap_medium"
-                        android:textColor="@color/Gray"
-                        android:textSize="12sp"/>
-
-                    <TextView
-                        android:id="@+id/profileEmail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/asap_regular"
-                        android:textSize="16sp"
-                        android:textColor="@color/black" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_marginBottom="20dp"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/profileNumber"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
-                    android:background="@drawable/outlined_box"
-                    android:orientation="vertical"
-                    android:paddingVertical="20dp"
-                    android:paddingHorizontal="15dp">
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/questrial"
+                    android:textColor="@color/finalDarkGray"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Address"
-                        android:fontFamily="@font/asap_bold"
-                        android:textSize="17sp"
-                        android:textColor="@color/black" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/questrial"
+                    android:text="Email address"
+                    android:textColor="@color/Gray"
+                    android:textSize="12sp" />
 
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Street"
-                        android:fontFamily="@font/asap_medium"
-                        android:textColor="@color/Gray"
-                        android:textSize="12sp"/>
+                <TextView
+                    android:id="@+id/profileEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/questrial"
+                    android:textColor="@color/finalDarkGray"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/profileStreet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/asap_regular"
-                        android:textSize="16sp"
-                        android:textColor="@color/black" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
 
-                        android:text="City"
-                        android:fontFamily="@font/asap_medium"
-                        android:textColor="@color/Gray"
-                        android:textSize="12sp"/>
+            <LinearLayout
+                android:background="@drawable/outlined_box"
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="25dp"
+                android:paddingVertical="40dp">
 
-                    <TextView
-                        android:id="@+id/profileCity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/asap_regular"
-                        android:textSize="16sp"
-                        android:textColor="@color/black" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:text="ADDRESS"
+                    android:textColor="@color/Gray"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/questrial"
+                    android:text="Street"
+                    android:textColor="@color/Gray"
+                    android:textSize="12sp" />
 
-                        android:text="State/Province"
-                        android:fontFamily="@font/asap_medium"
-                        android:textColor="@color/Gray"
-                        android:textSize="12sp"/>
+                <TextView
+                    android:id="@+id/profileStreet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/questrial"
+                    android:textColor="@color/finalDarkGray"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/profileProvince"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/asap_regular"
-                        android:textSize="16sp"
-                        android:textColor="@color/black" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
 
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:text="City"
+                    android:textColor="@color/Gray"
+                    android:textSize="12sp" />
 
-                        android:text="Zip Code"
-                        android:fontFamily="@font/asap_medium"
-                        android:textColor="@color/Gray"
-                        android:textSize="12sp"/>
+                <TextView
+                    android:id="@+id/profileCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/questrial"
+                    android:textColor="@color/finalDarkGray"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/profileZip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/asap_regular"
-                        android:textSize="16sp"
-                        android:textColor="@color/black" />
-                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+
+                    android:fontFamily="@font/questrial"
+                    android:text="State/Province"
+                    android:textColor="@color/Gray"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/profileProvince"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/questrial"
+                    android:textColor="@color/finalDarkGray"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+
+                    android:fontFamily="@font/questrial"
+                    android:text="Zip Code"
+                    android:textColor="@color/Gray"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/profileZip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/questrial"
+                    android:textColor="@color/finalDarkGray"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

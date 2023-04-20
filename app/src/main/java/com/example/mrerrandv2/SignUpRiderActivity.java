@@ -76,7 +76,7 @@ public class SignUpRiderActivity extends AppCompatActivity {
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
         TextView toolSub = findViewById(R.id.toolbarsub);
-        toolMain.setText("");
+        toolMain.setText("Rider Sign-Up");
         toolSub.setText("");
 
         toolbarback.setOnClickListener(new View.OnClickListener() {

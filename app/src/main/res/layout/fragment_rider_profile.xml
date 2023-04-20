@@ -109,6 +109,8 @@
 
 
             <LinearLayout
+                android:background="@drawable/outlined_box"
+                android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -153,6 +155,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:layout_marginBottom="20dp"
                     android:id="@+id/profileEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -165,6 +168,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:background="@drawable/outlined_box"
+                android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

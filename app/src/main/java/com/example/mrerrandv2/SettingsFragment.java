@@ -32,7 +32,6 @@ public class SettingsFragment extends Fragment {
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
     TextView btnLogout;
-    Switch btnTheme;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -1,13 +1,21 @@
 package com.example.mrerrandv2;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -16,11 +24,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import eightbitlab.com.blurview.BlurView;
 
 public class AdminViewUserActivity extends AppCompatActivity {
 
-    TextView editFirst, editLast, editMobile, editStreet, editCity, editProvince, editZip, editEmail;
-    CircleImageView profilepic;
+    TextView editfull, editMobile, editStreet, editCity, editProvince, editZip, editEmail;
+    ImageView profilepic, blurbg;
     progressBar progressBar;
 
 
@@ -34,8 +43,7 @@ public class AdminViewUserActivity extends AppCompatActivity {
 
         User user = (User) getIntent().getSerializableExtra("user");
 
-        editFirst = findViewById(R.id.profileFirst);
-        editLast = findViewById(R.id.profileLast);
+        editfull = findViewById(R.id.profileFull);
         editMobile = findViewById(R.id.profileNumber);
         editStreet = findViewById(R.id.profileStreet);
         editCity = findViewById(R.id.profileCity);
@@ -43,6 +51,7 @@ public class AdminViewUserActivity extends AppCompatActivity {
         editZip = findViewById(R.id.profileZip);
         editEmail = findViewById(R.id.profileEmail);
         profilepic = findViewById(R.id.profilePic);
+        blurbg = findViewById(R.id.blurbg);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(user.getKey());
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -53,8 +62,8 @@ public class AdminViewUserActivity extends AppCompatActivity {
                 String lastname = snapshot.child("lastname").getValue().toString();
                 String mobilenumber = snapshot.child("mobile").getValue().toString();
                 String email = snapshot.child("email").getValue().toString();
-                editFirst.setText(firstname.toUpperCase());
-                editLast.setText(lastname.toUpperCase());
+                String fname = firstname.toUpperCase() + " " + lastname.toUpperCase();
+                editfull.setText(fname);
                 editMobile.setText(mobilenumber);
                 editEmail.setText(email);
 
@@ -96,6 +105,21 @@ public class AdminViewUserActivity extends AppCompatActivity {
                             .get()
                             .load(image)
                             .into(profilepic);
+
+                    Glide.with(AdminViewUserActivity.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            progressBar.dismiss();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            progressBar.dismiss();
+                            return false;
+                        }
+                    }).into(blurbg);
+
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
