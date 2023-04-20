@@ -319,13 +319,15 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/box_secondary"
+                    android:backgroundTint="@color/finalBrown"
+                    android:textColor="@color/white"
                     android:elevation="3dp"
                     android:fontFamily="@font/asap_semibold"
                     android:gravity="center"
                     android:paddingHorizontal="15dp"
                     android:text="Next"
                     android:textSize="14sp"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <TextView
                     android:layout_marginTop="15dp"
