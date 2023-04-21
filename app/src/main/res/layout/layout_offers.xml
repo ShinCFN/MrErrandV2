@@ -129,16 +129,13 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="20dp"
-        android:layout_height="wrap_content"
-        android:text="&#8942;"
-        android:layout_marginRight="10dp"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+    <ImageView
         android:id="@+id/order_options"
-        android:layout_gravity="right"
         android:gravity="center"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginRight="15dp"
+        android:layout_gravity="right|center"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/close" />
 
 </androidx.cardview.widget.CardView>

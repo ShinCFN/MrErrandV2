@@ -2,7 +2,6 @@ package com.example.mrerrandv2;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -72,7 +71,7 @@ public class RiderLandingPage extends AppCompatActivity {
                                 replaceFragment(new RiderHomeFragment());
                                 orderRef.removeEventListener(this);
                             } else {
-                                replaceFragment(new EmptyFragment());
+                                replaceFragment(new RiderOrderlistEmptyFragment());
                             }
                         }
 
@@ -112,7 +111,7 @@ public class RiderLandingPage extends AppCompatActivity {
                                             replaceFragment(new RiderHomeFragment());
                                             orderRef.removeEventListener(this);
                                         } else {
-                                            replaceFragment(new EmptyFragment());
+                                            replaceFragment(new RiderOrderlistEmptyFragment());
                                         }
                                     }
 
@@ -185,4 +184,11 @@ public class RiderLandingPage extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (orderRef != null && orderRefListener != null) {
+            orderRef.removeEventListener(orderRefListener);
+        }
+    }
 }

@@ -130,7 +130,7 @@
                     app:layout_goneMarginTop="25dp" />
 
                 <ImageView
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="30dp"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:background="@drawable/logout"

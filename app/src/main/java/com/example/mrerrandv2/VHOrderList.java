@@ -8,11 +8,11 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class OrderListVH extends RecyclerView.ViewHolder {
+public class VHOrderList extends RecyclerView.ViewHolder {
     public TextView item,qty, num;
     public ImageView delItem;
     public ConstraintLayout holder;
-    public OrderListVH(@NonNull View itemView)
+    public VHOrderList(@NonNull View itemView)
     {
         super(itemView);
         item = itemView.findViewById(R.id.item);

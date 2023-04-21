@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class PendingListAdapter extends RecyclerView.Adapter<PendingListAdapter.MyViewHolder> {
+public class AdapterPendingList extends RecyclerView.Adapter<AdapterPendingList.MyViewHolder> {
 
     Context context;
 
@@ -26,7 +26,7 @@ public class PendingListAdapter extends RecyclerView.Adapter<PendingListAdapter.
     DBRiders dbRiders;
 
 
-    public PendingListAdapter(Context context, ArrayList<Rider> list) {
+    public AdapterPendingList(Context context, ArrayList<Rider> list) {
         this.context = context;
         this.list = list;
     }

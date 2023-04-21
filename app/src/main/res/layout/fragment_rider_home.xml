@@ -32,13 +32,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
+                android:padding="2dp"
                 android:layout_marginTop="40dp"
                 android:id="@+id/imageView4"
                 android:layout_width="350dp"
                 android:layout_height="350dp"
                 android:layout_marginLeft="-170dp"
-                android:background="@drawable/test1"
+                app:strokeWidth="2dp"
+                app:strokeColor="@color/black"
+                android:background="@color/finalBrown"
+                app:shapeAppearanceOverlay="@style/Circle"
                 app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
                 app:layout_constraintStart_toStartOf="parent" />
 

@@ -1,26 +1,16 @@
 package com.example.mrerrandv2;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mrerrandv2.databinding.ActivityMainBinding;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 
-public class MainActivity extends AppCompatActivity {
+public class UserMainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
 
@@ -31,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_main);
         setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
+        replaceFragment(new UserFragmentHome());
 
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -39,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()){
 
                 case R.id.home:
-                    replaceFragment(new HomeFragment());
+                    replaceFragment(new UserFragmentHome());
                     break;
                 case R.id.profile:
-                    replaceFragment(new ProfileFragment());
+                    replaceFragment(new UserProfileFragment());
                     break;
                 case R.id.settings:
                     replaceFragment(new SettingsFragment());

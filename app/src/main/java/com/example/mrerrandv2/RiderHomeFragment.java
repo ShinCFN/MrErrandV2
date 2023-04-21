@@ -3,17 +3,12 @@ package com.example.mrerrandv2;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,8 +23,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
-import java.io.Serializable;
 
 import es.dmoral.toasty.Toasty;
 
@@ -81,7 +74,7 @@ public class RiderHomeFragment extends Fragment {
         adapter = new FirebaseRecyclerAdapter(option) {
             @Override
             protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
-                OrderVH vh = (OrderVH) viewHolder;
+                VHOrder vh = (VHOrder) viewHolder;
                 Order ord = (Order) o;
 
                 vh.orderName.setText(ord.getFirstname());
@@ -119,7 +112,7 @@ public class RiderHomeFragment extends Fragment {
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_orders, parent, false);
-                return new OrderVH(view);
+                return new VHOrder(view);
             }
 
             @Override
@@ -140,14 +133,14 @@ public class RiderHomeFragment extends Fragment {
                     if(snapshot.exists()){
 
                         if(childSnapshot.child("status").getValue().equals("inDelivery")){
-                            Intent intent = new Intent(getActivity(), DeliveryActivityRider.class);
+                            Intent intent = new Intent(getActivity(), RiderDeliveryActivity.class);
                             intent.putExtra("RKEY", childSnapshot.child("rider").getValue().toString());
                             intent.putExtra("ORDER", ord);
                             startActivity(intent);
                         }else if(childSnapshot.child("status").getValue().equals("complete")) {
 
                         }else {
-                            Intent intent = new Intent(getActivity(), AcceptedOrderActivityRider.class);
+                            Intent intent = new Intent(getActivity(), RiderOrderAcceptedActivity.class);
                             intent.putExtra("RKEY", childSnapshot.child("rider").getValue().toString());
                             intent.putExtra("ORDER", ord);
                             startActivity(intent);

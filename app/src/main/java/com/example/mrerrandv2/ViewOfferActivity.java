@@ -3,7 +3,6 @@ package com.example.mrerrandv2;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,13 +12,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -148,7 +145,7 @@ public class ViewOfferActivity extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter(option) {
             @Override
             protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
-                OfferVH vh = (OfferVH) viewHolder;
+                VHOffer vh = (VHOffer) viewHolder;
                 AddOffer off = (AddOffer) o;
                 vh.orderName.setText(off.getRidername());
                 vh.offer.setText(off.getOffer());
@@ -180,7 +177,7 @@ public class ViewOfferActivity extends AppCompatActivity {
                                                             @Override
                                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                                 orderReference.child("price").setValue(snapshot.child("offer").getValue());
-                                                                Intent intent = new Intent(ViewOfferActivity.this, AcceptedOrderActivityUser.class);
+                                                                Intent intent = new Intent(ViewOfferActivity.this, UserOrderAcceptedActivity.class);
                                                                 intent.putExtra("ORDER", off);
                                                                 intent.putExtra("uid", off.getUid());
                                                                 intent.putExtra("type", ordertype);
@@ -226,7 +223,7 @@ public class ViewOfferActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.child("status").getValue().toString().equals("accepted")) {
-                            Intent intent = new Intent(ViewOfferActivity.this, AcceptedOrderActivityUser.class);
+                            Intent intent = new Intent(ViewOfferActivity.this, UserOrderAcceptedActivity.class);
                             intent.putExtra("ORDER", off);
                             intent.putExtra("uid", snapshot.child("uid").getValue().toString());
                             intent.putExtra("type", snapshot.child("ordertype").getValue().toString());
@@ -246,18 +243,33 @@ public class ViewOfferActivity extends AppCompatActivity {
                 vh.order_options.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(key).child("Offers");
-                        databaseReference.child(off.getKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Toast.makeText(ViewOfferActivity.this, "Order declined", Toast.LENGTH_LONG).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(ViewOfferActivity.this, "" + e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        });
+
+                        new AlertDialog.Builder(view.getContext())
+                                .setMessage("Decline offer?")
+                                .setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Order").child(key).child("Offers");
+                                        databaseReference.child(off.getKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Toast.makeText(ViewOfferActivity.this, "Order declined", Toast.LENGTH_LONG).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(ViewOfferActivity.this, "" + e.getMessage(), Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                }).show();
                     }
                 });
             }
@@ -266,7 +278,7 @@ public class ViewOfferActivity extends AppCompatActivity {
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(ViewOfferActivity.this).inflate(R.layout.layout_offers, parent, false);
-                return new OfferVH(view);
+                return new VHOffer(view);
             }
 
             @Override

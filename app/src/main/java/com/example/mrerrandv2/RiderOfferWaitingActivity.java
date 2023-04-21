@@ -3,7 +3,6 @@ package com.example.mrerrandv2;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import es.dmoral.toasty.Toasty;
 
-public class OfferWaitingActivityRider extends AppCompatActivity {
+public class RiderOfferWaitingActivity extends AppCompatActivity {
 
     TextView textOffer;
     ImageView toolbarback;
@@ -81,7 +80,7 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
                 if (snapshot.exists()) {
 
                 } else {
-                    Toasty.warning(OfferWaitingActivityRider.this, "Order was cancelled", Toasty.LENGTH_SHORT).show();
+                    Toasty.warning(RiderOfferWaitingActivity.this, "Order was cancelled", Toasty.LENGTH_SHORT).show();
                     order.removeEventListener(this);
                     finish();
                 }
@@ -97,7 +96,7 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
 
 
                 } else if (!snapshot.child("Offers").child(firebaseUser.getUid()).exists() && snapshot.exists()){
-                    Toasty.error(OfferWaitingActivityRider.this, "Offer was declined", Toasty.LENGTH_SHORT).show();
+                    Toasty.error(RiderOfferWaitingActivity.this, "Offer was declined", Toasty.LENGTH_SHORT).show();
                     order.removeEventListener(this);
                     finish();
                 }
@@ -125,15 +124,15 @@ public class OfferWaitingActivityRider extends AppCompatActivity {
 
                     if (firebaseUser.getUid().equals(chosenrider) && !accepted) {
                         accepted = true;
-                        Toasty.success(OfferWaitingActivityRider.this, "Offer accepted", Toasty.LENGTH_LONG).show();
-                        Intent intent = new Intent(OfferWaitingActivityRider.this, AcceptedOrderActivityRider.class);
+                        Toasty.success(RiderOfferWaitingActivity.this, "Offer accepted", Toasty.LENGTH_LONG).show();
+                        Intent intent = new Intent(RiderOfferWaitingActivity.this, RiderOrderAcceptedActivity.class);
                         intent.putExtra("RKEY", getIntent().getStringExtra("RIDERKEY"));
                         intent.putExtra("ORDER", ord_open);
                         startActivity(intent);
                         databaseReference.removeEventListener(this);
                         finish();
                     } else if((!firebaseUser.getUid().equals(chosenrider) && !accepted)) {
-                        Toasty.info(OfferWaitingActivityRider.this, "Order was placed for another rider", Toasty.LENGTH_LONG).show();
+                        Toasty.info(RiderOfferWaitingActivity.this, "Order was placed for another rider", Toasty.LENGTH_LONG).show();
                         databaseReference.removeEventListener(this);
                         finish();
                     }

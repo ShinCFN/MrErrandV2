@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 
-public class EmptyFragment extends Fragment {
+public class RiderOrderlistEmptyFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

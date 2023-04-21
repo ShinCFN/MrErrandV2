@@ -71,7 +71,7 @@ public class AdminUserListFragment extends Fragment {
         adapter = new FirebaseRecyclerAdapter(option) {
             @Override
             protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
-                UserVH vh = (UserVH) viewHolder;
+                VHUser vh = (VHUser) viewHolder;
                 User user = (User) o;
 
                 int totalrates = user.getTotalrates();
@@ -102,7 +102,7 @@ public class AdminUserListFragment extends Fragment {
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_admin_userlist, parent, false);
-                return new UserVH(view);
+                return new VHUser(view);
             }
 
             @Override

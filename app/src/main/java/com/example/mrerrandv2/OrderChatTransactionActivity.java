@@ -1,9 +1,6 @@
 package com.example.mrerrandv2;
 
-import static android.content.ContentValues.TAG;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,16 +20,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Transaction;
-import com.google.firebase.database.ValueEventListener;
-
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class OrderChatTransactionActivity extends AppCompatActivity {
 
@@ -103,7 +90,7 @@ public class OrderChatTransactionActivity extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter(options) {
             @Override
             protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
-                ChatVH vh = (ChatVH) viewHolder;
+                VHChat vh = (VHChat) viewHolder;
                 Chat chat = (Chat) o;
 
                 if (chat.getUid().equals(auth.getCurrentUser().getUid())) {
@@ -129,7 +116,7 @@ public class OrderChatTransactionActivity extends AppCompatActivity {
 
 
                 View view = LayoutInflater.from(OrderChatTransactionActivity.this).inflate(R.layout.layout_chat, parent, false);
-                return new ChatVH(view);
+                return new VHChat(view);
             }
 
             @Override

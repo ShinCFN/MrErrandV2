@@ -1,7 +1,6 @@
 package com.example.mrerrandv2;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -9,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -52,12 +50,11 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
-import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
-public class EditProfileRiderActivity extends AppCompatActivity {
+public class RiderEditProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Riders").child(auth.getCurrentUser().getUid());
@@ -193,7 +190,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                 //Pfp
                 if (snapshot.child("profileImage").exists()) {
                     String image = snapshot.child("profileImage").getValue().toString();
-                    Glide.with(EditProfileRiderActivity.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
+                    Glide.with(RiderEditProfileActivity.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             pfpOk = true;
@@ -215,7 +212,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                 if (snapshot.child("licensePic").exists()) {
                     String image = snapshot.child("licensePic").getValue().toString();
 
-                    Glide.with(EditProfileRiderActivity.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
+                    Glide.with(RiderEditProfileActivity.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             drvlOk = true;
@@ -236,7 +233,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                 if (snapshot.child("platePic").exists()) {
                     String image = snapshot.child("platePic").getValue().toString();
 
-                    Glide.with(EditProfileRiderActivity.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
+                    Glide.with(RiderEditProfileActivity.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             licpOk = true;
@@ -257,7 +254,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                 if (snapshot.child("orcrPic").exists()) {
                     String image = snapshot.child("orcrPic").getValue().toString();
 
-                    Glide.with(EditProfileRiderActivity.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
+                    Glide.with(RiderEditProfileActivity.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             orcrOk = true;
@@ -315,7 +312,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
 
                 if (firstname.isEmpty() || lastname.isEmpty() || mobilenumber.isEmpty() || license.isEmpty() || platenum.isEmpty() || license.isEmpty() || platenum.isEmpty()) {
                     progressBar.dismiss();
-                    Toast.makeText(EditProfileRiderActivity.this, "Please complete your information", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RiderEditProfileActivity.this, "Please complete your information", Toast.LENGTH_LONG).show();
                 } else {
                     //Set verification
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -332,7 +329,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                                 databaseReference.child("plate").setValue(platenum).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toasty.success(EditProfileRiderActivity.this, "Success", Toasty.LENGTH_SHORT).show();
+                                        Toasty.success(RiderEditProfileActivity.this, "Success", Toasty.LENGTH_SHORT).show();
                                         progressBar.dismiss();
                                         finish();
                                     }
@@ -354,7 +351,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
                                 databaseReference.child("plate").setValue(platenum).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toasty.success(EditProfileRiderActivity.this, "Success", Toasty.LENGTH_SHORT).show();
+                                        Toasty.success(RiderEditProfileActivity.this, "Success", Toasty.LENGTH_SHORT).show();
                                         progressBar.dismiss();
                                         finish();
                                     }
@@ -573,7 +570,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
 
         } else {
-            Toast.makeText(EditProfileRiderActivity.this, "Failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(RiderEditProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -603,7 +600,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
 
         } else {
-            Toast.makeText(EditProfileRiderActivity.this, "Failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(RiderEditProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -633,7 +630,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
 
         } else {
-            Toast.makeText(EditProfileRiderActivity.this, "Failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(RiderEditProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -662,7 +659,7 @@ public class EditProfileRiderActivity extends AppCompatActivity {
         } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
 
         } else {
-            Toast.makeText(EditProfileRiderActivity.this, "Failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(RiderEditProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
         }
     }
 

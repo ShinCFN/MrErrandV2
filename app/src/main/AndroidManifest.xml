@@ -89,27 +89,27 @@
             android:name=".ViewImageActivity"
             android:exported="false" />
         <activity
-            android:name=".RatingActivityTowardsRider"
+            android:name=".UserRatingActivity"
             android:exported="false" />
         <activity
-            android:name=".EditProfileRiderActivity"
+            android:name=".RiderEditProfileActivity"
             android:exported="false"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".EditProfileActivity"
+            android:name=".UserEditProfileActivity"
             android:exported="false"
             android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".DeliveryActivityRider"
+            android:name=".RiderDeliveryActivity"
             android:exported="false"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".AcceptedOrderActivityUser"
+            android:name=".UserOrderAcceptedActivity"
             android:exported="false"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".AcceptedOrderActivityRider"
+            android:name=".RiderOrderAcceptedActivity"
             android:exported="false"
             android:launchMode="singleInstance" />
         <activity
@@ -117,7 +117,7 @@
             android:exported="false"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".OfferWaitingActivityRider"
+            android:name=".RiderOfferWaitingActivity"
             android:excludeFromRecents="true"
             android:exported="false"
             android:launchMode="singleInstance" />
@@ -126,14 +126,14 @@
             android:exported="false"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".PaymentActivity"
+            android:name=".UserPaymentActivity"
             android:exported="false"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".OrderActivity"
+            android:name=".UserOrderActivity"
             android:exported="false"
             android:launchMode="singleInstance"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".UserMainActivity" />
         <activity
             android:name=".SplashscreenActivity"
             android:exported="true"
@@ -160,7 +160,7 @@
             android:parentActivityName=".SignInActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".MainActivity"
+            android:name=".UserMainActivity"
             android:exported="true"
             android:launchMode="singleInstance" />
         <activity
@@ -168,7 +168,7 @@
             android:exported="true"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".RatingActivityTowardsUser"
+            android:name=".RiderRatingActivity"
             android:exported="true"
             android:launchMode="singleInstance" />
         <meta-data

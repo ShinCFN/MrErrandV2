@@ -56,7 +56,7 @@ import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
-public class EditProfileActivity extends AppCompatActivity{
+public class UserEditProfileActivity extends AppCompatActivity{
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
@@ -95,7 +95,7 @@ public class EditProfileActivity extends AppCompatActivity{
         maplayout = findViewById(R.id.btnChoose);
 
         //Map
-        Fragment fragment = new EditProfileUserMapsFragment();
+        Fragment fragment = new UserFragmentEditProfileMaps();
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -105,7 +105,7 @@ public class EditProfileActivity extends AppCompatActivity{
         maplayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EditProfileActivity.this, GoogleMapsActivity.class);
+                Intent intent = new Intent(UserEditProfileActivity.this, GoogleMapsActivity.class);
                 startActivity(intent);
             }
         });
@@ -118,7 +118,7 @@ public class EditProfileActivity extends AppCompatActivity{
                     progressBar.show();
                     String image = snapshot.child("profileImage").getValue().toString();
 
-                    Glide.with(EditProfileActivity.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
+                    Glide.with(UserEditProfileActivity.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             progressBar.dismiss();
@@ -200,7 +200,7 @@ public class EditProfileActivity extends AppCompatActivity{
                     databaseReference.child("zip").setValue(zip).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toasty.success(EditProfileActivity.this, "Success", Toasty.LENGTH_SHORT).show();
+                            Toasty.success(UserEditProfileActivity.this, "Success", Toasty.LENGTH_SHORT).show();
                             finish();
                         }
                     });
@@ -213,7 +213,7 @@ public class EditProfileActivity extends AppCompatActivity{
                     auth.getCurrentUser().updateProfile(profileUpdates);
 
                 } else {
-                    Toast.makeText(EditProfileActivity.this, "Please complete your information", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UserEditProfileActivity.this, "Please complete your information", Toast.LENGTH_LONG).show();
                 }
                 progressBar.dismiss();
             }
@@ -346,7 +346,7 @@ public class EditProfileActivity extends AppCompatActivity{
         } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
 
         } else {
-            Toast.makeText(EditProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(UserEditProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
         }
     }
 

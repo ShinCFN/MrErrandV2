@@ -23,8 +23,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import es.dmoral.toasty.Toasty;
-
 public class TransactionHistoryActivity extends AppCompatActivity {
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -73,7 +71,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter(option) {
             @Override
             protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
-                TransactionHistoryVH vh = (TransactionHistoryVH) viewHolder;
+                VHTransactionHistory vh = (VHTransactionHistory) viewHolder;
                 SaveTransaction saveTransaction = (SaveTransaction) o;
 
                 vh.date.setText(saveTransaction.getSimpleDate() + " - " + saveTransaction.getTime());
@@ -110,7 +108,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(TransactionHistoryActivity.this).inflate(R.layout.layout_transactionhistory, parent, false);
-                return new TransactionHistoryVH(view);
+                return new VHTransactionHistory(view);
             }
 
             @Override

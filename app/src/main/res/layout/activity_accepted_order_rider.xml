@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/finalBackground"
     android:orientation="vertical"
-    tools:context=".AcceptedOrderActivityRider">
+    tools:context=".RiderOrderAcceptedActivity">
 
     <include
         android:id="@+id/include5"

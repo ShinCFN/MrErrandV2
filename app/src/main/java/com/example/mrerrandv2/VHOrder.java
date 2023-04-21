@@ -8,12 +8,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class OrderVH extends RecyclerView.ViewHolder {
+public class VHOrder extends RecyclerView.ViewHolder {
     public TextView orderName,orderdesc;
     public ImageView profilePic;
     public View view;
     public RatingBar rating;
-    public OrderVH(@NonNull View itemView)
+    public VHOrder(@NonNull View itemView)
     {
         super(itemView);
         orderName = itemView.findViewById(R.id.orderName);

@@ -148,13 +148,14 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_REQUEST_CODE) {
-            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //Perm Granted
 //                getLastLocation();
                 enableUserLocation();
                 zoomtoUserLocation();
-            }else{
+            } else {
                 //Not Granted
             }
         }

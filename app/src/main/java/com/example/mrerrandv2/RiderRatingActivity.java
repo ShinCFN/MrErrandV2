@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import es.dmoral.toasty.Toasty;
 
-public class RatingActivityTowardsUser extends AppCompatActivity {
+public class RiderRatingActivity extends AppCompatActivity {
 
     RatingBar ratingBar;
 
@@ -60,7 +60,7 @@ public class RatingActivityTowardsUser extends AppCompatActivity {
                         break;
                 }
 
-                Toasty.normal(RatingActivityTowardsUser.this, message, Toasty.LENGTH_LONG).show();
+                Toasty.normal(RiderRatingActivity.this, message, Toasty.LENGTH_LONG).show();
 
                 DatabaseReference rateRef = FirebaseDatabase.getInstance().getReference("Users").child(userkey);
 
@@ -84,7 +84,7 @@ public class RatingActivityTowardsUser extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Void unused) {
 
-                                            Intent intent = new Intent(RatingActivityTowardsUser.this, RiderLandingPage.class);
+                                            Intent intent = new Intent(RiderRatingActivity.this, RiderLandingPage.class);
                                             startActivity(intent);
                                             finish();
                                         }

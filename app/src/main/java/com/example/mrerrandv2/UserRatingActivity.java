@@ -1,17 +1,12 @@
 package com.example.mrerrandv2;
 
-import static android.content.ContentValues.TAG;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,13 +15,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
 
-public class RatingActivityTowardsRider extends AppCompatActivity {
+public class UserRatingActivity extends AppCompatActivity {
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     RatingBar ratingBar;
@@ -79,7 +73,7 @@ public class RatingActivityTowardsRider extends AppCompatActivity {
                         break;
                 }
 
-                Toasty.normal(RatingActivityTowardsRider.this, message, Toasty.LENGTH_LONG).show();
+                Toasty.normal(UserRatingActivity.this, message, Toasty.LENGTH_LONG).show();
 
                 DatabaseReference rateRef = FirebaseDatabase.getInstance().getReference("Riders").child(riderkey);
 

@@ -9,13 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RiderVH extends RecyclerView.ViewHolder {
+public class VHUser extends RecyclerView.ViewHolder {
     public TextView name;
     public CircleImageView profile;
     public View view;
     public RatingBar rating;
-
-    public RiderVH(@NonNull View itemView)
+    public VHUser(@NonNull View itemView)
     {
         super(itemView);
         name = itemView.findViewById(R.id.name);

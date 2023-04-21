@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -283,7 +282,7 @@ public class SignUpActivity extends AppCompatActivity {
                     int totalrates = 0;
 
                     //ReadWriteUserDetails
-                    ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(textFirstName,textLastName ,textEmail,textNum,textType,totalstars, totalrates);
+                    ReadWriteUserDetailsUser writeUserDetails = new ReadWriteUserDetailsUser(textFirstName,textLastName ,textEmail,textNum,textType,totalstars, totalrates);
 
 
                     //Extract Users from db
@@ -300,7 +299,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                                 //Open User Profile after success
 
-                                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                Intent intent = new Intent(SignUpActivity.this, UserMainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
                                 //Send Permission Level

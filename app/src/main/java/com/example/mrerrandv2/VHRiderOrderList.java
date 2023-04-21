@@ -8,11 +8,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RiderOrderListVH extends RecyclerView.ViewHolder {
+public class VHRiderOrderList extends RecyclerView.ViewHolder {
     public TextView item,qty;
     public CheckBox state;
     public EditText price;
-    public RiderOrderListVH(@NonNull View itemView)
+    public VHRiderOrderList(@NonNull View itemView)
     {
         super(itemView);
         item = itemView.findViewById(R.id.item);

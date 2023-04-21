@@ -27,7 +27,7 @@ public class Order implements Serializable {
     String status;
     public Order(){};
 
-    public Order(String firstname, String orderlist, String isAccepted, String lastname,String profilePic, String status, String UID, String ordertype, int rating, String desiredStore) {
+    public Order(String firstname, String orderlist, String isAccepted, String lastname, String profilePic, String status, String UID, String ordertype, int rating, String desiredStore) {
         this.firstname = firstname;
         this.orderlist = orderlist;
         this.lastname = lastname;

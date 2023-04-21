@@ -1,7 +1,6 @@
 package com.example.mrerrandv2;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -11,15 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class TransactionVH extends RecyclerView.ViewHolder {
-    public TextView info;
+public class VHTransactionHistory extends RecyclerView.ViewHolder {
+    public TextView date, id;
     public CircleImageView image;
     public ConstraintLayout holder;
-    public TransactionVH(@NonNull View itemView)
+    public RatingBar ratingBar;
+    public VHTransactionHistory(@NonNull View itemView)
     {
         super(itemView);
-        info = itemView.findViewById(R.id.info);
+        date = itemView.findViewById(R.id.date);
+        id = itemView.findViewById(R.id.id);
         image = itemView.findViewById(R.id.image);
         holder= itemView.findViewById(R.id.holder);
+        ratingBar= itemView.findViewById(R.id.ratingBar);
     }
 }

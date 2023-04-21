@@ -1,7 +1,6 @@
 package com.example.mrerrandv2;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -152,7 +151,7 @@ public class SignInActivity extends AppCompatActivity {
                     referenceProfile.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            ReadWriteUserDetails readUserDetails = snapshot.getValue(ReadWriteUserDetails.class);
+                            ReadWriteUserDetailsUser readUserDetails = snapshot.getValue(ReadWriteUserDetailsUser.class);
 
                             if (readUserDetails != null) {
 
@@ -165,7 +164,7 @@ public class SignInActivity extends AppCompatActivity {
                                     startActivity(new Intent(SignInActivity.this, RiderLandingPage.class));
                                     finish();
                                 } else {
-                                    startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                                    startActivity(new Intent(SignInActivity.this, UserMainActivity.class));
                                     finish();
                                 }
                             }

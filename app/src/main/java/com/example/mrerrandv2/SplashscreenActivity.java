@@ -1,22 +1,13 @@
 package com.example.mrerrandv2;
 
-import static android.content.ContentValues.TAG;
-
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -25,14 +16,9 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -134,7 +120,7 @@ public class SplashscreenActivity extends AppCompatActivity {
                                         } else if (usertype.equals("rider")) {
                                             startActivity(new Intent(SplashscreenActivity.this, RiderLandingPage.class));
                                         } else {
-                                            startActivity(new Intent(SplashscreenActivity.this, MainActivity.class));
+                                            startActivity(new Intent(SplashscreenActivity.this, UserMainActivity.class));
                                         }
                                         finish();
                                 }

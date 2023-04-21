@@ -2,13 +2,11 @@ package com.example.mrerrandv2;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +16,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,7 +55,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 
 import es.dmoral.toasty.Toasty;
 
-public class OrderActivity extends AppCompatActivity {
+public class UserOrderActivity extends AppCompatActivity {
 
     View pay, imgorder, addbutton;
     private final int PICK_IMAGE_CODE = 17;
@@ -116,6 +111,8 @@ public class OrderActivity extends AppCompatActivity {
         storeholder = findViewById(R.id.storeholder);
         storeedit = findViewById(R.id.storeedit);
 
+        progressBar.dismiss();
+
         //Status bar
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -129,7 +126,7 @@ public class OrderActivity extends AppCompatActivity {
         }
 
         //Spinner
-        ArrayAdapter<String> spinAdapt = new ArrayAdapter<String>(OrderActivity.this, android.R.layout.simple_spinner_item, store);
+        ArrayAdapter<String> spinAdapt = new ArrayAdapter<String>(UserOrderActivity.this, android.R.layout.simple_spinner_item, store);
         spinAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storespinner.setAdapter(spinAdapt);
 
@@ -187,7 +184,10 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (!snapshot.child("OrderList").exists()) {
+                    progressBar.dismiss();
                     wholeorderrv.setVisibility(View.GONE);
+                }else{
+                    progressBar.dismiss();
                 }
             }
 
@@ -214,7 +214,7 @@ public class OrderActivity extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter(options) {
             @Override
             protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
-                OrderListVH vh = (OrderListVH) viewHolder;
+                VHOrderList vh = (VHOrderList) viewHolder;
                 OrderList list = (OrderList) o;
                 vh.item.setText(list.getItem());
                 vh.qty.setText(list.getQty());
@@ -233,8 +233,8 @@ public class OrderActivity extends AppCompatActivity {
             @NonNull
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(OrderActivity.this).inflate(R.layout.layout_orderlist, parent, false);
-                return new OrderListVH(view);
+                View view = LayoutInflater.from(UserOrderActivity.this).inflate(R.layout.layout_orderlist, parent, false);
+                return new VHOrderList(view);
             }
 
             @Override
@@ -263,9 +263,9 @@ public class OrderActivity extends AppCompatActivity {
 
                 } else {
                     if (addnewitem.getText().toString().isEmpty()) {
-                        Toasty.error(OrderActivity.this, "Enter item", Toasty.LENGTH_LONG).show();
+                        Toasty.error(UserOrderActivity.this, "Enter item", Toasty.LENGTH_LONG).show();
                     } else {
-                        Toasty.error(OrderActivity.this, "Enter quantity", Toasty.LENGTH_LONG).show();
+                        Toasty.error(UserOrderActivity.this, "Enter quantity", Toasty.LENGTH_LONG).show();
                     }
                 }
                 progressBar.dismiss();
@@ -294,17 +294,17 @@ public class OrderActivity extends AppCompatActivity {
                         if (snapshot.child("OrderList").exists()) {
                             if(DesiredStore != null){
                                 isImageorder = false;
-                                Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
+                                Intent intent = new Intent(UserOrderActivity.this, UserPaymentActivity.class);
                                 intent.putExtra("store", DesiredStore);
                                 intent.putExtra("type", isImageorder);
                                 adapter.stopListening();
                                 startActivity(intent);
                                 finish();
                             } else {
-                                Toasty.error(OrderActivity.this, "Select desired store", Toasty.LENGTH_LONG).show();
+                                Toasty.error(UserOrderActivity.this, "Select desired store", Toasty.LENGTH_LONG).show();
                             }
                         } else {
-                            Toasty.error(OrderActivity.this, "Order list is empty", Toasty.LENGTH_LONG).show();
+                            Toasty.error(UserOrderActivity.this, "Order list is empty", Toasty.LENGTH_LONG).show();
                         }
                         progressBar.dismiss();
                     }
@@ -380,7 +380,7 @@ public class OrderActivity extends AppCompatActivity {
         } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
 
         } else {
-            Toasty.error(OrderActivity.this, "Failed", Toasty.LENGTH_LONG).show();
+            Toasty.error(UserOrderActivity.this, "Failed", Toasty.LENGTH_LONG).show();
         }
     }
 
@@ -401,7 +401,7 @@ public class OrderActivity extends AppCompatActivity {
                 storageReference.child(auth.getCurrentUser().getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Intent intent = new Intent(OrderActivity.this, PaymentActivity.class);
+                        Intent intent = new Intent(UserOrderActivity.this, UserPaymentActivity.class);
                         intent.putExtra("imgorder", uri.toString());
                         intent.putExtra("type", isImageorder);
                         adapter.stopListening();

@@ -1,25 +1,19 @@
 package com.example.mrerrandv2;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.RenderEffect;
-import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -37,7 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class ProfileFragment extends Fragment {
+public class UserProfileFragment extends Fragment {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -59,6 +53,7 @@ public class ProfileFragment extends Fragment {
 
         //Progress bar
         progressBar = new progressBar(getContext());
+        progressBar.show();
 
         //Status bar
         Window window = getActivity().getWindow();
@@ -138,21 +133,21 @@ public class ProfileFragment extends Fragment {
 
                     progressBar.show();
 
-                    Glide.with(ProfileFragment.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
+                    Glide.with(UserProfileFragment.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             progressBar.dismiss();
-                            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             return false;
                         }
 
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                             progressBar.dismiss();
-                            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             return false;
                         }
                     }).into(profilepic);
+                }else{
+                    progressBar.dismiss();
                 }
 
 
@@ -163,7 +158,7 @@ public class ProfileFragment extends Fragment {
                 editProfile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(getActivity(), EditProfileActivity.class));
+                        startActivity(new Intent(getActivity(), UserEditProfileActivity.class));
                         getActivity();
                     }
                 });
@@ -182,8 +177,6 @@ public class ProfileFragment extends Fragment {
     public void onResume() {
         super.onResume();
         databaseReference.addListenerForSingleValueEvent(updateListener);
-        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
 }

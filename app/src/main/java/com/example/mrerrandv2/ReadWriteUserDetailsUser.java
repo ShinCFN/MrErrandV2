@@ -1,13 +1,13 @@
 package com.example.mrerrandv2;
 
-public class ReadWriteUserDetails {
+public class ReadWriteUserDetailsUser {
     public String firstname,lastname ,email, mobile, type;
     public int totalstars, totalrates;
 
     //Constructor
-    public ReadWriteUserDetails(){};
+    public ReadWriteUserDetailsUser(){};
 
-    public ReadWriteUserDetails(String textFirstName,String textLastName, String textEmail, String textNum, String textType, int totalstars, int totalrates) {
+    public ReadWriteUserDetailsUser(String textFirstName, String textLastName, String textEmail, String textNum, String textType, int totalstars, int totalrates) {
         this.firstname = textFirstName;
         this.lastname = textLastName;
         this.email = textEmail;

@@ -53,7 +53,7 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
-public class AcceptedOrderActivityRider extends AppCompatActivity {
+public class RiderOrderAcceptedActivity extends AppCompatActivity {
 
     ImageView receipt, order;
 
@@ -81,7 +81,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accepted_order_rider);
-        progressDialog = new ProgressDialog(AcceptedOrderActivityRider.this);
+        progressDialog = new ProgressDialog(RiderOrderAcceptedActivity.this);
         Order ord_open = (Order) getIntent().getSerializableExtra("ORDER");
         order = findViewById(R.id.orderimg);
 
@@ -134,7 +134,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Open chat activity
-                Intent intent = new Intent(AcceptedOrderActivityRider.this, OrderChatActivity.class);
+                Intent intent = new Intent(RiderOrderAcceptedActivity.this, OrderChatActivity.class);
                 intent.putExtra("type", "Riders");
                 intent.putExtra("ORDKEY", ord_open.getKey());
                 startActivity(intent);
@@ -173,7 +173,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         profileView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AcceptedOrderActivityRider.this, PopupViewProfile.class);
+                Intent intent = new Intent(RiderOrderAcceptedActivity.this, PopupViewProfile.class);
                 intent.putExtra("details", ord_open.getUID());
                 startActivity(intent);
             }
@@ -193,7 +193,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
             orderImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent viewIMG = new Intent(AcceptedOrderActivityRider.this, ViewImageActivity.class);
+                    Intent viewIMG = new Intent(RiderOrderAcceptedActivity.this, ViewImageActivity.class);
                     viewIMG.putExtra("image", ord_open.getOrderlist());
                     startActivity(viewIMG);
                 }
@@ -213,7 +213,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
                                 orderRef.child("status").setValue("inDelivery").addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Intent intent = new Intent(AcceptedOrderActivityRider.this, DeliveryActivityRider.class);
+                                        Intent intent = new Intent(RiderOrderAcceptedActivity.this, RiderDeliveryActivity.class);
                                         intent.putExtra("ORDER", ord_open);
                                         intent.putExtra("RKEY", getIntent().getStringExtra("RKEY"));
                                         startActivity(intent);
@@ -226,12 +226,12 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         if (snapshot.exists()){
-                                            Toasty.error(AcceptedOrderActivityRider.this, "Complete the order list", Toasty.LENGTH_SHORT).show();
+                                            Toasty.error(RiderOrderAcceptedActivity.this, "Complete the order list", Toasty.LENGTH_SHORT).show();
                                         }else{
                                             orderRef.child("status").setValue("inDelivery").addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    Intent intent = new Intent(AcceptedOrderActivityRider.this, DeliveryActivityRider.class);
+                                                    Intent intent = new Intent(RiderOrderAcceptedActivity.this, RiderDeliveryActivity.class);
                                                     intent.putExtra("ORDER", ord_open);
                                                     intent.putExtra("RKEY", getIntent().getStringExtra("RKEY"));
                                                     startActivity(intent);
@@ -248,7 +248,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
                                 });
                             }
                         } else {
-                            Toasty.error(AcceptedOrderActivityRider.this, "Upload receipt", Toasty.LENGTH_SHORT).show();
+                            Toasty.error(RiderOrderAcceptedActivity.this, "Upload receipt", Toasty.LENGTH_SHORT).show();
                         }
                     }
 
@@ -354,7 +354,7 @@ public class AcceptedOrderActivityRider extends AppCompatActivity {
         } else if (result.equals(CropImage.CancelledResult.INSTANCE)) {
 
         } else {
-            Toast.makeText(AcceptedOrderActivityRider.this, "Failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(RiderOrderAcceptedActivity.this, "Failed", Toast.LENGTH_LONG).show();
         }
     }
 

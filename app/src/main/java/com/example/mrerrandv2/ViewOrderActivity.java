@@ -3,11 +3,9 @@ package com.example.mrerrandv2;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,9 +32,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
@@ -155,7 +150,7 @@ public class ViewOrderActivity extends AppCompatActivity {
                     adapter = new FirebaseRecyclerAdapter(options) {
                         @Override
                         protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
-                            OrderListVH vh = (OrderListVH) viewHolder;
+                            VHOrderList vh = (VHOrderList) viewHolder;
                             OrderList list = (OrderList) o;
 
                             vh.item.setText(list.getItem());
@@ -167,7 +162,7 @@ public class ViewOrderActivity extends AppCompatActivity {
                         @Override
                         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                             View view = LayoutInflater.from(ViewOrderActivity.this).inflate(R.layout.layout_vieworderlist, parent, false);
-                            return new OrderListVH(view);
+                            return new VHOrderList(view);
                         }
 
                         @Override
@@ -218,7 +213,7 @@ public class ViewOrderActivity extends AppCompatActivity {
                                             databaseReference.child("Offers").child(firebaseUser.getUid()).setValue(addOffer).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    Intent intent = new Intent(ViewOrderActivity.this, OfferWaitingActivityRider.class);
+                                                    Intent intent = new Intent(ViewOrderActivity.this, RiderOfferWaitingActivity.class);
                                                     intent.putExtra("ORDER", ord_open);
                                                     intent.putExtra("OFFER", offerval);
                                                     intent.putExtra("RIDERID", firebaseUser.getUid());
@@ -234,7 +229,7 @@ public class ViewOrderActivity extends AppCompatActivity {
                                             databaseReference.child("Offers").child(firebaseUser.getUid()).setValue(addOffer).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    Intent intent = new Intent(ViewOrderActivity.this, OfferWaitingActivityRider.class);
+                                                    Intent intent = new Intent(ViewOrderActivity.this, RiderOfferWaitingActivity.class);
                                                     intent.putExtra("ORDER", ord_open);
                                                     intent.putExtra("OFFER", offerval);
                                                     intent.putExtra("RIDERID", firebaseUser.getUid());

@@ -3,11 +3,9 @@ package com.example.mrerrandv2;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -22,11 +20,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class DeliveryActivityRider extends AppCompatActivity {
+public class RiderDeliveryActivity extends AppCompatActivity {
 
     TextView name, mobile, street, city, province;
 
@@ -81,7 +78,7 @@ public class DeliveryActivityRider extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Open chat activity
-                Intent intent = new Intent(DeliveryActivityRider.this, OrderChatActivity.class);
+                Intent intent = new Intent(RiderDeliveryActivity.this, OrderChatActivity.class);
                 intent.putExtra("type", "Riders");
                 intent.putExtra("ORDKEY", ord_open.getKey());
                 startActivity(intent);
@@ -167,7 +164,7 @@ public class DeliveryActivityRider extends AppCompatActivity {
             public void onClick(View view) {
                 DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("Order").child(key);
                 orderRef.child("status").setValue("complete");
-                Intent intent = new Intent(DeliveryActivityRider.this, RatingActivityTowardsUser.class);
+                Intent intent = new Intent(RiderDeliveryActivity.this, RiderRatingActivity.class);
                 intent.putExtra("user", userid);
 
                 startActivity(intent);

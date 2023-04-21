@@ -3,7 +3,6 @@ package com.example.mrerrandv2;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,7 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AcceptedOrderActivityUser extends AppCompatActivity {
+public class UserOrderAcceptedActivity extends AppCompatActivity {
 
     ConstraintLayout profileView, orderdesc;
     TextView profileName, deliveryFee;
@@ -119,7 +118,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
         profileView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AcceptedOrderActivityUser.this, PopupViewProfileRider.class);
+                Intent intent = new Intent(UserOrderAcceptedActivity.this, PopupViewProfileRider.class);
                 intent.putExtra("details", getIntent().getStringExtra("RIDERKEY"));
                 startActivity(intent);
             }
@@ -130,7 +129,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Open chat activity
-                Intent intent = new Intent(AcceptedOrderActivityUser.this, OrderChatActivity.class);
+                Intent intent = new Intent(UserOrderAcceptedActivity.this, OrderChatActivity.class);
                 intent.putExtra("type", "Users");
                 intent.putExtra("ORDKEY", getIntent().getStringExtra("ORDKEY"));
                 startActivity(intent);
@@ -140,7 +139,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
         //Recycler View
         String UID = getIntent().getStringExtra("uid");
         dbViewOrderList = new DBViewOrderList(UID);
-        orderlistrv.setLayoutManager(new WrapContentLinearLayoutManager(AcceptedOrderActivityUser.this));
+        orderlistrv.setLayoutManager(new WrapContentLinearLayoutManager(UserOrderAcceptedActivity.this));
 
         FirebaseRecyclerOptions<OrderList> options =
                 new FirebaseRecyclerOptions.Builder<OrderList>()
@@ -157,7 +156,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter(options) {
             @Override
             protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
-                UserOrderListVH vh = (UserOrderListVH) viewHolder;
+                VHUserOrderList vh = (VHUserOrderList) viewHolder;
                 OrderList list = (OrderList) o;
 
                 vh.item.setText(list.getItem());
@@ -188,8 +187,8 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
             @NonNull
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(AcceptedOrderActivityUser.this).inflate(R.layout.layout_uservieworderlist, parent, false);
-                return new UserOrderListVH(view);
+                View view = LayoutInflater.from(UserOrderAcceptedActivity.this).inflate(R.layout.layout_uservieworderlist, parent, false);
+                return new VHUserOrderList(view);
             }
 
             @Override
@@ -215,7 +214,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
                                 receipt.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        Intent viewIMG = new Intent(AcceptedOrderActivityUser.this, ViewImageActivity.class);
+                                        Intent viewIMG = new Intent(UserOrderAcceptedActivity.this, ViewImageActivity.class);
                                         viewIMG.putExtra("image", snapshot.child("receipt").getValue().toString());
                                         startActivity(viewIMG);
                                     }
@@ -225,7 +224,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
 
                         if (snapshot.exists()) {
                             if (snapshot.child("status").getValue().toString().equals("complete")) {
-                                Intent intent = new Intent(AcceptedOrderActivityUser.this, RatingActivityTowardsRider.class);
+                                Intent intent = new Intent(UserOrderAcceptedActivity.this, UserRatingActivity.class);
                                 intent.putExtra("rider", getIntent().getStringExtra("RIDERKEY"));
                                 intent.putExtra("order", getIntent().getStringExtra("ORDKEY"));
                                 statusRef.removeEventListener(this);
@@ -267,7 +266,7 @@ public class AcceptedOrderActivityUser extends AppCompatActivity {
                     listRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            Intent viewIMG = new Intent(AcceptedOrderActivityUser.this, ViewImageActivity.class);
+                            Intent viewIMG = new Intent(UserOrderAcceptedActivity.this, ViewImageActivity.class);
                             viewIMG.putExtra("image", snapshot.child("orderlist").getValue().toString());
                             startActivity(viewIMG);
                         }

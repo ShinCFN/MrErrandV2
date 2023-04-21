@@ -1,7 +1,6 @@
 package com.example.mrerrandv2;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ChatVH extends RecyclerView.ViewHolder {
+public class VHChat extends RecyclerView.ViewHolder {
     public TextView message, messageL;
     public TextView name, nameL;
     public TextView time, timeL;
@@ -18,7 +17,7 @@ public class ChatVH extends RecyclerView.ViewHolder {
 
     ConstraintLayout holder, holderL;
 
-    public ChatVH(@NonNull View itemView)
+    public VHChat(@NonNull View itemView)
     {
         super(itemView);
 

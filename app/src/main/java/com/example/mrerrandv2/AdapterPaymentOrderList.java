@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class PaymentOrderListAdapter extends RecyclerView.Adapter<PaymentOrderListAdapter.VH> {
+public class AdapterPaymentOrderList extends RecyclerView.Adapter<AdapterPaymentOrderList.VH> {
 
     Context context;
     ArrayList<OrderList> list;
 
-    public PaymentOrderListAdapter(Context context, ArrayList<OrderList> list) {
+    public AdapterPaymentOrderList(Context context, ArrayList<OrderList> list) {
         this.context = context;
         this.list = list;
     }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -32,7 +31,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,13 +38,13 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class PaymentActivity extends AppCompatActivity {
+public class UserPaymentActivity extends AppCompatActivity {
 
     ConstraintLayout COD, textorderlayout, imgorderlayout;
     RecyclerView orderlistrv;
     ArrayList<OrderList> list;
     FirebaseAuth auth = FirebaseAuth.getInstance();
-    PaymentOrderListAdapter adapter;
+    AdapterPaymentOrderList adapter;
     private long lastClickTime = 0;
     progressBar progressBar;
     Boolean ordertype;
@@ -71,7 +69,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         progressBar = new progressBar(this);
         list = new ArrayList<>();
-        adapter = new PaymentOrderListAdapter(this, list);
+        adapter = new AdapterPaymentOrderList(this, list);
         orderlistrv = findViewById(R.id.orderlistrv);
         orderlistrv.setHasFixedSize(true);
         orderlistrv.setLayoutManager(new LinearLayoutManager(this));
@@ -92,7 +90,7 @@ public class PaymentActivity extends AppCompatActivity {
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(PaymentActivity.this, R.color.finalBackground));
+        window.setStatusBarColor(ContextCompat.getColor(UserPaymentActivity.this, R.color.finalBackground));
 
         //Set Order Type
         ordertype = getIntent().getExtras().getBoolean("type");
@@ -255,8 +253,8 @@ public class PaymentActivity extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                                             String key = childSnapshot.getKey();
-                                            Toast.makeText(PaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(PaymentActivity.this, ViewOfferActivity.class);
+                                            Toast.makeText(UserPaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(UserPaymentActivity.this, ViewOfferActivity.class);
                                             intent.putExtra("Key", key);
                                             startActivity(intent);
                                             finish();
@@ -282,8 +280,8 @@ public class PaymentActivity extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                                             String key = childSnapshot.getKey();
-                                            Toast.makeText(PaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(PaymentActivity.this, ViewOfferActivity.class);
+                                            Toast.makeText(UserPaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(UserPaymentActivity.this, ViewOfferActivity.class);
                                             intent.putExtra("Key", key);
                                             startActivity(intent);
                                             finish();
@@ -311,8 +309,8 @@ public class PaymentActivity extends AppCompatActivity {
                                         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                                             String key = childSnapshot.getKey();
 
-                                            Toast.makeText(PaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(PaymentActivity.this, ViewOfferActivity.class);
+                                            Toast.makeText(UserPaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(UserPaymentActivity.this, ViewOfferActivity.class);
                                             intent.putExtra("Key", key);
                                             startActivity(intent);
                                             finish();
@@ -339,8 +337,8 @@ public class PaymentActivity extends AppCompatActivity {
                                         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                                             String key = childSnapshot.getKey();
 
-                                            Toast.makeText(PaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(PaymentActivity.this, ViewOfferActivity.class);
+                                            Toast.makeText(UserPaymentActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(UserPaymentActivity.this, ViewOfferActivity.class);
                                             intent.putExtra("Key", key);
                                             startActivity(intent);
                                             finish();

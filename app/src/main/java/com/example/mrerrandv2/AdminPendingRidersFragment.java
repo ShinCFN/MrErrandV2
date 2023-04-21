@@ -30,7 +30,7 @@ public class AdminPendingRidersFragment extends Fragment {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     SwipeRefreshLayout swipeRefreshLayout;
     ArrayList<Rider> list;
-    PendingListAdapter pendingListAdapter;
+    AdapterPendingList pendingListAdapter;
 
     DatabaseReference ref;
 
@@ -64,7 +64,7 @@ public class AdminPendingRidersFragment extends Fragment {
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         list = new ArrayList<>();
-        pendingListAdapter = new PendingListAdapter(getContext(), list);
+        pendingListAdapter = new AdapterPendingList(getContext(), list);
         recyclerView.setAdapter(pendingListAdapter);
 
         return v;

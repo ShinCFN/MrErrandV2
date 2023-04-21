@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/finalBackground"
     android:orientation="vertical"
-    tools:context=".HomeFragment">
+    tools:context=".UserFragmentHome">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:elevation="5dp"
@@ -44,6 +44,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/helloTxt" />
+
+        <ImageView
+            android:background="@drawable/helmet"
+            android:backgroundTint="@color/white"
+            android:layout_marginLeft="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toTopOf="@+id/helloTxt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profilePic"
@@ -241,7 +252,7 @@
         android:layout_width="match_parent"
         android:layout_marginHorizontal="20dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="120dp"
         android:background="@drawable/homebox2"
         app:layout_constraintBottom_toBottomOf="parent"
         android:clipToOutline="true"

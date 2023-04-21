@@ -1,23 +1,17 @@
 package com.example.mrerrandv2;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.media.Rating;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -40,14 +34,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.protobuf.Value;
-import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
 
-public class HomeFragment extends Fragment {
+public class UserFragmentHome extends Fragment {
 
     ConstraintLayout Orderbtn;
     progressBar progressBar;
@@ -97,12 +89,28 @@ public class HomeFragment extends Fragment {
         progressBar = new progressBar(getContext());
 
         //SetWelcome
+        progressBar.show();
         welcome.setText("Hello, " + auth.getCurrentUser().getDisplayName());
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Glide.with(HomeFragment.this).load(snapshot.child("profileImage").getValue().toString()).placeholder(R.drawable.blankuser).into(profilePic);
+                if(snapshot.child("profileImage").exists()){
+                    Glide.with(UserFragmentHome.this).load(snapshot.child("profileImage").getValue().toString()).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            progressBar.dismiss();
+                            return false;
+                        }
+                    }).into(profilePic);
+                } else{
+                    progressBar.dismiss();
+                }
             }
 
             @Override
@@ -134,7 +142,7 @@ public class HomeFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position, @NonNull Object o) {
 
-                TransactionVH vh = (TransactionVH) viewHolder;
+                VHTransaction vh = (VHTransaction) viewHolder;
                 SaveTransaction saveTransaction = (SaveTransaction) o;
 
                 //Get order type
@@ -144,19 +152,7 @@ public class HomeFragment extends Fragment {
                 riderRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Glide.with(getContext()).load(snapshot.child("profileImage").getValue().toString()).listener(new RequestListener<Drawable>() {
-                            @Override
-                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                return false;
-                            }
-
-                            @Override
-                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                progressBar.dismiss();
-                                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                return false;
-                            }
-                        }).into(vh.image);
+                        Glide.with(getContext()).load(snapshot.child("profileImage").getValue().toString()).into(vh.image);
                     }
 
                     @Override
@@ -185,7 +181,7 @@ public class HomeFragment extends Fragment {
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_transactions, parent, false);
-                return new TransactionVH(view);
+                return new VHTransaction(view);
             }
 
             @Override
@@ -224,9 +220,6 @@ public class HomeFragment extends Fragment {
         transactionrv.getRecycledViewPool().clear();
         adapter.notifyDataSetChanged();
         adapter.startListening();
-        progressBar.show();
-        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     @Override
@@ -252,7 +245,7 @@ public class HomeFragment extends Fragment {
                         snapshot.child("street").exists() &&
                         snapshot.child("zip").exists()) {
 
-                    Intent intent = new Intent(getActivity(), OrderActivity.class);
+                    Intent intent = new Intent(getActivity(), UserOrderActivity.class);
                     startActivity(intent);
 
                 } else {
@@ -318,7 +311,7 @@ public class HomeFragment extends Fragment {
                                 }
 
                                 if (childSnapshot.child("status").getValue().toString().equals("accepted") || childSnapshot.child("status").getValue().toString().equals("inDelivery")) {
-                                    Intent intent = new Intent(getActivity(), AcceptedOrderActivityUser.class);
+                                    Intent intent = new Intent(getActivity(), UserOrderAcceptedActivity.class);
                                     intent.putExtra("ORDKEY", key);
                                     intent.putExtra("RIDERKEY", childSnapshot.child("rider").getValue().toString());
                                     intent.putExtra("uid", childSnapshot.child("uid").getValue().toString());
@@ -328,7 +321,7 @@ public class HomeFragment extends Fragment {
                                 }
 
                                 if (childSnapshot.child("status").getValue().toString().equals("complete")) {
-                                    Intent intent = new Intent(getActivity(), RatingActivityTowardsRider.class);
+                                    Intent intent = new Intent(getActivity(), UserRatingActivity.class);
                                     intent.putExtra("order", key);
                                     intent.putExtra("rider", childSnapshot.child("rider").getValue().toString());
                                     startActivity(intent);

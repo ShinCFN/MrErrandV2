@@ -6,12 +6,16 @@
     android:layout_height="wrap_content"
     tools:context=".ViewOrderActivity">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearanceOverlay="@style/Circle"
+        android:padding="2dp"
         android:layout_width="700dp"
         android:layout_height="700dp"
         android:layout_marginTop="-120dp"
         android:layout_marginRight="-450dp"
-        android:background="@drawable/test1"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/black"
+        android:background="@drawable/headerbox_brown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollview21" />
 
@@ -35,7 +39,7 @@
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="0dp"
-                android:background="@drawable/ordertop">
+                android:background="@drawable/ordertop_brown">
 
                 <View
                     android:id="@+id/textdivide"
@@ -99,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/ordermid"
+                android:background="@drawable/ordermid_gray"
                 android:paddingHorizontal="2dp"
                 android:paddingTop="2dp"
                 android:visibility="gone">
@@ -174,7 +178,7 @@
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/ordermid">
+                android:background="@drawable/ordermid_gray">
 
                 <TextView
                     android:id="@+id/textView4"
@@ -182,7 +186,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginVertical="2dp"
                     android:layout_marginLeft="10dp"
-                    android:background="@color/finalyellow"
                     android:fontFamily="@font/questrial"
                     android:gravity="left|center"
                     android:text="Store: "
@@ -198,7 +201,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginVertical="2dp"
                     android:layout_marginRight="10dp"
-                    android:background="@color/finalyellow"
                     android:fontFamily="@font/questrial"
                     android:gravity="left|center"
                     android:textColor="@color/finalDarkGray"
@@ -216,7 +218,7 @@
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/ordermid">
+                android:background="@drawable/ordermid_gray">
 
 
                 <EditText
@@ -225,7 +227,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginVertical="2dp"
-                    android:background="@color/finalyellow"
                     android:fontFamily="@font/questrial"
                     android:hint="Enter desired delivery fee"
                     android:inputType="number"
@@ -246,7 +247,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="100dp"
-                android:background="@drawable/orderbottom">
+                android:background="@drawable/orderbottom_brown">
 
 
                 <TextView

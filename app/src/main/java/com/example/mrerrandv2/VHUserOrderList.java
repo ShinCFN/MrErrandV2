@@ -2,16 +2,15 @@ package com.example.mrerrandv2;
 
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class UserOrderListVH extends RecyclerView.ViewHolder {
+public class VHUserOrderList extends RecyclerView.ViewHolder {
     public TextView item,qty, price;
     public CheckBox check;
-    public UserOrderListVH(@NonNull View itemView)
+    public VHUserOrderList(@NonNull View itemView)
     {
         super(itemView);
         item = itemView.findViewById(R.id.item);

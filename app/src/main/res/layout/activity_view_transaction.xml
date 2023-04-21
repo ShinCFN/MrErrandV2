@@ -5,20 +5,94 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ViewTransaction"
-    android:background="@color/finalBackground">
+    android:background="@color/newGray">
 
-    <include
-        android:id="@+id/include8"
-        layout="@layout/globaltoolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/finalLightGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/headerbox"></View>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:src="@color/finalLightGreen"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/helmetfilled"
+            app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
+            app:layout_constraintEnd_toEndOf="@+id/circleImageView"
+            app:layout_constraintStart_toStartOf="@+id/circleImageView"
+            app:layout_constraintTop_toTopOf="@+id/circleImageView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center_vertical"
+            android:text="Mr. Errand"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/circleImageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+        <ImageView
+            android:id="@+id/toolbarback"
+            android:layout_marginLeft="20dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/backarrow"
+            android:backgroundTint="@color/black"/>
+
+        <TextView
+            android:id="@+id/toolbarmain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:fontFamily="@font/inter_medium"
+            android:textSize="15sp"
+            android:textColor="@color/black" />
+
+
+    </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include8" >
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <LinearLayout
             android:id="@+id/linearLayout11"
@@ -29,142 +103,75 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include8">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/wholeorderrv"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/ordermid"
-                android:paddingHorizontal="2dp"
-                android:paddingTop="2dp"
-                android:visibility="gone">
+                android:background="@drawable/outlined_box_5"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp">
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:background="@color/finalDarkGray"
-                    android:elevation="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <View
-                    android:id="@+id/view6"
-                    android:layout_width="2dp"
-                    android:layout_height="0dp"
-                    android:layout_marginRight="120dp"
-                    android:background="@color/finalDarkGray"
-                    android:elevation="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/orderarray"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Receipt"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" />
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/wholeimgorder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/ordermid"
-                android:paddingHorizontal="2dp"
-                android:paddingTop="2dp"
-                android:visibility="gone">
-
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:background="@color/finalDarkGray"
-                    android:elevation="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imgorder"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Receipt"
-                android:textSize="22sp"
-                android:fontFamily="@font/inter_medium"
-                android:textColor="@color/black"
-                android:layout_marginLeft="20dp" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/receiptvh"
-                android:layout_marginBottom="50dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/ordermid"
-                android:paddingHorizontal="2dp"
-                android:paddingTop="2dp"
-                android:visibility="visible">
-
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:background="@color/finalDarkGray"
-                    android:elevation="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/receipt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:adjustViewBounds="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/Circular5" />
+
+            </LinearLayout>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:visibility="visible"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/btnChat"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_secondary"
-                android:fontFamily="@font/asap_bold"
-                android:gravity="center"
-                android:paddingHorizontal="15dp"
-                android:text="View conversation"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:layout_marginHorizontal="30dp"/>
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/outlined_box_5">
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/chat" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="View Conversation"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
