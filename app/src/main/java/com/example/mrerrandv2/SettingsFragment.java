@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -32,7 +33,7 @@ public class SettingsFragment extends Fragment {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    TextView btnLogout;
+    ConstraintLayout btnLogout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

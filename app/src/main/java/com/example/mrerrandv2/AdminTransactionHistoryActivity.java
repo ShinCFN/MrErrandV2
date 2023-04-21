@@ -23,7 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class TransactionHistoryAdminActivity extends AppCompatActivity {
+public class AdminTransactionHistoryActivity extends AppCompatActivity {
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     ImageView toolbarback;
@@ -44,8 +44,8 @@ public class TransactionHistoryAdminActivity extends AppCompatActivity {
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
         TextView toolSub = findViewById(R.id.toolbarsub);
-        toolMain.setText("");
-        toolSub.setText("");
+        toolMain.setText("Recent Transactions");
+        toolSub.setText("Details");
 
         toolbarback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +56,7 @@ public class TransactionHistoryAdminActivity extends AppCompatActivity {
 
         //Recycler View
         dbTransaction = new DBTransaction(USER.getKey());
-        transacRV.setLayoutManager(new WrapContentLinearLayoutManager(TransactionHistoryAdminActivity.this));
+        transacRV.setLayoutManager(new WrapContentLinearLayoutManager(AdminTransactionHistoryActivity.this));
 
         FirebaseRecyclerOptions<SaveTransaction> option =
                 new FirebaseRecyclerOptions.Builder<SaveTransaction>()
@@ -84,7 +84,7 @@ public class TransactionHistoryAdminActivity extends AppCompatActivity {
                 riderRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Glide.with(TransactionHistoryAdminActivity.this).load(snapshot.child("profileImage").getValue().toString()).into(vh.image);
+                        Glide.with(AdminTransactionHistoryActivity.this).load(snapshot.child("profileImage").getValue().toString()).into(vh.image);
                     }
 
                     @Override
@@ -97,7 +97,7 @@ public class TransactionHistoryAdminActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         //View order info
-                        Intent intent = new Intent(TransactionHistoryAdminActivity.this, ViewTransaction.class);
+                        Intent intent = new Intent(AdminTransactionHistoryActivity.this, ViewTransaction.class);
                         intent.putExtra("transaction", saveTransaction);
                         startActivity(intent);
                     }
@@ -109,7 +109,7 @@ public class TransactionHistoryAdminActivity extends AppCompatActivity {
             @NonNull
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(TransactionHistoryAdminActivity.this).inflate(R.layout.layout_transactionhistory, parent, false);
+                View view = LayoutInflater.from(AdminTransactionHistoryActivity.this).inflate(R.layout.layout_transactionhistory, parent, false);
                 return new TransactionHistoryVH(view);
             }
 

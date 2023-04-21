@@ -5,17 +5,16 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
@@ -28,18 +27,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-import eightbitlab.com.blurview.BlurView;
 
 public class AdminViewUserActivity extends AppCompatActivity {
 
     TextView editfull, editMobile, editStreet, editCity, editProvince, editZip, editEmail;
-    ImageView profilepic, blurbg;
+    ImageView profilepic;
     progressBar progressBar;
 
-    ConstraintLayout tHistBtn;
+    LinearLayout tHistBtn;
 
 
     @Override
@@ -51,12 +46,13 @@ public class AdminViewUserActivity extends AppCompatActivity {
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(getWindow().getContext(), R.color.finalLightGreen));
         View decor = getWindow().getDecorView();
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
 
         //Nav Bar
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(AdminViewUserActivity.this.getResources().getColor(R.color.finalBackground));
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.newGray));
         }
 
         progressBar = new progressBar(this);
@@ -72,8 +68,7 @@ public class AdminViewUserActivity extends AppCompatActivity {
         editZip = findViewById(R.id.profileZip);
         editEmail = findViewById(R.id.profileEmail);
         profilepic = findViewById(R.id.profilePic);
-        blurbg = findViewById(R.id.blurbg);
-        tHistBtn = findViewById(R.id.tHistBtn);
+        tHistBtn = findViewById(R.id.tHist);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(user.getKey());
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -122,16 +117,9 @@ public class AdminViewUserActivity extends AppCompatActivity {
                 }
 
                 if (snapshot.child("profileImage").exists()) {
-                    String image = snapshot.child("profileImage").getValue().toString();
-                    Picasso
-                            .get()
-                            .load(image)
-                            .into(profilepic);
-
-                    Glide.with(AdminViewUserActivity.this).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
+                    Glide.with(AdminViewUserActivity.this).load(snapshot.child("profileImage").getValue().toString()).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            progressBar.dismiss();
                             return false;
                         }
 
@@ -140,23 +128,10 @@ public class AdminViewUserActivity extends AppCompatActivity {
                             progressBar.dismiss();
                             return false;
                         }
-                    }).into(blurbg);
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressBar.dismiss();
-                        }
-                    }, 1000);
+                    }).into(profilepic);
                 } else {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressBar.dismiss();
-                        }
-                    }, 1000);
+                    progressBar.dismiss();
                 }
-
 
 
             }
@@ -170,7 +145,7 @@ public class AdminViewUserActivity extends AppCompatActivity {
         tHistBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AdminViewUserActivity.this, TransactionHistoryAdminActivity.class);
+                Intent intent = new Intent(AdminViewUserActivity.this, AdminTransactionHistoryActivity.class);
                 intent.putExtra("USER", user);
                 startActivity(intent);
             }

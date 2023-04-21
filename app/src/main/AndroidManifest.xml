@@ -56,7 +56,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".TransactionHistoryAdminActivity"
+            android:name=".AdminTransactionHistoryActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

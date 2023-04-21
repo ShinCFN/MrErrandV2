@@ -259,7 +259,7 @@ public class RiderProfileFragment extends Fragment {
     }
 
     //Image status check
-    public void checkImages(){
+    private void checkImages(){
         if (pfpOk & licpOk & drvlOk & orcrOk) {
             progressBar.dismiss();
             pfpOk = false;
