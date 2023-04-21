@@ -2,6 +2,7 @@ package com.example.mrerrandv2;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.Rating;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -25,6 +27,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
@@ -37,6 +43,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.protobuf.Value;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
 
@@ -56,6 +63,9 @@ public class HomeFragment extends Fragment {
     FirebaseRecyclerAdapter adapter;
     Boolean status = false;
 
+    CircleImageView profilePic;
+    TextView welcome;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,37 +76,40 @@ public class HomeFragment extends Fragment {
         Orderbtn = v.findViewById(R.id.OrderNowButton);
         orderdesc = v.findViewById(R.id.orderdesc);
         history = v.findViewById(R.id.history);
+        welcome = v.findViewById(R.id.helloTxt);
+        profilePic = v.findViewById(R.id.profilePic);
 
         //Status bar
         Window window = getActivity().getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalBackground));
+        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.newDark));
+        View decor = getActivity().getWindow().getDecorView();
+        decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
 
         //Nav Bar
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getActivity().getWindow().setNavigationBarColor(getContext().getResources().getColor(R.color.finalDarkGray));
+            getActivity().getWindow().setNavigationBarColor(getContext().getResources().getColor(R.color.finalBackground));
             View view = getActivity().getWindow().getDecorView();
         }
 
-        //Toolbar
-        info = v.findViewById(R.id.toolbarright);
-        info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getActivity() == null) {
-                    return;
-                }
-                i++;
-                if (i == 5) {
-                    i = 0;
-                    Toasty.info(getActivity(), "This app is WIP", Toasty.LENGTH_LONG).show();
-                }
-            }
-        });
-
         //Prog bar
         progressBar = new progressBar(getContext());
+
+        //SetWelcome
+        welcome.setText("Hello, " + auth.getCurrentUser().getDisplayName());
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Glide.with(HomeFragment.this).load(snapshot.child("profileImage").getValue().toString()).placeholder(R.drawable.blankuser).into(profilePic);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //Transaction History
         LinearLayoutManager layoutManager
@@ -131,7 +144,19 @@ public class HomeFragment extends Fragment {
                 riderRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Glide.with(getContext()).load(snapshot.child("profileImage").getValue().toString()).into(vh.image);
+                        Glide.with(getContext()).load(snapshot.child("profileImage").getValue().toString()).listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                progressBar.dismiss();
+                                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                return false;
+                            }
+                        }).into(vh.image);
                     }
 
                     @Override
@@ -199,6 +224,9 @@ public class HomeFragment extends Fragment {
         transactionrv.getRecycledViewPool().clear();
         adapter.notifyDataSetChanged();
         adapter.startListening();
+        progressBar.show();
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     @Override

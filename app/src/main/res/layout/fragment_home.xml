@@ -8,18 +8,64 @@
     android:orientation="vertical"
     tools:context=".HomeFragment">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/hometoolbar" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:elevation="5dp"
+        android:id="@+id/topNav"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bottomcurved"
+        android:backgroundTint="@color/newDark">
+
+        <TextView
+            android:id="@+id/helloTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/swissl"
+            android:text="Hello, Name"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_marginTop="-20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/swissb"
+            android:text="Welcome"
+            android:textColor="@color/white"
+            android:textSize="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/helloTxt" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profilePic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/blankuser"
+            app:layout_constraintBottom_toTopOf="@+id/helloTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:layout_marginTop="30dp"
         android:id="@+id/linearLayout9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/topNav"
         tools:layout_editor_absoluteX="20dp">
 
 
@@ -68,7 +114,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/questrial"
+                    android:fontFamily="@font/swissb"
                     android:text="Order Now"
                     android:textColor="@color/finalDarkGray"
                     android:textSize="20sp"
@@ -78,7 +124,7 @@
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:fontFamily="@font/questrial"
+                    android:fontFamily="@font/swissl"
                     android:text="Create a new order list to be delivered right at your doorstep"
                     android:textColor="@color/finalDarkGray"
                     android:textSize="16sp" />
@@ -98,7 +144,7 @@
                 android:id="@+id/history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
+                android:fontFamily="@font/swissb"
                 android:text="Transaction History"
                 android:textColor="@color/finalDarkGray"
                 android:textSize="22sp"
@@ -116,12 +162,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:nestedScrollingEnabled="false"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
                 android:id="@+id/transactionrv"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:layout_marginTop="5dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -129,63 +175,63 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="10dp">-->
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="10dp">-->
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:fontFamily="@font/questrial"-->
-<!--                android:text="%Placeholder%"-->
-<!--                android:textColor="@color/finalDarkGray"-->
-<!--                android:textSize="22sp"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:fontFamily="@font/questrial"-->
+        <!--                android:text="%Placeholder%"-->
+        <!--                android:textColor="@color/finalDarkGray"-->
+        <!--                android:textSize="22sp"-->
+        <!--                android:textStyle="bold"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--            <ImageView-->
+        <!--            <ImageView-->
 
-<!--                android:layout_width="30dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:background="@drawable/arrow_right"-->
-<!--                android:backgroundTint="@color/finalDarkGray"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
+        <!--                android:layout_width="30dp"-->
+        <!--                android:layout_height="30dp"-->
+        <!--                android:background="@drawable/arrow_right"-->
+        <!--                android:backgroundTint="@color/finalDarkGray"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="40dp">-->
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="40dp">-->
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:fontFamily="@font/questrial"-->
-<!--                android:text="%Placeholder%"-->
-<!--                android:textColor="@color/finalDarkGray"-->
-<!--                android:textSize="22sp"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:fontFamily="@font/questrial"-->
+        <!--                android:text="%Placeholder%"-->
+        <!--                android:textColor="@color/finalDarkGray"-->
+        <!--                android:textSize="22sp"-->
+        <!--                android:textStyle="bold"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--            <ImageView-->
+        <!--            <ImageView-->
 
-<!--                android:layout_width="30dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:background="@drawable/arrow_right"-->
-<!--                android:backgroundTint="@color/finalDarkGray"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
+        <!--                android:layout_width="30dp"-->
+        <!--                android:layout_height="30dp"-->
+        <!--                android:background="@drawable/arrow_right"-->
+        <!--                android:backgroundTint="@color/finalDarkGray"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

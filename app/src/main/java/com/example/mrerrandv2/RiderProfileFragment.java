@@ -1,7 +1,10 @@
 package com.example.mrerrandv2;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -25,6 +28,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,9 +46,7 @@ public class RiderProfileFragment extends Fragment {
 
     TextView profileFull, editMobile, editEmail, editLicense, editPlate;
 
-    ImageView profilepic, profLicense, profPlate, profOR, blurbg;
-
-    BlurView blurView;
+    ShapeableImageView profilepic, profLicense, profPlate, profOR;
 
     private progressBar progressBar;
 
@@ -77,7 +79,15 @@ public class RiderProfileFragment extends Fragment {
         Window window = getActivity().getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalBackground));
+        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalBrown));
+        View decor = getActivity().getWindow().getDecorView();
+        decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+
+        //Nav Bar
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getActivity().getWindow().setNavigationBarColor(getContext().getResources().getColor(R.color.newGray));
+            View view = getActivity().getWindow().getDecorView();
+        }
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Riders").child(auth.getCurrentUser().getUid());
 
@@ -96,8 +106,6 @@ public class RiderProfileFragment extends Fragment {
                 editPlate = v.findViewById(R.id.profilePlate);
                 editEmail = v.findViewById(R.id.profileEmail);
                 profilepic = v.findViewById(R.id.profilePic);
-                blurView = v.findViewById(R.id.blurView);
-                blurbg = v.findViewById(R.id.blurbg);
 
 
                 //Get Information
@@ -109,15 +117,13 @@ public class RiderProfileFragment extends Fragment {
 
                 //Set text
 
-                profileFull.setText(firstname);
+                profileFull.setText(firstname + " " + lastname);
                 editMobile.setText(mobilenumber);
                 editEmail.setText(email);
 
                 profLicense = v.findViewById((R.id.rlicensePic));
                 profPlate = v.findViewById((R.id.rplatePic));
                 profOR = v.findViewById((R.id.rorcrPic));
-
-//                blurBackground();
 
                 //Set profile image
                 if (snapshot.child("profileImage").exists()) {
@@ -126,33 +132,20 @@ public class RiderProfileFragment extends Fragment {
                     Glide.with(getContext()).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            pfpOk = true;
                             return false;
                         }
 
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                             pfpOk = true;
+                            checkImages();
                             return false;
                         }
                     }).into(profilepic);
 
-                    Glide.with(getContext()).load(image).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            progressBar.dismiss();
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            progressBar.dismiss();
-                            return false;
-                        }
-                    }).into(blurbg);
-
                 } else {
                     pfpOk = true;
+                    checkImages();
                 }
                 //Set license image
                 if (snapshot.child("licensePic").exists()) {
@@ -161,19 +154,20 @@ public class RiderProfileFragment extends Fragment {
                     Glide.with(RiderProfileFragment.this).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            drvlOk = true;
                             return false;
                         }
 
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                             drvlOk = true;
+                            checkImages();
                             return false;
                         }
                     }).into(profLicense);
 
                 } else {
                     drvlOk = true;
+                    checkImages();
                 }
 
 
@@ -195,19 +189,20 @@ public class RiderProfileFragment extends Fragment {
                     Glide.with(getContext()).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            licpOk = true;
                             return false;
                         }
 
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                             licpOk = true;
+                            checkImages();
                             return false;
                         }
                     }).into(profPlate);
 
                 } else {
                     licpOk = true;
+                    checkImages();
                 }
 
                 //Set orcr image
@@ -217,19 +212,20 @@ public class RiderProfileFragment extends Fragment {
                     Glide.with(getContext()).load(image).placeholder(R.color.white).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            orcrOk = true;
                             return false;
                         }
 
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                             orcrOk = true;
+                            checkImages();
                             return false;
                         }
                     }).into(profOR);
 
                 } else {
                     orcrOk = true;
+                    checkImages();
                 }
             }
 
@@ -240,7 +236,7 @@ public class RiderProfileFragment extends Fragment {
         };
 
         //Edit Profile
-        ConstraintLayout editProfile = v.findViewById(R.id.profileEdit);
+        LinearLayout editProfile = v.findViewById(R.id.profileEdit);
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,37 +246,26 @@ public class RiderProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        return v;
+    }
 
-        //Image status check
-        if (pfpOk = licpOk = drvlOk = orcrOk = true) {
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        progressBar.show();
+        databaseReference.addListenerForSingleValueEvent(updateListener);
+
+    }
+
+    //Image status check
+    public void checkImages(){
+        if (pfpOk & licpOk & drvlOk & orcrOk) {
             progressBar.dismiss();
             pfpOk = false;
             licpOk = false;
             drvlOk = false;
             orcrOk = false;
         }
-
-        return v;
-    }
-
-    private void blurBackground(){
-        View decorView = getActivity().getWindow().getDecorView();
-        ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
-
-        Drawable windowsBackground = decorView.getBackground();
-
-        blurView.setupWith(rootView, new RenderScriptBlur(getActivity()))
-                .setFrameClearDrawable(windowsBackground)
-                .setBlurAutoUpdate(true)
-                .setBlurRadius(10f)
-        ;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        databaseReference.addListenerForSingleValueEvent(updateListener);
-
     }
 }

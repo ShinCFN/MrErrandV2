@@ -34,7 +34,7 @@ public class VerifiedListAdapter extends RecyclerView.Adapter<VerifiedListAdapte
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.layout_admin, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.layout_admin_userlist, parent, false);
         return new MyViewHolder(v);
     }
 

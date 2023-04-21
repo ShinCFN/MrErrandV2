@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +45,15 @@ public class SettingsFragment extends Fragment {
         Window window = getActivity().getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalBackground));
+        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalLightGreen));
+        View decor = getActivity().getWindow().getDecorView();
+        decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
+        //Nav Bar
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getActivity().getWindow().setNavigationBarColor(getContext().getResources().getColor(R.color.black));
+            View view = getActivity().getWindow().getDecorView();
+        }
 
         //Logout
         btnLogout.setOnClickListener(new View.OnClickListener() {

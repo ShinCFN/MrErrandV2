@@ -22,14 +22,14 @@ public class AdminMainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        replaceFragment(new UsersFragment());
+        replaceFragment(new AdminUserListFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
             switch (item.getItemId()){
 
                 case R.id.home:
-                    replaceFragment(new UsersFragment());
+                    replaceFragment(new AdminUserListFragment());
                     break;
                 case R.id.profile:
                     replaceFragment(new AdminVerifiedRidersFragment());

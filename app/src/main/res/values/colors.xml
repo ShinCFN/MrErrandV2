@@ -20,12 +20,16 @@
     <color name="Gold">#ffc922</color>
 
 <!-- FINAL -->
-    <color name="finalBackground">#F6F6EE</color>
+<!--    <color name="finalBackground">#F6F6EE</color>-->
+        <color name="finalBackground">#FFFFFF</color>
     <color name="finalDarkGray">#211F20</color>
     <color name="finalLightGreen">#ACD1BF</color>
     <color name="finalDarkGreen">#8AC5A9</color>
     <color name="finalyellow">#E9DA73</color>
     <color name="finalBrown">#946846</color>
 
+    <color name="newDark">#303030</color>
+    <color name="newGray">#E5E5E5</color>
+    <color name="newYellow">#FDFFE7</color>
 
 </resources>

@@ -4,11 +4,11 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="0dp"
-    android:elevation="5dp"
-    android:layout_marginVertical="1dp">
+    android:elevation="0dp"
+    app:cardBackgroundColor="@color/newGray">
 
     <LinearLayout
-        android:background="@color/finalBackground"
+        android:background="@drawable/outlined_box_20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">

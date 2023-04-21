@@ -2,7 +2,6 @@ package com.example.mrerrandv2;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +34,7 @@ public class PendingListAdapter extends RecyclerView.Adapter<PendingListAdapter.
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.layout_admin, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.layout_admin_userlist, parent, false);
         return new MyViewHolder(v);
     }
 

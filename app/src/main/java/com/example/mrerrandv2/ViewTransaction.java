@@ -30,8 +30,6 @@ public class ViewTransaction extends AppCompatActivity {
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
         TextView toolSub = findViewById(R.id.toolbarsub);
-        toolMain.setText("");
-        toolSub.setText("");
         toolbarback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,6 +41,9 @@ public class ViewTransaction extends AppCompatActivity {
 
 
         SaveTransaction transaction = (SaveTransaction) getIntent().getSerializableExtra("transaction");
+
+        toolMain.setText(transaction.getKey());
+        toolSub.setText(transaction.getDate());
 
         Glide.with(ViewTransaction.this).load(transaction.getReceiptimg()).into(receipt);
 

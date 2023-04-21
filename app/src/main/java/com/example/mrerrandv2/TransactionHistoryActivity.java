@@ -44,8 +44,8 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
         TextView toolSub = findViewById(R.id.toolbarsub);
-        toolMain.setText("");
-        toolSub.setText("");
+        toolMain.setText("Recent Transactions");
+        toolSub.setText("Details");
 
         toolbarback.setOnClickListener(new View.OnClickListener() {
             @Override

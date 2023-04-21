@@ -34,17 +34,16 @@ public class AdminPendingRidersFragment extends Fragment {
 
     DatabaseReference ref;
 
-    TextView verifybtn;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_riderlist, container, false);
+        View v = inflater.inflate(R.layout.fragment_admin_riderlist, container, false);
 
         //Toolbar
-        TextView toolMain = v.findViewById(R.id.toolbarmain);
+        TextView toolMain = v.findViewById(R.id.riderStatus);
         toolMain.setText("Unverified Riders");
 
         //SwipeRefresh

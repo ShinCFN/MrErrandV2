@@ -54,12 +54,6 @@ public class RiderHomeFragment extends Fragment {
         //Listener
         landingPage = new RiderLandingPage();
 
-        //Status bar
-        Window window = getActivity().getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalBackground));
-
         //Recycler View
         recyclerView = v.findViewById(R.id.ordersrv);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());

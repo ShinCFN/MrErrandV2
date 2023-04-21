@@ -105,6 +105,15 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Receipt"
+                android:textSize="22sp"
+                android:fontFamily="@font/inter_medium"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20dp" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/receiptvh"
                 android:layout_marginBottom="50dp"
