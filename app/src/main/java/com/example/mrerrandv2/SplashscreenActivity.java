@@ -152,12 +152,6 @@ public class SplashscreenActivity extends AppCompatActivity {
         }else{
             nonet.setVisibility(View.VISIBLE);
 //            Toasty.error(SplashscreenActivity.this, "You are not connected to the internet", Toasty.LENGTH_SHORT).show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                   finish();
-                }
-            }, 3000);
         }
     }
 

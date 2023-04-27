@@ -6,9 +6,97 @@
     android:background="@color/finalBackground"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/include10"
-        layout="@layout/ordertoolbar" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/finalLightGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/headerbox"></View>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:src="@color/finalLightGreen"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/helmetfilled"
+            app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
+            app:layout_constraintEnd_toEndOf="@+id/circleImageView"
+            app:layout_constraintStart_toStartOf="@+id/circleImageView"
+            app:layout_constraintTop_toTopOf="@+id/circleImageView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center_vertical"
+            android:text="Mr. Errand"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/circleImageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+        <ImageView
+            android:id="@+id/toolbarback"
+            android:layout_marginLeft="20dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/backarrow"
+            android:backgroundTint="@color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="Delivery fee offers"
+            android:fontFamily="@font/inter_medium"
+            android:textSize="22sp"
+            android:textColor="@color/black" />
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/toolbarcancel"
+        android:layout_marginRight="20dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/cross"
+        android:backgroundTint="@color/finalDarkGray"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
     <LinearLayout
         android:layout_marginBottom="-100dp"
@@ -45,11 +133,15 @@
 
 
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:layout_marginLeft="-200dp"
         android:layout_width="400dp"
         android:layout_height="400dp"
-        android:src="@drawable/test1"
+        android:src="@color/finalDarkGreen"
+        app:shapeAppearanceOverlay="@style/Circle"
+        android:padding="2dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/finalDarkGray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -61,7 +153,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include10">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/offersrv"

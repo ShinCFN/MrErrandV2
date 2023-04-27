@@ -12,7 +12,6 @@
         android:layout_width="250dp"
         android:layout_height="300dp"
         android:layout_gravity="center"
-        android:background="@drawable/textboxmain"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,6 +22,15 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:padding="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:strokeWidth="2dp"
+                app:strokeColor="@color/black"
+                app:shapeAppearanceOverlay="@style/Circular30" />
 
 
             <LinearLayout
@@ -38,6 +46,7 @@
                     android:layout_width="60dp"
                     android:layout_height="70dp"
                     android:layout_gravity="center"
+                    android:backgroundTint="@color/black"
                     android:background="@drawable/wifioff" />
 
                 <TextView
@@ -47,7 +56,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/questrial"
                     android:text="NO INTERNET CONNECTION"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -59,7 +68,7 @@
                     android:fontFamily="@font/questrial"
                     android:text="Check your Internet Connection and try again"
                     android:textAlignment="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="12sp" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

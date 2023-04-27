@@ -41,7 +41,7 @@
                 android:layout_marginLeft="-170dp"
                 app:strokeWidth="2dp"
                 app:strokeColor="@color/black"
-                android:background="@color/finalBrown"
+                android:background="@color/newPurple"
                 app:shapeAppearanceOverlay="@style/Circle"
                 app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
                 app:layout_constraintStart_toStartOf="parent" />

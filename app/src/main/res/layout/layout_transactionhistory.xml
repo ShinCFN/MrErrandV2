@@ -3,17 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
-    app:cardElevation="0dp">
+    android:layout_height="wrap_content"
+    app:cardElevation="0dp"
+    android:layout_marginBottom="25dp"
+    >
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/newGray"
             android:id="@+id/holder"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="100dp"
             android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:background="@color/finalBackground">
+            android:orientation="horizontal">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/shapeableImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:padding="1dp"
+                app:shapeAppearanceOverlay="@style/Circular20"
+                app:strokeColor="@color/finalDarkGray"
+                app:strokeWidth="2dp" />
+
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_marginLeft="20dp"
@@ -26,38 +39,58 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/image"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintEnd_toEndOf="@+id/shapeableImageView">
 
                 <TextView
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="4dp"
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
+                    android:textSize="16sp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/questrial"
+                    android:fontFamily="@font/inter_medium"
                     android:text="%date%"
                     android:textColor="@color/finalDarkGray" />
 
-                <RatingBar
-                    android:theme="@style/RatingBarGold"
-                    android:id="@+id/ratingBar"
-                    style="@style/Widget.AppCompat.RatingBar.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/questrial"
-                    android:text="%id%"
-                    android:textColor="@color/finalDarkGray" />
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/calendar"
+                    android:backgroundTint="@color/finalDarkGray" />
 
             </LinearLayout>
+
+            <TextView
+                android:layout_marginLeft="12dp"
+                android:id="@+id/id"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_semibold"
+                android:text="%id%"
+                android:textColor="@color/finalDarkGray"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toTopOf="@+id/image" />
+
+            <TextView
+                android:id="@+id/rating"
+                android:layout_marginLeft="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_semibold"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/image"
+                app:layout_constraintStart_toEndOf="@+id/image" />
+
 
 
 

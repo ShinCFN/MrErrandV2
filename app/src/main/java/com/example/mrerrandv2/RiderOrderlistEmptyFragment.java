@@ -25,7 +25,7 @@ public class RiderOrderlistEmptyFragment extends Fragment {
         Window window = getActivity().getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalBrown));
+        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.newPurple));
         View decor = getActivity().getWindow().getDecorView();
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
 

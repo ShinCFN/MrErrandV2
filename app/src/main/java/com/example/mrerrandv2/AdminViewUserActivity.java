@@ -30,7 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AdminViewUserActivity extends AppCompatActivity {
 
-    TextView editfull, editMobile, editStreet, editCity, editProvince, editZip, editEmail;
+    TextView editfull, editMobile, editStreet, editCity, editProvince, editZip, editEmail, totalstars, totalrates, totalrating;
     ImageView profilepic;
     progressBar progressBar;
 
@@ -69,6 +69,9 @@ public class AdminViewUserActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.profileEmail);
         profilepic = findViewById(R.id.profilePic);
         tHistBtn = findViewById(R.id.tHist);
+        totalstars = findViewById(R.id.totalstars);
+        totalrates = findViewById(R.id.totalrates);
+        totalrating = findViewById(R.id.totalrating);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(user.getKey());
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -114,6 +117,26 @@ public class AdminViewUserActivity extends AppCompatActivity {
                 } else {
                     editZip.setTextColor(Color.RED);
                     editZip.setText("--");
+                }
+
+                //Set Rating
+                if(snapshot.child("totalrates").exists() && snapshot.child("totalstars").exists()){
+                    int stars, rates;
+                    double total;
+
+                    stars = Integer.parseInt(snapshot.child("totalstars").getValue().toString());
+                    rates = Integer.parseInt(snapshot.child("totalrates").getValue().toString());
+
+                    total = (double) stars/rates;
+
+
+                    totalrates.setText("Total rates: " + rates);
+                    totalstars.setText("Total stars: " + stars);
+                    totalrating.setText(String.format("%.1f", total));
+                }else{
+                    totalrates.setText("Total Rates: 0");
+                    totalstars.setText("Total Stars: 0");
+                    totalrating.setText("0");
                 }
 
                 if (snapshot.child("profileImage").exists()) {

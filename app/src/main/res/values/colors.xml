@@ -31,5 +31,9 @@
     <color name="newDark">#303030</color>
     <color name="newGray">#E5E5E5</color>
     <color name="newYellow">#FDFFE7</color>
+    <color name="newPurple">#CFB8FF</color>
+
+    <color name="snackbarBase">#322F35</color>
+    <color name="red">#9F0000</color>
 
 </resources>

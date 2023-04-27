@@ -1,6 +1,7 @@
 package com.example.mrerrandv2;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,11 +15,17 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
@@ -44,6 +51,8 @@ public class UserOrderAcceptedActivity extends AppCompatActivity {
     CircleImageView chatvh;
     ImageView toolbarback;
 
+    progressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +69,7 @@ public class UserOrderAcceptedActivity extends AppCompatActivity {
         chatvh = findViewById(R.id.chat);
         toolbarback = findViewById(R.id.toolbarback);
         deliveryFee = findViewById(R.id.deliveryFee);
+        progressBar = new progressBar(UserOrderAcceptedActivity.this);
 
         //Toolbar
         TextView toolMain = findViewById(R.id.toolbarmain);
@@ -208,8 +218,21 @@ public class UserOrderAcceptedActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             if (snapshot.child("status").getValue().toString().equals("inDelivery")) {
+                                progressBar.show();
                                 receiptholder.setVisibility(View.VISIBLE);
-                                Picasso.get().load(snapshot.child("receipt").getValue().toString()).into(receipt);
+
+                                Glide.with(UserOrderAcceptedActivity.this).load(snapshot.child("receipt").getValue().toString()).listener(new RequestListener<Drawable>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        progressBar.dismiss();
+                                        return false;
+                                    }
+                                }).into(receipt);
 
                                 receipt.setOnClickListener(new View.OnClickListener() {
                                     @Override

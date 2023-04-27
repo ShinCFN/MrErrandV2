@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="50dp"
-                android:background="@color/finalBrown"
+                android:background="@color/newPurple"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -319,7 +319,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/box_secondary"
-                    android:backgroundTint="@color/finalBrown"
+                    android:backgroundTint="@color/newPurple"
                     android:textColor="@color/white"
                     android:elevation="3dp"
                     android:fontFamily="@font/asap_semibold"

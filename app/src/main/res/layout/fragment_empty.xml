@@ -19,14 +19,14 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/headerbox_brown" />
+            android:background="@drawable/headerbox_purple" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circleImageView"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
-            android:src="@color/finalBrown"
+            android:src="@color/black"
             app:civ_border_color="@color/black"
             app:civ_border_width="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +36,8 @@
         <ImageView
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:src="@drawable/helmet"
+            android:background="@drawable/helmet"
+            android:backgroundTint="@color/newPurple"
             app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
             app:layout_constraintEnd_toEndOf="@+id/circleImageView"
             app:layout_constraintStart_toStartOf="@+id/circleImageView"

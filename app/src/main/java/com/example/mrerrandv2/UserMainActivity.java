@@ -29,13 +29,19 @@ public class UserMainActivity extends AppCompatActivity {
             switch (item.getItemId()){
 
                 case R.id.home:
-                    replaceFragment(new UserFragmentHome());
+                    if(item.getItemId() != binding.bottomNavigationView.getSelectedItemId()){
+                        replaceFragment(new UserFragmentHome());
+                    }
                     break;
                 case R.id.profile:
-                    replaceFragment(new UserProfileFragment());
+                    if(item.getItemId() != binding.bottomNavigationView.getSelectedItemId()){
+                        replaceFragment(new UserProfileFragment());
+                    }
                     break;
                 case R.id.settings:
-                    replaceFragment(new SettingsFragment());
+                    if(item.getItemId() != binding.bottomNavigationView.getSelectedItemId()){
+                        replaceFragment(new SettingsFragment());
+                    }
                     break;
             }
             return true;

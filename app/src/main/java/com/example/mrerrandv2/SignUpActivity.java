@@ -22,6 +22,8 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -40,7 +42,7 @@ import es.dmoral.toasty.Toasty;
 public class SignUpActivity extends AppCompatActivity {
 
 
-    private EditText firstname, lastname, emailIn, numIN, passIn, passInC;
+    private TextInputEditText firstname, lastname, emailIn, numIN, passIn, passInC;
     private static final String TAG = "SignUpActivity";
     CardView etcardOne, etcardTwo, etcardThree, etcardFour, etcardFive, etcardSix;
     private boolean isAtleast6 = false, hasupper = false, haslower = false, hasnum = false, nothis = false, nospaces = false;
@@ -60,18 +62,14 @@ public class SignUpActivity extends AppCompatActivity {
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(this, R.color.finalBackground));
+        window.setStatusBarColor(ContextCompat.getColor(window.getContext(), R.color.finalLightGreen));
+        View decor = getWindow().getDecorView();
+        decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
 
         //Nav Bar
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.finalDarkGray));
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.newGray));
         }
-
-        //Toolbar
-        TextView toolMain = findViewById(R.id.toolbarmain);
-        TextView toolSub = findViewById(R.id.toolbarsub);
-        toolMain.setText("Customer Sign-Up");
-        toolSub.setText("");
 
         toolbarback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,44 +115,34 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                 if (TextUtils.isEmpty(textFirstName)) {
-                    Toasty.error(SignUpActivity.this, "Please enter your first name", Toasty.LENGTH_LONG).show();
-                    firstname.setError("First name is required");
+                    Snackbar.make(view, "Please enter your first name", Snackbar.LENGTH_LONG).show();
                     firstname.requestFocus();
                 } else if (TextUtils.isEmpty(textLastName)) {
-                    Toasty.error(SignUpActivity.this, "Please enter your last name", Toasty.LENGTH_LONG).show();
-                    lastname.setError("Last name is required");
+                    Snackbar.make(view, "Please enter your last name", Snackbar.LENGTH_LONG).show();
                     lastname.requestFocus();
                 } else if (TextUtils.isEmpty(textEmail)) {
-                    Toasty.error(SignUpActivity.this, "Please enter your email", Toasty.LENGTH_LONG).show();
-                    emailIn.setError("Email is required");
+                    Snackbar.make(view, "Please enter your email", Snackbar.LENGTH_LONG).show();
                     emailIn.requestFocus();
                 } else if (TextUtils.isEmpty(textNum)) {
-                    Toasty.error(SignUpActivity.this, "Please enter your mobile number", Toasty.LENGTH_LONG).show();
-                    numIN.setError("Mobile Number is required");
+                    Snackbar.make(view, "Please enter your mobile number", Snackbar.LENGTH_LONG).show();
                     numIN.requestFocus();
                 } else if (TextUtils.isEmpty(textPass)) {
-                    Toasty.error(SignUpActivity.this, "Please enter your password", Toasty.LENGTH_LONG).show();
-                    passIn.setError("Password is required");
+                    Snackbar.make(view, "Please enter your password", Snackbar.LENGTH_LONG).show();
                     passIn.requestFocus();
                 } else if (TextUtils.isEmpty(textPassC)) {
-                    Toasty.error(SignUpActivity.this, "Please enter your password", Toasty.LENGTH_LONG).show();
-                    passInC.setError("Password is required");
+                    Snackbar.make(view, "Please enter your password", Snackbar.LENGTH_LONG).show();
                     passInC.requestFocus();
                 } else if (!textPass.equals(textPassC)) {
-                    Toasty.error(SignUpActivity.this, "Your password does not match", Toasty.LENGTH_LONG).show();
-                    passIn.setError("Password does not match");
+                    Snackbar.make(view, "Your password does not match", Snackbar.LENGTH_LONG).show();
                     passIn.requestFocus();
                 } else if (textNum.length() != 11) {
-                    Toasty.error(SignUpActivity.this, "Your mobile number does not contain 11 digits", Toasty.LENGTH_LONG).show();
-                    numIN.setError("Mobile number invalid");
+                    Snackbar.make(view, "Your mobile number does not contain 11 digits", Snackbar.LENGTH_LONG).show();
                     numIN.requestFocus();
                 } else if (!mobileMatcher.find()) {
-                    Toasty.error(SignUpActivity.this, "Please number is invalid", Toasty.LENGTH_LONG).show();
-                    numIN.setError("Mobile number invalid");
+                    Snackbar.make(view, "Number is invalid", Snackbar.LENGTH_LONG).show();
                     numIN.requestFocus();
                 } else if (!passisgo) {
-                    Toasty.error(SignUpActivity.this, "Your password is invalid", Toasty.LENGTH_LONG).show();
-                    passIn.setError("Password invalid");
+                    Snackbar.make(view, "Your password is invalid", Snackbar.LENGTH_LONG).show();
                     passIn.requestFocus();
                 } else {
                     progressBar.show();

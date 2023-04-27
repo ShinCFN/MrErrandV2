@@ -35,6 +35,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
@@ -70,6 +72,8 @@ public class UserEditProfileActivity extends AppCompatActivity{
     private progressBar progressBar;
 
     private TextView maplayout;
+
+    private TextInputEditText editFirst, editLast, editMobile, editStreet, editCity, editProvince, editZip;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,7 +171,7 @@ public class UserEditProfileActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 progressBar.show();
-                TextView editFirst, editLast, editMobile, editStreet, editCity, editProvince, editZip;
+
 
                 //Get ID
                 editFirst = findViewById(R.id.editproftFirst);
@@ -200,7 +204,6 @@ public class UserEditProfileActivity extends AppCompatActivity{
                     databaseReference.child("zip").setValue(zip).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toasty.success(UserEditProfileActivity.this, "Success", Toasty.LENGTH_SHORT).show();
                             finish();
                         }
                     });
@@ -213,7 +216,7 @@ public class UserEditProfileActivity extends AppCompatActivity{
                     auth.getCurrentUser().updateProfile(profileUpdates);
 
                 } else {
-                    Toast.makeText(UserEditProfileActivity.this, "Please complete your information", Toast.LENGTH_LONG).show();
+                    Snackbar.make(view, "Please complete your information", Snackbar.LENGTH_LONG).setBackgroundTint(getResources().getColor(R.color.snackbarBase)).setTextColor(getResources().getColor(R.color.finalLightGreen)).show();
                 }
                 progressBar.dismiss();
             }

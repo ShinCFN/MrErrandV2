@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -42,7 +43,6 @@ public class SignInActivity extends AppCompatActivity {
     private TextView SignUpButton;
     private TextView Ridersignup;
     private progressBar progressBar;
-    private ImageView showhide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,24 +96,6 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        //Show Hide pass
-
-        showhide = findViewById(R.id.showhide);
-        showhide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(editTextPassword.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
-                    //Hide
-                    editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    //Change icon
-                    showhide.setImageResource(R.drawable.hide);
-                }else{
-                    editTextPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    showhide.setImageResource(R.drawable.eye);
-                }
-            }
-        });
-
 
         //Login
         LinearLayout btnLogin = findViewById(R.id.btnLogin);
@@ -124,12 +106,12 @@ public class SignInActivity extends AppCompatActivity {
                 String textPass = editTextPassword.getText().toString();
 
                 if(TextUtils.isEmpty(textEmail)) {
-                    Toasty.error(SignInActivity.this, "Please enter your email address", Toasty.LENGTH_LONG).show();
+                    Snackbar.make(view, "Please enter your email address", Snackbar.LENGTH_LONG).setBackgroundTint(getResources().getColor(R.color.snackbarBase)).setTextColor(getResources().getColor(R.color.finalLightGreen)).show();
                 }else if(TextUtils.isEmpty(textPass)) {
-                    Toasty.error(SignInActivity.this, "Please enter your password", Toasty.LENGTH_LONG).show();
+                    Snackbar.make(view, "Please enter your password", Snackbar.LENGTH_LONG).setBackgroundTint(getResources().getColor(R.color.snackbarBase)).setTextColor(getResources().getColor(R.color.finalLightGreen)).show();
                 }else {
                     progressBar.show();
-                    loginUser(textEmail, textPass);
+                    loginUser(textEmail, textPass,view);
                 }
             }
         });
@@ -137,7 +119,7 @@ public class SignInActivity extends AppCompatActivity {
 
 
     //Sign in with email and pass
-    private void loginUser(String textEmail, String textPass) {
+    private void loginUser(String textEmail, String textPass, View view) {
 
         authProfile.signInWithEmailAndPassword(textEmail,textPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -173,7 +155,7 @@ public class SignInActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            Toasty.error(SignInActivity.this, "Something went wrong", Toasty.LENGTH_LONG).show();
+                            Snackbar.make(view, "Something went wrong", Snackbar.LENGTH_LONG).setBackgroundTint(getResources().getColor(R.color.snackbarBase)).setTextColor(getResources().getColor(R.color.finalLightGreen)).show();
                             progressBar.dismiss();
                         }
                     });
@@ -181,12 +163,12 @@ public class SignInActivity extends AppCompatActivity {
                     try {
                         throw task.getException();
                     } catch (FirebaseAuthInvalidUserException e) {
-                        Toasty.error(SignInActivity.this, "User does not exist or is no longer valid", Toasty.LENGTH_LONG).show();
+                        Snackbar.make(view, "User does not exist or is no longer valid", Snackbar.LENGTH_LONG).setBackgroundTint(getResources().getColor(R.color.snackbarBase)).setTextColor(getResources().getColor(R.color.finalLightGreen)).show();
                     } catch (FirebaseAuthInvalidCredentialsException e ) {
-                        Toasty.error(SignInActivity.this, "Invalid Credentials", Toasty.LENGTH_LONG).show();
+                        Snackbar.make(view, "Invalid Credentials", Snackbar.LENGTH_LONG).setBackgroundTint(getResources().getColor(R.color.snackbarBase)).setTextColor(getResources().getColor(R.color.finalLightGreen)).show();
                     } catch (Exception e ){
                         Log.e(TAG, e.getMessage());
-                        Toasty.error(SignInActivity.this, "Something went wrong", Toasty.LENGTH_LONG).show();
+                        Snackbar.make(view, "Something went wrong", Snackbar.LENGTH_LONG).setBackgroundTint(getResources().getColor(R.color.snackbarBase)).setTextColor(getResources().getColor(R.color.finalLightGreen)).show();
                     }
 
                 }

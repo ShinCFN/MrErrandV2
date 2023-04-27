@@ -101,12 +101,16 @@
                 app:lottie_fileName="write.json"
                 app:lottie_loop="true" />
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="300dp"
                 android:layout_height="400dp"
                 android:layout_marginLeft="-130dp"
                 android:layout_marginTop="-70dp"
-                android:src="@drawable/test1"
+                android:src="@color/finalDarkGreen"
+                app:shapeAppearanceOverlay="@style/Circle"
+                android:padding="2dp"
+                app:strokeWidth="2dp"
+                app:strokeColor="@color/finalDarkGray"
                 app:layout_constraintStart_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -151,32 +155,42 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp">
 
-            <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/history"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/swissb"
-                android:text="Transaction History"
-                android:textColor="@color/finalDarkGray"
-                android:textSize="22sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
+                <TextView
+                    android:id="@+id/transactext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/swissb"
+                    android:text="Transaction History"
+                    android:textColor="@color/finalDarkGray"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/arrow_right"
-                android:backgroundTint="@color/finalDarkGray"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+
+                    android:id="@+id/imageView5"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/arrowright"
+                    android:backgroundTint="@color/finalDarkGray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/transactionrv"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="5dp"
                 android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -247,44 +261,36 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/activeorder"
-        android:visibility="gone"
-        android:elevation="5dp"
-        android:layout_width="match_parent"
+        android:layout_width="65dp"
+        android:layout_height="25dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="120dp"
-        android:background="@drawable/homebox2"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:clipToOutline="true"
-        android:paddingHorizontal="20dp">
+        android:elevation="5dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout9"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout9"
+        android:layout_marginTop="140dp">
 
-        <LinearLayout
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/shapeableImageView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/newYellow"
+            android:padding="1dp"
+            app:shapeAppearanceOverlay="@style/Circular10" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:fontFamily="@font/inter_semibold"
+            android:gravity="center"
+            android:text="ACTIVE"
+            android:textColor="@color/black"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="View Order"
-                android:textColor="@color/finalDarkGray"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/orderdesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="%order id%"
-                android:textColor="@color/finalDarkGray"
-                android:textSize="15sp" />
-
-        </LinearLayout>
+            app:layout_constraintEnd_toEndOf="@+id/shapeableImageView2"
+            app:layout_constraintStart_toStartOf="@+id/shapeableImageView2"
+            app:layout_constraintTop_toTopOf="@+id/shapeableImageView2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

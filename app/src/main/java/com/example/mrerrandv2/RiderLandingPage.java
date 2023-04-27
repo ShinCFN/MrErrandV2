@@ -63,23 +63,7 @@ public class RiderLandingPage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if (snapshot.child("verified").getValue().equals("true")) {
-
-                    orderRefListener = orderRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()) {
-                                replaceFragment(new RiderHomeFragment());
-                                orderRef.removeEventListener(this);
-                            } else {
-                                replaceFragment(new RiderOrderlistEmptyFragment());
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                    checkOrders();
                 } else if (snapshot.child("verified").getValue().equals("pending")) {
                     replaceFragment(new RiderPendingFragment());
                 } else {
@@ -104,22 +88,7 @@ public class RiderLandingPage extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.child("verified").getValue().equals("true")) {
-                                orderRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if (snapshot.exists()) {
-                                            replaceFragment(new RiderHomeFragment());
-                                            orderRef.removeEventListener(this);
-                                        } else {
-                                            replaceFragment(new RiderOrderlistEmptyFragment());
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
+                                checkOrders();
                             } else if (snapshot.child("verified").getValue().equals("pending")) {
                                 replaceFragment(new RiderPendingFragment());
                             } else {
@@ -135,13 +104,20 @@ public class RiderLandingPage extends AppCompatActivity {
 
                     break;
                 case R.id.profile:
-                    replaceFragment(new RiderProfileFragment());
+
+                    if (item.getItemId() != binding.bottomNavigationView.getSelectedItemId()) {
+                        replaceFragment(new RiderProfileFragment());
+                    }
+
                     if (orderRef != null && orderRefListener != null) {
                         orderRef.removeEventListener(orderRefListener);
                     }
                     break;
                 case R.id.settings:
-                    replaceFragment(new SettingsFragment());
+                    if (item.getItemId() != binding.bottomNavigationView.getSelectedItemId()) {
+                        replaceFragment(new SettingsFragment());
+                    }
+
                     if (orderRef != null && orderRefListener != null) {
                         orderRef.removeEventListener(orderRefListener);
                     }
@@ -191,4 +167,24 @@ public class RiderLandingPage extends AppCompatActivity {
             orderRef.removeEventListener(orderRefListener);
         }
     }
+
+    private void checkOrders(){
+        orderRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    replaceFragment(new RiderHomeFragment());
+                    orderRef.removeEventListener(this);
+                } else {
+                    replaceFragment(new RiderOrderlistEmptyFragment());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 }

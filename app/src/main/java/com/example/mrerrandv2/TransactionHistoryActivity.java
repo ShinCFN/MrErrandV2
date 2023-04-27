@@ -2,13 +2,17 @@ package com.example.mrerrandv2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,12 +42,18 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         toolbarback = findViewById(R.id.toolbarback);
         transacRV = findViewById(R.id.transactionrv);
 
+        //Status bar
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(window.getContext(), R.color.finalLightGreen));
+        View decor = getWindow().getDecorView();
+        decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
 
-        //Toolbar
-        TextView toolMain = findViewById(R.id.toolbarmain);
-        TextView toolSub = findViewById(R.id.toolbarsub);
-        toolMain.setText("Recent Transactions");
-        toolSub.setText("Details");
+        //Nav Bar
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.newGray));
+        }
 
         toolbarback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +86,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
 
                 vh.date.setText(saveTransaction.getSimpleDate() + " - " + saveTransaction.getTime());
                 vh.id.setText(saveTransaction.getKey());
-                vh.ratingBar.setRating(saveTransaction.getRating());
+                vh.ratingBar.setText(saveTransaction.getRating() + " Stars");
 
                 DatabaseReference riderRef = FirebaseDatabase.getInstance().getReference("Riders").child(saveTransaction.getRideruid());
                 riderRef.addListenerForSingleValueEvent(new ValueEventListener() {

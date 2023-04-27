@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/newGray"
-    tools:context=".RiderProfileFragment">
+    tools:context=".AdminViewRiderActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:background="@color/finalBrown"
+        android:background="@color/newPurple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,14 +19,14 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/headerbox_brown" />
+            android:background="@drawable/headerbox_purple" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circleImageView"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
-            android:src="@color/finalBrown"
+            android:src="@color/newPurple"
             app:civ_border_color="@color/black"
             app:civ_border_width="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -77,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:background="@drawable/outlined_box_10_brown"
+                android:background="@drawable/outlined_box_10_purple"
                 android:orientation="vertical"
                 android:padding="20dp">
 
@@ -116,51 +116,148 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/inter_semibold"
-                    android:text="Contact Information"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/inter_medium"
-                    android:text="Mobile number"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    <RelativeLayout
+                        android:layout_weight=".3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/profileNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/inter_regular"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/inter_medium"
-                    android:text="Email address"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/inter_semibold"
+                                android:text="Contact Information"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/profileEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/inter_regular"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/inter_medium"
+                                android:text="Mobile number"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/profileNumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/inter_regular"
+                                android:textColor="@color/black"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/inter_medium"
+                                android:text="Email address"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/profileEmail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/inter_regular"
+                                android:textColor="@color/black"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_weight=".7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:layout_marginTop="8dp"
+                                android:layout_gravity="right"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_semibold"
+                                android:text="RATING"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/totalstars"
+                                android:layout_gravity="right"
+                                android:layout_width="wrap_content"
+                                android:layout_height="15dp"
+                                android:layout_marginTop="6dp"
+                                android:fontFamily="@font/inter_medium"
+                                android:text="Total stars:"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/totalrates"
+                                android:layout_gravity="right"
+                                android:layout_width="wrap_content"
+                                android:layout_height="15dp"
+                                android:fontFamily="@font/inter_medium"
+                                android:text="Total Rates:"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_marginTop="10dp"
+                                android:layout_gravity="right"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/imageView6"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_margin="10dp"
+                                    android:background="@drawable/star"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/totalrating"
+                                    android:gravity="center_vertical"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/inter_medium"
+                                    android:text=""
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                                    app:layout_constraintEnd_toStartOf="@+id/imageView6"
+                                    app:layout_constraintTop_toTopOf="@+id/imageView6" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -173,7 +270,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="18dp"
-                    android:background="@drawable/menu_top_cornered_15_brown"
+                    android:background="@drawable/menu_top_cornered_15_purple"
                     android:paddingHorizontal="20dp"
                     android:paddingTop="10dp">
 
@@ -226,7 +323,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="18dp"
-                    android:background="@drawable/menu_top_cornered_15_brown"
+                    android:background="@drawable/menu_top_cornered_15_purple"
                     android:paddingHorizontal="20dp"
                     android:paddingTop="10dp">
 
@@ -279,7 +376,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="18dp"
-                    android:background="@drawable/menu_top_cornered_15_brown"
+                    android:background="@drawable/menu_top_cornered_15_purple"
                     android:paddingHorizontal="20dp"
                     android:paddingTop="10dp">
 
@@ -321,7 +418,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/box_secondary"
-                android:backgroundTint="@color/finalBrown"
+                android:backgroundTint="@color/newPurple"
                 android:fontFamily="@font/inter_semibold"
                 android:gravity="center"
                 android:paddingHorizontal="15dp"

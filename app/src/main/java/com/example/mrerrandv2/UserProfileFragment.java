@@ -29,13 +29,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.protobuf.StringValue;
 
 
 public class UserProfileFragment extends Fragment {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    TextView editName, editMobile, editStreet, editCity, editProvince, editZip, editEmail;
+    TextView editName, editMobile, editStreet, editCity, editProvince, editZip, editEmail, totalstars, totalrates, totalrating;
 
     ShapeableImageView profilepic;
 
@@ -78,6 +79,9 @@ public class UserProfileFragment extends Fragment {
         editZip = v.findViewById(R.id.profileZip);
         editEmail = v.findViewById(R.id.profileEmail);
         profilepic = v.findViewById(R.id.profilePic);
+        totalstars = v.findViewById(R.id.totalstars);
+        totalrates = v.findViewById(R.id.totalrates);
+        totalrating = v.findViewById(R.id.totalrating);
 
         //Get data
         databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
@@ -127,6 +131,27 @@ public class UserProfileFragment extends Fragment {
                 if(getActivity() == null){
                     return;
                 }
+
+                //Set Rating
+                if(snapshot.child("totalrates").exists() && snapshot.child("totalstars").exists()){
+                    int stars, rates;
+                    double total;
+
+                    stars = Integer.parseInt(snapshot.child("totalstars").getValue().toString());
+                    rates = Integer.parseInt(snapshot.child("totalrates").getValue().toString());
+
+                    total = (double) stars/rates;
+
+
+                    totalrates.setText("Total rates: " + rates);
+                    totalstars.setText("Total stars: " + stars);
+                    totalrating.setText(String.format("%.1f", total));
+                }else{
+                    totalrates.setText("Total Rates: 0");
+                    totalstars.setText("Total Stars: 0");
+                    totalrating.setText("0");
+                }
+
 
                 if (snapshot.child("profileImage").exists()) {
                     String image = snapshot.child("profileImage").getValue().toString();

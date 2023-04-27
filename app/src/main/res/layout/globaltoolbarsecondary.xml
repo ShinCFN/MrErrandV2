@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:elevation="0dp"
-    android:background="@color/finalBrown"
+    android:background="@color/newPurple"
     android:contentInsetStart="0dp"
     android:contentInsetLeft="0dp"
     android:contentInsetEnd="0dp"
@@ -21,10 +21,10 @@
         <ImageView
             android:layout_marginLeft="15dp"
             android:id="@+id/toolbarback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/arrowback"
-            android:backgroundTint="@color/white"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/backarrow"
+            android:backgroundTint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -43,23 +43,23 @@
                 android:id="@+id/toolbarmain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/questrial"
                 android:textStyle="bold"
                 android:gravity="left"
                 android:text="%main%"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/toolbarsub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/questrial"
                 android:gravity="left"
                 android:text="%sub%"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="12sp" />
 
 

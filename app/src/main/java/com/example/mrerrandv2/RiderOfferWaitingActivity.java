@@ -43,19 +43,15 @@ public class RiderOfferWaitingActivity extends AppCompatActivity {
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(this, R.color.finalBackground));
+        window.setStatusBarColor(ContextCompat.getColor(window.getContext(), R.color.finalLightGreen));
+        View decor = getWindow().getDecorView();
+        decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
 
         //Nav Bar
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.finalDarkGray));
-            View view = getWindow().getDecorView();
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.newGray));
         }
 
-        //Toolbar
-        TextView toolMain = findViewById(R.id.toolbarmain);
-        TextView toolSub = findViewById(R.id.toolbarsub);
-        toolMain.setText("");
-        toolSub.setText("");
         toolbarback = findViewById(R.id.toolbarback);
 
         toolbarback.setOnClickListener(new View.OnClickListener() {

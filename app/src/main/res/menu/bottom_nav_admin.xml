@@ -3,14 +3,14 @@
 
     <item android:title="Users"
         android:id="@+id/home"
-        android:icon="@drawable/user"/>
+        android:icon="@drawable/personhd"/>
     <item android:title="Riders"
         android:id="@+id/profile"
-        android:icon="@drawable/rider"/>
+        android:icon="@drawable/helmet"/>
     <item android:title="Pending"
         android:id="@+id/pending"
         android:icon="@drawable/fileloading"/>
     <item android:title="Settings"
         android:id="@+id/settings"
-        android:icon="@drawable/slider"/>
+        android:icon="@drawable/settingshd"/>
 </menu>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,9 +48,9 @@ public class UserFragmentHome extends Fragment {
     static int i = 0;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     ConstraintLayout activeorder;
-    DatabaseReference activeOrderRef;
     String key;
-    TextView orderdesc, history;
+
+    ConstraintLayout history;
     RecyclerView transactionrv;
     DBTransaction dbTransaction;
     FirebaseRecyclerAdapter adapter;
@@ -57,6 +58,12 @@ public class UserFragmentHome extends Fragment {
 
     CircleImageView profilePic;
     TextView welcome;
+
+    DatabaseReference userRef;
+
+    Boolean hasTransac;
+
+    int Delay = 1000;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +73,6 @@ public class UserFragmentHome extends Fragment {
 
         activeorder = v.findViewById(R.id.activeorder);
         Orderbtn = v.findViewById(R.id.OrderNowButton);
-        orderdesc = v.findViewById(R.id.orderdesc);
         history = v.findViewById(R.id.history);
         welcome = v.findViewById(R.id.helloTxt);
         profilePic = v.findViewById(R.id.profilePic);
@@ -91,11 +97,18 @@ public class UserFragmentHome extends Fragment {
         //SetWelcome
         progressBar.show();
         welcome.setText("Hello, " + auth.getCurrentUser().getDisplayName());
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
+        userRef = FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child("profileImage").exists()){
+
+                if (snapshot.child("Transactions").exists()) {
+                    hasTransac = true;
+                } else {
+                    hasTransac = false;
+                }
+
+                if (snapshot.child("profileImage").exists()) {
                     Glide.with(UserFragmentHome.this).load(snapshot.child("profileImage").getValue().toString()).placeholder(R.drawable.blankuser).listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -104,12 +117,12 @@ public class UserFragmentHome extends Fragment {
 
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            progressBar.dismiss();
+                            progDismiss(hasTransac);
                             return false;
                         }
                     }).into(profilePic);
-                } else{
-                    progressBar.dismiss();
+                } else {
+                    progDismiss(hasTransac);
                 }
             }
 
@@ -145,14 +158,22 @@ public class UserFragmentHome extends Fragment {
                 VHTransaction vh = (VHTransaction) viewHolder;
                 SaveTransaction saveTransaction = (SaveTransaction) o;
 
-                //Get order type
-                String ordertype = saveTransaction.getOrdertype();
 
                 DatabaseReference riderRef = FirebaseDatabase.getInstance().getReference("Riders").child(saveTransaction.getRideruid());
                 riderRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Glide.with(getContext()).load(snapshot.child("profileImage").getValue().toString()).into(vh.image);
+                        Glide.with(getContext()).load(snapshot.child("profileImage").getValue().toString()).listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                return false;
+                            }
+                        }).into(vh.image);
                     }
 
                     @Override
@@ -279,30 +300,9 @@ public class UserFragmentHome extends Fragment {
                     public void onClick(View view) {
 
                         if (status) {
-                            Toasty.warning(getActivity(), "You already have an active order", Toasty.LENGTH_SHORT).show();
-                        } else {
-                            Order();
-                        }
+                            for (DataSnapshot childSnapshot : snapshot.getChildren()) {
 
-                    }
-                });
-
-                if (!snapshot.exists()) {
-                    status = false;
-                    activeorder.setVisibility(View.GONE);
-                    return;
-                } else {
-                    //Has an active order
-                    status = true;
-
-                    for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-
-                        key = childSnapshot.getKey();
-                        orderdesc.setText("#" + key);
-                        activeorder.setVisibility(View.VISIBLE);
-                        activeorder.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
+                                key = childSnapshot.getKey();
 
                                 if (childSnapshot.child("status").getValue().toString().equals("null")) {
                                     Intent intent = new Intent(getActivity(), ViewOfferActivity.class);
@@ -326,9 +326,27 @@ public class UserFragmentHome extends Fragment {
                                     intent.putExtra("rider", childSnapshot.child("rider").getValue().toString());
                                     startActivity(intent);
                                 }
-                            }
-                        });
 
+                            }
+                        } else {
+                            Order();
+                        }
+
+                    }
+                });
+
+                if (!snapshot.exists()) {
+                    status = false;
+                    activeorder.setVisibility(View.GONE);
+                    return;
+                } else {
+                    //Has an active order
+                    status = true;
+
+                    for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+
+                        key = childSnapshot.getKey();
+                        activeorder.setVisibility(View.VISIBLE);
 
                     }
                 }
@@ -342,4 +360,24 @@ public class UserFragmentHome extends Fragment {
         });
 
     }
+
+
+    private void progDismiss(Boolean hasTransac) {
+        final Handler handler = new Handler();
+
+        if(hasTransac){
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Do something after 5s = 5000ms
+                    progressBar.dismiss();
+                }
+            }, 2000);
+        }else{
+            progressBar.dismiss();
+        }
+
+
+    }
+
 }

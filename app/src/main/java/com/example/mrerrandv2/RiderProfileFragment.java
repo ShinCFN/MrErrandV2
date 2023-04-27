@@ -34,7 +34,7 @@ public class RiderProfileFragment extends Fragment {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    TextView profileFull, editMobile, editEmail, editLicense, editPlate;
+    TextView profileFull, editMobile, editEmail, editLicense, editPlate, totalstars, totalrates, totalrating;
 
     ShapeableImageView profilepic, profLicense, profPlate, profOR;
 
@@ -69,7 +69,7 @@ public class RiderProfileFragment extends Fragment {
         Window window = getActivity().getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.finalBrown));
+        window.setStatusBarColor(ContextCompat.getColor(v.getContext(), R.color.newPurple));
         View decor = getActivity().getWindow().getDecorView();
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
 
@@ -96,6 +96,9 @@ public class RiderProfileFragment extends Fragment {
                 editPlate = v.findViewById(R.id.profilePlate);
                 editEmail = v.findViewById(R.id.profileEmail);
                 profilepic = v.findViewById(R.id.profilePic);
+                totalstars = v.findViewById(R.id.totalstars);
+                totalrates = v.findViewById(R.id.totalrates);
+                totalrating = v.findViewById(R.id.totalrating);
 
 
                 //Get Information
@@ -172,6 +175,27 @@ public class RiderProfileFragment extends Fragment {
                     editPlate.setText(snapshot.child("plate").getValue().toString());
                 }
 
+                //Set Rating
+                if(snapshot.child("totalrates").exists() && snapshot.child("totalstars").exists()){
+                    int stars, rates;
+                    double total;
+
+                    stars = Integer.parseInt(snapshot.child("totalstars").getValue().toString());
+                    rates = Integer.parseInt(snapshot.child("totalrates").getValue().toString());
+
+                    total = (double) stars/rates;
+
+
+                    totalrates.setText("Total rates: " + rates);
+                    totalstars.setText("Total stars: " + stars);
+                    totalrating.setText(String.format("%.1f", total));
+                }else{
+                    totalrates.setText("Total Rates: 0");
+                    totalstars.setText("Total Stars: 0");
+                    totalrating.setText("0");
+                }
+
+
                 //Set plate image
                 if (snapshot.child("platePic").exists()) {
                     String image = snapshot.child("platePic").getValue().toString();
@@ -231,7 +255,6 @@ public class RiderProfileFragment extends Fragment {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(getActivity(), RiderEditProfileActivity.class);
                 startActivity(intent);
             }
@@ -243,7 +266,6 @@ public class RiderProfileFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        progressBar.show();
         databaseReference.addListenerForSingleValueEvent(updateListener);
 
     }

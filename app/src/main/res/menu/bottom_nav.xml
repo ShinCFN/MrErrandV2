@@ -3,14 +3,14 @@
 
     <item android:title="Home"
         android:id="@+id/home"
-        android:icon="@drawable/homeico"/>
+        android:icon="@drawable/homehd"/>
 <!--    <item android:title="Upload"-->
 <!--        android:id="@+id/upload"-->
 <!--        android:icon="@drawable/camera"/>-->
     <item android:title="Profile"
         android:id="@+id/profile"
-        android:icon="@drawable/user"/>
+        android:icon="@drawable/personhd"/>
     <item android:title="Settings"
         android:id="@+id/settings"
-        android:icon="@drawable/slider"/>
+        android:icon="@drawable/settingshd"/>
 </menu>

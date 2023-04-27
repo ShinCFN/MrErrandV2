@@ -26,19 +26,31 @@ public class AdminMainActivity extends AppCompatActivity {
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
 
                 case R.id.home:
-                    replaceFragment(new AdminUserListFragment());
+                    if (item.getItemId() != binding.bottomNavigationView.getSelectedItemId()) {
+                        replaceFragment(new AdminUserListFragment());
+                    }
+
                     break;
                 case R.id.profile:
-                    replaceFragment(new AdminVerifiedRidersFragment());
+                    if (item.getItemId() != binding.bottomNavigationView.getSelectedItemId()) {
+                        replaceFragment(new AdminVerifiedRidersFragment());
+                    }
+
                     break;
                 case R.id.pending:
-                    replaceFragment(new AdminPendingRidersFragment());
+                    if (item.getItemId() != binding.bottomNavigationView.getSelectedItemId()) {
+                        replaceFragment(new AdminPendingRidersFragment());
+                    }
+
                     break;
                 case R.id.settings:
-                    replaceFragment(new SettingsFragment());
+                    if (item.getItemId() != binding.bottomNavigationView.getSelectedItemId()) {
+                        replaceFragment(new SettingsFragment());
+                    }
+
                     break;
             }
             return true;
@@ -46,7 +58,7 @@ public class AdminMainActivity extends AppCompatActivity {
 
     }
 
-    private void replaceFragment(Fragment fragment){
+    private void replaceFragment(Fragment fragment) {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

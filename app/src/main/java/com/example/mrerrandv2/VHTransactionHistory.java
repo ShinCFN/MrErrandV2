@@ -11,10 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class VHTransactionHistory extends RecyclerView.ViewHolder {
-    public TextView date, id;
+    public TextView date, id, ratingBar;
     public CircleImageView image;
     public ConstraintLayout holder;
-    public RatingBar ratingBar;
     public VHTransactionHistory(@NonNull View itemView)
     {
         super(itemView);
@@ -22,6 +21,6 @@ public class VHTransactionHistory extends RecyclerView.ViewHolder {
         id = itemView.findViewById(R.id.id);
         image = itemView.findViewById(R.id.image);
         holder= itemView.findViewById(R.id.holder);
-        ratingBar= itemView.findViewById(R.id.ratingBar);
+        ratingBar= itemView.findViewById(R.id.rating);
     }
 }

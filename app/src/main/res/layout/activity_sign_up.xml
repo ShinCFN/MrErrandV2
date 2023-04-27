@@ -1,172 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="SpeakableTextPresentCheck"
-    android:fillViewport="true">
-
+    android:fillViewport="true"
+    android:background="@color/newGray">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".SignUpActivity">
+        android:layout_height="65dp"
+        android:background="@color/finalLightGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <include
-            android:id="@+id/include2"
-            layout="@layout/globaltoolbar"
-            app:layout_constraintEnd_toEndOf="parent"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/headerbox"></View>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:src="@color/finalLightGreen"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/helmetfilled"
+            app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
+            app:layout_constraintEnd_toEndOf="@+id/circleImageView"
+            app:layout_constraintStart_toStartOf="@+id/circleImageView"
+            app:layout_constraintTop_toTopOf="@+id/circleImageView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center_vertical"
+            android:text="Mr. Errand"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/circleImageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+        <ImageView
+            android:id="@+id/toolbarback"
+            android:layout_marginLeft="20dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/backarrow"
+            android:backgroundTint="@color/black"/>
+
+        <TextView
+            android:id="@+id/ordertype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="Sign up"
+            android:fontFamily="@font/inter_medium"
+            android:textSize="22sp"
+            android:textColor="@color/black" />
+
+
+    </LinearLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingHorizontal="20dp"
             android:paddingTop="20dp"
             android:paddingBottom="50dp"
-            android:paddingHorizontal="20dp"
-            android:background="@color/finalBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include2">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
             <!-- First Name -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="First name"
-                android:textColor="@color/Gray" />
-
-            <EditText
-                android:id="@+id/editFirstName"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_grey_input"
-                android:drawableLeft="@drawable/profile"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/questrial"
-                android:inputType="textPersonName"
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
-                android:textSize="15sp" />
+                android:layout_height="wrap_content"
+                android:hint="First Name"
+                android:theme="@style/Textbox_green"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/user">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
             <!-- Last Name -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="Last name"
-                android:textColor="@color/Gray" />
-
-            <EditText
-                android:id="@+id/editLastName"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_grey_input"
-                android:drawableLeft="@drawable/profile"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/questrial"
-                android:inputType="textPersonName"
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
-                android:textSize="15sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Last Name"
+                android:theme="@style/Textbox_green"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/user">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
             <!-- Email -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="Email"
-                android:textColor="@color/Gray" />
-
-            <EditText
-                android:id="@+id/editTextEmail"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_grey_input"
-                android:drawableLeft="@drawable/email"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/questrial"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
-                android:textSize="15sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Email address"
+                android:theme="@style/Textbox_green"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/mail">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
             <!-- Mobile -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="Mobile Number"
-                android:textColor="@color/Gray" />
-
-            <EditText
-                android:id="@+id/editTextMobile"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_grey_input"
-                android:drawableLeft="@drawable/mobile"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/questrial"
-                android:inputType="number"
-                android:maxLength="11"
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
-                android:textSize="15sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Mobile number"
+                android:theme="@style/Textbox_green"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/phone">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:inputType="number"
+                    android:maxLength="11" />
+            </com.google.android.material.textfield.TextInputLayout>
             <!-- Password -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="Password"
-                android:textColor="@color/Gray" />
-
-            <EditText
-                android:id="@+id/editTextPassword"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_grey_input"
-                android:drawableLeft="@drawable/password"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/questrial"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
-                android:textSize="15sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Password"
+                android:theme="@style/Textbox_green"
+                app:endIconMode="password_toggle"
+                app:startIconDrawable="@drawable/lock">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
             <!-- Confirm Password -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/questrial"
-                android:text="Confirm password"
-                android:textColor="@color/Gray" />
-
-            <EditText
-                android:id="@+id/editTextConfirmPassword"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/box_grey_input"
-                android:drawableLeft="@drawable/password"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/questrial"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:paddingHorizontal="15dp"
-                android:textSize="15sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Confirmm password"
+                android:theme="@style/Textbox_green"
+                app:endIconMode="password_toggle"
+                app:startIconDrawable="@drawable/lock">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/questrial"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
             <!-- Validation -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -388,5 +442,7 @@
                 android:textSize="14sp" />
 
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

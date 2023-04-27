@@ -75,5 +75,19 @@
 
     </style>
 
+    <style name="Textbox_green" parent="">
+        ...
+        <item name="colorPrimary">@color/finalDarkGreen</item>
+        <item name="colorOnSurface">@color/finalDarkGray</item>
+        <item name="colorError">@color/red</item>
+    </style>
+
+    <style name="Textbox_white" parent="">
+        ...
+        <item name="colorPrimary">@color/finalDarkGreen</item>
+        <item name="colorOnSurface">@color/finalBackground</item>
+        <item name="colorError">@color/red</item>
+    </style>
+
 
 </resources>

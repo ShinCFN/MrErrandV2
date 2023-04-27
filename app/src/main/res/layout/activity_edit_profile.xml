@@ -125,176 +125,152 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="20dp"
                     android:src="@drawable/blankuser"
-                    app:civ_border_color="@color/black"
-                    app:civ_border_width="2dp" />
+                    app:civ_border_color="@color/finalDarkGray"
+                    app:civ_border_width="0.6dp" />
 
 
                 <!-- First Name -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/questrial"
-                    android:text="First name"
-                    android:textColor="@color/finalDarkGray" />
-
-                <EditText
-                    android:id="@+id/editproftFirst"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:theme="@style/Textbox_green"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:id="@+id/textField"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/box_grey_input"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/profile"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/questrial"
-                    android:maxLines="1"
-                    android:paddingHorizontal="15dp"
-                    android:textSize="15sp" />
+                    android:layout_height="wrap_content"
+                    android:hint="First Name"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/profile"
+                    app:endIconMode="clear_text">
 
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editproftFirst"
+                        android:fontFamily="@font/questrial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
                 <!-- Last Name -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/questrial"
-                    android:text="Last name"
-                    android:textColor="@color/finalDarkGray" />
-
-                <EditText
-                    android:id="@+id/editproftLast"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:theme="@style/Textbox_green"
+                    android:layout_marginTop="18dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/box_grey_input"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/profile"
+                    android:layout_height="wrap_content"
+                    android:hint="Last Name"
+                    app:startIconDrawable="@drawable/profile"
+                    app:endIconMode="clear_text">
 
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/questrial"
-                    android:maxLines="1"
-                    android:paddingHorizontal="15dp"
-                    android:textSize="15sp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editproftLast"
+                        android:fontFamily="@font/questrial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
 
+                </com.google.android.material.textfield.TextInputLayout>
                 <!-- Mobile -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/questrial"
-                    android:text="Mobile Number"
-                    android:textColor="@color/finalDarkGray" />
-
-                <EditText
-                    android:id="@+id/editprofMobile"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:theme="@style/Textbox_green"
+                    android:layout_marginTop="18dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/box_grey_input"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/mobile"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/questrial"
-                    android:inputType="number"
+                    android:layout_height="wrap_content"
+                    android:hint="Mobile Number"
+                    app:startIconDrawable="@drawable/mobile"
+                    app:endIconMode="clear_text">
 
-                    android:maxLength="11"
-                    android:maxLines="1"
-                    android:paddingHorizontal="15dp"
-                    android:textSize="15sp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editprofMobile"
+                        android:fontFamily="@font/questrial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
 
+                </com.google.android.material.textfield.TextInputLayout>
                 <!-- Street -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/questrial"
-                    android:text="Street name"
-                    android:textColor="@color/finalDarkGray" />
-
-                <EditText
-                    android:id="@+id/editprofStreet"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:theme="@style/Textbox_green"
+                    android:layout_marginTop="18dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/box_grey_input"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/location"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/questrial"
+                    android:layout_height="wrap_content"
+                    android:hint="Street"
+                    app:startIconDrawable="@drawable/location"
+                    app:endIconMode="clear_text">
 
-                    android:maxLines="1"
-                    android:paddingHorizontal="15dp"
-                    android:textSize="15sp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editprofStreet"
+                        android:fontFamily="@font/questrial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
 
+                </com.google.android.material.textfield.TextInputLayout>
                 <!-- City -->
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/questrial"
-                    android:text="City"
-                    android:textColor="@color/finalDarkGray" />
-
-                <EditText
-                    android:id="@+id/editprofCity"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:theme="@style/Textbox_green"
+                    android:layout_marginTop="18dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/box_grey_input"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/location"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/questrial"
-                    android:maxLines="1"
-                    android:paddingHorizontal="15dp"
+                    android:layout_height="wrap_content"
+                    android:hint="City"
+                    app:startIconDrawable="@drawable/location"
+                    app:endIconMode="clear_text">
 
-                    android:textSize="15sp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editprofCity"
+                        android:fontFamily="@font/questrial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
 
+                </com.google.android.material.textfield.TextInputLayout>
                 <!-- Province -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/questrial"
-                    android:text="State/Province"
-                    android:textColor="@color/finalDarkGray" />
-
-                <EditText
-                    android:id="@+id/editprofProvince"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:theme="@style/Textbox_green"
+                    android:layout_marginTop="18dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/box_grey_input"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/location"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/questrial"
+                    android:layout_height="wrap_content"
+                    android:hint="State/Province"
+                    app:startIconDrawable="@drawable/location"
+                    app:endIconMode="clear_text">
 
-                    android:maxLines="1"
-                    android:paddingHorizontal="15dp"
-                    android:textSize="15sp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editprofProvince"
+                        android:fontFamily="@font/questrial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
 
+                </com.google.android.material.textfield.TextInputLayout>
                 <!-- Zip Code -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/questrial"
-                    android:text="Zip code"
-                    android:textColor="@color/finalDarkGray" />
-
-                <EditText
-                    android:id="@+id/editprofZip"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:theme="@style/Textbox_green"
+                    android:layout_marginTop="18dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/box_grey_input"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/location"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/questrial"
-                    android:inputType="number"
+                    android:layout_height="wrap_content"
+                    android:hint="Zip Code"
+                    app:startIconDrawable="@drawable/location"
+                    app:endIconMode="clear_text">
 
-                    android:maxLength="4"
-                    android:maxLines="1"
-                    android:paddingHorizontal="15dp"
-                    android:textSize="15sp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editprofZip"
+                        android:fontFamily="@font/questrial"
+                        android:layout_width="match_parent"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        android:layout_height="wrap_content"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
                 <FrameLayout
+                    android:layout_marginTop="18dp"
                     android:id="@+id/map_frame_layout"
                     android:layout_width="match_parent"
                     android:layout_height="230dp" />

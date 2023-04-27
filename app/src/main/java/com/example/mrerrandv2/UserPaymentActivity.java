@@ -2,6 +2,7 @@ package com.example.mrerrandv2;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -51,7 +52,6 @@ public class UserPaymentActivity extends AppCompatActivity {
     ImageView orderImageView;
 
     TextView toolMain;
-    TextView toolSub;
 
     TextView receiptdate, receiptname, purchasenum, textDesiredStore;
     ImageView toolbarback;
@@ -83,6 +83,7 @@ public class UserPaymentActivity extends AppCompatActivity {
         imgorderlayout = findViewById(R.id.imgorderlayout);
         orderImageView = findViewById(R.id.orderImageView);
         textDesiredStore = findViewById(R.id.textDesiredStore);
+        toolMain = findViewById(R.id.ordertype);
 
         DBOrder dbord = new DBOrder();
 
@@ -90,17 +91,20 @@ public class UserPaymentActivity extends AppCompatActivity {
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(UserPaymentActivity.this, R.color.finalBackground));
+        window.setStatusBarColor(ContextCompat.getColor(window.getContext(), R.color.finalLightGreen));
+        View decor = getWindow().getDecorView();
+        decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+
+        //Nav Bar
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.newGray));
+        }
 
         //Set Order Type
         ordertype = getIntent().getExtras().getBoolean("type");
 
         //Prog bar
         progressBar.show();
-
-        //Toolbar
-        toolMain = findViewById(R.id.toolbarmain);
-        toolSub = findViewById(R.id.toolbarsub);
 
         toolbarback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,12 +133,10 @@ public class UserPaymentActivity extends AppCompatActivity {
             }).into(orderImageView);
 
             toolMain.setText("Image order");
-            toolSub.setText("");
 
         } else {
 
             toolMain.setText("Order list");
-            toolSub.setText("");
 
             textorderlayout.setVisibility(View.VISIBLE);
             progressBar.dismiss();

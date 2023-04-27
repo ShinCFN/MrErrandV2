@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AdminViewRiderActivity extends AppCompatActivity {
 
-    TextView editName, editMobile, editEmail, editLicense, editPlate, verify;
+    TextView editName, editMobile, editEmail, editLicense, editPlate, verify, totalstars, totalrates, totalrating;
 
     ImageView profilepic,profLicense,profPlate,profOR;
 
@@ -52,7 +52,7 @@ public class AdminViewRiderActivity extends AppCompatActivity {
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(window.getContext(), R.color.finalBrown));
+        window.setStatusBarColor(ContextCompat.getColor(window.getContext(), R.color.newPurple));
         View decor = getWindow().getDecorView();
         decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
 
@@ -77,6 +77,9 @@ public class AdminViewRiderActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.profileEmail);
         profilepic = findViewById(R.id.profilePic);
         verify = findViewById(R.id.btnVerify);
+        totalstars = findViewById(R.id.totalstars);
+        totalrates = findViewById(R.id.totalrates);
+        totalrating = findViewById(R.id.totalrating);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Riders").child(rider.getKey());
 
@@ -168,6 +171,26 @@ public class AdminViewRiderActivity extends AppCompatActivity {
 
                 if (snapshot.child("plate").exists()) {
                     editPlate.setText(snapshot.child("plate").getValue().toString());
+                }
+
+                //Set Rating
+                if(snapshot.child("totalrates").exists() && snapshot.child("totalstars").exists()){
+                    int stars, rates;
+                    double total;
+
+                    stars = Integer.parseInt(snapshot.child("totalstars").getValue().toString());
+                    rates = Integer.parseInt(snapshot.child("totalrates").getValue().toString());
+
+                    total = (double) stars/rates;
+
+
+                    totalrates.setText("Total rates: " + rates);
+                    totalstars.setText("Total stars: " + stars);
+                    totalrating.setText(String.format("%.1f", total));
+                }else{
+                    totalrates.setText("Total Rates: 0");
+                    totalstars.setText("Total Stars: 0");
+                    totalrating.setText("0");
                 }
 
                 //Set plate image
